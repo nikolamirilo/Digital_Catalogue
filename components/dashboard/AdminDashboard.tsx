@@ -34,7 +34,7 @@ const AdminDashboard = () => {
 		<input
 			type="password"
 			placeholder="Enter password"
-			className="border rounded-md p-2 mb-2 min-w-64"
+			className="border rounded-md p-2 mb-2 min-w-64 text-primary"
 			value={password}
             onChange={(e:any)=>{
                 setPassword(e.target.value)
