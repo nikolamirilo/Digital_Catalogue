@@ -1,0 +1,291 @@
+{
+	"restaurants":[
+		{
+		"name": "plato",
+		"menu": {
+			"breakfast": [
+				{
+					"name": "Pancakes",
+					"description": "Fluffy pancakes served with a generous drizzle of rich maple syrup, topped with fresh strawberries and a dollop of whipped cream for the perfect sweet start to your day.",
+					"price": 5.99,
+					"image": "https://images.services.kitchenstories.io/8OjqS2ypvWStDdcOl882SLW1p9g=/3840x0/filters:quality(80)/images.kitchenstories.io/wagtailOriginalImages/R2726-photo-final-2.jpg"
+				},
+				{
+					"name": "Omelette",
+					"description": "A fluffy three-egg omelette packed with your choice of fillings, including sautéed mushrooms, fresh spinach, diced tomatoes, and melted cheese, served with a side of crispy hash browns.",
+					"price": 7.49,
+					"image": "https://joyfoodsunshine.com/wp-content/uploads/2022/07/best-omelette-recipe-1.jpg"
+				},
+				{
+					"name": "French Toast",
+					"description": "Thick slices of bread soaked in a creamy custard, griddled to golden perfection, and served with a sprinkle of powdered sugar and fresh berries for a delightful morning treat.",
+					"price": 6.99,
+					"image": "https://www.inspiredtaste.net/wp-content/uploads/2024/07/French-Toast-Recipe-2.jpg"
+				},
+				{
+					"name": "Avocado Toast",
+					"description": "Smashed avocado seasoned with a hint of lime and topped with sliced radishes and microgreens, served on toasted whole grain bread for a healthy, satisfying breakfast.",
+					"price": 4.99,
+					"image": ""
+				},
+				{
+					"name": "Breakfast Burrito",
+					"description": "A warm tortilla filled with scrambled eggs, melted cheese, and a medley of fresh vegetables, wrapped tightly and served with salsa for a delicious on-the-go meal.",
+					"price": 6.49,
+					"image": ""
+				}
+			],
+			"lunch": [
+				{
+					"name": "Caesar Salad",
+					"description": "Crisp romaine lettuce tossed in our house-made Caesar dressing, topped with crunchy croutons and shaved Parmesan cheese, offering a classic taste that never goes out of style.",
+					"price": 8.99,
+					"image": "https://assets.bonappetit.com/photos/624215f8a76f02a99b29518f/1:1/w_2800,h_2800,c_limit/0328-ceasar-salad-lede.jpg"
+				},
+				{
+					"name": "Grilled Chicken Sandwich",
+					"description": "Juicy grilled chicken breast topped with fresh lettuce, ripe tomato, and a creamy garlic aioli, served on a toasted bun for a mouthwatering lunch experience.",
+					"price": 9.99,
+					"image": "https://easychickenrecipes.com/wp-content/uploads/2023/06/grilled-chicken-sandwich-1-of-6-edited.jpg"
+				},
+				{
+					"name": "Cheeseburger",
+					"description": "A hearty beef patty grilled to perfection, topped with melted cheddar cheese, crisp lettuce, tomato, and our signature sauce, served on a toasted sesame seed bun with fries.",
+					"price": 10.99,
+					"image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEJiNX0GZfl21raOShpI3p-W8CkdBITCCwAQ&s"
+				},
+				{
+					"name": "Vegetarian Wrap",
+					"description": "Grilled seasonal vegetables and creamy hummus wrapped in a soft whole-wheat tortilla, served with a side of tangy yogurt sauce for a refreshing, healthy option.",
+					"price": 8.49,
+					"image": ""
+				},
+				{
+					"name": "Spaghetti Bolognese",
+					"description": "Classic Italian pasta served with a rich and hearty meat sauce, made from ground beef simmered with tomatoes, herbs, and spices, garnished with fresh basil and Parmesan.",
+					"price": 12.99,
+					"image": ""
+				},
+				{
+					"name": "Fish Tacos",
+					"description": "",
+					"price": 11.99,
+					"image": ""
+				}
+			],
+			"snacks": [
+				{
+					"name": "Nachos",
+					"description": "Crispy tortilla chips generously topped with melted cheese, jalapeños, and a dollop of sour cream, served with fresh salsa on the side for dipping.",
+					"price": 6.49,
+					"image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJZpi8i7U-hKA5cd4VSpOp55CrqYJlFqoxbw&s"
+				},
+				{
+					"name": "Spring Rolls",
+					"description": "Crispy and light spring rolls filled with a colorful mix of fresh vegetables and served with a sweet chili dipping sauce for a delightful crunch.",
+					"price": 5.99,
+					"image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAZ5OV0GZ1HzTs-2yhGZXBWnOlcuSbj9ziSw&s"
+				},
+				{
+					"name": "Garlic Bread",
+					"description": "Toasted bread slices generously spread with garlic butter and herbs, baked until golden and served warm for a perfect side to any meal.",
+					"price": 3.99,
+					"image": ""
+				},
+				{
+					"name": "Chicken Wings",
+					"description": "Spicy buffalo chicken wings tossed in our signature sauce, served with celery sticks and a side of creamy ranch dip for the ultimate snack experience.",
+					"price": 7.49,
+					"image": "https://www.allrecipes.com/thmb/IAGTZKbsS1YkRcbA-MlKASk7T5w=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/241152-fried-chicken-wings-ddmfs-hero-1x2-1261-7201cc37727446adb6698c269585d5a0.jpg"
+				},
+				{
+					"name": "Mozzarella Sticks",
+					"description": "Crispy fried mozzarella cheese served with a side of marinara sauce for dipping, offering a gooey and delicious snack that's perfect for sharing.",
+					"price": 6.99,
+					"image": ""
+				}
+			],
+			"drinks": [
+				{
+					"name": "Coffee",
+					"description": "Freshly brewed coffee made from premium beans, served hot and strong, perfect for starting your day or enjoying a midday pick-me-up.",
+					"price": 2.99,
+					"image": ""
+				},
+				{
+					"name": "Smoothie",
+					"description": "A delicious blend of fresh fruits and yogurt, this smoothie is both refreshing and nutritious, available in a variety of flavors to satisfy your cravings.",
+					"price": 4.99,
+					"image": ""
+				},
+				{
+					"name": "Iced Tea",
+					"description": "Chilled tea infused with lemon, offering a refreshing and revitalizing drink that is perfect for warm days.",
+					"price": 2.49,
+					"image": ""
+				},
+				{
+					"name": "Hot Chocolate",
+					"description": "Rich hot chocolate made with real cocoa and topped with fluffy whipped cream, providing a cozy treat to warm you up on cold days.",
+					"price": 3.49,
+					"image": ""
+				},
+				{
+					"name": "Orange Juice",
+					"description": "Freshly squeezed orange juice, bursting with flavor and nutrients, making it the perfect complement to your breakfast or brunch.",
+					"price": 3.99,
+					"image": ""
+				},
+				{
+					"name": "Lemonade",
+					"description": "Sweet and tangy freshly squeezed lemonade, served over ice for a refreshing drink that quenches your thirst on hot summer days.",
+					"price": 3.49,
+					"image": ""
+				},
+				{
+					"name": "Apple Juice",
+					"description": "Crisp and refreshing apple juice, made from the finest apples, providing a naturally sweet taste that's loved by all ages.",
+					"price": 3.49,
+					"image": ""
+				},
+				{
+					"name": "Coconut Water",
+					"description": "Refreshing coconut water straight from young coconuts, providing a natural source of hydration with a hint of sweetness.",
+					"price": 4.49,
+					"image": ""
+				},
+				{
+					"name": "Sparkling Water",
+					"description": "Refreshing sparkling water, lightly carbonated to give you a bubbly drink that is perfect for any occasion.",
+					"price": 2.99,
+					"image": ""
+				},
+				{
+					"name": "Mint Lemonade",
+					"description": "A refreshing twist on classic lemonade, infused with fresh mint leaves for a cool and invigorating drink experience.",
+					"price": 4.49,
+					"image": ""
+				},
+				{
+					"name": "Berry Smoothie",
+					"description": "A delicious blend of mixed berries and yogurt, this smoothie is not only tasty but also packed with antioxidants and vitamins.",
+					"price": 5.49,
+					"image": ""
+				},
+				{
+					"name": "Mango Lassi",
+					"description": "A traditional Indian yogurt drink made with ripe mangoes and a hint of cardamom, providing a creamy and refreshing beverage.",
+					"price": 4.99,
+					"image": ""
+				},
+				{
+					"name": "Peach Iced Tea",
+					"description": "Refreshing iced tea infused with sweet peach flavor, served chilled for a delightful summer drink.",
+					"price": 3.49,
+					"image": ""
+				},
+				{
+					"name": "Chai Latte",
+					"description": "A spiced tea made with a blend of aromatic spices and milk, offering a warm and comforting drink experience.",
+					"price": 3.99,
+					"image": ""
+				},
+				{
+					"name": "Tropical Smoothie",
+					"description": "A tropical blend of pineapple, banana, and coconut, this smoothie is like a vacation in a glass, perfect for refreshing your day.",
+					"price": 5.49,
+					"image": ""
+				},
+				{
+					"name": "Fruit Punch",
+					"description": "A sweet and fruity beverage made with a blend of various fruit juices, providing a colorful and refreshing drink option.",
+					"price": 3.49,
+					"image": ""
+				}
+			],
+			"alcoholic_drinks": [
+				{
+					"name": "Margarita",
+					"description": "A classic cocktail made with tequila, lime juice, and triple sec, served in a salted rim glass for a zesty and refreshing drink.",
+					"price": 7.99,
+					"image": ""
+				},
+				{
+					"name": "Mojito",
+					"description": "A refreshing blend of white rum, fresh lime juice, mint leaves, and soda water, offering a crisp and invigorating cocktail experience.",
+					"price": 8.49,
+					"image": ""
+				},
+				{
+					"name": "Whiskey Sour",
+					"description": "A balanced cocktail made with whiskey, lemon juice, and sugar, shaken to perfection and garnished with a cherry for a classic drink.",
+					"price": 8.99,
+					"image": ""
+				},
+				{
+					"name": "Pina Colada",
+					"description": "A tropical cocktail made with rum, coconut cream, and pineapple juice, blended until smooth and served with a slice of pineapple for a beachy vibe.",
+					"price": 9.49,
+					"image": ""
+				},
+				{
+					"name": "Red Wine",
+					"description": "A selection of fine red wines from various regions, offering rich and robust flavors perfect for pairing with meals.",
+					"price": 6.99,
+					"image": ""
+				},
+				{
+					"name": "White Wine",
+					"description": "A selection of crisp white wines, ideal for refreshing your palate and pairing with lighter dishes.",
+					"price": 6.99,
+					"image": ""
+				},
+				{
+					"name": "Craft Beer",
+					"description": "A rotating selection of local craft beers, each with its unique flavor profile, from hoppy IPAs to rich stouts.",
+					"price": 5.49,
+					"image": ""
+				}
+			],
+			"desserts": [
+				{
+					"name": "Chocolate Cake",
+					"description": "Decadent layers of rich chocolate cake filled with creamy chocolate ganache, topped with chocolate frosting and chocolate shavings.",
+					"price": 4.99,
+					"image": "https://sugargeekshow.com/wp-content/uploads/2023/10/easy_chocolate_cake_slice-500x500.jpg"
+				},
+				{
+					"name": "Cheesecake",
+					"description": "Creamy cheesecake on a buttery graham cracker crust, drizzled with your choice of strawberry or caramel sauce for added sweetness.",
+					"price": 5.49,
+					"image": "https://www.jocooks.com/wp-content/uploads/2018/11/cheesecake-1-22.jpg"
+				},
+				{
+					"name": "Apple Pie",
+					"description": "Classic apple pie filled with tender apples and warm spices, baked to golden perfection and served with a scoop of vanilla ice cream.",
+					"price": 4.99,
+					"image": ""
+				},
+				{
+					"name": "Tiramisu",
+					"description": "A delightful Italian dessert made with layers of coffee-soaked ladyfingers and creamy mascarpone cheese, dusted with cocoa powder.",
+					"price": 5.99,
+					"image": "https://www.flavoursholidays.co.uk/wp-content/uploads/2020/07/Tiramisu.jpg"
+				},
+				{
+					"name": "Ice Cream Sundae",
+					"description": "A delightful scoop of vanilla ice cream topped with your choice of chocolate, caramel, or fruit sauce, finished with whipped cream and a cherry on top.",
+					"price": 4.49,
+					"image": ""
+				},
+				{
+					"name": "Brownie Sundae",
+					"description": "Rich chocolate brownie topped with a scoop of vanilla ice cream, drizzled with chocolate sauce, and garnished with nuts and whipped cream.",
+					"price": 5.49,
+					"image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQd1apvtuZ1VbyBXWvTcbaJjfwqA-4YsEPXDw&s"
+				}
+			]
+		}
+	}
+]
+}

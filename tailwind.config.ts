@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
+const withMT = require("@material-tailwind/react/utils/withMT");
 
-export default {
+export default withMT({
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -9,10 +10,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        primary: {
+          DEFAULT: '#0E3B43'
+        },
+        secondary: {
+          DEFAULT: '#EDEEC0'
+        },
+        tertiary: {
+          DEFAULT: '#F9A826'
+        },
       },
     },
   },
   plugins: [],
-} satisfies Config;
+}) satisfies Config;
