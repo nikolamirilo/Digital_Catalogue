@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import data from '../../data.json';
 import { NavbarProps } from '@/types';
 
-const Navbar = ({ type, restaurant }: NavbarProps) => {
+const Navbar = ({ type="menu", restaurant }: NavbarProps) => {
   const [selectedSection, setSelectedSection] = useState('breakfast'); // Default selected section
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
