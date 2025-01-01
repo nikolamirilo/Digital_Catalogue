@@ -40,7 +40,7 @@ const AdminDashboard = () => {
                 setPassword(e.target.value)
             }}
 		/>
-		<button type="submit" className="bg-blue-500 text-white p-2 rounded-md min-w-64">Submit</button>
+		<button type="submit" className="bg-secondary text-primary p-2 rounded-md min-w-64">Submit</button>
 	</form>
     )
 }
