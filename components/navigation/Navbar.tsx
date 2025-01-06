@@ -71,7 +71,7 @@ const Navbar = ({ type="menu", restaurant }: NavbarProps) => {
         ) : type === "dashboard" ? (
           <div className="w-full relative text-left flex justify-end flex-row min-h-16 items-center">
                   <a
-                    href={`/admin/${restaurant}/edit`}
+                    href={`/admin/restaurants/${restaurant}/edit`}
                     className="block px-4 py-2 hover:border-b-4 hover:border-secondary text-secondary text-lg"
                     role="menuitem"
                     tabIndex={-1}
