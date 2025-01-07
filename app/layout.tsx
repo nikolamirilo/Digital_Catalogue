@@ -14,7 +14,7 @@ export default function RootLayout({
   return (
     <html>
       <body
-        className={`bg-primary`}
+        className={`bg-primary text-white`}
       >
         {children}
       </body>
