@@ -1,14 +1,16 @@
 "use client";
 import React, { useState } from 'react';
 import data from '../../data.json';
+import { GiHamburgerMenu } from "react-icons/gi";
 import { NavbarProps } from '@/types';
+import Image from 'next/image';
 
-const Navbar = ({ type="menu", restaurant }: NavbarProps) => {
+const Navbar = ({ type="menu", restaurant, restaurantData }: NavbarProps) => {
   const [selectedSection, setSelectedSection] = useState('breakfast'); // Default selected section
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const navItems = Object.keys(data.restaurants[0].menu).map((item) => {
+  const navItems = Object.keys(restaurantData.menu).map((item) => {
     return {
       title: item.charAt(0).toUpperCase() + item.slice(1).replace(/_/g, ' '),
       code: item,
@@ -19,21 +21,35 @@ const Navbar = ({ type="menu", restaurant }: NavbarProps) => {
     setSelectedSection(section);
   };
 
+  function matchThemeColor(theme:string){
+    switch(theme){
+      case "light_1":
+        return "bg-white text-black"
+      case "light_2":
+        return "bg-gray-100 text-black"
+      case "dark_1":
+        return "bg-gray-900"
+      case "dark_2":
+        return "bg-primary"
+    }
+  }
+
   return (
     <header className="fixed top-0 right-0 w-full z-50 text-white">
       <nav
-        className={`bg-primary shadow-lg overflow-hidden md:px-10 ${isMobileMenuOpen ? 'animate-fade-in' : ''}`}
+        className={`${matchThemeColor(restaurantData.configuration.theme)} shadow-lg overflow-hidden md:px-10 ${isMobileMenuOpen ? 'animate-fade-in' : ''}`}
       >
         {type === "menu" ? (
           <div className="max-w-6xl mx-auto px-4 w-full">
-            <div className="flex w-full items-center py-4 justify-between">
-              <div className="hidden lg:flex justify-center items-center w-full">
-                <div className="flex md:gap-4 lg:gap-8 relative w-full justify-center items-center">
+            <div className="flex w-full items-center py-4 justify-between relative">
+              <Image src={restaurantData.configuration.logo} width={50} height={50} className='absolute left-2 top-0 h-full w-auto' alt='Logo'/>
+              <div className={`flex justify-center items-center w-full`}>
+                <div className="hidden lg:flex md:gap-4 lg:gap-8 relative w-full justify-center items-center transition-all ease-out duration-200">
                   {navItems.map((item) => (
                     <a
                       key={item.code}
                       href={`#${item.code}`}
-                      className={`text-lg text-txtPrimary transition duration-300 after:border-b-[3px] after:border-b-tertiary-300 ${selectedSection === item.code ? 'selected' : ''}`}
+                      className={`text-lg text-white transition duration-300 after:border-b-[3px] after:border-b-tertiary-300 ${selectedSection === item.code ? 'selected' : ''}`}
                       onClick={() => selectSection(item.code)}
                     >
                       {item.title}
@@ -42,12 +58,10 @@ const Navbar = ({ type="menu", restaurant }: NavbarProps) => {
                 </div>
               </div>
               <button
-                className="lg:hidden text-txtPrimary"
+                className="lg:hidden flex text-white"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               >
-                <span className="block w-6 h-1 text-white mb-1"></span>
-                <span className="block w-6 h-1 text-white mb-1"></span>
-                <span className="block w-6 h-1 text-white mb-1"></span>
+                <GiHamburgerMenu size={30} />
               </button>
             </div>
             {isMobileMenuOpen && (

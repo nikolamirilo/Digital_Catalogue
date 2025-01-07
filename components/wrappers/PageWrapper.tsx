@@ -2,13 +2,19 @@ import React from 'react'
 import Footer from '../navigation/Footer'
 import Navbar from '../navigation/Navbar'
 import { NavbarProps } from '@/types'
+import { redisClient } from '@/lib/redis'
 
 
 
-const PageWrapper = ({children, navbarProps}:{children:React.ReactNode, navbarProps?: NavbarProps }) => {
+const PageWrapper = async ({children}:{children:React.ReactNode}) => {
+  const res = await redisClient.get("plato")
+  let menuData:any = {}
+  if(res){
+  menuData = await JSON.parse(res) 
+  }
   return (
     <>
-    <Navbar type={navbarProps?.type} restaurant={navbarProps?.restaurant}/>
+    <Navbar restaurantData={menuData}/>
     <main className='min-h-screen py-24 w-full'>
     {children}
     </main>

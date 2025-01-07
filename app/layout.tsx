@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { redisClient } from "@/lib/redis";
+import PageWrapper from "@/components/wrappers/PageWrapper";
 
 export const metadata: Metadata = {
   title: "Digital Menu",
@@ -11,12 +13,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html>
-      <body
-        className={`bg-primary text-white`}
-      >
-        {children}
+      <body className={`bg-primary text-white`}>
+        <PageWrapper children={children} />
       </body>
     </html>
   );

@@ -8,4 +8,5 @@ export type Record = {
 export type NavbarProps = {
   type?: string;
   restaurant?: string
+  restaurantData?:any;
 }
