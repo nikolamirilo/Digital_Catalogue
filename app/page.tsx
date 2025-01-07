@@ -1,9 +1,9 @@
 import React from "react"
 import PageWrapper from '@/components/wrappers/PageWrapper';
-import dynamic from 'next/dynamic';
 import { redisClient } from '@/lib/redis';
 import SectionType1 from '@/components/sections/SectionType1';
 
+export const dynamic = "force-dynamic"
 
 const DigitalMenu: React.FC = async () => {
   const res = await redisClient.get("plato")
