@@ -1,5 +1,4 @@
 import React from "react"
-import PageWrapper from '@/components/wrappers/PageWrapper';
 import { redisClient } from '@/lib/redis';
 import SectionType1 from '@/components/sections/SectionType1';
 
@@ -12,7 +11,7 @@ const DigitalMenu: React.FC = async () => {
     menuData = await JSON.parse(res)
   }
   return (
-    <>
+    <main>
       <div className="py-6 text-center flex flex-col justify-center items-center gap-4">
         <h1 className="text-4xl font-bold text-navigationMain">Digital Menu</h1>
         <p className="text-txtTertiary text-lg 2xl:text-xl px-5 max-w-[1000px]">
@@ -28,7 +27,7 @@ const DigitalMenu: React.FC = async () => {
       </div>
 
       {menuData && <SectionType1 menuData={menuData} />}
-    </>
+    </main>
   );
 };
 

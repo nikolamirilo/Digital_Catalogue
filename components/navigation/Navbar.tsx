@@ -1,14 +1,16 @@
 "use client";
-import React, { useState } from 'react';
-import data from '../../data.json';
+import React, { useEffect, useState } from 'react';
 import { GiHamburgerMenu } from "react-icons/gi";
 import { NavbarProps } from '@/types';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation'
 
-const Navbar = ({ type="menu", restaurant, restaurantData }: NavbarProps) => {
+const Navbar = ({ restaurantData }: NavbarProps) => {
   const [selectedSection, setSelectedSection] = useState('breakfast'); // Default selected section
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [type, setType] = useState<string>("menu")
+  const [restaurant, setRestaurant] = useState<string>("")
+  const pathname = usePathname()
 
   const navItems = Object.keys(restaurantData.menu).map((item) => {
     return {
@@ -33,6 +35,17 @@ const Navbar = ({ type="menu", restaurant, restaurantData }: NavbarProps) => {
         return "bg-primary"
     }
   }
+
+  useEffect(()=>{
+    if(pathname.includes("admin")){
+      setType("dashboard")
+      const name = pathname.split("/")
+      setRestaurant(name[3])
+    }else{
+      setType("menu")
+    }
+    console.log(pathname)
+  },[])
 
   return (
     <header className="fixed top-0 right-0 w-full z-50 text-white">
@@ -86,7 +99,7 @@ const Navbar = ({ type="menu", restaurant, restaurantData }: NavbarProps) => {
           <div className="w-full relative text-left flex justify-end flex-row min-h-16 items-center">
                   <a
                     href={`/admin/restaurants/${restaurant}/edit`}
-                    className="block px-4 py-2 hover:border-b-4 hover:border-secondary text-secondary text-lg"
+                    className="block px-4 py-2 hover:border-b-[3px] hover:border-secondary text-secondary text-lg"
                     role="menuitem"
                     tabIndex={-1}
                     id="menu-item-0"
@@ -95,7 +108,7 @@ const Navbar = ({ type="menu", restaurant, restaurantData }: NavbarProps) => {
                   </a>
                   <a
                     href="/contact"
-                    className="block px-4 py-2 hover:border-b-4 hover:border-secondary text-secondary text-lg"
+                    className="block px-4 py-2 hover:border-b-[3px] hover:border-secondary text-secondary text-lg"
                     role="menuitem"
                     tabIndex={-1}
                     id="menu-item-1"

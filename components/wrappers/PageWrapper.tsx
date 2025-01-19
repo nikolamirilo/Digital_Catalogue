@@ -1,10 +1,7 @@
 import React from 'react'
 import Footer from '../navigation/Footer'
 import Navbar from '../navigation/Navbar'
-import { NavbarProps } from '@/types'
 import { redisClient } from '@/lib/redis'
-
-
 
 const PageWrapper = async ({children}:{children:React.ReactNode}) => {
   const res = await redisClient.get("plato")
@@ -15,7 +12,7 @@ const PageWrapper = async ({children}:{children:React.ReactNode}) => {
   return (
     <>
     <Navbar restaurantData={menuData}/>
-    <main className='min-h-screen py-24 w-full'>
+    <main className='min-h-screen py-20 w-full'>
     {children}
     </main>
     <Footer/>
