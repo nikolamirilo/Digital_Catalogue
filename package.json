@@ -16,9 +16,11 @@
     "apexcharts": "^4.3.0",
     "heroicons": "^2.2.0",
     "ioredis": "^5.4.2",
+    "money": "^0.2.0",
     "next": "15.1.3",
     "react": "^19.0.0",
     "react-apexcharts": "^1.7.0",
+    "react-currency-conversion": "^1.0.5",
     "react-dom": "^19.0.0",
     "react-icons": "^5.4.0"
   },

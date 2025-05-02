@@ -4,7 +4,7 @@ import Navbar from '../navigation/Navbar'
 import { redisClient } from '@/lib/redis'
 
 const PageWrapper = async ({children}:{children:React.ReactNode}) => {
-  const res = await redisClient.get("plato")
+  const res = await redisClient.get("showcase")
   let menuData:any = {}
   if(res){
   menuData = await JSON.parse(res) 

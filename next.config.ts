@@ -8,6 +8,10 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'www.logotypes101.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'st.depositphotos.com',
+      },
     ],
   }
 };

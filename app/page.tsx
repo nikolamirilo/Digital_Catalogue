@@ -1,11 +1,12 @@
 import React from "react"
 import { redisClient } from '@/lib/redis';
-import SectionType1 from '@/components/sections/SectionType1';
+import Toggle from "@/components/common/Toggle";
+import MenuSection from "@/components/sections/MenuSection";
 
 export const dynamic = "force-dynamic"
 
 const DigitalMenu: React.FC = async () => {
-  const res = await redisClient.get("plato")
+  const res = await redisClient.get("showcase")
   let menuData: any = {}
   if (res) {
     menuData = await JSON.parse(res)
@@ -25,8 +26,10 @@ const DigitalMenu: React.FC = async () => {
         <ul className="flex flex-wrap justify-center -mb-px items-center text-tertiary-50">
         </ul>
       </div>
-
-      {menuData && <SectionType1 menuData={menuData} />}
+      <div className="flex flex-row justify-center items-center w-full">
+        <Toggle />
+      </div>
+      {menuData && <MenuSection menuData={menuData} />}
     </main>
   );
 };

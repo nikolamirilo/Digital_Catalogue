@@ -13,7 +13,7 @@ const CardType2 = ({record}: {record: Record}) => {
 		></div>
 		<div className="flex flex-col gap-2">
 			<p className="text-txtSecondary">{record.description}</p>
-			<span className="text-lg font-semibold text-right">${record.price}</span>
+			<span className="text-2xl font-semibold text-right">${record.price}</span>
 		</div>
 	</div>
 </div>
