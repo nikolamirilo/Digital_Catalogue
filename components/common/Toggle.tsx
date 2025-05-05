@@ -9,13 +9,13 @@ const Toggle = () => {
   return (
     <div className="flex flex-col justify-center items-center gap-4 mt-4">
       <div className="inline-flex rounded-md shadow-xs gap-0" role="group">
-        <button type="button" className="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 hover:text-orange-700 focus:z-10 focus:ring-2 focus:ring-orange-700 focus:text-orange-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-orange-500 dark:focus:text-white" onClick={() => {
+        <button type="button" className={`px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 hover:text-orange-700 ${layout == "variant_1" ? "text-orange-800 font-bold": null}`} onClick={() => {
           setLayout("variant_1")
-        }}>Layout 1</button><button type="button" className="px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-orange-700 focus:z-10 focus:ring-2 focus:ring-orange-700 focus:text-orange-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-orange-500 dark:focus:text-white" onClick={() => {
+        }}>Layout 1</button><button type="button" className={`px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-orange-700 ${layout == "variant_2" ? "text-orange-800 font-bold": null}`} onClick={() => {
           setLayout("variant_2")
-        }}>Layout 2</button><button type="button" className="px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-orange-700 focus:z-10 focus:ring-2 focus:ring-orange-700 focus:text-orange-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-orange-500 dark:focus:text-white" onClick={() => {
+        }}>Layout 2</button><button type="button" className={`px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-orange-700 ${layout == "variant_3" ? "text-orange-800 font-bold": null}`} onClick={() => {
           setLayout("variant_3")
-        }}>Layout 3</button><button type="button" className="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-orange-700 focus:z-10 focus:ring-2 focus:ring-orange-700 focus:text-orange-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-orange-500 dark:focus:text-white" onClick={() => {
+        }}>Layout 3</button><button type="button" className={`px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-orange-700 ${layout == "variant_4" ? "text-orange-800 font-bold": null}`} onClick={() => {
           setLayout("variant_4")
         }}>Layout 4</button>
       </div>
