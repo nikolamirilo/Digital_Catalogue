@@ -20,6 +20,7 @@ const MenuSection = ({ menuData }: { menuData: any }) => {
 
   console.log(sectionsData);
 
+  //Obrati paznju - tu se radi positioning kartica
   function returnVariantStyle(variant){
     switch (variant){
       case "variant_1":
