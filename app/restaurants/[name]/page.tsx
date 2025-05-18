@@ -4,7 +4,7 @@ import MenuSection from "@/components/sections/MenuSection";
 import { cookies } from "next/headers";
 import { createClient } from '@/utils/supabase/server'
 
-const page = async ({ params }: { params: { name: string } }) => {
+const page = async ({ params }: { params: Promise<{name: string}> }) => {
   const { name } = await params
   const cookieStore = await cookies()
   const supabase = createClient(cookieStore)
