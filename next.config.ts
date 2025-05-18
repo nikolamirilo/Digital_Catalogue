@@ -12,6 +12,10 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'st.depositphotos.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'restoranplato.rs',
+      },
     ],
   }
 };

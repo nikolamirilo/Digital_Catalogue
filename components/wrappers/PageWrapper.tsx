@@ -1,17 +1,12 @@
 import React from 'react'
 import Footer from '../navigation/Footer'
 import Navbar from '../navigation/Navbar'
-import { redisClient } from '@/lib/redis'
+import data from "../../showcase.json"
 
 const PageWrapper = async ({children}:{children:React.ReactNode}) => {
-  const res = await redisClient.get("showcase")
-  let menuData:any = {}
-  if(res){
-  menuData = await JSON.parse(res) 
-  }
   return (
     <>
-    <Navbar restaurantData={menuData}/>
+    <Navbar restaurantData={data}/>
     <main className='min-h-screen py-20 w-full'>
     {children}
     </main>

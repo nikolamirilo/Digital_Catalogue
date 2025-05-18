@@ -50,12 +50,12 @@ const Navbar = ({ restaurantData }: NavbarProps) => {
   return (
     <header className="fixed top-0 right-0 w-full z-50 text-white">
       <nav
-        className={`${matchThemeColor(restaurantData.configuration.theme)} shadow-lg overflow-hidden md:px-10 ${isMobileMenuOpen ? 'animate-fade-in' : ''}`}
+        className={`${matchThemeColor(restaurantData.theme)} shadow-lg overflow-hidden md:px-10 ${isMobileMenuOpen ? 'animate-fade-in' : ''}`}
       >
         {type === "menu" ? (
           <div className="max-w-6xl mx-auto px-4 w-full">
             <div className="flex w-full items-center py-4 justify-between relative">
-              <Image src={restaurantData.configuration.logo} width={50} height={50} className='absolute left-2 top-0 h-full w-auto' alt='Logo'/>
+              <Image src={restaurantData.logo} width={50} height={50} className='absolute left-2 top-0 h-full w-auto' alt='Logo'/>
               <div className={`flex justify-center items-center w-full`}>
                 <div className="hidden lg:flex md:gap-4 lg:gap-8 relative w-full justify-center items-center transition-all ease-out duration-200">
                   {navItems.map((item) => (

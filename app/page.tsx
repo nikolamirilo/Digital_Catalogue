@@ -1,16 +1,11 @@
 import React from "react"
-import { redisClient } from '@/lib/redis';
 import Toggle from "@/components/common/Toggle";
 import MenuSection from "@/components/sections/MenuSection";
+import data from "../showcase.json"
 
 export const dynamic = "force-dynamic"
 
 const DigitalMenu: React.FC = async () => {
-  const res = await redisClient.get("showcase")
-  let menuData: any = {}
-  if (res) {
-    menuData = await JSON.parse(res)
-  }
   return (
     <main>
       <div className="py-6 text-center flex flex-col justify-center items-center gap-4">
@@ -29,7 +24,7 @@ const DigitalMenu: React.FC = async () => {
       <div className="flex flex-row justify-center items-center w-full">
         <Toggle />
       </div>
-      {menuData && <MenuSection menuData={menuData} />}
+      {data && <MenuSection menuData={data.menu} />}
     </main>
   );
 };

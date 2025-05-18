@@ -12,13 +12,18 @@ import CardType4 from "../cards/CardType4";
 const MenuSection = ({ menuData }: { menuData: any }) => {
   // Transform sectionsData
   const { currency, layout } = useMainContext();
-  console.log(currency);
-  const sectionsData = Object.keys(menuData.menu).map((item) => ({
+  const sectionsData = Object.keys(menuData).map((item) => ({
     title: item.charAt(0).toUpperCase() + item.slice(1).replace(/_/g, " "),
     code: item,
   }));
 
-  console.log(sectionsData);
+  const customOrder = ['breakfast', 'lunch', 'snacks', 'desserts'];
+
+  const sortedSections = sectionsData.sort((a, b) => {
+    const aIndex = customOrder.indexOf(a.code);
+    const bIndex = customOrder.indexOf(b.code);
+    return (aIndex === -1 ? 999 : aIndex) - (bIndex === -1 ? 999 : bIndex);
+  });
 
   //Obrati paznju - tu se radi positioning kartica
   function returnVariantStyle(variant){
@@ -35,17 +40,17 @@ const MenuSection = ({ menuData }: { menuData: any }) => {
         return "flex flex-row flex-wrap gap-6 mt-4"
     }
   }
-
+console.log(sortedSections)
   if (menuData)
     return (
       <main className="max-w-6xl mx-auto px-4">
-        {sectionsData.map((item, index) => (
+        {sortedSections.map((item, index) => (
           <section key={item.code} className="mb-10" id={item.code}>
             <h2 className="text-3xl font-semibold border-b-2 border-borderPrimary pb-2">
               {item.title}
             </h2>
             <div className={`${returnVariantStyle(layout)}`}>
-              {menuData.menu[item.code].map((record, i) => {
+              {menuData[item.code].map((record, i) => {
                 switch (layout) {
                   case "variant_1":
                     return <CardType1 key={i} record={record} />;
