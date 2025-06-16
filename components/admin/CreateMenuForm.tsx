@@ -1,290 +1,402 @@
 'use client';
 
-import React, { useState } from 'react';
+import type React from "react"
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { toast } from "@/hooks/use-toast"
+import { ArrowRight, ArrowLeft } from "lucide-react"
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import Link from "next/link";
 
-interface MenuItem {
-  name: string;
-  description: string;
-  price: number;
-  image: string;
-}
+// Import step components
+import Step1GeneralInfo from "./CreateMenuForm/Step1GeneralInfo";
+import Step2MenuSections from "./CreateMenuForm/Step2MenuSections";
+import Step3MenuItems from "./CreateMenuForm/Step3MenuItems";
+import SuccessModal from "./CreateMenuForm/SuccessModal";
 
-interface MenuCategory {
-  name: string;
-  items: MenuItem[];
-}
+import { MenuItem, MenuCategory, ContactInfo, RestaurantFormData, contactTypes } from "@/types";
 
-interface RestaurantFormData {
-  name: string;
-  theme?: string;
-  logo?: string;
-  layout?: string;
-  title?: string;
-  currency?: string;
-  legal_name?: string;
-  contact?: any; // You might want to define a more specific type for contact
-  subtitle?: string;
-  menu: MenuCategory[];
-}
-
-const CreateMenuForm: React.FC = () => {
+export default function CreateMenuForm() {
   const [formData, setFormData] = useState<RestaurantFormData>({
-    name: '',
-    theme: '',
-    logo: '',
-    layout: '',
-    title: '',
-    currency: '',
-    legal_name: '',
-    contact: '', // Initialize as empty string, will need parsing
-    subtitle: '',
+    name: "",
+    theme: "",
+    logo: "",
+    layout: "",
+    title: "",
+    currency: "",
+    legal_name: "",
+    contact: [],
+    subtitle: "",
     menu: [],
   });
+  const [currentStep, setCurrentStep] = useState(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [restaurantUrl, setRestaurantUrl] = useState("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleAddCategory = () => {
-    setFormData({ ...formData, menu: [...formData.menu, { name: '', items: [] }] });
+    setFormData((prev) => ({
+      ...prev,
+      menu: [...prev.menu, { name: "", items: [] }],
+    }));
+  };
+
+  const handleRemoveCategory = (categoryIndex: number) => {
+    setFormData((prev) => ({
+      ...prev,
+      menu: prev.menu.filter((_, index) => index !== categoryIndex),
+    }));
   };
 
   const handleCategoryNameChange = (index: number, value: string) => {
     const updatedMenu = [...formData.menu];
     updatedMenu[index].name = value;
-    setFormData({ ...formData, menu: updatedMenu });
+    setFormData((prev) => ({ ...prev, menu: updatedMenu }));
   };
 
   const handleAddItem = (categoryIndex: number) => {
     const updatedMenu = [...formData.menu];
-    updatedMenu[categoryIndex].items.push({ name: '', description: '', price: 0, image: '' });
-    setFormData({ ...formData, menu: updatedMenu });
+    updatedMenu[categoryIndex].items.push({ name: "", description: "", price: 0, image: "" });
+    setFormData((prev) => ({ ...prev, menu: updatedMenu }));
   };
 
-  const handleItemChange = (categoryIndex: number, itemIndex: number, field: keyof MenuItem, value: string | number) => {
+  const handleRemoveItem = (categoryIndex: number, itemIndex: number) => {
     const updatedMenu = [...formData.menu];
-    // @ts-ignore
-    updatedMenu[categoryIndex].items[itemIndex][field] = value;
-    setFormData({ ...formData, menu: updatedMenu });
+    updatedMenu[categoryIndex].items = updatedMenu[categoryIndex].items.filter(
+      (_, index) => index !== itemIndex
+    );
+    setFormData((prev) => ({ ...prev, menu: updatedMenu }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleItemChange = (
+    categoryIndex: number,
+    itemIndex: number,
+    field: keyof MenuItem,
+    value: string | number
+  ) => {
+    const updatedMenu = [...formData.menu];
+    updatedMenu[categoryIndex].items[itemIndex] = {
+      ...updatedMenu[categoryIndex].items[itemIndex],
+      [field]: value,
+    };
+    setFormData((prev) => ({ ...prev, menu: updatedMenu }));
+  };
+
+  const handleAddContact = () => {
+    setFormData((prev) => ({
+      ...prev,
+      contact: [...prev.contact, { type: "", value: "" }],
+    }));
+  };
+
+  const handleRemoveContact = (contactIndex: number) => {
+    setFormData((prev) => ({
+      ...prev,
+      contact: prev.contact.filter((_, index) => index !== contactIndex),
+    }));
+  };
+
+  const handleContactChange = (index: number, field: keyof ContactInfo, value: string) => {
+    const updatedContact = [...formData.contact];
+    updatedContact[index] = { ...updatedContact[index], [field]: value };
+    setFormData((prev) => ({ ...prev, contact: updatedContact }));
+  };
+
+  const validateStep = (step: number): boolean => {
+    switch (step) {
+      case 1:
+        if (!formData.name.trim()) {
+          toast({
+            title: "Validation Error",
+            description: "Restaurant name is required.",
+            variant: "destructive",
+          });
+          return false;
+        }
+        for (const contact of formData.contact) {
+          if (!contact.type.trim() || !contact.value.trim()) {
+            toast({
+              title: "Validation Error",
+              description: "All contact fields must have a type and a value.",
+              variant: "destructive",
+            });
+            return false;
+          }
+        }
+        return true;
+      case 2:
+        if (formData.menu.length === 0) {
+          toast({
+            title: "Validation Error",
+            description: "Please add at least one menu category.",
+            variant: "destructive",
+          });
+          return false;
+        }
+        for (const category of formData.menu) {
+          if (!category.name.trim()) {
+            toast({
+              title: "Validation Error",
+              description: "All menu categories must have a name.",
+              variant: "destructive",
+            });
+            return false;
+          }
+        }
+        return true;
+      case 3:
+        for (const category of formData.menu) {
+          if (category.items.length === 0) {
+            toast({
+              title: "Validation Error",
+              description: `Category "${category.name}" must have at least one menu item.`,
+              variant: "destructive",
+            });
+            return false;
+          }
+
+          for (const item of category.items) {
+            if (!item.name.trim()) {
+              toast({
+                title: "Validation Error",
+                description: `All items in category "${category.name}" must have a name.`,
+                variant: "destructive",
+              });
+              return false;
+            }
+            if (!item.description.trim()) {
+              toast({
+                title: "Validation Error",
+                description: `All items in category "${category.name}" must have a description.`,
+                variant: "destructive",
+              });
+              return false;
+            }
+            if (item.price <= 0) {
+              toast({
+                title: "Validation Error",
+                description: `Price for item "${item.name}" in category "${category.name}" must be greater than 0.`,
+                variant: "destructive",
+              });
+              return false;
+            }
+            if (!item.image.trim()) {
+              toast({
+                title: "Validation Error",
+                description: `Image URL for item "${item.name}" in category "${category.name}" is required.`,
+                variant: "destructive",
+              });
+              return false;
+            }
+            try {
+              new URL(item.image);
+            } catch {
+              toast({
+                title: "Validation Error",
+                description: `Please enter a valid image URL for item "${item.name}" in category "${category.name}".`,
+                variant: "destructive",
+              });
+              return false;
+            }
+          }
+        }
+        return true;
+      default:
+        return false;
+    }
+  };
+
+  const handleNext = () => {
+    if (validateStep(currentStep)) {
+      setCurrentStep((prev) => prev + 1);
+    }
+  };
+
+  const handlePrevious = () => {
+    setCurrentStep((prev) => prev - 1);
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!validateStep(3)) {
+      toast({
+        title: "Validation Error",
+        description: "Please complete all steps and ensure all fields are valid.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
     console.log('Submitting form data:', formData);
 
     try {
-      // Assuming you have a way to get the created_by user ID, maybe from auth context
-      // For now, using a placeholder UUID
-      const created_by_placeholder = '550e8400-e29b-41d4-a716-446655440000'; // Replace with actual user ID logic
+      const created_by_placeholder = '550e8400-e29b-41d4-a716-446655440000';
 
-      // Parse contact if it's meant to be JSONB
-      let contactData = formData.contact;
-      try {
-        contactData = JSON.parse(formData.contact);
-      } catch (error) {
-        console.error('Failed to parse contact JSON:', error);
-        alert('Invalid Contact JSON format.');
-        return; // Prevent submission if JSON is invalid
-      }
+      const transformedFormData = { ...formData };
+
+      // Transform restaurant name
+      const restaurantSlug = transformedFormData.name.toLowerCase().replace(/\s+/g, '-');
+      transformedFormData.name = restaurantSlug;
+
+      // Transform category names and restructure menu
+      const transformedMenu = transformedFormData.menu.reduce((acc, category) => {
+        const categorySlug = category.name.toLowerCase().replace(/\s+/g, '-');
+        acc[categorySlug] = category.items;
+        return acc;
+      }, {} as Record<string, MenuItem[]>);
+
+      const contactData = transformedFormData.contact;
 
       const response = await fetch('/api/menu', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ ...formData, created_by: created_by_placeholder, contact: contactData }),
+        body: JSON.stringify({
+          ...transformedFormData,
+          created_by: created_by_placeholder,
+          contact: contactData,
+          menu: transformedMenu,
+        }),
       });
 
       if (response.ok) {
         const result = await response.json();
         console.log('Menu created successfully:', result);
-        alert('Menu created successfully!');
-        // Optionally reset the form or redirect
+        setRestaurantUrl(`/restaurants/${restaurantSlug}`);
+        setShowSuccessModal(true);
+        setFormData({
+          name: "",
+          theme: "",
+          logo: "",
+          layout: "",
+          title: "",
+          currency: "",
+          legal_name: "",
+          contact: [],
+          subtitle: "",
+          menu: [],
+        });
+        setCurrentStep(1);
       } else {
         const errorData = await response.json();
         console.error('Failed to create menu:', errorData);
-        alert(`Failed to create menu: ${errorData.error}`);
+        toast({
+          title: "Error",
+          description: `Failed to create menu: ${errorData.error || "Unknown error"}`,
+          variant: "destructive",
+        });
       }
     } catch (error) {
       console.error('Error submitting form:', error);
-      alert('An error occurred while submitting the form.');
+      toast({
+        title: "Error",
+        description: "An error occurred while submitting the form.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const renderStep = () => {
+    switch (currentStep) {
+      case 1:
+        return (
+          <Step1GeneralInfo
+            formData={formData}
+            handleInputChange={handleInputChange}
+            handleAddContact={handleAddContact}
+            handleRemoveContact={handleRemoveContact}
+            handleContactChange={handleContactChange}
+          />
+        );
+      case 2:
+        return (
+          <Step2MenuSections
+            formData={formData}
+            handleAddCategory={handleAddCategory}
+            handleRemoveCategory={handleRemoveCategory}
+            handleCategoryNameChange={handleCategoryNameChange}
+          />
+        );
+      case 3:
+        return (
+          <Step3MenuItems
+            formData={formData}
+            handleAddItem={handleAddItem}
+            handleRemoveItem={handleRemoveItem}
+            handleItemChange={handleItemChange}
+          />
+        );
+      default:
+        return null;
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      {/* Restaurant Details */}
-      <div className="border p-4 rounded-md space-y-4">
-        <h2 className="text-2xl font-bold mb-4">Restaurant Details</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700">Restaurant Name</label>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              value={formData.name}
-              onChange={handleInputChange}
-              required
-              className="mt-1 block w-full p-2 border rounded-md text-gray-800"
+    <Card className="w-full max-w-4xl mx-auto my-8">
+      <CardHeader>
+        <CardTitle className="text-3xl font-bold text-center">Create Your Digital Menu</CardTitle>
+        <CardDescription className="text-center">
+          Step {currentStep} of 3: {
+            currentStep === 1 ? "Define General Information" :
+            currentStep === 2 ? "Define Menu Sections" :
+            "Define Menu Items"
+          }
+        </CardDescription>
+        <div className="flex justify-center space-x-2 mt-4">
+          {[1, 2, 3].map((step) => (
+            <div
+              key={step}
+              className={`w-8 h-2 rounded-full ${currentStep === step ? "bg-indigo-600" : "bg-gray-300"}`}
             />
-          </div>
-          <div>
-            <label htmlFor="theme" className="block text-sm font-medium text-gray-700">Theme</label>
-            <input
-              type="text"
-              name="theme"
-              id="theme"
-              value={formData.theme}
-              onChange={handleInputChange}
-              className="mt-1 block w-full p-2 border rounded-md text-gray-800"
-            />
-          </div>
-          <div>
-            <label htmlFor="logo" className="block text-sm font-medium text-gray-700">Logo URL</label>
-            <input
-              type="text"
-              name="logo"
-              id="logo"
-              value={formData.logo}
-              onChange={handleInputChange}
-              className="mt-1 block w-full p-2 border rounded-md text-gray-800"
-            />
-          </div>
-          <div>
-            <label htmlFor="layout" className="block text-sm font-medium text-gray-700">Layout</label>
-            <input
-              type="text"
-              name="layout"
-              id="layout"
-              value={formData.layout}
-              onChange={handleInputChange}
-              className="mt-1 block w-full p-2 border rounded-md text-gray-800"
-            />
-          </div>
-          <div>
-            <label htmlFor="title" className="block text-sm font-medium text-gray-700">Title</label>
-            <input
-              type="text"
-              name="title"
-              id="title"
-              value={formData.title}
-              onChange={handleInputChange}
-              className="mt-1 block w-full p-2 border rounded-md text-gray-800"
-            />
-          </div>
-          <div>
-            <label htmlFor="currency" className="block text-sm font-medium text-gray-700">Currency</label>
-            <input
-              type="text"
-              name="currency"
-              id="currency"
-              value={formData.currency}
-              onChange={handleInputChange}
-              className="mt-1 block w-full p-2 border rounded-md text-gray-800"
-            />
-          </div>
-          <div>
-            <label htmlFor="legal_name" className="block text-sm font-medium text-gray-700">Legal Name</label>
-            <input
-              type="text"
-              name="legal_name"
-              id="legal_name"
-              value={formData.legal_name}
-              onChange={handleInputChange}
-              className="mt-1 block w-full p-2 border rounded-md text-gray-800"
-            />
-          </div>
-           <div>
-            <label htmlFor="contact" className="block text-sm font-medium text-gray-700">Contact (JSON format)</label>
-            <textarea
-              name="contact"
-              id="contact"
-              value={formData.contact}
-              onChange={handleInputChange}
-               className="mt-1 block w-full p-2 border rounded-md text-gray-800"
-               rows={3}
-            />
-          </div>
-           <div>
-            <label htmlFor="subtitle" className="block text-sm font-medium text-gray-700">Subtitle</label>
-            <textarea
-              name="subtitle"
-              id="subtitle"
-              value={formData.subtitle}
-              onChange={handleInputChange}
-               className="mt-1 block w-full p-2 border rounded-md text-gray-800"
-               rows={3}
-            />
-          </div>
+          ))}
         </div>
-      </div>
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={handleSubmit} className="space-y-8">
+          {renderStep()}
 
-      {/* Menu Structure */}
-      <div className="border p-4 rounded-md space-y-4">
-        <h2 className="text-2xl font-bold mb-4">Menu Structure</h2>
-         <button type="button" onClick={handleAddCategory} className="mb-4 bg-green-500 text-white px-4 py-2 rounded-md">Add Category</button>
-        {formData.menu.map((category, categoryIndex) => (
-          <div key={categoryIndex} className="border p-4 mb-4 rounded-md space-y-4">
-            <label htmlFor={`category-name-${categoryIndex}`} className="block text-sm font-medium text-gray-700 sr-only">Category Name</label>
-            <input
-              type="text"
-              placeholder="Category Name"
-              id={`category-name-${categoryIndex}`}
-              value={category.name}
-              onChange={(e) => handleCategoryNameChange(categoryIndex, e.target.value)}
-              className="block w-full p-2 border rounded-md text-gray-800"
-            />
-            <button type="button" onClick={() => handleAddItem(categoryIndex)} className="bg-blue-500 text-white px-3 py-1 rounded-md text-sm">Add Item</button>
-            
-            {category.items.map((item, itemIndex) => (
-              <div key={itemIndex} className="border p-4 mb-2 rounded-md space-y-2">
-                <h3 className="text-xl font-semibold">Item {itemIndex + 1}</h3>
-                <label htmlFor={`item-name-${categoryIndex}-${itemIndex}`} className="block text-sm font-medium text-gray-700 sr-only">Item Name</label>
-                <input
-                  type="text"
-                  placeholder="Item Name"
-                  id={`item-name-${categoryIndex}-${itemIndex}`}
-                  value={item.name}
-                  onChange={(e) => handleItemChange(categoryIndex, itemIndex, 'name', e.target.value)}
-                  className="block w-full p-2 border rounded-md text-gray-800"
-                />
-                 <label htmlFor={`item-description-${categoryIndex}-${itemIndex}`} className="block text-sm font-medium text-gray-700 sr-only">Description</label>
-                <textarea
-                  placeholder="Description"
-                  id={`item-description-${categoryIndex}-${itemIndex}`}
-                  value={item.description}
-                  onChange={(e) => handleItemChange(categoryIndex, itemIndex, 'description', e.target.value)}
-                  className="block w-full p-2 border rounded-md text-gray-800"
-                />
-                 <label htmlFor={`item-price-${categoryIndex}-${itemIndex}`} className="block text-sm font-medium text-gray-700 sr-only">Price</label>
-                <input
-                  type="number"
-                  placeholder="Price"
-                   id={`item-price-${categoryIndex}-${itemIndex}`}
-                  value={item.price}
-                  onChange={(e) => handleItemChange(categoryIndex, itemIndex, 'price', parseFloat(e.target.value))}
-                  className="block w-full p-2 border rounded-md text-gray-800"
-                />
-                 <label htmlFor={`item-image-${categoryIndex}-${itemIndex}`} className="block text-sm font-medium text-gray-700 sr-only">Image URL</label>
-                 <input
-                  type="text"
-                  placeholder="Image URL"
-                   id={`item-image-${categoryIndex}-${itemIndex}`}
-                  value={item.image}
-                  onChange={(e) => handleItemChange(categoryIndex, itemIndex, 'image', e.target.value)}
-                  className="block w-full p-2 border rounded-md text-gray-800"
-                />
-              </div>
-            ))}
+          <div className="flex justify-between mt-8">
+            {currentStep > 1 && (
+              <Button type="button" variant="outline" onClick={handlePrevious}>
+                <ArrowLeft className="mr-2 h-4 w-4" /> Previous
+              </Button>
+            )}
+
+            {currentStep < 3 && (
+              <Button type="button" onClick={handleNext} className="ml-auto">
+                Next <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            )}
+
+            {currentStep === 3 && (
+              <Button type="submit" className="py-3 px-6 text-lg" disabled={isSubmitting}>
+                {isSubmitting ? "Creating Digital Menu..." : "Create Digital Menu"}
+              </Button>
+            )}
           </div>
-        ))}
-      </div>
+        </form>
+      </CardContent>
 
-      <button type="submit" className="bg-indigo-600 text-white px-4 py-2 rounded-md">Create Menu</button>
-    </form>
+      <SuccessModal
+        isOpen={showSuccessModal}
+        onClose={() => setShowSuccessModal(false)}
+        restaurantUrl={restaurantUrl}
+      />
+    </Card>
   );
-};
-
-export default CreateMenuForm; 
+} 
