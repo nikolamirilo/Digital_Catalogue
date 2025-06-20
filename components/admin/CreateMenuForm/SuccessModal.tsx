@@ -1,6 +1,6 @@
 "use client";
-
 import * as React from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
@@ -16,6 +16,12 @@ const SuccessModal: React.FC<SuccessModalProps> = ({
   onClose,
   restaurantUrl,
 }) => {
+  const [fullURL, setFullURL] = useState("");
+
+  useEffect(() => {
+    setFullURL(`${window.location.origin}${restaurantUrl}`);
+  }, [restaurantUrl]);
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[425px]">
@@ -29,7 +35,7 @@ const SuccessModal: React.FC<SuccessModalProps> = ({
           <p>You can access your menu at:</p>
           <Link href={restaurantUrl} passHref>
             <Button variant="link" className="px-0">
-              {window.location.origin}{restaurantUrl}
+              {fullURL}
             </Button>
           </Link>
         </div>
