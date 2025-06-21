@@ -24,7 +24,7 @@ const page = async ({ params }: { params: Promise<{name: string}> }) => {
           <ul className="flex flex-wrap justify-center -mb-px items-center text-tertiary-50">
           </ul>
         </div>
-        {restaurant && <MenuSection menuData={restaurant.menu} />}
+        {restaurant && <MenuSection menuData={restaurant.menu} currency={restaurant.currency} />}
       </main>
 
     )}

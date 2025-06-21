@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -9,6 +9,7 @@ import { Card } from "@/components/ui/card";
 import { Plus, DollarSign, ImageIcon, Trash2 } from "lucide-react";
 
 import { MenuItem, MenuCategory } from "@/types";
+import { UploadDropzone } from "@/utils/uploadthing";
 
 interface Step3MenuItemsProps {
   formData: {
@@ -30,6 +31,8 @@ const Step3MenuItems: React.FC<Step3MenuItemsProps> = ({
   handleRemoveItem,
   handleItemChange,
 }) => {
+  const [imagePreviews, setImagePreviews] = useState<{ [key: string]: string }>({});
+
   return (
     <div className="space-y-6 p-6 border rounded-lg shadow-sm bg-gray-50">
       <h2 className="text-2xl font-semibold text-gray-800 flex items-center gap-2">
@@ -111,26 +114,26 @@ const Step3MenuItems: React.FC<Step3MenuItemsProps> = ({
                     />
                   </div>
                   <div className="space-y-2 col-span-full">
-                    <Label htmlFor={`item-image-${categoryIndex}-${itemIndex}`}>Image URL</Label>
-                    <Input
-                      id={`item-image-${categoryIndex}-${itemIndex}`}
-                      type="url"
-                      placeholder="https://example.com/item.jpg"
-                      value={item.image}
-                      onChange={(e) =>
-                        handleItemChange(categoryIndex, itemIndex, "image", e.target.value)
-                      }
-                      required
+                    <Label htmlFor={`item-image-${categoryIndex}-${itemIndex}`}>Image</Label>
+                    <UploadDropzone
+                      endpoint="imageUploader"
+                      onClientUploadComplete={(res) => {
+                        if (res && res.length > 0 && res[0].url) {
+                          console.log("Upload complete, URL:", res[0].url);
+                          handleItemChange(categoryIndex, itemIndex, "image", res[0].url);
+                          setImagePreviews(prev => ({ ...prev, [`${categoryIndex}-${itemIndex}`]: res[0].url }));
+                        }
+                      }}
+                      onUploadError={(error: Error) => {
+                        alert(`ERROR! ${error.message}`);
+                      }}
                     />
-                    {item.image && (
+                    {(imagePreviews[`${categoryIndex}-${itemIndex}`] || item.image) && (
                       <div className="mt-2">
                         <img
-                          src={item.image || "/placeholder.svg"}
+                          src={imagePreviews[`${categoryIndex}-${itemIndex}`] || item.image}
                           alt="Item Preview"
                           className="w-20 h-20 object-cover rounded-md border"
-                          onError={(e) => {
-                            e.currentTarget.style.display = "none";
-                          }}
                         />
                       </div>
                     )}

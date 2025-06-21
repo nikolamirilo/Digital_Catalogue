@@ -1,12 +1,14 @@
 "use client";
 
 import * as React from "react";
+import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Plus, Tag, Trash2, FileText } from "lucide-react";
+import { UploadDropzone } from "@/utils/uploadthing";
 
 import { ContactInfo, contactTypes } from "@/types";
 
@@ -49,10 +51,11 @@ interface Step1GeneralInfoProps {
     contact: ContactInfo[];
     subtitle?: string;
   };
-  handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | { target: { name: string; value: string } }) => void;
   handleAddContact: () => void;
   handleRemoveContact: (index: number) => void;
   handleContactChange: (index: number, field: keyof ContactInfo, value: string) => void;
+  setFormData: React.Dispatch<React.SetStateAction<any>>;
 }
 
 const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
@@ -61,7 +64,10 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
   handleAddContact,
   handleRemoveContact,
   handleContactChange,
+  setFormData,
 }) => {
+  const [logoPreview, setLogoPreview] = useState<string | null>(formData.logo || null);
+
   return (
     <div className="space-y-6 p-6 border rounded-lg shadow-sm bg-gray-50">
       <h2 className="text-2xl font-semibold text-gray-800 flex items-center gap-2">
@@ -104,24 +110,26 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
           />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="logo">Logo URL</Label>
-          <Input
-            id="logo"
-            type="url"
-            name="logo"
-            value={formData.logo}
-            onChange={handleInputChange}
-            placeholder="https://example.com/logo.png"
+          <Label htmlFor="logo">Logo</Label>
+          <UploadDropzone
+            endpoint="imageUploader"
+            onClientUploadComplete={(res) => {
+              if (res && res.length > 0 && res[0].url) {
+                console.log("Logo upload complete, URL:", res[0].url);
+                setFormData((prev: any) => ({ ...prev, logo: res[0].url }));
+                setLogoPreview(res[0].url);
+              }
+            }}
+            onUploadError={(error: Error) => {
+              alert(`ERROR! ${error.message}`);
+            }}
           />
-          {formData.logo && (
+          {logoPreview && (
             <div className="mt-2">
               <img
-                src={formData.logo || "/placeholder.svg"}
+                src={logoPreview}
                 alt="Logo Preview"
                 className="w-24 h-24 object-contain rounded-md border"
-                onError={(e) => {
-                  e.currentTarget.style.display = "none";
-                }}
               />
             </div>
           )}

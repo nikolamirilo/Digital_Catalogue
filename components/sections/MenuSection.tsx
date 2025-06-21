@@ -9,9 +9,9 @@ import { useMainContext } from "@/context/MainContext";
 import Toggle from "../common/Toggle";
 import CardType4 from "../cards/CardType4";
 
-const MenuSection = ({ menuData }: { menuData: any }) => {
+const MenuSection = ({ menuData, currency }: { menuData: any, currency: string }) => {
   // Transform sectionsData
-  const { currency, layout } = useMainContext();
+  const { layout, setCurrency } = useMainContext();
   const sectionsData = Object.keys(menuData).map((item) => ({
     title: item.charAt(0).toUpperCase() + item.slice(1).replace(/_/g, " "),
     code: item,
@@ -40,6 +40,9 @@ const MenuSection = ({ menuData }: { menuData: any }) => {
         return "flex flex-row flex-wrap gap-6 mt-4"
     }
   }
+  useEffect(() => {
+    setCurrency(currency);
+  }, [currency]);
 console.log(sortedSections)
   if (menuData)
     return (

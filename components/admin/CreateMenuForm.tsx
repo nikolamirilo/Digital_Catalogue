@@ -39,7 +39,7 @@ export default function CreateMenuForm() {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [restaurantUrl, setRestaurantUrl] = useState("");
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | { target: { name: string; value: string } }) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
@@ -84,12 +84,26 @@ export default function CreateMenuForm() {
     field: keyof MenuItem,
     value: string | number
   ) => {
-    const updatedMenu = [...formData.menu];
-    updatedMenu[categoryIndex].items[itemIndex] = {
-      ...updatedMenu[categoryIndex].items[itemIndex],
-      [field]: value,
-    };
-    setFormData((prev) => ({ ...prev, menu: updatedMenu }));
+    setFormData((prev) => {
+      const newMenu = prev.menu.map((category, cIndex) => {
+        if (cIndex !== categoryIndex) {
+          return category;
+        }
+        return {
+          ...category,
+          items: category.items.map((item, iIndex) => {
+            if (iIndex !== itemIndex) {
+              return item;
+            }
+            return {
+              ...item,
+              [field]: value,
+            };
+          }),
+        };
+      });
+      return { ...prev, menu: newMenu };
+    });
   };
 
   const handleAddContact = () => {
@@ -167,6 +181,7 @@ export default function CreateMenuForm() {
 
           for (const item of category.items) {
             if (!item.name.trim()) {
+              console.log('Validation failed: Item name empty', { category: category.name, item });
               toast({
                 title: "Validation Error",
                 description: `All items in category "${category.name}" must have a name.`,
@@ -175,6 +190,7 @@ export default function CreateMenuForm() {
               return false;
             }
             if (!item.description.trim()) {
+              console.log('Validation failed: Item description empty', { category: category.name, item });
               toast({
                 title: "Validation Error",
                 description: `All items in category "${category.name}" must have a description.`,
@@ -183,6 +199,7 @@ export default function CreateMenuForm() {
               return false;
             }
             if (item.price <= 0) {
+              console.log('Validation failed: Item price zero or less', { category: category.name, item });
               toast({
                 title: "Validation Error",
                 description: `Price for item "${item.name}" in category "${category.name}" must be greater than 0.`,
@@ -191,19 +208,10 @@ export default function CreateMenuForm() {
               return false;
             }
             if (!item.image.trim()) {
+              console.log('Validation failed: Item image empty', { category: category.name, item });
               toast({
                 title: "Validation Error",
-                description: `Image URL for item "${item.name}" in category "${category.name}" is required.`,
-                variant: "destructive",
-              });
-              return false;
-            }
-            try {
-              new URL(item.image);
-            } catch {
-              toast({
-                title: "Validation Error",
-                description: `Please enter a valid image URL for item "${item.name}" in category "${category.name}".`,
+                description: `Image for item "${item.name}" in category "${category.name}" is required.`,
                 variant: "destructive",
               });
               return false;
@@ -321,6 +329,7 @@ export default function CreateMenuForm() {
             handleAddContact={handleAddContact}
             handleRemoveContact={handleRemoveContact}
             handleContactChange={handleContactChange}
+            setFormData={setFormData}
           />
         );
       case 2:
