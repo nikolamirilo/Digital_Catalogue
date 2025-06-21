@@ -31,6 +31,11 @@
 				"description": "Thick slices of bread soaked in a creamy custard, griddled to golden perfection, and served with a sprinkle of powdered sugar and fresh berries for a delightful morning treat.",
 				"price": 6.99,
 				"image": "https://www.inspiredtaste.net/wp-content/uploads/2024/07/French-Toast-Recipe-2.jpg"
+			},{
+				"name": "Greek Yogurt with Honey and Berries",
+				"description": "Creamy Greek yogurt topped with fresh mixed berries and a drizzle of natural honey.",
+				"price": 10.99,
+				"image": "https://cdn.apartmenttherapy.info/image/upload/f_auto,q_auto:eco,c_fill,g_auto,w_728,h_546/k%2FPhoto%2FRecipes%2F2019-07-recipe-balsamic-berries-honey-yogurt%2FBalsamic-Berries-Honey-Yogurt_061"
 			}
 		],
 		"lunch": [
@@ -52,6 +57,7 @@
 				"price": 10.99,
 				"image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEJiNX0GZfl21raOShpI3p-W8CkdBITCCwAQ&s"
 			}
+			
 		],
 		"snacks": [
 			{
