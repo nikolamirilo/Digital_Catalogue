@@ -1,5 +1,4 @@
 import { MainContextProvider } from "@/context/MainContext";
-import PageWrapper from "./PageWrapper";
 
 export const PageWrapperClient = ({
     children,
@@ -8,7 +7,7 @@ export const PageWrapperClient = ({
   }>) => {
     return (
       <MainContextProvider>
-        <PageWrapper children={children} />
+       {children}
       </MainContextProvider>
     );
   };

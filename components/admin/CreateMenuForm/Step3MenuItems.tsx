@@ -10,6 +10,8 @@ import { Plus, DollarSign, ImageIcon, Trash2 } from "lucide-react";
 
 import { MenuItem, MenuCategory } from "@/types";
 import { UploadDropzone } from "@/utils/uploadthing";
+import ImageDropzone from "@/components/common/ImageDropzone";
+import { IoClose } from "react-icons/io5";
 
 interface Step3MenuItemsProps {
   formData: {
@@ -115,28 +117,41 @@ const Step3MenuItems: React.FC<Step3MenuItemsProps> = ({
                   </div>
                   <div className="space-y-2 col-span-full">
                     <Label htmlFor={`item-image-${categoryIndex}-${itemIndex}`}>Image</Label>
-                    <UploadDropzone
-                      endpoint="imageUploader"
-                      onClientUploadComplete={(res) => {
-                        if (res && res.length > 0 && res[0].url) {
-                          console.log("Upload complete, URL:", res[0].url);
-                          handleItemChange(categoryIndex, itemIndex, "image", res[0].url);
-                          setImagePreviews(prev => ({ ...prev, [`${categoryIndex}-${itemIndex}`]: res[0].url }));
-                        }
-                      }}
-                      onUploadError={(error: Error) => {
-                        alert(`ERROR! ${error.message}`);
-                      }}
-                    />
-                    {(imagePreviews[`${categoryIndex}-${itemIndex}`] || item.image) && (
-                      <div className="mt-2">
-                        <img
-                          src={imagePreviews[`${categoryIndex}-${itemIndex}`] || item.image}
-                          alt="Item Preview"
-                          className="w-20 h-20 object-cover rounded-md border"
-                        />
-                      </div>
-                    )}
+                    {(imagePreviews[`${categoryIndex}-${itemIndex}`] || item.image) ? (
+                                  <div className="relative mt-2 w-48 h-48 rounded-md border overflow-hidden flex items-center justify-center bg-gray-100">
+                                  <div
+                                    className="absolute inset-0 bg-center bg-cover bg-no-repeat w-full h-full"
+                                    style={{
+                                      backgroundImage: `url('${imagePreviews[`${categoryIndex}-${itemIndex}`] || item.image}')`,
+                                      objectFit: "cover",
+                                    }}
+                                  />
+                                  <IoClose
+                                    size={25}
+                                    className="absolute top-0 right-0 z-10 bg-red-500 text-white rounded-full cursor-pointer"
+                                    onClick={() => {
+                                      setImagePreviews(prev => {
+                                        const newPreviews = { ...prev };
+                                        delete newPreviews[`${categoryIndex}-${itemIndex}`];
+                                        return newPreviews;
+                                      });
+                                      handleItemChange(categoryIndex, itemIndex, "image", "");
+                                    }}
+                                  />
+                                </div>
+                    ):
+                    <div className="cursor-pointer h-48">
+                    <ImageDropzone
+                    onUploadComplete={(url) => {
+                      handleItemChange(categoryIndex, itemIndex, "image", url);
+                      setImagePreviews(prev => ({ ...prev, [`${categoryIndex}-${itemIndex}`]: url }));
+                    }}
+                    onError={(error) => alert(`ERROR! ${error.message}`)}
+                    maxDim={512}
+                    maxSizeMB={1}
+                  />
+                  </div>
+                  }
                   </div>
                 </div>
               </Card>

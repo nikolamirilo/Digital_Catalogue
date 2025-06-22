@@ -1,0 +1,3 @@
+- Analytics using Plausable
+- Job that will delete unused images from uploadthing
+- Edit Menu

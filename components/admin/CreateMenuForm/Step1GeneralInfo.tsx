@@ -6,9 +6,17 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Plus, Tag, Trash2, FileText } from "lucide-react";
 import { UploadDropzone } from "@/utils/uploadthing";
+import { IoClose } from "react-icons/io5";
+import ImageDropzone from "@/components/common/ImageDropzone";
 
 import { ContactInfo, contactTypes } from "@/types";
 
@@ -26,10 +34,10 @@ const currencies = [
 ];
 
 const themes = [
-  { value: "light_1", label: "Light Theme 1", image: "/themes/dark.png" },
-  { value: "light_2", label: "Light Theme 2", image: "/themes/dark.png" },
-  { value: "dark_1", label: "Dark Theme 1", image: "/themes/dark.png" },
-  { value: "dark_2", label: "Dark Theme 2", image: "/themes/dark.png" },
+  { value: "light_1", label: "Light Theme 1", image: "/themes/light_1.jpg" },
+  { value: "light_2", label: "Light Theme 2", image: "/themes/light_2.jpg" },
+  { value: "dark_1", label: "Dark Theme 1", image: "/themes/dark_1.jpg" },
+  { value: "dark_2", label: "Dark Theme 2", image: "/themes/dark_2.jpg" },
 ];
 
 const layouts = [
@@ -51,10 +59,18 @@ interface Step1GeneralInfoProps {
     contact: ContactInfo[];
     subtitle?: string;
   };
-  handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | { target: { name: string; value: string } }) => void;
+  handleInputChange: (
+    e:
+      | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+      | { target: { name: string; value: string } }
+  ) => void;
   handleAddContact: () => void;
   handleRemoveContact: (index: number) => void;
-  handleContactChange: (index: number, field: keyof ContactInfo, value: string) => void;
+  handleContactChange: (
+    index: number,
+    field: keyof ContactInfo,
+    value: string
+  ) => void;
   setFormData: React.Dispatch<React.SetStateAction<any>>;
 }
 
@@ -66,7 +82,9 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
   handleContactChange,
   setFormData,
 }) => {
-  const [logoPreview, setLogoPreview] = useState<string | null>(formData.logo || null);
+  const [logoPreview, setLogoPreview] = useState<string | null>(
+    formData.logo || null
+  );
 
   return (
     <div className="space-y-6 p-6 border rounded-lg shadow-sm bg-gray-50">
@@ -106,30 +124,39 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
             value={formData.subtitle}
             onChange={handleInputChange}
             placeholder="A short tagline or description"
-            rows={2}
+            className="h-48"
           />
         </div>
         <div className="space-y-2">
           <Label htmlFor="logo">Logo</Label>
-          <UploadDropzone
-            endpoint="imageUploader"
-            onClientUploadComplete={(res) => {
-              if (res && res.length > 0 && res[0].url) {
-                console.log("Logo upload complete, URL:", res[0].url);
-                setFormData((prev: any) => ({ ...prev, logo: res[0].url }));
-                setLogoPreview(res[0].url);
-              }
-            }}
-            onUploadError={(error: Error) => {
-              alert(`ERROR! ${error.message}`);
-            }}
-          />
-          {logoPreview && (
-            <div className="mt-2">
-              <img
-                src={logoPreview}
-                alt="Logo Preview"
-                className="w-24 h-24 object-contain rounded-md border"
+          {logoPreview ? (
+            <div className="relative mt-2 w-48 h-48 rounded-md border overflow-hidden flex items-center justify-center bg-gray-100">
+              <div
+                className="absolute inset-0 bg-center bg-cover bg-no-repeat w-full h-full"
+                style={{
+                  backgroundImage: `url('${logoPreview}')`,
+                  objectFit: "cover",
+                }}
+              />
+              <IoClose
+                size={25}
+                className="absolute top-0 right-0 z-10 bg-red-500 text-white rounded-full cursor-pointer"
+                onClick={() => {
+                  setLogoPreview(null);
+                  setFormData((prev: any) => ({ ...prev, logo: undefined }));
+                }}
+              />
+            </div>
+          ) : (
+            <div className="cursor-pointer h-48">
+              <ImageDropzone
+                onUploadComplete={(url) => {
+                  setFormData((prev: any) => ({ ...prev, logo: url }));
+                  setLogoPreview(url);
+                }}
+                onError={(error) => alert(`ERROR! ${error.message}`)}
+                maxDim={512}
+                maxSizeMB={1}
               />
             </div>
           )}
@@ -138,7 +165,11 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
           <Label htmlFor="currency">Currency (e.g., USD, EUR)</Label>
           <Select
             value={formData.currency || ""}
-            onValueChange={(value) => handleInputChange({ target: { name: "currency", value } } as React.ChangeEvent<HTMLInputElement>)}
+            onValueChange={(value) =>
+              handleInputChange({
+                target: { name: "currency", value },
+              } as React.ChangeEvent<HTMLInputElement>)
+            }
           >
             <SelectTrigger>
               <SelectValue placeholder="Select currency" />
@@ -165,15 +196,31 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
         </div>
         {/* Theme Selection */}
         <div className="space-y-2 col-span-full">
-          <Label htmlFor="theme">Theme: {themes.find(t => t.value === formData.theme)?.label || 'Not Selected'}</Label>
+          <Label htmlFor="theme">
+            Theme:{" "}
+            {themes.find((t) => t.value === formData.theme)?.label ||
+              "Not Selected"}
+          </Label>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {themes.map((themeOption) => (
               <div
                 key={themeOption.value}
-                className={`relative cursor-pointer rounded-lg border-2 p-1 ${formData.theme === themeOption.value ? "border-indigo-600" : "border-gray-200 hover:border-gray-300"}`}
-                onClick={() => handleInputChange({ target: { name: "theme", value: themeOption.value } } as React.ChangeEvent<HTMLInputElement>)}
+                className={`relative cursor-pointer rounded-lg border-2 p-1 ${
+                  formData.theme === themeOption.value
+                    ? "border-indigo-600"
+                    : "border-gray-200 hover:border-gray-300"
+                }`}
+                onClick={() =>
+                  handleInputChange({
+                    target: { name: "theme", value: themeOption.value },
+                  } as React.ChangeEvent<HTMLInputElement>)
+                }
               >
-                <img src={themeOption.image} alt={themeOption.label} className="w-full h-24 object-cover rounded-md" />
+                <img
+                  src={themeOption.image}
+                  alt={themeOption.label}
+                  className="w-full h-24 object-cover rounded-md"
+                />
                 <p className="text-center text-sm mt-1">{themeOption.label}</p>
               </div>
             ))}
@@ -182,15 +229,31 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
 
         {/* Layout Selection */}
         <div className="space-y-2 col-span-full">
-          <Label htmlFor="layout">Layout: {layouts.find(l => l.value === formData.layout)?.label || 'Not Selected'}</Label>
+          <Label htmlFor="layout">
+            Layout:{" "}
+            {layouts.find((l) => l.value === formData.layout)?.label ||
+              "Not Selected"}
+          </Label>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {layouts.map((layoutOption) => (
               <div
                 key={layoutOption.value}
-                className={`relative cursor-pointer rounded-lg border-2 p-1 ${formData.layout === layoutOption.value ? "border-indigo-600" : "border-gray-200 hover:border-gray-300"}`}
-                onClick={() => handleInputChange({ target: { name: "layout", value: layoutOption.value } } as React.ChangeEvent<HTMLInputElement>)}
+                className={`relative cursor-pointer rounded-lg border-2 p-1 ${
+                  formData.layout === layoutOption.value
+                    ? "border-indigo-600"
+                    : "border-gray-200 hover:border-gray-300"
+                }`}
+                onClick={() =>
+                  handleInputChange({
+                    target: { name: "layout", value: layoutOption.value },
+                  } as React.ChangeEvent<HTMLInputElement>)
+                }
               >
-                <img src={layoutOption.image} alt={layoutOption.label} className="w-full h-24 object-cover rounded-md" />
+                <img
+                  src={layoutOption.image}
+                  alt={layoutOption.label}
+                  className="w-full h-24 object-cover rounded-md"
+                />
                 <p className="text-center text-sm mt-1">{layoutOption.label}</p>
               </div>
             ))}
@@ -204,10 +267,14 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
           {formData.contact.map((contact, index) => (
             <div key={index} className="flex items-end gap-2">
               <div className="flex-grow space-y-2">
-                <Label htmlFor={`contact-type-${index}`} className="sr-only">Contact Type</Label>
+                <Label htmlFor={`contact-type-${index}`} className="sr-only">
+                  Contact Type
+                </Label>
                 <Select
                   value={contact.type}
-                  onValueChange={(value) => handleContactChange(index, "type", value)}
+                  onValueChange={(value) =>
+                    handleContactChange(index, "type", value)
+                  }
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select type" />
@@ -222,13 +289,17 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
                 </Select>
               </div>
               <div className="flex-grow space-y-2">
-                <Label htmlFor={`contact-value-${index}`} className="sr-only">Contact Value</Label>
+                <Label htmlFor={`contact-value-${index}`} className="sr-only">
+                  Contact Value
+                </Label>
                 <Input
                   id={`contact-value-${index}`}
                   type="text"
                   placeholder="Enter value"
                   value={contact.value}
-                  onChange={(e) => handleContactChange(index, "value", e.target.value)}
+                  onChange={(e) =>
+                    handleContactChange(index, "value", e.target.value)
+                  }
                 />
               </div>
               <Button

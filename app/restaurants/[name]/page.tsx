@@ -3,6 +3,7 @@ import React from "react"
 import MenuSection from "@/components/sections/MenuSection";
 import { cookies } from "next/headers";
 import { createClient } from '@/utils/supabase/server'
+import Navbar from "@/components/navigation/Navbar";
 
 const page = async ({ params }: { params: Promise<{name: string}> }) => {
   const { name } = await params
@@ -12,6 +13,8 @@ const page = async ({ params }: { params: Promise<{name: string}> }) => {
   if(data[0]){
   let restaurant: any = data[0]
     return (
+      <>
+      <Navbar restaurantData={restaurant}/>
       <main>
         <div className="py-6 text-center flex flex-col justify-center items-center gap-4">
           <h1 className="text-4xl font-bold text-navigationMain">{restaurant.title}</h1>
@@ -26,6 +29,7 @@ const page = async ({ params }: { params: Promise<{name: string}> }) => {
         </div>
         {restaurant && <MenuSection menuData={restaurant.menu} currency={restaurant.currency} />}
       </main>
+      </>
 
     )}
 };

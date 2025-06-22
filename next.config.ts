@@ -16,6 +16,10 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'restoranplato.rs',
       },
+      {
+        protocol: 'https',
+        hostname: 'utfs.io',
+      },
     ],
   }
 };
