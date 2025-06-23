@@ -16,7 +16,7 @@ const page = async ({ params }: { params: Promise<{name: string}> }) => {
       <>
       <Navbar restaurantData={restaurant}/>
       <main>
-        <div className="py-6 text-center flex flex-col justify-center items-center gap-4">
+        <div className="py-24 text-center flex flex-col justify-center items-center gap-4">
           <h1 className="text-4xl font-bold text-navigationMain">{restaurant.title}</h1>
           <p className="text-txtTertiary text-lg 2xl:text-xl px-5 max-w-[1000px]">
             {restaurant.subtitle}

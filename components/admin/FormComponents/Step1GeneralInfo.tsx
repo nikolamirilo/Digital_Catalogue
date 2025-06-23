@@ -14,7 +14,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Plus, Tag, Trash2, FileText } from "lucide-react";
-import { UploadDropzone } from "@/utils/uploadthing";
 import { IoClose } from "react-icons/io5";
 import ImageDropzone from "@/components/common/ImageDropzone";
 
@@ -89,7 +88,7 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
   return (
     <div className="space-y-6 p-6 border rounded-lg shadow-sm bg-gray-50">
       <h2 className="text-2xl font-semibold text-gray-800 flex items-center gap-2">
-        <FileText className="h-6 w-6 text-indigo-600" />
+        <FileText className="text-indigo-600" size={25}/>
         Restaurant Details
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -106,7 +105,7 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
           />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="title">Title (e.g., Our Menu)</Label>
+          <Label htmlFor="title">Title (e.g., Plato Restaurant)</Label>
           <Input
             id="title"
             type="text"

@@ -120,7 +120,8 @@ const SuccessModal: React.FC<SuccessModalProps> = ({
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement("a");
                 a.href = url;
-                a.download = "embed-menu.html";
+                const restaurantName = restaurantUrl.split("/")[2];
+                a.download = `${restaurantName}.html`;
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);

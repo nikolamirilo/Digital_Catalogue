@@ -6,10 +6,9 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Plus, DollarSign, ImageIcon, Trash2 } from "lucide-react";
-
+import { Plus, Trash2 } from "lucide-react";
+import { BiDish } from "react-icons/bi";
 import { MenuItem, MenuCategory } from "@/types";
-import { UploadDropzone } from "@/utils/uploadthing";
 import ImageDropzone from "@/components/common/ImageDropzone";
 import { IoClose } from "react-icons/io5";
 
@@ -38,7 +37,7 @@ const Step3MenuItems: React.FC<Step3MenuItemsProps> = ({
   return (
     <div className="space-y-6 p-6 border rounded-lg shadow-sm bg-gray-50">
       <h2 className="text-2xl font-semibold text-gray-800 flex items-center gap-2">
-        <ImageIcon className="h-6 w-6 text-indigo-600" />
+        <BiDish className="text-indigo-600" size={30} />
         Add Menu Items
       </h2>
       {formData.menu.length === 0 ? (
