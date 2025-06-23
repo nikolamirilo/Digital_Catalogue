@@ -4,22 +4,14 @@ import type React from "react"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { toast } from "@/hooks/use-toast"
 import { ArrowRight, ArrowLeft } from "lucide-react"
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
-import Link from "next/link";
+import Step1GeneralInfo from "./FormComponents/Step1GeneralInfo";
+import Step2MenuSections from "./FormComponents/Step2MenuSections";
+import Step3MenuItems from "./FormComponents/Step3MenuItems";
+import SuccessModal from "./FormComponents/SuccessModal";
 
-// Import step components
-import Step1GeneralInfo from "./CreateMenuForm/Step1GeneralInfo";
-import Step2MenuSections from "./CreateMenuForm/Step2MenuSections";
-import Step3MenuItems from "./CreateMenuForm/Step3MenuItems";
-import SuccessModal from "./CreateMenuForm/SuccessModal";
-
-import { MenuItem, MenuCategory, ContactInfo, RestaurantFormData, contactTypes } from "@/types";
+import { MenuItem, ContactInfo, RestaurantFormData } from "@/types";
 
 export default function CreateMenuForm() {
   const [formData, setFormData] = useState<RestaurantFormData>({
