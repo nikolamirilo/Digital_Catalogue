@@ -34,17 +34,17 @@ const currencies = [
 ];
 
 const themes = [
-  { value: "light_1", label: "Light Theme 1", image: "/themes/light_1.jpg" },
-  { value: "light_2", label: "Light Theme 2", image: "/themes/light_2.jpg" },
-  { value: "dark_1", label: "Dark Theme 1", image: "/themes/dark_1.jpg" },
-  { value: "dark_2", label: "Dark Theme 2", image: "/themes/dark_2.jpg" },
+  { value: "light_1", label: "Creative Light", image: "/themes/light_1.jpg" },
+  { value: "light_2", label: "Luxury Light", image: "/themes/light_2.jpg" },
+  { value: "dark_1", label: "Creative Dark", image: "/themes/dark_1.jpg" },
+  { value: "dark_2", label: "Luxury Dark", image: "/themes/dark_2.jpg" },
 ];
 
 const layouts = [
-  { value: "variant_1", label: "Layout Variant 1", image: "/layouts/1.png" },
-  { value: "variant_2", label: "Layout Variant 2", image: "/layouts/1.png" },
-  { value: "variant_3", label: "Layout Variant 3", image: "/layouts/4.png" },
-  { value: "variant_4", label: "Layout Variant 4", image: "/layouts/4.png" },
+  { value: "variant_1", label: "Layout Variant 1", image: "/layouts/layout_1.jpg" },
+  { value: "variant_2", label: "Layout Variant 2", image: "/layouts/layout_2.jpg" },
+  { value: "variant_3", label: "Layout Variant 3", image: "/layouts/layout_3.jpg" },
+  { value: "variant_4", label: "Layout Variant 4", image: "/layouts/layout_4.jpg" },
 ];
 
 interface Step1GeneralInfoProps {
@@ -201,7 +201,7 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
             {themes.find((t) => t.value === formData.theme)?.label ||
               "Not Selected"}
           </Label>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 gap-2">
             {themes.map((themeOption) => (
               <div
                 key={themeOption.value}
@@ -252,7 +252,7 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
                 <img
                   src={layoutOption.image}
                   alt={layoutOption.label}
-                  className="w-full h-24 object-cover rounded-md"
+                  className="w-full h-fit object-cover object-top rounded-md"
                 />
                 <p className="text-center text-sm mt-1">{layoutOption.label}</p>
               </div>
