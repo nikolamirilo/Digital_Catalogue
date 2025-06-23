@@ -1,12 +1,14 @@
 // @ts-nocheck
-import React from "react"
+import React, { useEffect } from "react"
 import Toggle from "@/components/common/Toggle";
 import MenuSection from "@/components/sections/MenuSection";
 import data from "../showcase.json"
+import { saEvent } from "@/utils/analytics";
 
 export const dynamic = "force-dynamic"
 
 const DigitalMenu: React.FC = async () => {
+  saEvent('page_view');
   return (
     <main>
       <div className="py-6 text-center flex flex-col justify-center items-center gap-4">
