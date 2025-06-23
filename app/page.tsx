@@ -8,7 +8,6 @@ import { saEvent } from "@/utils/analytics";
 export const dynamic = "force-dynamic"
 
 const DigitalMenu: React.FC = async () => {
-  saEvent('page_view');
   return (
     <main>
       <div className="py-6 text-center flex flex-col justify-center items-center gap-4">

@@ -12,6 +12,7 @@ import Step3MenuItems from "./Step3MenuItems";
 import SuccessModal from "./SuccessModal";
 
 import { MenuItem, ContactInfo, RestaurantFormData } from "@/types";
+import { saEvent } from "@/utils/analytics";
 
 interface MenuFormBaseProps {
   type: 'create' | 'edit';
@@ -239,6 +240,7 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
 
   const handlePrevious = () => {
     setCurrentStep((prev) => prev - 1);
+    saEvent("button_click")
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
