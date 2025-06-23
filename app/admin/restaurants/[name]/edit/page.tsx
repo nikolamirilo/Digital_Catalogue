@@ -43,7 +43,7 @@ export default async function EditMenuPage({ params }: { params: Promise<{ name:
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="container mx-auto p-4">
       <EditMenuForm initialData={initialData} />
     </div>
   );
