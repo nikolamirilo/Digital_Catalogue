@@ -138,7 +138,7 @@ const SuccessModal: React.FC<SuccessModalProps> = ({
           <Button
             className="flex gap-1"
             onClick={() => {
-              router.push(fullURL);
+              window.open(fullURL, '_blank');
             }}
           >
             <IoMdOpen size={25} /> View

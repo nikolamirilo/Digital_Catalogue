@@ -1,5 +1,4 @@
 // @ts-nocheck
-import React, { useEffect } from "react"
 import Toggle from "@/components/common/Toggle";
 import MenuSection from "@/components/sections/MenuSection";
 import data from "../showcase.json"
