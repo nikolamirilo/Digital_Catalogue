@@ -1,12 +1,8 @@
 'use client'
-import { useMainContext } from '@/context/MainContext'
 import { Record } from '@/types'
 import React from 'react'
 
-const CardType4 = ({ record }: { record: Record }) => {
-  const context = useMainContext()
-  if (!context) return null
-  const { formatCurrency, currency, isLoading } = context
+const CardType4 = ({ record, currency }: { record: Record, currency: string }) => {
 
   return (
     <div className="flex flex-col bg-[#2E2E2E] rounded-[16px] border border-[#E9F5FE]/15 shadow-[0_0_5px_1px_rgba(233,245,254,0.2)] w-full max-w-[350px]">
@@ -24,7 +20,7 @@ const CardType4 = ({ record }: { record: Record }) => {
           {record.description}
         </p>
         <span className="text-[18px] sm:text-[24px] font-thin text-[#00BCD4] font-petrona text-left">
-          {isLoading ? '' : formatCurrency(record.price, 'USD', currency)}
+        {record.price} {currency}
         </span>
       </div>
     </div>

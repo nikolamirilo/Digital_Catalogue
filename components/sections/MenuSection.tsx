@@ -108,15 +108,15 @@ const MenuSection = ({ menuData, currency, layout, type }: { menuData: any, curr
                     {menuData[item.code].map((record, i) => {
                       switch (variant) {
                         case "variant_1":
-                          return <CardType1 key={i} record={record} />;
+                          return <CardType1 key={i} record={record} currency={currency} />;
                         case "variant_2":
-                          return <CardType2 key={i} record={record} />;
+                          return <CardType2 key={i} record={record} currency={currency}/>;
                         case "variant_3":
-                          return <CardType3 key={i} record={record} />;
+                          return <CardType3 key={i} record={record} currency={currency}/>;
                         case "variant_4":
-                          return <CardType4 key={i} record={record} />;
+                          return <CardType4 key={i} record={record} currency={currency}/>;
                         default:
-                          return <CardType1 key={i} record={record} />;
+                          return <CardType1 key={i} record={record} currency={currency}/>;
                       }
                     })}
                   </div>

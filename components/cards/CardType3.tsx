@@ -1,7 +1,7 @@
 import { Record } from '@/types'
 import React from 'react'
 
-const CardType3 = ({ record }: { record: Record }) => {
+const CardType3 = ({ record, currency }: { record: Record, currency: string }) => {
   return (
     <div className="bg-[#2E2E2E] rounded-[12px] p-3 sm:p-4 text-white flex flex-col sm:flex-row border border-[#E9F5FE]/15 shadow-[0_0_5px_1px_rgba(233,245,254,0.2)] gap-2 sm:items-center sm:justify-between">
 
@@ -16,7 +16,7 @@ const CardType3 = ({ record }: { record: Record }) => {
 
       <div className="pt-2 sm:pt-0 sm:pl-4 flex-shrink-0 text-right">
         <span className="text-[18px] sm:text-[22px] font-thin text-[#00BCD4] font-petrona block">
-          ${record.price}
+        {record.price} {currency}
         </span>
       </div>
     </div>

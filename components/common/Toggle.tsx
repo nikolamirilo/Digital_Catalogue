@@ -19,7 +19,7 @@ const Toggle = () => {
           setLayout("variant_4")
         }}>Layout 4</button>
       </div>
-      <label className="inline-flex items-center cursor-pointer">
+      {/* <label className="inline-flex items-center cursor-pointer">
         <span className={`me-3 text-lg text-secondary ${currency == "USD" ? "font-bold" : ""}`}>
           USD
         </span>
@@ -34,7 +34,7 @@ const Toggle = () => {
         <span className={`ms-3 text-lg text-secondary ${currency == "RSD" ? "font-bold" : ""}`}>
           RSD
         </span>
-      </label>
+      </label> */}
     </div>
   );
 };
