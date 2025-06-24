@@ -8,10 +8,11 @@ import CardType3 from "../cards/CardType3";
 import { useMainContext } from "@/context/MainContext";
 import Toggle from "../common/Toggle";
 import CardType4 from "../cards/CardType4";
+import { FiChevronDown } from "react-icons/fi";
+import { motion, AnimatePresence } from "framer-motion";
 
-const MenuSection = ({ menuData, currency }: { menuData: any, currency: string }) => {
+const MenuSection = ({ menuData, currency, layout }: { menuData: any, currency: string, layout:string }) => {
   // Transform sectionsData
-  const { layout, setCurrency } = useMainContext();
   const sectionsData = Object.keys(menuData).map((item) => ({
     title: item.charAt(0).toUpperCase() + item.slice(1).replace(/_/g, " "),
     code: item,
@@ -24,6 +25,9 @@ const MenuSection = ({ menuData, currency }: { menuData: any, currency: string }
     const bIndex = customOrder.indexOf(b.code);
     return (aIndex === -1 ? 999 : aIndex) - (bIndex === -1 ? 999 : bIndex);
   });
+
+  // State to track expanded sections
+  const [expandedSections, setExpandedSections] = useState<{ [key: string]: boolean }>({});
 
   //Obrati paznju - tu se radi positioning kartica
   function returnVariantStyle(variant){
@@ -51,35 +55,65 @@ const MenuSection = ({ menuData, currency }: { menuData: any, currency: string }
         return "flex flex-row flex-wrap gap-6 mt-4"
     }
   }
-  useEffect(() => {
-    setCurrency(currency);
-  }, [currency]);
-console.log(sortedSections)
+
+  // Toggle expand/collapse for a section
+  const handleToggleSection = (code: string) => {
+    setExpandedSections((prev) => ({
+      ...prev,
+      [code]: !prev[code],
+    }));
+  };
+
+  //console.log(sortedSections)
   if (menuData)
     return (
       <main className="max-w-6xl mx-auto px-4">
         {sortedSections.map((item, index) => (
           <section key={item.code} className="mb-10" id={item.code}>
-            <h2 className="text-3xl font-semibold border-b-2 border-borderPrimary pb-2">
-              {item.title}
-            </h2>
-            <div className={`${returnVariantStyle(layout)}`}>
-              {menuData[item.code].map((record, i) => {
-                switch (layout) {
-                  case "variant_1":
-                    return <CardType1 key={i} record={record} />;
-                  case "variant_2":
-                    return <CardType2 key={i} record={record} />;
-                  case "variant_3":
-                    return <CardType3 key={i} record={record} />;
-                  case "variant_4":
-                    return <CardType4 key={i} record={record} />;
-                  default:
-                    return <CardType1 key={i} record={record} />;
-                }
-              })}
-
-            </div>
+            <button
+              className="w-full flex items-center justify-between px-4 py-3 text-2xl md:text-3xl font-semibold border-b-2 border-borderPrimary focus:outline-none hover:bg-white/10 rounded-lg shadow transition-colors duration-200 group"
+              onClick={() => handleToggleSection(item.code)}
+              aria-expanded={!!expandedSections[item.code]}
+              aria-controls={`section-content-${item.code}`}
+              type="button"
+              style={{ boxShadow: '0 2px 8px 0 rgba(0,0,0,0.04)' }}
+            >
+              <span className="truncate">{item.title}</span>
+              <FiChevronDown
+                className={`ml-4 text-3xl transition-transform duration-300 ${expandedSections[item.code] ? 'rotate-180' : 'rotate-0'}`}
+                aria-hidden="true"
+              />
+            </button>
+            <AnimatePresence initial={false}>
+              {expandedSections[item.code] && (
+                <motion.div
+                  id={`section-content-${item.code}`}
+                  key={item.code}
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: 'auto', opacity: 1, marginTop: 16 }}
+                  exit={{ height: 0, opacity: 0, marginTop: 0 }}
+                  transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
+                  className="overflow-hidden"
+                >
+                  <div className={`${returnVariantStyle(layout)}`}>
+                    {menuData[item.code].map((record, i) => {
+                      switch (layout) {
+                        case "variant_1":
+                          return <CardType1 key={i} record={record} />;
+                        case "variant_2":
+                          return <CardType2 key={i} record={record} />;
+                        case "variant_3":
+                          return <CardType3 key={i} record={record} />;
+                        case "variant_4":
+                          return <CardType4 key={i} record={record} />;
+                        default:
+                          return <CardType1 key={i} record={record} />;
+                      }
+                    })}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </section>
         ))}
       </main>

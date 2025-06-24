@@ -39,6 +39,7 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [restaurantUrl, setRestaurantUrl] = useState("");
+  const [imagePreviews, setImagePreviews] = useState<{ [key: string]: string }>({});
 
   useEffect(() => {
     if (initialData) setFormData(initialData);
@@ -73,9 +74,18 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
     const updatedMenu = [...formData.menu];
     updatedMenu[categoryIndex].items = [
       { name: "", description: "", price: 0, image: "" },
-      ...updatedMenu[categoryIndex].items,
+      ...updatedMenu[categoryIndex].items.map(item => ({ ...item, image: item.image || "" })),
     ];
     setFormData((prev) => ({ ...prev, menu: updatedMenu }));
+    setImagePreviews(prev => {
+      const newPreviews = { ...prev };
+      delete newPreviews[`${categoryIndex}-0`];
+      const itemsLength = updatedMenu[categoryIndex].items.length;
+      for (let i = itemsLength - 1; i > 0; i--) {
+        newPreviews[`${categoryIndex}-${i}`] = prev[`${categoryIndex}-${i-1}`] || "";
+      }
+      return newPreviews;
+    });
   };
 
   const handleRemoveItem = (categoryIndex: number, itemIndex: number) => {
@@ -344,6 +354,8 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
             handleAddItem={handleAddItem}
             handleRemoveItem={handleRemoveItem}
             handleItemChange={handleItemChange}
+            imagePreviews={imagePreviews}
+            setImagePreviews={setImagePreviews}
           />
         );
       default:

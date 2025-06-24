@@ -25,7 +25,7 @@ const DigitalMenu: React.FC = async () => {
       <div className="flex flex-row justify-center items-center w-full">
         <Toggle />
       </div>
-      {data && <MenuSection menuData={data.menu} />}
+      {data && <MenuSection menuData={data.menu} currency={data.currency} layout={data.layout}/>}
     </main>
   );
 };

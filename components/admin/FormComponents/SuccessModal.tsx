@@ -42,12 +42,22 @@ const SuccessModal: React.FC<SuccessModalProps> = ({
   };
   const handleDownloadPng = () => {
     const svg = document.querySelector("#success-modal-qr svg");
-    if (!svg) return;
+    if (!svg) {
+      console.error('QR SVG not found!');
+      return;
+    }
+    // Clone the SVG node to avoid React/DOM issues
+    const clone = svg.cloneNode(true) as SVGSVGElement;
+    // Set width/height attributes for clarity
+    clone.setAttribute("width", "512");
+    clone.setAttribute("height", "512");
+    // Serialize the SVG
     const serializer = new XMLSerializer();
-    const source = serializer.serializeToString(svg);
+    const source = serializer.serializeToString(clone);
+    // Create a Blob from the SVG
+    const blob = new Blob([source], { type: "image/svg+xml;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
     const img = new window.Image();
-    const svg64 = window.btoa(unescape(encodeURIComponent(source)));
-    img.src = "data:image/svg+xml;base64," + svg64;
     img.onload = function () {
       const canvas = document.createElement("canvas");
       canvas.width = 512;
@@ -57,18 +67,27 @@ const SuccessModal: React.FC<SuccessModalProps> = ({
       ctx!.fillRect(0, 0, canvas.width, canvas.height);
       ctx!.drawImage(img, 0, 0, canvas.width, canvas.height);
       canvas.toBlob((blob) => {
-        if (!blob) return;
-        const url = URL.createObjectURL(blob);
+        if (!blob) {
+          console.error('Failed to create PNG blob from canvas!');
+          return;
+        }
+        const url2 = URL.createObjectURL(blob);
         const a = document.createElement("a");
         const restaurantName = restaurantUrl.split("/")[2];
         a.download = `${restaurantName}.png`;
-        a.href = url;
+        a.href = url2;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
+        URL.revokeObjectURL(url2);
         URL.revokeObjectURL(url);
       }, "image/png");
     };
+    img.onerror = function () {
+      console.error('Failed to load SVG as image!');
+      URL.revokeObjectURL(url);
+    };
+    img.src = url;
   };
   useEffect(() => {
     setFullURL(`${window.location.origin}${restaurantUrl}`);
@@ -89,7 +108,9 @@ const SuccessModal: React.FC<SuccessModalProps> = ({
         {/* QR Code Section */}
         <div className="flex flex-col items-start gap-2 w-full">
           <h4 className="font-semibold mb-2 text-black">Add QR code as your menu</h4>
+          <div id="success-modal-qr">
             <QRCodeSVG value={fullURL} size={180} bgColor="#fff" fgColor="#000" />
+          </div>
           <div className="flex flex-row mt-1 w-full">
             <Button className="flex gap-1" onClick={handleDownloadPng}>
               <IoQrCode size={22}/> Download QR code

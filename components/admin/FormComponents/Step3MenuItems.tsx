@@ -24,6 +24,8 @@ interface Step3MenuItemsProps {
     field: keyof MenuItem,
     value: string | number
   ) => void;
+  imagePreviews: { [key: string]: string };
+  setImagePreviews: React.Dispatch<React.SetStateAction<{ [key: string]: string }>>;
 }
 
 const Step3MenuItems: React.FC<Step3MenuItemsProps> = ({
@@ -31,9 +33,9 @@ const Step3MenuItems: React.FC<Step3MenuItemsProps> = ({
   handleAddItem,
   handleRemoveItem,
   handleItemChange,
+  imagePreviews,
+  setImagePreviews,
 }) => {
-  const [imagePreviews, setImagePreviews] = useState<{ [key: string]: string }>({});
-
   return (
     <div className="space-y-6 p-6 border rounded-lg shadow-sm bg-gray-50">
       <h2 className="text-2xl font-semibold text-gray-800 flex items-center gap-2">
