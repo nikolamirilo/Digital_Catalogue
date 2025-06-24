@@ -31,11 +31,22 @@ const MenuSection = ({ menuData, currency }: { menuData: any, currency: string }
       case "variant_1":
         return "grid grid-cols-1 md:grid-cols-2 gap-6 mt-4"
       case "variant_2":
-        return "flex flex-row flex-wrap gap-6 mt-4"
+        return "flex flex-wrap justify-start gap-3 sm:gap-4 md:gap-6 mt-4"
+
       case "variant_3":
         return "grid grid-cols-1 md:grid-cols-2 gap-6 mt-4"
       case "variant_4":
-        return "flex flex-row flex-wrap gap-6 mt-4 justify-center md:justify-start"
+        return `
+        grid
+        grid-cols-1
+        sm:grid-cols-1
+        md:grid-cols-2
+        lg:grid-cols-3
+        gap-6
+        mt-4
+        justify-items-center
+        lg:justify-items-start
+      `.replace(/\s+/g, ' ').trim();
       default:
         return "flex flex-row flex-wrap gap-6 mt-4"
     }
