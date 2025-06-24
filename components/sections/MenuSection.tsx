@@ -11,8 +11,10 @@ import CardType4 from "../cards/CardType4";
 import { FiChevronDown } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
 
-const MenuSection = ({ menuData, currency, layout }: { menuData: any, currency: string, layout:string }) => {
+const MenuSection = ({ menuData, currency, layout, type }: { menuData: any, currency: string, layout:string, type: "demo" | "restaurant" }) => {
   // Transform sectionsData
+  const [variant, setVariant] = useState("variant_1")
+  const context = useMainContext()
   const sectionsData = Object.keys(menuData).map((item) => ({
     title: item.charAt(0).toUpperCase() + item.slice(1).replace(/_/g, " "),
     code: item,
@@ -63,6 +65,13 @@ const MenuSection = ({ menuData, currency, layout }: { menuData: any, currency: 
       [code]: !prev[code],
     }));
   };
+  useEffect(() => {
+    if(type=="demo"){
+      setVariant(context.layout)
+    }else{
+      setVariant(layout)
+    }
+  }, [context.layout, type])
 
   //console.log(sortedSections)
   if (menuData)
@@ -95,9 +104,9 @@ const MenuSection = ({ menuData, currency, layout }: { menuData: any, currency: 
                   transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
                   className="overflow-hidden"
                 >
-                  <div className={`${returnVariantStyle(layout)}`}>
+                  <div className={`${returnVariantStyle(variant)}`}>
                     {menuData[item.code].map((record, i) => {
-                      switch (layout) {
+                      switch (variant) {
                         case "variant_1":
                           return <CardType1 key={i} record={record} />;
                         case "variant_2":
