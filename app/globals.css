@@ -7,6 +7,31 @@ a {
   position: relative;
   text-decoration: none;
 }
+/* Theme: Luxury */
+.theme-luxury {
+  --primary: 0 0% 20%;           /* #333333 */
+  --secondary: 0 0% 40%;         /* #666666 */
+  --accent: 47 64% 52%;          /* #D3AF37 */
+  --card: 0 0% 100%;             /* #FFFFFF */
+  --foreground: 0 0% 20%;
+  --background: 0 0% 100%;
+  --primary-foreground: 0 0% 100%;
+  --secondary-foreground: 0 0% 100%;
+  --card-foreground: 0 0% 20%;
+}
+
+/* Theme: Creative Light */
+.theme-creative {
+  --primary: 60 17% 97%;         /* #F7F8F2 */
+  --secondary: 230 30% 73%;      /* #A6ACCE */
+  --accent: 0 97% 71%;           /* #FD6C6B */
+  --card: 248 20% 14%;           /* #1F1E2E */
+  --foreground: 60 17% 97%;
+  --background: 248 20% 14%;
+  --primary-foreground: 248 20% 14%;
+  --secondary-foreground: 248 20% 14%;
+  --card-foreground: 60 17% 97%;
+}
 a:after {
   display: block;
   content: '';

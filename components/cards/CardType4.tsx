@@ -13,13 +13,13 @@ const CardType4 = ({ record, currency }: { record: Record, currency: string }) =
       ></div>
 
       <div className="flex flex-col justify-between p-3">
-        <h5 className="mb-2 text-[18px] sm:text-[28px] font-normal text-white font-playfair text-left">
+        <h5 className="mb-2 text-[18px] sm:text-[28px] font-normal text-white font-lora text-left">
           {record.name}
         </h5>
-        <p className="mb-2 text-[14px] sm:text-[16px] text-[#CCCCCC] font-normal font-playfair text-left">
+        <p className="mb-2 text-[14px] sm:text-[16px] text-[#CCCCCC] font-normal font-lora text-left">
           {record.description}
         </p>
-        <span className="text-[18px] sm:text-[24px] font-thin text-[#00BCD4] font-petrona text-left">
+        <span className="text-[18px] sm:text-[24px] font-thin text-[#00BCD4] font-lora-semibold text-left">
         {record.price} {currency}
         </span>
       </div>
