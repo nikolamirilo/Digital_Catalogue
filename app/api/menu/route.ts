@@ -3,7 +3,7 @@ import { cookies } from 'next/headers';
 
 export async function POST(request: Request) {
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
     const { name, created_by, menu, theme, logo, layout, title, currency, legal_name, contact, subtitle } = await request.json();
 

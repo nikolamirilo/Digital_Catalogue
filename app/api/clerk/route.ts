@@ -8,13 +8,15 @@ export async function POST(req: NextRequest) {
     const event = await verifyWebhook(req);
 
     if (event.type === 'user.created') {
-      const { id, email_addresses, first_name, last_name } = event.data;
+      const { id, email_addresses, first_name, last_name, image_url } = event.data;
       const email = email_addresses?.[0]?.email_address || null;
-      const supabase = createClient(cookies());
+      const cookiesStore = await cookies()
+      const supabase = createClient(cookiesStore);
       await supabase.from('users').upsert([
         {
-          clerk_user_id: id,
+          id: id,
           email,
+          image: image_url,
           name: [first_name, last_name].filter(Boolean).join(' ')
         }
       ]);

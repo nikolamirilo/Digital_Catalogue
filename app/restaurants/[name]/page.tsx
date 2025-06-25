@@ -3,7 +3,7 @@ import React from "react"
 import MenuSection from "@/components/sections/MenuSection";
 import { cookies } from "next/headers";
 import { createClient } from '@/utils/supabase/server'
-import Navbar from "@/components/navigation/Navbar";
+import Navbar from "@/components/navigation/RestaurantNavbar";
 
 const page = async ({ params }: { params: Promise<{name: string}> }) => {
   const { name } = await params

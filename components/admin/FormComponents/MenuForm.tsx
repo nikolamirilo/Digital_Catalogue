@@ -13,6 +13,7 @@ import SuccessModal from "./SuccessModal";
 
 import { MenuItem, ContactInfo, RestaurantFormData } from "@/types";
 import { saEvent } from "@/utils/analytics";
+import { useUser } from "@clerk/nextjs";
 
 interface MenuFormBaseProps {
   type: 'create' | 'edit';
@@ -40,7 +41,8 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [restaurantUrl, setRestaurantUrl] = useState("");
   const [imagePreviews, setImagePreviews] = useState<{ [key: string]: string }>({});
-
+  const {user} = useUser() 
+  
   useEffect(() => {
     if (initialData) setFormData(initialData);
   }, [initialData]);
@@ -263,9 +265,17 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
       });
       return;
     }
+    if (!user || !user.id) {
+      toast({
+        title: "Authentication Error",
+        description: "You must be signed in to create or edit a menu.",
+        variant: "destructive",
+      });
+      setIsSubmitting(false);
+      return;
+    }
     setIsSubmitting(true);
     try {
-      const created_by_placeholder = '550e8400-e29b-41d4-a716-446655440000';
       const transformedFormData = { ...formData };
       const restaurantSlug = transformedFormData.name.toLowerCase().replace(/\s+/g, '-');
       transformedFormData.name = restaurantSlug;
@@ -281,7 +291,7 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...transformedFormData,
-          created_by: created_by_placeholder,
+          created_by: user.id,
           contact: contactData,
           menu: transformedMenu,
         }),
@@ -364,7 +374,7 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
   };
 
   return (
-    <Card className="w-full max-w-4xl mx-auto my-8">
+    <Card className="w-full max-w-4xl mx-auto my-8 text-gray-900">
       <CardHeader>
         <CardTitle className="text-3xl font-bold text-center">
           {type === 'edit' ? 'Edit Your Digital Menu' : 'Create Your Digital Menu'}

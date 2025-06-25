@@ -80,7 +80,7 @@ const MenuSection = ({ menuData, currency, layout, type }: { menuData: any, curr
         {sortedSections.map((item, index) => (
           <section key={item.code} className="mb-10" id={item.code}>
             <button
-              className="w-full flex items-center bg-[#808080] justify-between px-4 py-3 text-2xl md:text-3xl font-semibold border-b-2 border-borderPrimary focus:outline-none hover:bg-white/10 rounded-lg shadow transition-colors duration-200 group"
+              className="w-full flex items-center justify-between px-4 py-3 text-2xl md:text-3xl font-semibold border-b-2 border-borderPrimary focus:outline-none hover:bg-white/5 rounded-lg shadow transition-colors duration-200 group"
               onClick={() => handleToggleSection(item.code)}
               aria-expanded={!!expandedSections[item.code]}
               aria-controls={`section-content-${item.code}`}
