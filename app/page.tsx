@@ -12,7 +12,7 @@ const DigitalMenu: React.FC = async () => {
     <>
       <Navbar />
       <main>
-        <div className="py-6 text-center flex flex-col justify-center items-center gap-4">
+        <div className="py-20 text-center flex flex-col justify-center items-center gap-4">
           <h1 className="text-4xl font-bold text-navigationMain">
             Digital Menu
           </h1>

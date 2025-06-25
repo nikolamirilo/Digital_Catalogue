@@ -377,7 +377,7 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
   };
 
   return (
-    <Card className="w-full max-w-4xl mx-auto my-8 text-gray-900">
+    <Card className="w-full max-w-4xl mx-auto my-20 text-gray-900">
       <CardHeader>
         <CardTitle className="text-3xl font-bold text-center">
           {type === 'edit' ? 'Edit Your Digital Menu' : 'Create Your Digital Menu'}
