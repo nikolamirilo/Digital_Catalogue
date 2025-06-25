@@ -42,6 +42,8 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
   const [restaurantUrl, setRestaurantUrl] = useState("");
   const [imagePreviews, setImagePreviews] = useState<{ [key: string]: string }>({});
   const {user} = useUser() 
+
+  console.log(user)
   
   useEffect(() => {
     if (initialData) setFormData(initialData);
@@ -275,6 +277,7 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
       return;
     }
     setIsSubmitting(true);
+
     try {
       const transformedFormData = { ...formData };
       const restaurantSlug = transformedFormData.name.toLowerCase().replace(/\s+/g, '-');

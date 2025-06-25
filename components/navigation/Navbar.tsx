@@ -1,9 +1,12 @@
+"use client"
 import React from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
+import { useUser, UserButton } from '@clerk/nextjs'
 
 const Navbar = () => {
+  const { isSignedIn, user } = useUser();
   return (
     <nav className="w-full flex items-center justify-between px-6 py-3 bg-white shadow text-gray-900">
       <div className="flex items-center gap-3">
@@ -22,12 +25,18 @@ const Navbar = () => {
         <Link href="/pricing">
           <Button variant="ghost">Pricing</Button>
         </Link>
-        <Link href="/auth">
-          <Button variant="outline">Sign In</Button>
-        </Link>
-        <Link href="/auth?mode=signup" className='text-white'>
-          <Button>Sign Up</Button>
-        </Link>
+        {isSignedIn ? (
+          <UserButton afterSignOutUrl="/" />
+        ) : (
+          <>
+            <Link href="/auth">
+              <Button variant="outline">Sign In</Button>
+            </Link>
+            <Link href="/auth?mode=signup" className='text-white'>
+              <Button>Sign Up</Button>
+            </Link>
+          </>
+        )}
       </div>
     </nav>
   )

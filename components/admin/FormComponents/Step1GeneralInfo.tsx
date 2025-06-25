@@ -173,7 +173,7 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
             <SelectTrigger>
               <SelectValue placeholder="Select currency" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-gray-900">
               {currencies.map((currency) => (
                 <SelectItem key={currency.value} value={currency.value}>
                   {currency.label}
