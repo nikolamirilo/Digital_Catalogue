@@ -76,18 +76,18 @@ const MenuSection = ({ menuData, currency, layout, type }: { menuData: any, curr
   //console.log(sortedSections)
   if (menuData)
     return (
-      <main className="max-w-6xl mx-auto px-4">
+      <main className="max-w-6xl mx-auto px-4 py-4">
         {sortedSections.map((item, index) => (
           <section key={item.code} className="mb-10" id={item.code}>
             <button
-              className="w-full flex items-center justify-between px-4 py-3 text-2xl md:text-3xl font-semibold border-b-2 border-borderPrimary focus:outline-none hover:bg-white/10 rounded-lg shadow transition-colors duration-200 group"
+              className="w-full flex items-center bg-[#808080] justify-between px-4 py-3 text-2xl md:text-3xl font-semibold border-b-2 border-borderPrimary focus:outline-none hover:bg-white/10 rounded-lg shadow transition-colors duration-200 group"
               onClick={() => handleToggleSection(item.code)}
               aria-expanded={!!expandedSections[item.code]}
               aria-controls={`section-content-${item.code}`}
               type="button"
               style={{ boxShadow: '0 2px 8px 0 rgba(0,0,0,0.04)' }}
             >
-              <span className="truncate">{item.title}</span>
+              <span className="truncate font-lora">{item.title}</span>
               <FiChevronDown
                 className={`ml-4 text-3xl transition-transform duration-300 ${expandedSections[item.code] ? 'rotate-180' : 'rotate-0'}`}
                 aria-hidden="true"

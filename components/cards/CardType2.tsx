@@ -16,15 +16,15 @@ const CardType2 = ({ record, currency }: { record: Record, currency: string }) =
 
             <div className="flex flex-col justify-between flex-1 p-2 sm:p-3 md:p-4 gap-2">
                 <div>
-                    <h3 className="text-[18px] sm:text-[20px] md:text-[22px] font-normal text-white font-playfair leading-tight">
+                    <h3 className="text-[18px] sm:text-[20px] md:text-[22px] font-normal text-white font-lora leading-tight">
                         {record.name}
                     </h3>
-                    <p className="text-[14px] sm:text-[15px] md:text-[16px] text-[#CCCCCC] font-normal font-playfair leading-snug">
+                    <p className="text-[14px] sm:text-[15px] md:text-[16px] text-[#CCCCCC] font-normal font-lora leading-snug">
                         {record.description}
                     </p>
                 </div>
                 <div>
-                    <span className="text-[18px] sm:text-[20px] md:text-[22px] font-thin text-[#00BCD4] font-petrona">
+                    <span className="text-[18px] sm:text-[20px] md:text-[22px] text-[#00BCD4] font-lora-semibold">
                     {record.price} {currency}
                     </span>
                 </div>
