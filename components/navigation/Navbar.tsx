@@ -4,6 +4,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { NavbarProps } from '@/types';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation'
+import Link from 'next/link';
 
 const Navbar = ({ restaurantData }: NavbarProps) => {
   const [selectedSection, setSelectedSection] = useState('breakfast'); // Default selected section
@@ -69,6 +70,11 @@ const Navbar = ({ restaurantData }: NavbarProps) => {
                     </a>
                   ))}
                 </div>
+              </div>
+              {/* Clerk Auth Buttons */}
+              <div className="flex gap-2 items-center absolute right-2 top-0 h-full">
+                <Link href="/auth" className="bg-primary px-4 py-2 rounded text-white">Sign In</Link>
+                <Link href="/auth?mode=signup" className="bg-secondary px-4 py-2 rounded text-white">Sign Up</Link>
               </div>
               <button
                 className="lg:hidden flex text-white"
