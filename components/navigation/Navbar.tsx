@@ -1,9 +1,9 @@
-"use client"
-import React from 'react'
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
-import { useUser, UserButton } from '@clerk/nextjs'
+"use client";
+import React from "react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { useUser, UserButton } from "@clerk/nextjs";
 
 const Navbar = () => {
   const { isSignedIn, user } = useUser();
@@ -26,20 +26,27 @@ const Navbar = () => {
           <Button variant="ghost">Pricing</Button>
         </Link>
         {isSignedIn ? (
-          <UserButton afterSignOutUrl="/" />
+          <>
+            <Link href="/admin/dashboard" className="text-white">
+              <Button>Dashboard</Button>
+            </Link>
+            <div className="mx-4">
+              <UserButton />
+            </div>
+          </>
         ) : (
           <>
             <Link href="/auth">
               <Button variant="outline">Sign In</Button>
             </Link>
-            <Link href="/auth?mode=signup" className='text-white'>
+            <Link href="/auth?mode=signup" className="text-white">
               <Button>Sign Up</Button>
             </Link>
           </>
         )}
       </div>
     </nav>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

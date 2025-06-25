@@ -4,6 +4,8 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { currentUser } from '@clerk/nextjs/server';
+import Navbar from '@/components/navigation/Navbar';
+import { FiPlus } from 'react-icons/fi';
 
 export default async function DashboardPage() {
   const cookieStore = await cookies();
@@ -23,6 +25,8 @@ export default async function DashboardPage() {
   }
 
   return (
+    <>
+    <Navbar/>
     <div className="container mx-auto py-10 px-4">
       <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
       {user && (
@@ -38,6 +42,14 @@ export default async function DashboardPage() {
       )}
       <div>
         <h2 className="text-2xl font-semibold mb-4">Your Restaurants</h2>
+        <div className="flex justify-start mb-4">
+          <Link href="/admin/create-menu">
+            <Button variant="primary-inverted" className="flex items-center gap-2 text-lg font-bold px-6 py-3 rounded-xl shadow-lg">
+              <FiPlus size={30} />
+              Create Menu
+            </Button>
+          </Link>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {restaurants.length === 0 && (
             <div className="col-span-full text-gray-500">No restaurants created yet.</div>
@@ -61,5 +73,6 @@ export default async function DashboardPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }
