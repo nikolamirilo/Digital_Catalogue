@@ -88,7 +88,7 @@ export default function Dashboard({user, restaurants}) {
               <div className="text-gray-800">Layout: {restaurant.layout}</div>
               <div className="text-gray-800">Created: {new Date(restaurant.created_at).toLocaleString()}</div>
               <div className="flex flex-row-reverse gap-2 mt-2 items-center">
-                <Link href={`/admin/restaurants/${restaurant.name}`} className="flex-1">
+                <Link href={`/restaurants/${restaurant.name}`} className="flex-1">
                   <Button className="w-full"><LuSquareMenu  size={25} />View Menu</Button>
                 </Link>
                 <Link href={`/admin/restaurants/${restaurant.name}/analytics`} className="flex-1">
