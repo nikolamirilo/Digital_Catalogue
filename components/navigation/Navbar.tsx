@@ -5,7 +5,15 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useUser, UserButton } from "@clerk/nextjs";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { FiX } from "react-icons/fi";
+import {
+  FiX,
+  FiHome,
+  FiDollarSign,
+  FiMail,
+  FiUser,
+  FiUserPlus,
+  FiGrid,
+} from "react-icons/fi";
 
 const Navbar = () => {
   const { isSignedIn, user } = useUser();
@@ -23,16 +31,31 @@ const Navbar = () => {
       </div>
       {/* Desktop links */}
       <div className="hidden md:flex items-center gap-4">
-        <Link href="/contact">
-          <Button variant="ghost">Contact Us</Button>
-        </Link>
         <Link href="/pricing">
-          <Button variant="ghost">Pricing</Button>
+          <Button variant="ghost">
+            <FiDollarSign />
+            Pricing
+          </Button>
+        </Link>
+        <Link href="/contact">
+          <Button variant="ghost">
+            <FiMail />
+            Contact
+          </Button>
+        </Link>
+        <Link href="/">
+          <Button variant="ghost">
+            <FiHome />
+            Home
+          </Button>
         </Link>
         {isSignedIn ? (
           <>
             <Link href="/admin/dashboard" className="text-white">
-              <Button>Dashboard</Button>
+              <Button>
+                <FiGrid />
+                Dashboard
+              </Button>
             </Link>
             <div className="mx-4">
               <UserButton />
@@ -41,10 +64,16 @@ const Navbar = () => {
         ) : (
           <>
             <Link href="/auth">
-              <Button variant="outline">Sign In</Button>
+              <Button variant="outline">
+                <FiUser className="mr-2" />
+                Sign In
+              </Button>
             </Link>
             <Link href="/auth?mode=signup" className="text-white">
-              <Button>Sign Up</Button>
+              <Button>
+                <FiUserPlus className="mr-2" />
+                Sign Up
+              </Button>
             </Link>
           </>
         )}
@@ -61,31 +90,50 @@ const Navbar = () => {
       </div>
       {/* Mobile menu overlay */}
       {mobileOpen && (
-        <div className="fixed inset-0 z-40 bg-black/40" onClick={() => setMobileOpen(false)} />
+        <div
+          className="fixed inset-0 z-40 bg-black/40"
+          onClick={() => setMobileOpen(false)}
+        />
       )}
       {/* Mobile menu */}
       <div
-        className={`fixed top-0 right-0 h-full w-64 bg-white shadow-lg z-50 transform transition-transform duration-300 ease-in-out ${mobileOpen ? "translate-x-0" : "translate-x-full"}`}
+        className={`fixed flex flex-col justify-start gap-6 items-center py-4 top-0 right-0 h-full w-fit px-1 bg-white shadow-lg z-50 transform transition-transform duration-300 ease-in-out ${
+          mobileOpen ? "translate-x-0" : "translate-x-full"
+        }`}
         style={{ willChange: "transform" }}
       >
         <button
           aria-label="Close menu"
           onClick={() => setMobileOpen(false)}
-          className="absolute top-4 right-4 text-gray-700 hover:text-primary focus:outline-none"
+          className=" text-gray-800 focus:outline-none"
         >
           <FiX size={28} />
         </button>
-        <div className="flex flex-col p-6 gap-4 pt-16">
+        <div className="flex flex-col p-6 gap-4">
+          <Link href="/" onClick={() => setMobileOpen(false)}>
+            <button className="w-full justify-start">
+              <FiHome size={25} color="black" />
+            </button>
+          </Link>
           <Link href="/contact" onClick={() => setMobileOpen(false)}>
-            <Button variant="ghost" className="w-full justify-start">Contact Us</Button>
+          <button className="w-full justify-start">
+              <FiMail size={25} color="black" />
+            </button>
           </Link>
           <Link href="/pricing" onClick={() => setMobileOpen(false)}>
-            <Button variant="ghost" className="w-full justify-start">Pricing</Button>
+          <button className="w-full justify-start">
+              <FiDollarSign size={25} color="black" />
+            </button>
           </Link>
           {isSignedIn ? (
             <>
-              <Link href="/admin/dashboard" className="text-white" onClick={() => setMobileOpen(false)}>
-                <Button className="w-full justify-start">Dashboard</Button>
+              <Link
+                href="/admin/dashboard"
+                onClick={() => setMobileOpen(false)}
+              >
+                <button className="w-full justify-start">
+                  <FiGrid size={25} color="black"/>
+                </button>
               </Link>
               <div className="mt-2 flex items-center">
                 <UserButton />
@@ -94,10 +142,18 @@ const Navbar = () => {
           ) : (
             <>
               <Link href="/auth" onClick={() => setMobileOpen(false)}>
-                <Button variant="outline" className="w-full justify-start">Sign In</Button>
+                <Button variant="outline" className="w-full justify-start">
+                  <FiUser size={22} />
+                </Button>
               </Link>
-              <Link href="/auth?mode=signup" className="text-white" onClick={() => setMobileOpen(false)}>
-                <Button className="w-full justify-start">Sign Up</Button>
+              <Link
+                href="/auth?mode=signup"
+                className="text-white"
+                onClick={() => setMobileOpen(false)}
+              >
+                <Button className="w-full justify-start">
+                  <FiUserPlus size={22} />
+                </Button>
               </Link>
             </>
           )}

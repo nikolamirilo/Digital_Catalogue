@@ -1,8 +1,11 @@
+import Navbar from '@/components/navigation/Navbar';
 import React from 'react';
 
 export default function ContactPage() {
   return (
-    <div className="container mx-auto py-16 px-4 text-center text-gray-900">
+    <>
+    <Navbar/>
+    <div className="container mx-auto py-24 px-4 text-center text-gray-900">
       <h1 className="text-3xl font-bold mb-4 text-white">Contact Us</h1>
       <p className="mb-8 text-lg text-white max-w-[500px] mx-auto">We'd love to hear from you! Please reach out with any questions, feedback, or partnership inquiries.</p>
       <div className="max-w-md mx-auto bg-white rounded-lg shadow p-8 text-left">
@@ -23,5 +26,6 @@ export default function ContactPage() {
         </form>
       </div>
     </div>
+    </>
   );
 }

@@ -2,7 +2,7 @@
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { FiPlus, FiMoreVertical } from 'react-icons/fi';
+import { FiPlus, FiMoreVertical, FiEdit, FiCopy, FiTrash2 } from 'react-icons/fi';
 import { deleteMenu, revalidateData, duplicateMenu } from '@/utils/server';
 import { TbBrandGoogleAnalytics } from "react-icons/tb";
 import { useState } from 'react';
@@ -100,11 +100,16 @@ export default function Dashboard({user, restaurants}) {
                     <FiMoreVertical size={25} className='text-gray-900 cursor-pointer'/>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
+                    <Link href={`/admin/restaurants/${restaurant.name}/edit`} passHref legacyBehavior>
+                      <DropdownMenuItem asChild className="text-gray-900 hover:bg-gray-900/10 cursor-pointer">
+                        <a className="flex items-center gap-2"><FiEdit size={18}/> Edit Menu</a>
+                      </DropdownMenuItem>
+                    </Link>
                     <DropdownMenuItem onClick={() => handleDuplicateMenu(restaurant.id)} disabled={duplicatingId === restaurant.id} className="text-gray-900 hover:bg-gray-900/10 cursor-pointer">
-                      {duplicatingId === restaurant.id ? 'Loading...' : 'Duplicate'}
+                      <span className="flex items-center gap-2"><FiCopy size={18}/>{duplicatingId === restaurant.id ? 'Loading...' : 'Duplicate'}</span>
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => handleDeleteMenu(restaurant.id)} disabled={isModalOpen} className="text-red-400 hover:bg-red-50 cursor-pointer">
-                      Delete
+                      <span className="flex items-center gap-2"><FiTrash2 size={18}/>Delete</span>
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
