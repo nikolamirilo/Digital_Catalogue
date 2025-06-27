@@ -8,99 +8,98 @@ import {
   import { Square3Stack3DIcon } from "@heroicons/react/24/outline";
   import dynamic from "next/dynamic";
   const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
+  import React from "react";
 
     //@ts-nocheck
    
-  const chartConfig = {
-    type: "line",
-    height: 240,
-    series: [
-      {
-        name: "Sales",
-        data: [50, 40, 300, 320, 500, 350, 200, 230, 500],
-      },
-    ],
-    options: {
-      chart: {
-        toolbar: {
-          show: false,
+  interface LineChartProps {
+    data: { date: string; count: number }[];
+  }
+
+  export default function LineChart({ data = [] }: LineChartProps) {
+    // Prepare chart data from props
+    const categories = data.map((d) => d.date);
+    const seriesData = data.map((d) => d.count);
+
+    const chartConfig = {
+      type: "line",
+      height: 240,
+      series: [
+        {
+          name: "Page Views",
+          data: seriesData.length > 0 ? seriesData : [0],
         },
-      },
-      title: {
-        show: "",
-      },
-      dataLabels: {
-        enabled: false,
-      },
-      colors: ["#020617"],
-      stroke: {
-        lineCap: "round",
-        curve: "smooth",
-      },
-      markers: {
-        size: 0,
-      },
-      xaxis: {
-        axisTicks: {
-          show: false,
-        },
-        axisBorder: {
-          show: false,
-        },
-        labels: {
-          style: {
-            colors: "#616161",
-            fontSize: "12px",
-            fontFamily: "inherit",
-            fontWeight: 400,
+      ],
+      options: {
+        chart: {
+          toolbar: {
+            show: false,
           },
         },
-        categories: [
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct",
-          "Nov",
-          "Dec",
-        ],
-      },
-      yaxis: {
-        labels: {
-          style: {
-            colors: "#616161",
-            fontSize: "12px",
-            fontFamily: "inherit",
-            fontWeight: 400,
-          },
+        title: {
+          show: "",
         },
-      },
-      grid: {
-        show: true,
-        borderColor: "#dddddd",
-        strokeDashArray: 5,
+        dataLabels: {
+          enabled: false,
+        },
+        colors: ["#020617"],
+        stroke: {
+          lineCap: "round",
+          curve: "smooth",
+        },
+        markers: {
+          size: 0,
+        },
         xaxis: {
-          lines: {
-            show: true,
+          axisTicks: {
+            show: false,
+          },
+          axisBorder: {
+            show: false,
+          },
+          labels: {
+            style: {
+              colors: "#616161",
+              fontSize: "12px",
+              fontFamily: "inherit",
+              fontWeight: 400,
+            },
+          },
+          categories: categories.length > 0 ? categories : ["-"],
+        },
+        yaxis: {
+          labels: {
+            style: {
+              colors: "#616161",
+              fontSize: "12px",
+              fontFamily: "inherit",
+              fontWeight: 400,
+            },
           },
         },
-        padding: {
-          top: 5,
-          right: 20,
+        grid: {
+          show: true,
+          borderColor: "#dddddd",
+          strokeDashArray: 5,
+          xaxis: {
+            lines: {
+              show: true,
+            },
+          },
+          padding: {
+            top: 5,
+            right: 20,
+          },
+        },
+        fill: {
+          opacity: 0.8,
+        },
+        tooltip: {
+          theme: "dark",
         },
       },
-      fill: {
-        opacity: 0.8,
-      },
-      tooltip: {
-        theme: "dark",
-      },
-    },
-  };
+    };
    
-  export default function LineChart() {
     return (
         //@ts-ignore
       <Card>
@@ -111,13 +110,13 @@ import {
           color="transparent"
           className="flex flex-col gap-4 rounded-none md:flex-row md:items-center"
         >
-          <div className="w-max rounded-lg bg-gray-900 p-5 text-white">
-            <Square3Stack3DIcon className="h-6 w-6" />
+          <div className="w-max rounded-lg bg-gray-900 p-2 text-white">
+            <Square3Stack3DIcon className="h-8 w-8" />
           </div>
           <div>
             {/*@ts-ignore */}
             <Typography variant="h6" color="blue-gray">
-              Line Chart
+              Traffic Overview
             </Typography>
             {/*@ts-ignore */}
             <Typography
@@ -125,8 +124,7 @@ import {
               color="gray"
               className="max-w-sm font-normal"
             >
-              Visualize your data in a simple way using the
-              @material-tailwind/react chart plugin.
+              Track analytics of your digital catalogue.
             </Typography>
           </div>
         </CardHeader>
