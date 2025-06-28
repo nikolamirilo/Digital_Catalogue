@@ -1,11 +1,11 @@
 "use client";
 import React from 'react'
-import LineChart from '../charts/LineChart'
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "../ui/card";
-import { Badge } from "../ui/badge";
-import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from "../ui/table";
-import { Progress } from "../ui/progress";
-import { Separator } from "../ui/separator";
+import LineChart from '../../charts/LineChart'
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "../../ui/card";
+import { Badge } from "../../ui/badge";
+import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from "../../ui/table";
+import { Progress } from "../../ui/progress";
+import { Separator } from "../../ui/separator";
 
 interface AnalyticsProps {
   data: { date: string; count: number }[];

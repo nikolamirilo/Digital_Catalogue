@@ -1,6 +1,6 @@
-import Analytics from '@/components/dashboard/Analytics';
 import React from 'react'
 import Navbar from "@/components/navigation/Navbar"
+import Analytics from '@/components/admin/dashboard/Analytics';
 
 type tParams = Promise<{ name: string }>;
 export const dynamic = "force-dynamic"

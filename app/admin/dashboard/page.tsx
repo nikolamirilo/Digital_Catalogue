@@ -2,8 +2,7 @@ import { cookies } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 import { currentUser } from "@clerk/nextjs/server";
 import Navbar from "@/components/navigation/Navbar";
-import Dashboard from "@/components/dashboard/Dashboard";
-import { revalidateData } from "@/utils/server";
+import Dashboard from "@/components/admin/dashboard/Dashboard";
 
 export default async function page() {
   const cookieStore = await cookies();

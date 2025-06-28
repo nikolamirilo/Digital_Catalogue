@@ -1,6 +1,6 @@
 import React from 'react';
-import CreateMenuForm from '@/components/admin/CreateMenuForm';
 import Navbar from '@/components/navigation/Navbar';
+import CreateMenuForm from '@/components/admin/form/CreateMenuForm';
 
 export default function CreateMenuPage() {
   return (

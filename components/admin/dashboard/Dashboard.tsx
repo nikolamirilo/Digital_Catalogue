@@ -102,7 +102,7 @@ export default function Dashboard({user, restaurants}) {
                   <DropdownMenuContent align="end">
                     <Link href={`/admin/restaurants/${restaurant.name}/edit`} passHref legacyBehavior>
                       <DropdownMenuItem asChild className="text-gray-900 hover:bg-gray-900/10 cursor-pointer">
-                        <a className="flex items-center gap-2"><FiEdit size={18}/> Edit Menu</a>
+                        <div className="flex items-center gap-2"><FiEdit size={18}/> Edit Menu</div>
                       </DropdownMenuItem>
                     </Link>
                     <DropdownMenuItem onClick={() => handleDuplicateMenu(restaurant.id)} disabled={duplicatingId === restaurant.id} className="text-gray-900 hover:bg-gray-900/10 cursor-pointer">

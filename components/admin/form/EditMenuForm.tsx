@@ -1,7 +1,7 @@
 "use client";
 import type React from "react";
 import { RestaurantFormData } from "@/types";
-import MenuForm from "./FormComponents/MenuForm";
+import MenuForm from "./components/MenuForm";
 
 interface EditMenuFormProps {
   initialData: RestaurantFormData;
