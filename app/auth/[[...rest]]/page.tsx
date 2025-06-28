@@ -17,7 +17,7 @@ export default function AuthPage() {
 
   return (
     <div className="flex justify-center items-center min-h-screen">
-      {mode === 'signup' ? <SignUp /> : <SignIn />}
+      {mode === 'signup' ? <SignUp afterSignOutUrl='/' /> : <SignIn afterSignOutUrl='/' />}
     </div>
   );
 }

@@ -39,7 +39,7 @@ export default async function page({ params }: { params: tParams}) {
       <>
         <Navbar/>
         <div className='py-24 flex w-full gap-10 justify-center items-center flex-col relative'>
-        <h1 className='text-4xl text-white font-bold'>Analytics for restaurant {transformedName}</h1>
+        <h1 className='text-3xl lg:text-4xl text-white font-bold'>Analytics for restaurant {transformedName}</h1>
         <Analytics data={chartData} rawEvents={filteredData} />
         </div>
       </>

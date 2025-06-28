@@ -5,7 +5,7 @@ import React from "react";
 const Toggle = () => {
   const context = useMainContext();
   if (!context) return null;
-  const { currency, setCurrency, setLayout, layout } = context;
+  const { setLayout, layout } = context;
   return (
     <div className="flex flex-col justify-center items-center gap-4 mt-4">
       <div className="inline-flex rounded-md shadow-xs gap-0" role="group">
