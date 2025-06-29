@@ -79,7 +79,7 @@ const Analytics = ({ data, rawEvents }: AnalyticsProps) => {
           <LineChart data={data} />
         </div>
         <Separator className="my-6" />
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-2">
           <Card>
             <CardHeader>
               <CardTitle>Top Browsers</CardTitle>
@@ -88,16 +88,16 @@ const Analytics = ({ data, rawEvents }: AnalyticsProps) => {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Browser</TableHead>
-                    <TableHead>Views</TableHead>
-                    <TableHead>Share</TableHead>
+                    <TableHead className="font-bold">Browser</TableHead>
+                    <TableHead className="font-bold">Views</TableHead>
+                    <TableHead className="font-bold">Share</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {topBrowsers.map(([browser, count]) => (
                     <TableRow key={browser}>
-                      <TableCell className="text-gray-900 font-bold">{browser}</TableCell>
-                      <TableCell className="text-gray-900 font-bold">{count}</TableCell>
+                      <TableCell className="text-gray-900">{browser}</TableCell>
+                      <TableCell className="text-gray-900">{count}</TableCell>
                       <TableCell className="w-32">
                         <Progress value={Math.round((Number(count) / browserTotal) * 100)} />
                       </TableCell>
@@ -115,16 +115,16 @@ const Analytics = ({ data, rawEvents }: AnalyticsProps) => {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Device</TableHead>
-                    <TableHead>Views</TableHead>
-                    <TableHead>Share</TableHead>
+                    <TableHead className="font-bold">Device</TableHead>
+                    <TableHead className="font-bold">Views</TableHead>
+                    <TableHead className="font-bold">Share</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {topDevices.map(([device, count]) => (
                     <TableRow key={device}>
-                      <TableCell className="text-gray-900 font-bold">{device}</TableCell>
-                      <TableCell className="text-gray-900 font-bold">{count}</TableCell>
+                      <TableCell className="text-gray-900">{device}</TableCell>
+                      <TableCell className="text-gray-900">{count}</TableCell>
                       <TableCell className="w-32">
                         <Progress value={Math.round((Number(count) / deviceTotal) * 100)} />
                       </TableCell>
@@ -142,16 +142,16 @@ const Analytics = ({ data, rawEvents }: AnalyticsProps) => {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Country</TableHead>
-                    <TableHead>Views</TableHead>
-                    <TableHead>Share</TableHead>
+                    <TableHead className="font-bold">Country</TableHead>
+                    <TableHead className="font-bold">Views</TableHead>
+                    <TableHead className="font-bold">Share</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {topCountries.map(([country, count]) => (
                     <TableRow key={country}>
-                      <TableCell className="text-gray-900 font-bold">{country}</TableCell>
-                      <TableCell className="text-gray-900 font-bold">{count}</TableCell>
+                      <TableCell className="text-gray-900">{country}</TableCell>
+                      <TableCell className="text-gray-900">{count}</TableCell>
                       <TableCell className="w-32">
                         <Progress value={Math.round((Number(count) / countryTotal) * 100)} />
                       </TableCell>
