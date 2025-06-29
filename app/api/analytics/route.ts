@@ -37,17 +37,31 @@ ORDER BY date DESC, hour DESC`,
       }
     );
     const eventsData = await res.json();
-    const analyticsData = eventsData.results.map(
-      ([
-        date, hour, current_url, pageview_count, unique_visitors
-      ]) => ({
-       date, hour, current_url, pageview_count, unique_visitors
-      })
-    );
+    const analyticsData = eventsData.results
+      .map(([date, hour, current_url, pageview_count, unique_visitors]) => ({
+        date,
+        hour,
+        current_url,
+        pageview_count,
+        unique_visitors,
+      }))
+      .filter(
+        (item) => !(item.pageview_count === 0 && item.unique_visitors === 0)
+      );
     const { data, error } = await supabase
-      .from('analytics')
-      .upsert(analyticsData, { onConflict: 'date,hour,current_url', ignoreDuplicates: true });
-    return NextResponse.json({message: "Analytics inserted successfuly", response: data, error: error }, { status: 200 });
+      .from("analytics")
+      .upsert(analyticsData, {
+        onConflict: "date,hour,current_url",
+        ignoreDuplicates: true,
+      });
+    return NextResponse.json(
+      {
+        message: "Analytics inserted successfuly",
+        response: data,
+        error: error,
+      },
+      { status: 200 }
+    );
   } catch (error) {
     return new Response("Error occurred while pinging.", { status: 500 });
   }
