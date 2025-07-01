@@ -6,6 +6,8 @@ export async function GET(request: NextRequest) {
   try {
     const cookiesStore = await cookies();
     const supabase = createClient(cookiesStore);
+    const startDate = new Date(new Date().setDate(new Date().getDate() - 1));
+    const endDate = new Date(new Date().setDate(new Date().getDate() + 1));
     const res = await fetch(
       `https://eu.i.posthog.com/api/projects/${process.env
         .POSTHOG_PROJECT_ID!}/query/`,
@@ -29,6 +31,8 @@ WHERE event = '$pageview'
   AND properties.$current_url NOT ILIKE '%admin%'
   AND properties.$current_url LIKE '%/restaurants/%'
   AND properties.$current_url NOT ILIKE '%localhost%'
+  AND timestamp >= toDateTime('${startDate.toISOString().replace('Z', '000Z')}') 
+  AND timestamp < toDateTime('${endDate.toISOString().replace('Z', '000Z')}')
 GROUP BY date, hour, current_url
 ORDER BY date DESC, hour DESC`,
           },
@@ -36,6 +40,7 @@ ORDER BY date DESC, hour DESC`,
         cache: "no-store",
       }
     );
+// SELECT * FROM events WHERE timestamp >= toDateTime('2025-06-30T00:00:00Z') AND timestamp < toDateTime('2025-07-02T00:00:00Z')
     const eventsData = await res.json();
     const analyticsData = eventsData.results
       .map(([date, hour, current_url, pageview_count, unique_visitors]) => ({
@@ -57,6 +62,11 @@ ORDER BY date DESC, hour DESC`,
     return NextResponse.json(
       {
         message: "Analytics inserted successfuly",
+        options: {
+          startDate: startDate.toISOString().replace('Z', '000Z'),
+          endDate: endDate.toISOString().replace('Z', '000Z'),
+        },
+        inputData: analyticsData,
         response: data,
         error: error,
       },
