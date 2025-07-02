@@ -6,7 +6,7 @@ export async function GET(request: NextRequest) {
   try {
     const cookiesStore = await cookies();
     const supabase = createClient(cookiesStore);
-    const startDate = new Date(new Date().setDate(new Date().getDate() - 1));
+    const startDate = new Date(new Date().setDate(new Date().getDate() - 2));
     const endDate = new Date(new Date().setDate(new Date().getDate() + 1));
     const res = await fetch(
       `https://eu.i.posthog.com/api/projects/${process.env
@@ -53,12 +53,52 @@ ORDER BY date DESC, hour DESC`,
       .filter(
         (item) => !(item.pageview_count === 0 && item.unique_visitors === 0)
       );
+
+    // 1. Extract unique restaurant names from analyticsData
+    const restaurantNames = [
+      ...new Set(
+        analyticsData.map(item => {
+          // Assuming current_url is like "/restaurants/[name]"
+          const match = item.current_url.match(/\/restaurants\/([^/]+)/);
+          return match ? match[1] : null;
+        }).filter(Boolean)
+      )
+    ];
+
+    // 2. Query all relevant restaurants in one go
+    const { data: restaurants, error: restaurantError } = await supabase
+      .from("restaurants")
+      .select("name, created_by")
+      .in("name", restaurantNames);
+
+    if (restaurantError) {
+      return NextResponse.json({ error: restaurantError.message }, { status: 500 });
+    }
+
+    // 3. Create a map for quick lookup
+    const nameToUserId = {};
+    (restaurants || []).forEach(r => {
+      nameToUserId[r.name] = r.created_by;
+    });
+
+    // 4. Add user_id to each analytics row
+    const analyticsDataWithUserId = analyticsData.map(item => {
+      const match = item.current_url.match(/\/restaurants\/([^/]+)/);
+      const restaurantName = match ? match[1] : null;
+      return {
+        ...item,
+        user_id: restaurantName ? nameToUserId[restaurantName] : null,
+      };
+    });
+
+    // 5. Upsert analyticsDataWithUserId
     const { data, error } = await supabase
       .from("analytics")
-      .upsert(analyticsData, {
+      .upsert(analyticsDataWithUserId, {
         onConflict: "date,hour,current_url",
         ignoreDuplicates: true,
       });
+
     return NextResponse.json(
       {
         message: "Analytics inserted successfuly",

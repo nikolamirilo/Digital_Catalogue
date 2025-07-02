@@ -31,6 +31,15 @@ const MenuSection = ({ menuData, currency, layout, type }: { menuData: any, curr
   // State to track expanded sections
   const [expandedSections, setExpandedSections] = useState<{ [key: string]: boolean }>({});
 
+  const { expandedSection, setExpandedSection } = useMainContext();
+
+  // Sync expanded section with context
+  useEffect(() => {
+    if (expandedSection) {
+      setExpandedSections({ [expandedSection]: true });
+    }
+  }, [expandedSection]);
+
   //Obrati paznju - tu se radi positioning kartica
   function returnVariantStyle(variant){
     switch (variant){
@@ -60,10 +69,11 @@ const MenuSection = ({ menuData, currency, layout, type }: { menuData: any, curr
 
   // Toggle expand/collapse for a section
   const handleToggleSection = (code: string) => {
-    setExpandedSections((prev) => ({
-      ...prev,
-      [code]: !prev[code],
-    }));
+    setExpandedSections((prev) => {
+      const isExpanding = !prev[code];
+      if (isExpanding) setExpandedSection(code);
+      return { [code]: isExpanding };
+    });
   };
   useEffect(() => {
     if(type=="demo"){

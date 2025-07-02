@@ -1,10 +1,12 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import { GiHamburgerMenu } from "react-icons/gi";
+import { FiX, FiHome, FiMail } from "react-icons/fi";
 import { NavbarProps } from '@/types';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation'
 import Link from 'next/link';
+import { useMainContext } from "@/context/MainContext";
 
 const RestaurantNavbar = ({ restaurantData }: NavbarProps) => {
   const [selectedSection, setSelectedSection] = useState('breakfast'); // Default selected section
@@ -12,6 +14,7 @@ const RestaurantNavbar = ({ restaurantData }: NavbarProps) => {
   const [type, setType] = useState<string>("menu")
   const [restaurant, setRestaurant] = useState<string>("")
   const pathname = usePathname()
+  const { expandedSection, setExpandedSection } = useMainContext();
 
   const navItems = Object.keys(restaurantData.menu).map((item) => {
     return {
@@ -48,78 +51,83 @@ const RestaurantNavbar = ({ restaurantData }: NavbarProps) => {
     console.log(pathname)
   },[])
 
+  // Smooth scroll and expand section
+  const handleSectionClick = (code: string) => {
+    setExpandedSection(code);
+    const el = document.getElementById(code);
+    if (el) {
+      const navbar = document.querySelector('nav');
+      const navbarHeight = navbar ? navbar.getBoundingClientRect().height : 0;
+      const y = el.getBoundingClientRect().top + window.pageYOffset - navbarHeight - 8; // 8px extra spacing
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+    setIsMobileMenuOpen(false);
+  };
+
   return (
-    <header className="fixed top-0 right-0 w-full z-50 text-white">
-      <nav
-        className={`${matchThemeColor(restaurantData.theme)} shadow-lg overflow-hidden md:px-10 ${isMobileMenuOpen ? 'animate-fade-in' : ''}`}
+    <nav className="w-full flex items-center justify-between px-6 py-3 bg-white shadow text-gray-900 fixed top-0 left-0 z-50">
+      {/* Logo and App Name */}
+      <div className="flex items-center pl-4">
+        <Link href="/">
+          <div className="h-12 w-12 relative">
+            <Image src={restaurantData.logo || "/logo.webp"} alt="Logo" fill style={{objectFit:'contain'}} />
+          </div>
+        </Link>
+      </div>
+      {/* Desktop links */}
+      <div className="hidden md:flex items-center gap-4">
+        {navItems.map((item) => (
+          <button
+            key={item.code}
+            onClick={() => handleSectionClick(item.code)}
+            className={`px-3 py-2 rounded-md font-medium transition-colors duration-200 hover:bg-gray-100 ${expandedSection === item.code ? "bg-gray-200 text-primary" : "text-gray-900"}`}
+          >
+            {item.title}
+          </button>
+        ))}
+      </div>
+      {/* Hamburger for mobile */}
+      <div className="md:hidden flex items-center">
+        <button
+          aria-label="Open menu"
+          onClick={() => setIsMobileMenuOpen((v) => !v)}
+          className="focus:outline-none"
+        >
+          <GiHamburgerMenu size={28} />
+        </button>
+      </div>
+      {/* Mobile menu overlay */}
+      {isMobileMenuOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/40"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
+      {/* Mobile menu */}
+      <div
+        className={`fixed flex flex-col justify-start gap-6 items-center py-4 top-0 right-0 h-full w-fit px-1 bg-white shadow-lg z-50 transform transition-transform duration-300 ease-in-out ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"}`}
+        style={{ willChange: "transform" }}
       >
-        {type === "menu" ? (
-          <div className="max-w-6xl mx-auto px-4 w-full">
-            <div className="flex w-full items-center py-4 justify-between relative">
-              <Image src={restaurantData.logo} width={50} height={50} className='absolute left-2 top-0 h-full w-auto' alt='Logo'/>
-              <div className={`flex justify-center items-center w-full`}>
-                <div className="hidden lg:flex md:gap-4 lg:gap-8 relative w-full justify-center items-center transition-all ease-out duration-200">
-                  {navItems.map((item) => (
-                    <a
-                      key={item.code}
-                      href={`#${item.code}`}
-                      className={`text-lg text-white transition duration-300 after:border-b-[3px] after:border-b-tertiary-300 ${selectedSection === item.code ? 'selected' : ''}`}
-                      onClick={() => selectSection(item.code)}
-                    >
-                      {item.title}
-                    </a>
-                  ))}
-                </div>
-              </div>
-              <button
-                className="lg:hidden flex text-white"
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              >
-                <GiHamburgerMenu size={30} />
-              </button>
-            </div>
-            {isMobileMenuOpen && (
-              <div className="flex flex-col space-y-2 py-4 lg:hidden overflow-hidden animate-fade-in">
-                {navItems.map((item) => (
-                  <a
-                    key={item.code}
-                    href={`#${item.code}`}
-                    className={`text-lg text-txtPrimary transition duration-300 after:border-b-[3px] after:border-b-tertiary ${selectedSection === item.code ? 'selected' : ''}`}
-                    onClick={() => {
-                      selectSection(item.code);
-                      setIsMobileMenuOpen(false); // Close menu on item click
-                    }}
-                  >
-                    {item.title}
-                  </a>
-                ))}
-              </div>
-            )}
-          </div>
-        ) : type === "dashboard" ? (
-          <div className="w-full relative text-left flex justify-end flex-row min-h-16 items-center">
-                  <a
-                    href={`/admin/restaurants/${restaurant}/edit`}
-                    className="block px-4 py-2 hover:border-b-[3px] hover:border-secondary text-secondary text-lg"
-                    role="menuitem"
-                    tabIndex={-1}
-                    id="menu-item-0"
-                  >
-                    Edit Menu
-                  </a>
-                  <a
-                    href="/contact"
-                    className="block px-4 py-2 hover:border-b-[3px] hover:border-secondary text-secondary text-lg"
-                    role="menuitem"
-                    tabIndex={-1}
-                    id="menu-item-1"
-                  >
-                    Contact Support
-                  </a>
-          </div>
-        ) : null}
-      </nav>
-    </header>
+        <button
+          aria-label="Close menu"
+          onClick={() => setIsMobileMenuOpen(false)}
+          className="text-gray-800 focus:outline-none"
+        >
+          <FiX size={28} />
+        </button>
+        <div className="flex flex-col p-6 gap-4">
+          {navItems.map((item) => (
+            <button
+              key={item.code}
+              onClick={() => handleSectionClick(item.code)}
+              className="w-full justify-start px-2 py-2 rounded-md hover:bg-gray-100 text-left"
+            >
+              {item.title}
+            </button>
+          ))}
+        </div>
+      </div>
+    </nav>
   );
 };
 

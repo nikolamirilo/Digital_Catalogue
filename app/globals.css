@@ -3,6 +3,13 @@
 @tailwind utilities;
 @layer theme, base, clerk, components, utilities;
 
+html, body {
+  background: linear-gradient(135deg, #1f2937 0%, #111827 50%, #000000 100%);
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
 /* styles.css or your existing CSS file */
 a {
   position: relative;

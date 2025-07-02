@@ -73,68 +73,86 @@ export default function PricingPage() {
 
   return (
     <>
-    <Navbar/>
-    <div className="min-h-screen py-24 px-4 sm:px-6 lg:px-8">
+    <Navbar />
+    <div className="min-h-screen bg-gradient-to-br py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-white sm:text-4xl lg:text-5xl">Simple, Transparent Pricing</h1>
-          <p className="mt-4 text-xl text-gray-300 max-w-3xl mx-auto">
+        <div className="text-center mb-20">
+          <div className="inline-flex items-center justify-center p-2 bg-indigo-500/10 rounded-full mb-6">
+            <Badge className="bg-indigo-500 text-white px-4 py-1 text-sm font-medium">
+              Pricing Plans
+            </Badge>
+          </div>
+          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
+            Simple, 
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-indigo-600"> Transparent </span>
+            Pricing
+          </h1>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
             Choose the perfect plan for your restaurant. Start with a 14-day free trial, no credit card required.
           </p>
         </div>
 
         {/* Pricing Cards */}
-        <div className="grid grid-cols-1 gap-8 lg:gap-2 lg:grid-cols-3 justify-center content-center max-w-[1100px] mx-auto">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 justify-center max-w-6xl mx-auto mb-20">
           {plans.map((plan, index) => (
             <Card
               key={plan.name}
-              className={`relative max-w-[350px] w-full flex flex-col mx-auto ${
-                plan.popular ? "border-2 border-indigo-400 shadow-xl scale-105 bg-white" : "border border-gray-700 shadow-lg bg-white"
-              } transition-all duration-300 hover:shadow-xl`}
+              className={`relative flex flex-col transition-all duration-500 hover:scale-105 group ${
+                plan.popular 
+                  ? "bg-gradient-to-br from-white to-gray-50 border-2 border-indigo-400 shadow-2xl shadow-indigo-500/20 scale-105 z-10" 
+                  : "bg-white/95 backdrop-blur-sm border border-gray-200 shadow-xl hover:shadow-2xl hover:border-gray-300"
+              }`}
             >
               {plan.popular && (
-                <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-indigo-500 text-white px-3 py-0.5 text-xs">
-                  Most Popular
-                </Badge>
+                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-20">
+                  <Badge className="bg-gradient-to-r from-indigo-500 to-indigo-600 text-white px-6 py-2 text-sm font-semibold shadow-lg">
+                    ⭐ Most Popular
+                  </Badge>
+                </div>
               )}
 
-              <CardHeader className="text-center pb-2 p-2">
+              <CardHeader className="text-center pb-6 pt-8">
                 <div
-                  className={`mx-auto w-10 h-10 rounded-full flex items-center justify-center mb-3 ${
-                    plan.popular ? "bg-indigo-500 text-white" : "bg-gray-700 text-white"
+                  className={`mx-auto w-16 h-16 rounded-2xl flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-110 ${
+                    plan.popular 
+                      ? "bg-gradient-to-br from-indigo-500 to-indigo-600 text-white shadow-lg shadow-indigo-500/30" 
+                      : "bg-gradient-to-br from-gray-700 to-gray-800 text-white shadow-lg"
                   }`}
                 >
                   {plan.icon}
                 </div>
-                <CardTitle className="text-lg font-bold text-gray-900">{plan.name}</CardTitle>
-                <CardDescription className="text-gray-800 mt-1 text-sm">{plan.description}</CardDescription>
-                <div className="mt-4">
-                  <span className="text-2xl font-bold text-gray-900">{plan.price}</span>
-                  <span className="text-gray-800 ml-1 text-sm">{plan.period}</span>
+                <CardTitle className="text-2xl font-bold text-gray-900 mb-2">{plan.name}</CardTitle>
+                <CardDescription className="text-gray-600 mb-6 text-base leading-relaxed">
+                  {plan.description}
+                </CardDescription>
+                <div className="mb-6">
+                  <span className="text-5xl font-bold text-gray-900">{plan.price}</span>
+                  <span className="text-gray-600 ml-2 text-lg">{plan.period}</span>
                 </div>
               </CardHeader>
 
-              <CardContent className="px-2 flex-1">
-                <ul className="space-y-2">
+              <CardContent className="px-8 flex-1">
+                <ul className="space-y-4">
                   {plan.features.map((feature, featureIndex) => (
-                    <li key={featureIndex} className="flex items-start">
-                      <Check className="h-4 w-4 text-green-400 mr-2 mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-900 text-sm">{feature}</span>
+                    <li key={featureIndex} className="flex items-start group/feature">
+                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-green-100 flex items-center justify-center mr-4 mt-0.5 transition-all duration-200 group-hover/feature:bg-green-200">
+                        <Check className="h-4 w-4 text-green-600" />
+                      </div>
+                      <span className="text-gray-700 text-base leading-relaxed">{feature}</span>
                     </li>
                   ))}
                 </ul>
               </CardContent>
 
-              <CardFooter className="px-2 pt-2 mt-auto">
+              <CardFooter className="px-8 pb-8 pt-6 mt-auto">
                 <Button
-                  className={`w-full ${
+                  className={`w-full py-4 text-base font-semibold transition-all duration-300 ${
                     plan.popular
-                      ? "bg-indigo-500 hover:bg-indigo-600 text-white"
-                      : "bg-gray-900 text-white border border-gray-600 hover:bg-gray-800"
-                  } text-sm py-2`}
+                      ? "bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white shadow-lg shadow-indigo-500/30 hover:shadow-xl hover:shadow-indigo-500/40"
+                      : "bg-gray-900 hover:bg-black text-white shadow-lg hover:shadow-xl border-0"
+                  }`}
                   variant={plan.buttonVariant}
-                  size="sm"
                 >
                   {plan.buttonText}
                 </Button>
@@ -144,54 +162,70 @@ export default function PricingPage() {
         </div>
 
         {/* FAQ Section */}
-        <div className="mt-20 text-center">
-          <h2 className="text-3xl font-bold text-white mb-8">Frequently Asked Questions</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <div className="text-left">
-              <h3 className="font-semibold text-lg text-white mb-2">Can I change plans anytime?</h3>
-              <p className="text-gray-300">
-                Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately.
-              </p>
-            </div>
-            <div className="text-left">
-              <h3 className="font-semibold text-lg text-white mb-2">Is there a setup fee?</h3>
-              <p className="text-gray-300">
-                No setup fees. Start with our 14-day free trial and only pay when you're ready.
-              </p>
-            </div>
-            <div className="text-left">
-              <h3 className="font-semibold text-lg text-white mb-2">What payment methods do you accept?</h3>
-              <p className="text-gray-300">
-                We accept all major credit cards, PayPal, and bank transfers for Enterprise plans.
-              </p>
-            </div>
-            <div className="text-left">
-              <h3 className="font-semibold text-lg text-white mb-2">Do you offer refunds?</h3>
-              <p className="text-gray-300">
-                Yes, we offer a 30-day money-back guarantee if you're not satisfied with our service.
-              </p>
-            </div>
+        <div className="mb-20">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-white mb-4">Frequently Asked Questions</h2>
+            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+              Everything you need to know about our pricing and plans
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {[
+              {
+                question: "Can I change plans anytime?",
+                answer: "Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately."
+              },
+              {
+                question: "Is there a setup fee?",
+                answer: "No setup fees. Start with our 14-day free trial and only pay when you're ready."
+              },
+              {
+                question: "What payment methods do you accept?",
+                answer: "We accept all major credit cards, PayPal, and bank transfers for Enterprise plans."
+              },
+              {
+                question: "Do you offer refunds?",
+                answer: "Yes, we offer a 30-day money-back guarantee if you're not satisfied with our service."
+              }
+            ].map((faq, index) => (
+              <div key={index} className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700/50 hover:border-gray-600/50 transition-all duration-300 hover:bg-gray-800/70">
+                <h3 className="font-bold text-xl text-white mb-4">{faq.question}</h3>
+                <p className="text-gray-300 leading-relaxed text-base">{faq.answer}</p>
+              </div>
+            ))}
           </div>
         </div>
 
         {/* CTA Section */}
-        <div className="mt-20 text-center bg-gray-900 rounded-2xl shadow-lg p-12 border border-gray-700">
-          <h2 className="text-3xl font-bold text-white mb-4">Ready to digitize your menu?</h2>
-          <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-            Join thousands of restaurants already using our platform to create beautiful, interactive digital menus that
-            boost sales and improve customer experience.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-indigo-500 hover:bg-indigo-600 text-white px-8">
-              Start Free Trial
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="bg-gray-900 text-white border-gray-600 hover:bg-gray-800 px-8"
-            >
-              Schedule Demo
-            </Button>
+        <div className="text-center bg-gradient-to-br from-gray-900 via-gray-800 to-black rounded-3xl shadow-2xl p-16 border border-gray-700/50 backdrop-blur-sm">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+              Ready to 
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-indigo-600"> digitize </span>
+              your menu?
+            </h2>
+            <p className="text-xl text-gray-300 mb-10 max-w-3xl mx-auto leading-relaxed">
+              Join thousands of restaurants already using our platform to create beautiful, interactive digital menus that
+              boost sales and improve customer experience.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+              <Button 
+                size="lg" 
+                className="bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white px-10 py-4 text-lg font-semibold shadow-lg shadow-indigo-500/30 hover:shadow-xl hover:shadow-indigo-500/40 transition-all duration-300"
+              >
+                Start Free Trial
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="bg-transparent text-white border-2 border-gray-600 hover:border-gray-500 hover:bg-gray-800/50 px-10 py-4 text-lg font-semibold transition-all duration-300"
+              >
+                Schedule Demo
+              </Button>
+            </div>
+            <p className="text-gray-400 mt-6 text-sm">
+              No credit card required • 14-day free trial • Cancel anytime
+            </p>
           </div>
         </div>
       </div>
