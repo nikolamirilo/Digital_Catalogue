@@ -78,14 +78,14 @@ export default function PricingPage() {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-20">
-          <div className="inline-flex items-center justify-center p-2 bg-indigo-500/10 rounded-full mb-6">
-            <Badge className="bg-indigo-500 text-white px-4 py-1 text-sm font-medium">
+          <div className="inline-flex items-center justify-center p-2 bg-orange-500/10 rounded-full mb-6">
+            <Badge className="bg-orange-500 text-white px-4 py-1 text-sm font-medium">
               Pricing Plans
             </Badge>
           </div>
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
             Simple, 
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-indigo-600"> Transparent </span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600"> Transparent </span>
             Pricing
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
@@ -100,13 +100,13 @@ export default function PricingPage() {
               key={plan.name}
               className={`relative flex flex-col transition-all duration-500 hover:scale-105 group ${
                 plan.popular 
-                  ? "bg-gradient-to-br from-white to-gray-50 border-2 border-indigo-400 shadow-2xl shadow-indigo-500/20 scale-105 z-10" 
+                  ? "bg-gradient-to-br from-white to-gray-50 border-2 border-orange-400 shadow-2xl shadow-orange-500/20 scale-105 z-10" 
                   : "bg-white/95 backdrop-blur-sm border border-gray-200 shadow-xl hover:shadow-2xl hover:border-gray-300"
               }`}
             >
               {plan.popular && (
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-20">
-                  <Badge className="bg-gradient-to-r from-indigo-500 to-indigo-600 text-white px-6 py-2 text-sm font-semibold shadow-lg">
+                  <Badge className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-6 py-2 text-sm font-semibold shadow-lg">
                     ⭐ Most Popular
                   </Badge>
                 </div>
@@ -116,7 +116,7 @@ export default function PricingPage() {
                 <div
                   className={`mx-auto w-16 h-16 rounded-2xl flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-110 ${
                     plan.popular 
-                      ? "bg-gradient-to-br from-indigo-500 to-indigo-600 text-white shadow-lg shadow-indigo-500/30" 
+                      ? "bg-gradient-to-br from-orange-500 to-orange-600 text-white shadow-lg shadow-orange-500/30" 
                       : "bg-gradient-to-br from-gray-700 to-gray-800 text-white shadow-lg"
                   }`}
                 >
@@ -149,7 +149,7 @@ export default function PricingPage() {
                 <Button
                   className={`w-full py-4 text-base font-semibold transition-all duration-300 ${
                     plan.popular
-                      ? "bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white shadow-lg shadow-indigo-500/30 hover:shadow-xl hover:shadow-indigo-500/40"
+                      ? "bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white shadow-lg shadow-orange-500/30 hover:shadow-xl hover:shadow-orange-500/40"
                       : "bg-gray-900 hover:bg-black text-white shadow-lg hover:shadow-xl border-0"
                   }`}
                   variant={plan.buttonVariant}
@@ -201,7 +201,7 @@ export default function PricingPage() {
           <div className="max-w-4xl mx-auto">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
               Ready to 
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-indigo-600"> digitize </span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600"> digitize </span>
               your menu?
             </h2>
             <p className="text-xl text-gray-300 mb-10 max-w-3xl mx-auto leading-relaxed">
@@ -211,7 +211,7 @@ export default function PricingPage() {
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
               <Button 
                 size="lg" 
-                className="bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white px-10 py-4 text-lg font-semibold shadow-lg shadow-indigo-500/30 hover:shadow-xl hover:shadow-indigo-500/40 transition-all duration-300"
+                className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-10 py-4 text-lg font-semibold shadow-lg shadow-orange-500/30 hover:shadow-xl hover:shadow-orange-500/40 transition-all duration-300"
               >
                 Start Free Trial
               </Button>

@@ -39,7 +39,7 @@ const Step3MenuItems: React.FC<Step3MenuItemsProps> = ({
   return (
     <div className="space-y-6 p-6 border rounded-lg shadow-sm bg-gray-50">
       <h2 className="text-2xl font-semibold text-gray-800 flex items-center gap-2">
-        <BiDish className="text-indigo-600" size={30} />
+        <BiDish className="text-orange-600" size={30} />
         Add Menu Items
       </h2>
       {formData.menu.length === 0 ? (

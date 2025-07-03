@@ -88,7 +88,7 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
   return (
     <div className="space-y-6 p-6 border rounded-lg shadow-sm bg-gray-50">
       <h2 className="text-2xl font-semibold text-gray-800 flex items-center gap-2">
-        <FileText className="text-indigo-600" size={25}/>
+        <FileText className="text-orange-600" size={25}/>
         Restaurant Details
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -206,7 +206,7 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
                 key={themeOption.value}
                 className={`relative cursor-pointer rounded-lg border-2 p-1 ${
                   formData.theme === themeOption.value
-                    ? "border-indigo-600"
+                    ? "border-orange-600"
                     : "border-gray-200 hover:border-gray-300"
                 }`}
                 onClick={() =>
@@ -239,7 +239,7 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
                 key={layoutOption.value}
                 className={`relative cursor-pointer rounded-lg border-2 p-1 ${
                   formData.layout === layoutOption.value
-                    ? "border-indigo-600"
+                    ? "border-orange-600"
                     : "border-gray-200 hover:border-gray-300"
                 }`}
                 onClick={() =>

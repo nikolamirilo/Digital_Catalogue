@@ -27,7 +27,7 @@ const Step2MenuSections: React.FC<Step2MenuSectionsProps> = ({
   return (
     <div className="space-y-6 p-6 border rounded-lg shadow-sm bg-gray-50">
       <h2 className="text-2xl font-semibold text-gray-800 flex items-center gap-2">
-      <MdRestaurantMenu className="text-indigo-600" size={30} />
+      <MdRestaurantMenu className="text-orange-600" size={30} />
         Menu Categories
       </h2>
       <Button

@@ -27,7 +27,7 @@ const Toggle = () => {
             className={`
               relative px-3 py-2.5 text-sm font-semibold transition-all duration-300 ease-out
               ${layout === layoutOption.key 
-                ? "bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg scale-105 transform" 
+                ? "bg-gradient-to-r from-orange-300 to-orange-500 text-white shadow-lg scale-105 transform" 
                 : "text-orange-700 hover:text-orange-800 hover:bg-white/60"
               }
               rounded-xl

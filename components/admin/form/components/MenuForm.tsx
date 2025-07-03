@@ -393,7 +393,7 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
           {[1, 2, 3].map((step) => (
             <div
               key={step}
-              className={`w-8 h-2 rounded-full transition-colors duration-200 ${currentStep === step ? "bg-indigo-600" : "bg-gray-300"} cursor-pointer`}
+              className={`w-8 h-2 rounded-full transition-colors duration-200 ${currentStep === step ? "bg-orange-600" : "bg-gray-300"} cursor-pointer`}
               onClick={async () => {
                 if (step === currentStep) return;
                 if (step < currentStep) {

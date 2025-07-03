@@ -39,7 +39,7 @@ export default function ContactPage() {
             </div>
             <button
               type="submit"
-              className="w-full bg-indigo-600 text-white font-semibold px-6 py-3 rounded-xl transition"
+              className="w-full bg-orange-600 text-white font-semibold px-6 py-3 rounded-xl transition"
             >
               Send Message
             </button>
