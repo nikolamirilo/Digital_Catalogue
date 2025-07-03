@@ -6,7 +6,6 @@ import { NavbarProps } from '@/types';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation'
 import Link from 'next/link';
-import { useMainContext } from "@/context/MainContext";
 
 const RestaurantNavbar = ({ restaurantData }: NavbarProps) => {
   const [selectedSection, setSelectedSection] = useState('breakfast'); // Default selected section
@@ -14,7 +13,6 @@ const RestaurantNavbar = ({ restaurantData }: NavbarProps) => {
   const [type, setType] = useState<string>("menu")
   const [restaurant, setRestaurant] = useState<string>("")
   const pathname = usePathname()
-  const { expandedSection, setExpandedSection } = useMainContext();
 
   const navItems = Object.keys(restaurantData.menu).map((item) => {
     return {
@@ -53,7 +51,7 @@ const RestaurantNavbar = ({ restaurantData }: NavbarProps) => {
 
   // Smooth scroll and expand section
   const handleSectionClick = (code: string) => {
-    setExpandedSection(code);
+    setSelectedSection(code);
     const el = document.getElementById(code);
     if (el) {
       const navbar = document.querySelector('nav');
@@ -80,7 +78,7 @@ const RestaurantNavbar = ({ restaurantData }: NavbarProps) => {
           <button
             key={item.code}
             onClick={() => handleSectionClick(item.code)}
-            className={`px-3 py-2 rounded-md font-medium transition-colors duration-200 hover:bg-gray-100 ${expandedSection === item.code ? "bg-gray-200 text-primary" : "text-gray-900"}`}
+            className={`px-3 py-2 rounded-md font-medium transition-colors duration-200 hover:bg-gray-100 ${selectedSection === item.code ? "bg-gray-200 text-primary" : "text-gray-900"}`}
           >
             {item.title}
           </button>

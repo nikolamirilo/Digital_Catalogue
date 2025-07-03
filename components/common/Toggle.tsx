@@ -1,40 +1,49 @@
 "use client"
 import { useMainContext } from "@/context/MainContext";
 import React from "react";
+import { Button } from "../ui/button";
 
 const Toggle = () => {
   const context = useMainContext();
   if (!context) return null;
   const { setLayout, layout } = context;
+
+  const layouts = [
+    { key: "variant_1", label: "Layout 1" },
+    { key: "variant_2", label: "Layout 2" },
+    { key: "variant_3", label: "Layout 3" },
+    { key: "variant_4", label: "Layout 4" },
+  ];
+
   return (
     <div className="flex flex-col justify-center items-center gap-4 mt-4">
-      <div className="inline-flex rounded-md shadow-xs gap-0" role="group">
-        <button type="button" className={`px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 hover:text-orange-700 ${layout == "variant_1" ? "text-orange-800 font-bold": null}`} onClick={() => {
-          setLayout("variant_1")
-        }}>Layout 1</button><button type="button" className={`px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-orange-700 ${layout == "variant_2" ? "text-orange-800 font-bold": null}`} onClick={() => {
-          setLayout("variant_2")
-        }}>Layout 2</button><button type="button" className={`px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-orange-700 ${layout == "variant_3" ? "text-orange-800 font-bold": null}`} onClick={() => {
-          setLayout("variant_3")
-        }}>Layout 3</button><button type="button" className={`px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-orange-700 ${layout == "variant_4" ? "text-orange-800 font-bold": null}`} onClick={() => {
-          setLayout("variant_4")
-        }}>Layout 4</button>
+      <div className="inline-flex rounded-2xl bg-gradient-to-r from-orange-50 to-orange-100 p-1.5 shadow-lg border gap-2 border-orange-200/50" role="group">
+        {layouts.map((layoutOption, index) => (
+          <Button
+            key={layoutOption.key}
+            type="button"
+            variant="ghost"
+            size="sm"
+            className={`
+              relative px-3 py-2.5 text-sm font-semibold transition-all duration-300 ease-out
+              ${layout === layoutOption.key 
+                ? "bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg scale-105 transform" 
+                : "text-orange-700 hover:text-orange-800 hover:bg-white/60"
+              }
+              rounded-xl
+              hover:shadow-md hover:scale-102 transform
+              active:scale-95
+              backdrop-blur-sm
+            `}
+            onClick={() => setLayout(layoutOption.key)}
+          >
+            <span className="relative z-10">{layoutOption.label}</span>
+            {layout === layoutOption.key && (
+              <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-orange-400 to-orange-500 opacity-20 blur-sm" />
+            )}
+          </Button>
+        ))}
       </div>
-      {/* <label className="inline-flex items-center cursor-pointer">
-        <span className={`me-3 text-lg text-secondary ${currency == "USD" ? "font-bold" : ""}`}>
-          USD
-        </span>
-        <input type="checkbox" value="" className="sr-only peer" onClick={() => {
-          if (currency == "USD") {
-            setCurrency("RSD")
-          } else {
-            setCurrency("USD")
-          }
-        }} />
-        <div className="relative w-11 h-6 flex peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full after:content-[''] after:absolute after:top-[0px] border-2 after:start-[0px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-tertiary"></div>
-        <span className={`ms-3 text-lg text-secondary ${currency == "RSD" ? "font-bold" : ""}`}>
-          RSD
-        </span>
-      </label> */}
     </div>
   );
 };

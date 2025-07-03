@@ -16,16 +16,11 @@ const page = async ({ params }: { params: Promise<{name: string}> }) => {
       <>
       <Navbar restaurantData={restaurant}/>
       <main>
-        <div className="py-24 text-center flex flex-col justify-center items-center gap-4">
+        <div className="pt-24 text-center flex flex-col justify-center items-center gap-4">
           <h1 className="text-4xl font-bold text-navigationMain">{restaurant.title}</h1>
           <p className="text-txtTertiary text-lg 2xl:text-xl px-5 max-w-[1000px]">
             {restaurant.subtitle}
           </p>
-        </div>
-
-        <div className="text-sm font-medium text-center border-b mb-2 border-gray-200 dark:text-gray-300 dark:border-gray-700">
-          <ul className="flex flex-wrap justify-center -mb-px items-center text-tertiary-50">
-          </ul>
         </div>
         {restaurant && <MenuSection menuData={restaurant.menu} currency={restaurant.currency} layout={restaurant.layout} type="restaurant" />}
       </main>

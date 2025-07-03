@@ -19,8 +19,6 @@ interface MainContextType {
     toCurrency: string
   ) => string | undefined;
   isLoading: boolean;
-  expandedSection: string | null;
-  setExpandedSection: Dispatch<SetStateAction<string | null>>;
 }
 
 const MainContext = createContext<MainContextType | null>(null);
@@ -38,7 +36,6 @@ export const MainContextProvider = ({
   const [layout, setLayout] = useState("variant_1")
   const [exchangeData, setExchangeData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [expandedSection, setExpandedSection] = useState<string | null>(null);
 
   useEffect(() => {
     async function getData() {
@@ -80,7 +77,7 @@ export const MainContextProvider = ({
 
   return (
     <MainContext.Provider
-      value={{ currency, setCurrency, formatCurrency, isLoading, layout, setLayout, expandedSection, setExpandedSection }}
+      value={{ currency, setCurrency, formatCurrency, isLoading, layout, setLayout }}
     >
       {children}
     </MainContext.Provider>
