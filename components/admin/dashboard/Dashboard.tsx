@@ -1,57 +1,79 @@
-"use client"
-import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
-import { FiPlus, FiMoreVertical, FiEdit, FiCopy, FiTrash2 } from 'react-icons/fi';
-import { deleteMenu, revalidateData, duplicateMenu } from '@/utils/server';
+"use client";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import {
+  FiPlus,
+  FiMoreVertical,
+  FiEdit,
+  FiCopy,
+  FiTrash2,
+} from "react-icons/fi";
+import { deleteMenu, revalidateData, duplicateMenu } from "@/utils/server";
 import { TbBrandGoogleAnalytics } from "react-icons/tb";
-import { useState } from 'react';
-import InformModal from './InformModal';
+import { useState } from "react";
+import InformModal from "./InformModal";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-} from '@/components/ui/dropdown-menu';
-import { LuSquareMenu  } from 'react-icons/lu';
+} from "@/components/ui/dropdown-menu";
+import { LuSquareMenu } from "react-icons/lu";
 
-export default function Dashboard({user, restaurants}) {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [menuToDelete, setMenuToDelete] = useState<string | null>(null);
-    const [duplicatingId, setDuplicatingId] = useState<string | null>(null);
+export default function Dashboard({
+  user,
+  restaurants,
+  analytics,
+  sectionUsage,
+}) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [menuToDelete, setMenuToDelete] = useState<string | null>(null);
+  const [duplicatingId, setDuplicatingId] = useState<string | null>(null);
 
-    async function handleDeleteMenu(id:string){
-        setMenuToDelete(id);
-        setIsModalOpen(true);
+  // Aggregate analytics
+  const totalPageViews = analytics?.reduce(
+    (sum, a) => sum + (a.pageview_count || 0),
+    0
+  );
+  const totalUniqueVisitors = analytics?.reduce(
+    (sum, a) => sum + (a.unique_visitors || 0),
+    0
+  );
+  const totalRestaurants = restaurants?.length || 0;
+
+  async function handleDeleteMenu(id: string) {
+    setMenuToDelete(id);
+    setIsModalOpen(true);
+  }
+
+  async function confirmDelete() {
+    if (menuToDelete) {
+      await deleteMenu(menuToDelete);
+      revalidateData();
+      setMenuToDelete(null);
+      setIsModalOpen(false);
     }
+  }
 
-    async function confirmDelete() {
-        if (menuToDelete) {
-            await deleteMenu(menuToDelete);
-            revalidateData()
-            setMenuToDelete(null);
-            setIsModalOpen(false);
-        }
+  async function handleDuplicateMenu(id: string) {
+    setDuplicatingId(id);
+    try {
+      await duplicateMenu(id);
+      await revalidateData();
+      // Optionally show a toast or alert
+      // alert('Menu duplicated!');
+    } catch (e) {
+      alert("Failed to duplicate menu.");
+    } finally {
+      setDuplicatingId(null);
     }
+  }
 
-    async function handleDuplicateMenu(id: string) {
-        setDuplicatingId(id);
-        try {
-            await duplicateMenu(id);
-            await revalidateData();
-            // Optionally show a toast or alert
-            // alert('Menu duplicated!');
-        } catch (e) {
-            alert('Failed to duplicate menu.');
-        } finally {
-            setDuplicatingId(null);
-        }
-    }
-
-    function cancelDelete() {
-        setMenuToDelete(null);
-        setIsModalOpen(false);
-    }
+  function cancelDelete() {
+    setMenuToDelete(null);
+    setIsModalOpen(false);
+  }
 
   return (
     <div className="container mx-auto py-20 px-4 overflow-auto">
@@ -59,19 +81,60 @@ export default function Dashboard({user, restaurants}) {
       {user && (
         <div className="mb-8 p-6 bg-white rounded shadow flex flex-col md:flex-row gap-6 items-center">
           <div className="flex-1">
-          <img src={user.imageUrl} alt="Logo" width={100} height={100} className='rounded-full' />
-            <div className="text-lg font-semibold text-gray-900">Welcome, {`${user.firstName} ${user.lastName}` || 'User'}!</div>
+            <img
+              src={user.imageUrl}
+              alt="Logo"
+              width={100}
+              height={100}
+              className="rounded-full"
+            />
+            <div className="text-lg font-semibold text-gray-900">
+              Welcome, {`${user.firstName} ${user.lastName}` || "User"}!
+            </div>
             <div className="text-gray-900">Email: {user.email}</div>
             <div className="text-gray-900">User ID: {user.id}</div>
-            
           </div>
         </div>
       )}
+      {/* Total Analytics Card */}
+      <div>
+        <h2 className="text-2xl font-semibold mb-4">Usage Overview</h2>
+        <div className="mb-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <Card className="p-6 flex flex-col items-center">
+            <div className="text-lg font-semibold text-gray-900 mb-2">
+              Total Page Views
+            </div>
+            <div className="text-3xl font-bold text-gray-900">
+              {totalPageViews}
+            </div>
+          </Card>
+          <Card className="p-6 flex flex-col items-center">
+            <div className="text-lg font-semibold text-gray-900 mb-2">
+              Total Unique Visitors
+            </div>
+            <div className="text-3xl font-bold text-gray-900">
+              {totalUniqueVisitors}
+            </div>
+          </Card>
+          <Card className="p-6 flex flex-col items-center">
+            <div className="text-lg font-semibold text-gray-900 mb-2">
+              Total Restaurants
+            </div>
+            <div className="text-3xl font-bold text-gray-900">
+              {totalRestaurants}
+            </div>
+          </Card>
+        </div>
+      </div>
+
       <div>
         <h2 className="text-2xl font-semibold mb-4">Your Restaurants</h2>
         <div className="flex justify-start mb-4">
           <Link href="/admin/create-menu">
-            <Button variant="primary-inverted" className="border border-white flex items-center gap-2 text-lg font-bold px-6 py-3 rounded-xl shadow-lg">
+            <Button
+              variant="primary-inverted"
+              className="border border-white flex items-center gap-2 text-lg font-bold px-6 py-3 rounded-xl shadow-lg"
+            >
               <FiPlus size={30} />
               Create Menu
             </Button>
@@ -79,40 +142,88 @@ export default function Dashboard({user, restaurants}) {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {restaurants.length === 0 && (
-            <div className="col-span-full text-gray-500">No restaurants created yet.</div>
+            <div className="col-span-full text-gray-500">
+              No restaurants created yet.
+            </div>
           )}
           {restaurants.map((restaurant) => (
-            <Card key={restaurant.id} className="p-6 flex flex-col gap-2 relative">
-              <div className="font-bold text-lg text-gray-900">{restaurant.name}</div>
+            <Card
+              key={restaurant.id}
+              className="p-6 flex flex-col gap-2 relative"
+            >
+              <div className="font-bold text-lg text-gray-900">
+                {restaurant.name}
+              </div>
               <div className="text-gray-800">Theme: {restaurant.theme}</div>
               <div className="text-gray-800">Layout: {restaurant.layout}</div>
-              <div className="text-gray-800">Created: {new Date(restaurant.created_at).toLocaleString()}</div>
+              <div className="text-gray-800">
+                Created: {new Date(restaurant.created_at).toLocaleString()}
+              </div>
               <div className="flex flex-row-reverse gap-2 mt-2 items-center">
-                <Link href={`/restaurants/${restaurant.name}`} className="flex-1">
-                  <Button className="w-full"><LuSquareMenu  size={25} />View Menu</Button>
+                <Link
+                  href={`/restaurants/${restaurant.name}`}
+                  className="flex-1"
+                >
+                  <Button className="w-full">
+                    <LuSquareMenu size={25} />
+                    View Menu
+                  </Button>
                 </Link>
-                <Link href={`/admin/restaurants/${restaurant.name}/analytics`} className="flex-1">
-                  <Button variant="secondary" className="w-full"><TbBrandGoogleAnalytics size={25}/> Analytics</Button>
+                <Link
+                  href={`/admin/restaurants/${restaurant.name}/analytics`}
+                  className="flex-1"
+                >
+                  <Button variant="secondary" className="w-full">
+                    <TbBrandGoogleAnalytics size={25} /> Analytics
+                  </Button>
                 </Link>
                 <div className="absolute top-2 right-2">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <FiMoreVertical size={25} className='text-gray-900 cursor-pointer'/>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <Link href={`/admin/restaurants/${restaurant.name}/edit`} passHref legacyBehavior>
-                      <DropdownMenuItem asChild className="text-gray-900 hover:bg-gray-900/10 cursor-pointer">
-                        <div className="flex items-center gap-2"><FiEdit size={18}/> Edit Menu</div>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <FiMoreVertical
+                        size={25}
+                        className="text-gray-900 cursor-pointer"
+                      />
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <Link
+                        href={`/admin/restaurants/${restaurant.name}/edit`}
+                        passHref
+                        legacyBehavior
+                      >
+                        <DropdownMenuItem
+                          asChild
+                          className="text-gray-900 hover:bg-gray-900/10 cursor-pointer"
+                        >
+                          <div className="flex items-center gap-2">
+                            <FiEdit size={18} /> Edit Menu
+                          </div>
+                        </DropdownMenuItem>
+                      </Link>
+                      <DropdownMenuItem
+                        onClick={() => handleDuplicateMenu(restaurant.id)}
+                        disabled={duplicatingId === restaurant.id}
+                        className="text-gray-900 hover:bg-gray-900/10 cursor-pointer"
+                      >
+                        <span className="flex items-center gap-2">
+                          <FiCopy size={18} />
+                          {duplicatingId === restaurant.id
+                            ? "Loading..."
+                            : "Duplicate"}
+                        </span>
                       </DropdownMenuItem>
-                    </Link>
-                    <DropdownMenuItem onClick={() => handleDuplicateMenu(restaurant.id)} disabled={duplicatingId === restaurant.id} className="text-gray-900 hover:bg-gray-900/10 cursor-pointer">
-                      <span className="flex items-center gap-2"><FiCopy size={18}/>{duplicatingId === restaurant.id ? 'Loading...' : 'Duplicate'}</span>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => handleDeleteMenu(restaurant.id)} disabled={isModalOpen} className="text-red-400 hover:bg-red-50 cursor-pointer">
-                      <span className="flex items-center gap-2"><FiTrash2 size={18}/>Delete</span>
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                      <DropdownMenuItem
+                        onClick={() => handleDeleteMenu(restaurant.id)}
+                        disabled={isModalOpen}
+                        className="text-red-400 hover:bg-red-50 cursor-pointer"
+                      >
+                        <span className="flex items-center gap-2">
+                          <FiTrash2 size={18} />
+                          Delete
+                        </span>
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </div>
               </div>
             </Card>
