@@ -16,6 +16,17 @@ a {
   text-decoration: none;
 }
 /* Theme: Luxury */
+.main-theme {
+  --primary: 0 0% 20%;           /* #333333 */
+  --secondary: 0 0% 40%;         /* #666666 */
+  --accent: 47 64% 52%;          /* #D3AF37 */
+  --card: 0 0% 100%;             /* #FFFFFF */
+  --foreground: 0 0% 20%;
+  --background: 0 0% 100%;
+  --primary-foreground: 0 0% 100%;
+  --secondary-foreground: 0 0% 100%;
+  --card-foreground: 0 0% 20%;
+}
 .theme-luxury {
   --primary: 0 0% 20%;           /* #333333 */
   --secondary: 0 0% 40%;         /* #666666 */

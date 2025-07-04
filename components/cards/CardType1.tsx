@@ -5,14 +5,11 @@ import React from 'react'
 const CardType1 = ({
   record,
   currency,
-  theme = 'theme-luxury', // default theme
 }: {
   record: Record
   currency: string
-  theme?: 'theme-luxury' | 'theme-creative'
 }) => {
   return (
-    <div className={theme}>
       <div className="flex flex-row bg-card rounded-[12px] border border-border shadow-[0_0_5px_1px_rgba(233,245,254,0.2)] overflow-hidden max-w-full">
         <div
           style={{ backgroundImage: `url(${record.image})` }}
@@ -33,7 +30,6 @@ const CardType1 = ({
           </div>
         </div>
       </div>
-    </div>
   )
 }
 

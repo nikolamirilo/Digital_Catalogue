@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useUser, UserButton } from "@clerk/nextjs";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { FaRegCirclePlay } from "react-icons/fa6";
 import {
   FiX,
   FiHome,
@@ -41,6 +42,12 @@ const Navbar = () => {
           <Button variant="ghost">
             <FiMail />
             Contact
+          </Button>
+        </Link>
+        <Link href="/demo">
+          <Button variant="ghost">
+            <FaRegCirclePlay />
+            Demo
           </Button>
         </Link>
         <Link href="/">
