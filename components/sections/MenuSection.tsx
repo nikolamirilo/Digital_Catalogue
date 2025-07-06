@@ -35,24 +35,21 @@ const MenuSection = ({ menuData, currency, layout, type }: { menuData: any, curr
   function returnVariantStyle(variant){
     switch (variant){
       case "variant_1":
-        return "grid grid-cols-1 md:grid-cols-2 gap-6 mt-4"
+        return "grid grid-cols-1 md:grid-cols-2 gap-3 mt-4"
       case "variant_2":
-        return "flex flex-wrap justify-start gap-3 sm:gap-4 md:gap-6 mt-4"
+        return "flex flex-wrap justify-start gap-3 mx-auto sm:gap-4 md:gap-6 mt-4"
 
       case "variant_3":
-        return "grid grid-cols-1 md:grid-cols-2 gap-6 mt-4"
+        return "grid grid-cols-1 md:grid-cols-2 gap-3 mt-4"
       case "variant_4":
-        return `
-        grid
-        grid-cols-1
-        sm:grid-cols-1
-        md:grid-cols-2
-        lg:grid-cols-3
-        gap-6
-        mt-4
-        justify-items-center
-        lg:justify-items-start
-      `.replace(/\s+/g, ' ').trim();
+  return `
+    flex gap-4
+    mt-4 overflow-x-auto
+    scrollbar-hide
+    snap-x
+    snap-mandatory
+    px-2
+  `.replace(/\s+/g, ' ').trim();
       default:
         return "flex flex-row flex-wrap gap-6 mt-4"
     }
@@ -79,20 +76,27 @@ const MenuSection = ({ menuData, currency, layout, type }: { menuData: any, curr
       <main className="max-w-6xl mx-auto px-4 py-4">
         {sortedSections.map((item, index) => (
           <section key={item.code} className="mb-10" id={item.code}>
-            <button
-              className="w-full flex items-center justify-between px-4 py-3 text-2xl md:text-3xl font-semibold border-b-2 border-borderPrimary focus:outline-none hover:bg-white/5 rounded-lg shadow transition-colors duration-200 group"
-              onClick={() => handleToggleSection(item.code)}
-              aria-expanded={!!expandedSections[item.code]}
-              aria-controls={`section-content-${item.code}`}
-              type="button"
-              style={{ boxShadow: '0 2px 8px 0 rgba(0,0,0,0.04)' }}
-            >
-              <span className="truncate font-lora">{item.title}</span>
-              <FiChevronDown
-                className={`ml-4 text-3xl transition-transform duration-300 ${expandedSections[item.code] ? 'rotate-180' : 'rotate-0'}`}
-                aria-hidden="true"
-              />
-            </button>
+<button
+  className=" w-full flex items-center justify-between 
+    px-4 py-3 text-xl sm:text-2xl md:text-3xl font-semibold 
+    border border-section-border 
+    text-section-heading bg-section-bg 
+    hover:bg-section-hover 
+    rounded-xl shadow-md 
+    transition-colors duration-200 group"
+  onClick={() => handleToggleSection(item.code)}
+  aria-expanded={!!expandedSections[item.code]}
+  aria-controls={`section-content-${item.code}`}
+  type="button"
+>
+  <span className="truncate font-lora">{item.title}</span>
+  <FiChevronDown
+    className={`
+      ml-4 text-3xl transition-transform duration-300 
+      text-section-icon ${expandedSections[item.code] ? 'rotate-180' : 'rotate-0'}`}
+    aria-hidden="true"
+  />
+</button>
             <AnimatePresence initial={false}>
               {expandedSections[item.code] && (
                 <motion.div
