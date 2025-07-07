@@ -147,3 +147,10 @@ export interface ISocials {
   x?: string;
   [key: string]: string | undefined;
 }
+
+export type ContactData = {
+  message:string;
+  email: string;
+  name:string;
+  subject: string;
+}

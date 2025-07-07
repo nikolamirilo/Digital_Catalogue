@@ -32,8 +32,7 @@ export default function RootLayout({
   return (
     <html className={`${loraRegular.variable} ${loraSemiBold.variable} antialiased`}>
     <ClerkProvider>
-      <Script async src="https://scripts.simpleanalyticscdn.com/latest.js"/>
-      <body className={`bg-primary text-white`}>
+      <body className={`text-white`}>
         <PageWrapperClient children={children} />
       </body>
     </ClerkProvider>

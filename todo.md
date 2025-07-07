@@ -8,7 +8,6 @@
     - billing page
     - plan usage (number of menus)
     - traffic usage
-- Contact us lambda
 - Cron job that will delete unused images from uploadthing
 - Job that will save once per month overall analytics per user and delete events data from posthog analytics 
 
@@ -20,7 +19,6 @@
     - (NEW) Do research and ADD CUSTOM FONTS FOR INDIVIDUAL THEMES + backgroung styles
 3. **Responsive - Mobile First** DONE 
     - Reduce font sizes for mobile view + reduce size of image & card DONE 
-
 4. Update edit and create form
 5. Implement themes for product (dark and light)
 6. Saas landing page + Demo page - make it more appealing

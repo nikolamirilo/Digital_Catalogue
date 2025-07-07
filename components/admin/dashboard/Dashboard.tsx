@@ -27,7 +27,7 @@ export default function Dashboard({
   user,
   restaurants,
   analytics,
-  pricingPlan
+  pricingPlan,
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [menuToDelete, setMenuToDelete] = useState<string | null>(null);
@@ -80,45 +80,50 @@ export default function Dashboard({
   return (
     <div className="container mx-auto py-20 px-4 overflow-auto">
       <Tabs defaultValue="overview" className="w-full">
-        <TabsList className="mb-8">
-          <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="billing">Billing</TabsTrigger>
+        <TabsList className="my-4 flex gap-2 w-full justify-start">
+          <TabsTrigger value="overview" className="bg-primary">
+            Overview
+          </TabsTrigger>
+          <TabsTrigger value="billing" className="bg-primary">
+            Billing
+          </TabsTrigger>
         </TabsList>
         <TabsContent value="overview">
-        {user && (
-              <div className="mb-8 p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 flex flex-col md:flex-row gap-6 items-center relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-400/20 to-indigo-500/20 rounded-full blur-xl"></div>
-                <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-purple-400/20 to-pink-500/20 rounded-full blur-xl"></div>
-                <div className="flex-1 relative z-10">
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="relative">
-                      <img
-                        src={user.imageUrl}
-                        alt="Profile"
-                        width={80}
-                        height={80}
-                        className="rounded-full ring-4 ring-white/50 shadow-lg"
-                      />
-                      <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-2 border-white"></div>
+          {user && (
+            <div className="mb-8 p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 flex flex-col md:flex-row gap-6 items-center relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-400/20 to-indigo-500/20 rounded-full blur-xl"></div>
+              <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-purple-400/20 to-pink-500/20 rounded-full blur-xl"></div>
+              <div className="flex-1 relative z-10">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="relative">
+                    <img
+                      src={user.imageUrl}
+                      alt="Profile"
+                      width={80}
+                      height={80}
+                      className="rounded-full ring-4 ring-white/50 shadow-lg"
+                    />
+                    <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-2 border-white"></div>
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold text-gray-900 mb-1">
+                      Welcome back,{" "}
+                      {`${user.firstName} ${user.lastName}` || "User"}! 👋
                     </div>
-                    <div>
-                      <div className="text-2xl font-bold text-gray-900 mb-1">
-                        Welcome back, {`${user.firstName} ${user.lastName}` || "User"}! 👋
-                      </div>
-                      <div className="text-gray-600 flex items-center gap-2">
-                        <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
-                        {user.email}
-                      </div>
+                    <div className="text-gray-600 flex items-center gap-2">
+                      <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
+                      {user.email}
                     </div>
                   </div>
                 </div>
               </div>
-            )}
+            </div>
+          )}
           {/* Total Analytics Card */}
           <div>
             <h2 className="text-2xl font-semibold mb-4">Usage Overview</h2>
-            <div className="mb-8 grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-20">
-              <Card className="p-6 flex flex-col items-center">
+            <div className="mb-8 grid grid-cols-1 md:grid-cols-4 gap-4">
+              <Card className="p-4 flex flex-col items-center max-w-72">
                 <div className="text-lg font-semibold text-gray-900 mb-2">
                   Total Page Views
                 </div>
@@ -126,7 +131,7 @@ export default function Dashboard({
                   {totalPageViews}
                 </div>
               </Card>
-              <Card className="p-6 flex flex-col items-center">
+              <Card className="p-4 flex flex-col items-center max-w-72">
                 <div className="text-lg font-semibold text-gray-900 mb-2">
                   Total Unique Visitors
                 </div>
@@ -134,12 +139,20 @@ export default function Dashboard({
                   {totalUniqueVisitors}
                 </div>
               </Card>
-              <Card className="p-6 flex flex-col items-center">
+              <Card className="p-4 flex flex-col items-center max-w-72">
                 <div className="text-lg font-semibold text-gray-900 mb-2">
                   Total Restaurants
                 </div>
                 <div className="text-3xl font-bold text-gray-900">
                   {totalRestaurants}
+                </div>
+              </Card>
+              <Card className="p-4 flex flex-col items-center max-w-72">
+                <div className="text-lg font-semibold text-gray-900 mb-2">
+                  Additional Measure
+                </div>
+                <div className="text-3xl font-bold text-gray-900">
+                  121
                 </div>
               </Card>
             </div>
@@ -173,7 +186,9 @@ export default function Dashboard({
                     {restaurant.name}
                   </div>
                   <div className="text-gray-800">Theme: {restaurant.theme}</div>
-                  <div className="text-gray-800">Layout: {restaurant.layout}</div>
+                  <div className="text-gray-800">
+                    Layout: {restaurant.layout}
+                  </div>
                   <div className="text-gray-800">
                     Created: {new Date(restaurant.created_at).toLocaleString()}
                   </div>
@@ -257,7 +272,7 @@ export default function Dashboard({
           />
         </TabsContent>
         <TabsContent value="billing" className="text-gray-900">
-        <Billing pricingPlan={pricingPlan} />
+          <Billing pricingPlan={pricingPlan} />
         </TabsContent>
       </Tabs>
     </div>
