@@ -11,16 +11,16 @@ html, body {
 }
 
 .home {
-  --home-background: #ffffff;
+  --product-background: #ffffff;
   --home-foreground: #171717;
   --home-primary: #FED835;
   --home-secondary: #010e58;
   --home-primary-accent: #e5c230;
   --home-foreground-accent: #454545;
-  --hero-home-background: #F3F3F5;
+  --hero-product-background: #F3F3F5;
   @apply text-lg;
   color: var(--home-foreground);
-  background: var(--home-background);
+  background: var(--product-background);
 }
 
 .home #logos svg {

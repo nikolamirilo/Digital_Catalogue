@@ -8,7 +8,7 @@ interface Props {
 
 const Section: React.FC<React.PropsWithChildren<Props>> = ({ id, title, description, children }: React.PropsWithChildren<Props>) => {
     return (
-        <section id={id} className="py-10 lg:py-20 bg-home-background">
+        <section id={id} className="py-10 lg:py-20 bg-product-background">
             <SectionTitle>
                 <h2 className="text-center mb-4">{title}</h2>
             </SectionTitle>

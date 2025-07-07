@@ -9,18 +9,19 @@
     - plan usage (number of menus)
     - traffic usage
 - Cron job that will delete unused images from uploadthing
-- Job that will save once per month overall analytics per user and delete events data from posthog analytics 
+- Job that will save once per month overall analytics per user and delete events data from posthog analytics
+- selecting layout for different sections
 
 ### UI:
-1. **Transform layout 4 into caroseul** DONE 
+1. **Transform layout 4 into caroseul** IN PROGRESS
 2. **Themes for digital catalogues (at least 4 themes)**
     - Apply variables to cards 1-4 DONE 
     - Define colors for themes (make it simple)DONE
     - (NEW) Do research and ADD CUSTOM FONTS FOR INDIVIDUAL THEMES + backgroung styles
 3. **Responsive - Mobile First** DONE 
     - Reduce font sizes for mobile view + reduce size of image & card DONE 
-4. Update edit and create form
-5. Implement themes for product (dark and light)
-6. Saas landing page + Demo page - make it more appealing
-7. Pricing plans - make it more appealing
-8. Contact page - make it more appealing
+4. Themes update
+    - hsl => hex for all themes
+    - create main product theme
+    - add theme variables on contact, demo
+5. Update edit and create form

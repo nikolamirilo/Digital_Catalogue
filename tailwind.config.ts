@@ -13,13 +13,13 @@ export default withUt(
     theme: {
       extend: {
         colors: {
-          "home-background": "var(--home-background)",
+          "product-background": "var(--product-background)",
           "home-foreground": "var(--home-foreground)",
           "home-primary": "var(--home-primary)",
           "home-secondary": "var(--home-secondary)",
           "primary-accent": "var(--home-primary-accent)",
           "foreground-accent": "var(--home-foreground-accent)",
-          "hero-home-background": "var(--hero-home-background)",
+          "hero-product-background": "var(--hero-product-background)",
           primary: "hsl(var(--primary))",
           secondary: "hsl(var(--secondary))",
           accent: "hsl(var(--accent))",
