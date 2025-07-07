@@ -79,7 +79,6 @@ export default function Dashboard({
 
   return (
     <div className="container mx-auto py-20 px-4 overflow-auto">
-      <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
       <Tabs defaultValue="overview" className="w-full">
         <TabsList className="mb-8">
           <TabsTrigger value="overview">Overview</TabsTrigger>

@@ -4,10 +4,31 @@
 @layer theme, base, clerk, components, utilities;
 
 html, body {
-  background: linear-gradient(135deg, #1f2937 0%, #111827 50%, #000000 100%);
   min-height: 100vh;
   margin: 0;
   padding: 0;
+  @apply scroll-smooth;
+}
+
+.home {
+  --home-background: #ffffff;
+  --home-foreground: #171717;
+  --home-primary: #FED835;
+  --home-secondary: #010e58;
+  --home-primary-accent: #e5c230;
+  --home-foreground-accent: #454545;
+  --hero-home-background: #F3F3F5;
+  @apply text-lg;
+  color: var(--home-foreground);
+  background: var(--home-background);
+}
+
+.home #logos svg {
+  @apply w-fit h-10 sm:h-12;
+}
+
+.home .benefit-section:last-of-type > div {
+  @apply mb-10;
 }
 
 /* styles.css or your existing CSS file */
@@ -96,7 +117,6 @@ a {
 .theme-elegant {
    --background: 240 10% 10%;
   background-image: linear-gradient(to bottom, hsl(var(--background)), hsl(240, 10%, 6%));
- 
   --foreground: 0 0% 98%;
   --heading: 0 0% 98%;
   --text: 0 0% 70%;

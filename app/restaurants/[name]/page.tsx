@@ -10,7 +10,7 @@ const page = async ({ params }: { params: Promise<{ name: string }> }) => {
   const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
   const { data } = await supabase.from("restaurants").select().eq("name", name);
-  const theme = "theme-elegant"; // menjas temu ovde da testiras, inace ce doci iz baze
+  const theme = "theme-elegant "; // menjas temu ovde da testiras, inace ce doci iz baze
   if (data[0]) {
     let restaurant: any = data[0];
     return (
