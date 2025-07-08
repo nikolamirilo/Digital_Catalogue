@@ -20,6 +20,7 @@ export interface MenuItem {
 
 export interface MenuCategory {
   name: string;
+  layout: string; // e.g., 'variant_1', 'variant_2', etc.
   items: MenuItem[];
 }
 export interface Restaurant {

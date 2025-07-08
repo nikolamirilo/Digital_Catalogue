@@ -1,7 +1,6 @@
 'use client';
 
-import type React from "react"
-import { useState, useEffect } from "react"
+import React, { useState, useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { toast } from "@/hooks/use-toast"
@@ -57,7 +56,7 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
   const handleAddCategory = () => {
     setFormData((prev) => ({
       ...prev,
-      menu: [...prev.menu, { name: "", items: [] }],
+      menu: [...prev.menu, { name: "", layout: "variant_1", items: [] }],
     }));
   };
 
@@ -68,9 +67,9 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
     }));
   };
 
-  const handleCategoryNameChange = (index: number, value: string) => {
+  const handleCategoryChange = (index: number, field: 'name' | 'layout', value: string) => {
     const updatedMenu = [...formData.menu];
-    updatedMenu[index].name = value;
+    updatedMenu[index][field] = value;
     setFormData((prev) => ({ ...prev, menu: updatedMenu }));
   };
 
@@ -148,107 +147,113 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
     setFormData((prev) => ({ ...prev, contact: updatedContact }));
   };
 
+  // Validation and touched state
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [touched, setTouched] = useState<{ [key: string]: boolean }>({});
+  const [step2Error, setStep2Error] = useState<string>("");
+  const [step3Error, setStep3Error] = useState<string>("");
+  const [nextDisabled, setNextDisabled] = useState(false);
+  const nextDisableTimer = useRef<NodeJS.Timeout | null>(null);
+
+  // Ensure timer is cleared on step change or unmount
+  useEffect(() => {
+    return () => {
+      if (nextDisableTimer.current) clearTimeout(nextDisableTimer.current);
+      setNextDisabled(false);
+    };
+  }, [currentStep]);
+
   const validateStep = (step: number): boolean => {
     switch (step) {
       case 1:
-        if (!formData.name.trim()) {
-          toast({
-            title: "Validation Error",
-            description: "Restaurant name is required.",
-            variant: "destructive",
-          });
-          return false;
-        }
-        for (const contact of formData.contact) {
-          if (!contact.type.trim() || !contact.value.trim()) {
-            toast({
-              title: "Validation Error",
-              description: "All contact fields must have a type and a value.",
-              variant: "destructive",
-            });
-            return false;
-          }
-        }
-        return true;
+        const newErrors: { [key: string]: string } = {};
+        if (!formData.name.trim()) newErrors.name = "Restaurant name is required.";
+        if (!formData.title?.trim()) newErrors.title = "Title is required.";
+        if (!formData.currency?.trim()) newErrors.currency = "Currency is required.";
+        if (!formData.theme?.trim()) newErrors.theme = "Theme is required.";
+        if (!formData.logo?.trim()) newErrors.logo = "Logo is required.";
+        setErrors(newErrors);
+        setTouched({ name: true, title: true, currency: true, theme: true, logo: true });
+        return Object.keys(newErrors).length === 0;
       case 2:
         if (formData.menu.length === 0) {
-          toast({
-            title: "Validation Error",
-            description: "Please add at least one menu category.",
-            variant: "destructive",
-          });
+          setStep2Error("Please add at least one menu category.");
           return false;
         }
         for (const category of formData.menu) {
           if (!category.name.trim()) {
-            toast({
-              title: "Validation Error",
-              description: "All menu categories must have a name.",
-              variant: "destructive",
-            });
+            setStep2Error("All menu categories must have a name.");
             return false;
           }
         }
+        setStep2Error("");
         return true;
       case 3:
         for (const category of formData.menu) {
           if (category.items.length === 0) {
-            toast({
-              title: "Validation Error",
-              description: `Category "${category.name}" must have at least one menu item.`,
-              variant: "destructive",
-            });
+            setStep3Error(`Category "${category.name}" must have at least one menu item.`);
             return false;
           }
-
           for (const item of category.items) {
             if (!item.name.trim()) {
-              console.log('Validation failed: Item name empty', { category: category.name, item });
-              toast({
-                title: "Validation Error",
-                description: `All items in category "${category.name}" must have a name.`,
-                variant: "destructive",
-              });
+              setStep3Error(`All items in category "${category.name}" must have a name.`);
               return false;
             }
             if (!item.description.trim()) {
-              console.log('Validation failed: Item description empty', { category: category.name, item });
-              toast({
-                title: "Validation Error",
-                description: `All items in category "${category.name}" must have a description.`,
-                variant: "destructive",
-              });
+              setStep3Error(`All items in category "${category.name}" must have a description.`);
               return false;
             }
             if (item.price <= 0) {
-              console.log('Validation failed: Item price zero or less', { category: category.name, item });
-              toast({
-                title: "Validation Error",
-                description: `Price for item "${item.name}" in category "${category.name}" must be greater than 0.`,
-                variant: "destructive",
-              });
+              setStep3Error(`Price for item "${item.name}" in category "${category.name}" must be greater than 0.`);
               return false;
             }
-            if (!item.image.trim()) {
-              console.log('Validation failed: Item image empty', { category: category.name, item });
-              toast({
-                title: "Validation Error",
-                description: `Image for item "${item.name}" in category "${category.name}" is required.`,
-                variant: "destructive",
-              });
+            // Image required for all layouts except variant_3
+            if (category.layout !== "variant_3" && !item.image?.trim()) {
+              setStep3Error(`Image for item "${item.name}" in category "${category.name}" is required for this layout.`);
               return false;
             }
           }
         }
+        setStep3Error("");
         return true;
       default:
         return false;
     }
   };
 
+  // Handle field blur for touched state
+  const handleFieldBlur = (field: string) => {
+    setTouched((prev) => ({ ...prev, [field]: true }));
+  };
+
   const handleNext = () => {
     if (validateStep(currentStep)) {
       setCurrentStep((prev) => prev + 1);
+      setNextDisabled(false);
+      if (nextDisableTimer.current) clearTimeout(nextDisableTimer.current);
+    } else {
+      if (currentStep === 1) {
+        setNextDisabled(true);
+        if (nextDisableTimer.current) clearTimeout(nextDisableTimer.current);
+        nextDisableTimer.current = setTimeout(() => {
+          setNextDisabled(false);
+        }, 3000);
+      }
+    }
+  };
+
+  // Remove error as soon as user fixes a field, but do not re-enable Next (let timer do it)
+  const handleInputChangeWithValidation = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | { target: { name: string; value: string } }) => {
+    handleInputChange(e);
+    if (currentStep === 1) {
+      const { name, value } = 'target' in e ? e.target : { name: '', value: '' };
+      if (errors[name]) {
+        const newErrors = { ...errors };
+        if (value && value.trim()) {
+          delete newErrors[name];
+          setErrors(newErrors);
+        }
+      }
     }
   };
 
@@ -284,9 +289,12 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
       transformedFormData.name = restaurantSlug;
       const transformedMenu = transformedFormData.menu.reduce((acc, category) => {
         const categorySlug = category.name.toLowerCase().replace(/\s+/g, '-');
-        acc[categorySlug] = category.items;
+        acc[categorySlug] = {
+          layout: category.layout,
+          items: category.items,
+        };
         return acc;
-      }, {} as Record<string, MenuItem[]>);
+      }, {} as Record<string, { layout: string; items: MenuItem[] }>);
       const contactData = transformedFormData.contact;
       const method = type === 'edit' ? 'PATCH' : 'POST';
       const response = await fetch('/api/menu', {
@@ -344,11 +352,13 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
         return (
           <Step1GeneralInfo
             formData={formData}
-            handleInputChange={handleInputChange}
+            handleInputChange={handleInputChangeWithValidation}
             handleAddContact={handleAddContact}
             handleRemoveContact={handleRemoveContact}
             handleContactChange={handleContactChange}
             setFormData={setFormData}
+            errors={errors}
+            touched={touched}
           />
         );
       case 2:
@@ -357,7 +367,7 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
             formData={formData}
             handleAddCategory={handleAddCategory}
             handleRemoveCategory={handleRemoveCategory}
-            handleCategoryNameChange={handleCategoryNameChange}
+            handleCategoryChange={handleCategoryChange}
           />
         );
       case 3:
@@ -419,6 +429,12 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-8">
           {renderStep()}
+          {currentStep === 2 && step2Error && (
+            <div className="text-red-500 text-center mt-2">{step2Error}</div>
+          )}
+          {currentStep === 3 && step3Error && (
+            <div className="text-red-500 text-center mt-2">{step3Error}</div>
+          )}
           <div className="flex justify-between mt-8">
             {currentStep > 1 && (
               <Button type="button" variant="outline" onClick={handlePrevious}>
@@ -426,7 +442,9 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
               </Button>
             )}
             {currentStep < 3 && (
-              <Button type="button" onClick={handleNext} className="ml-auto">
+              <Button type="button" onClick={handleNext} className="ml-auto" disabled={
+                (currentStep === 1 && (Object.keys(errors).length > 0 || nextDisabled))
+              }>
                 Next <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             )}

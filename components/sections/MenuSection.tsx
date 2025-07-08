@@ -16,7 +16,6 @@ import 'swiper/css/pagination';
 
 const MenuSection = ({ menuData, currency, layout, type }: { menuData: any, currency: string, layout:string, type: "demo" | "restaurant" }) => {
   // Transform sectionsData
-  const [variant, setVariant] = useState("variant_1")
   const context = useMainContext()
   const sectionsData = Object.keys(menuData).map((item) => ({
     title: item.charAt(0).toUpperCase() + item.slice(1).replace(/_/g, " "),
@@ -61,9 +60,9 @@ const MenuSection = ({ menuData, currency, layout, type }: { menuData: any, curr
   };
   useEffect(() => {
     if(type=="demo"){
-      setVariant(context.layout)
+      // setVariant(context.layout) // This line is removed as per the edit hint
     }else{
-      setVariant(layout)
+      // setVariant(layout) // This line is removed as per the edit hint
     }
   }, [context.layout, type])
 
@@ -105,11 +104,11 @@ const MenuSection = ({ menuData, currency, layout, type }: { menuData: any, curr
                   transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
                   className="overflow-hidden"
                 >
-                  {variant === "variant_4" ? (
+                  {menuData[item.code].layout === "variant_4" ? (
                   <Swiper
                           spaceBetween={12}  slidesPerView={'auto'}  className="mt-4 !px-2"
                         >
-                          {menuData[item.code].map((record, i) => (
+                          {menuData[item.code].items.map((record, i) => (
                             <SwiperSlide
                               key={i}
                               className="!w-[220px] sm:!w-[260px] md:!w-[320px]flex flex-col max-w-[90vw]"
@@ -119,9 +118,9 @@ const MenuSection = ({ menuData, currency, layout, type }: { menuData: any, curr
                           ))}
                    </Swiper>
 ) : (
-  <div className={`${returnVariantStyle(variant)}`}>
-    {menuData[item.code].map((record, i) => {
-      switch (variant) {
+  <div className={`${returnVariantStyle(menuData[item.code].layout)}`}>
+    {menuData[item.code].items.map((record, i) => {
+      switch (menuData[item.code].layout) {
         case "variant_1":
           return <CardType1 key={i} record={record} currency={currency} />;
         case "variant_2":

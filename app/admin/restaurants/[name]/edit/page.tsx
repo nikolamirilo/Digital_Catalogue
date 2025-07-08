@@ -34,9 +34,10 @@ export default async function EditMenuPage({
   // Transform DB data to RestaurantFormData shape
   const menuObj = data.menu || {};
   const menu: MenuCategory[] = Object.entries(menuObj).map(
-    ([name, items]: [string, MenuItem[]]) => ({
+    ([name, section]: [string, { layout: string; items: MenuItem[] }]) => ({
       name,
-      items: items || [],
+      layout: section.layout || "variant_1",
+      items: section.items || [],
     })
   );
   let contact: ContactInfo[] = [];

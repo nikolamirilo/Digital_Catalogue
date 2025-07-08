@@ -29,7 +29,6 @@ const page = async ({ params }: { params: Promise<{ name: string }> }) => {
           <MenuSection
             menuData={restaurant.menu}
             currency={restaurant.currency}
-            layout={restaurant.layout}
             type="restaurant"
           />
         )}

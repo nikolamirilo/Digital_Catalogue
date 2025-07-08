@@ -14,7 +14,7 @@ import { IoClose } from "react-icons/io5";
 
 interface Step3MenuItemsProps {
   formData: {
-    menu: MenuCategory[];
+    menu: { name: string; layout: string; items: MenuItem[] }[];
   };
   handleAddItem: (categoryIndex: number) => void;
   handleRemoveItem: (categoryIndex: number, itemIndex: number) => void;
