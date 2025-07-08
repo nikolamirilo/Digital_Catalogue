@@ -37,25 +37,25 @@ const Navbar = () => {
       {/* Desktop links */}
       <div className="hidden md:flex items-center gap-2">
         <Link href="/">
-          <Button variant="ghost" className="text-gray-700 hover:text-black hover:bg-gray-50 transition-colors">
+          <Button variant="ghost" className="text-gray-800 hover:text-black hover:bg-gray-50 transition-colors">
             <FiHome className="mr-2" />
             Home
           </Button>
         </Link>
         <Link href="/pricing">
-          <Button variant="ghost" className="text-gray-700 hover:text-black hover:bg-gray-50 transition-colors">
+          <Button variant="ghost" className="text-gray-800 hover:text-black hover:bg-gray-50 transition-colors">
             <FiDollarSign className="mr-2" />
             Pricing
           </Button>
         </Link>
         <Link href="/contact">
-          <Button variant="ghost" className="text-gray-700 hover:text-black hover:bg-gray-50 transition-colors">
+          <Button variant="ghost" className="text-gray-800 hover:text-black hover:bg-gray-50 transition-colors">
             <FiMail className="mr-2" />
             Contact
           </Button>
         </Link>
         <Link href="/demo">
-          <Button variant="ghost" className="text-gray-700 hover:text-black hover:bg-gray-50 transition-colors">
+          <Button variant="ghost" className="text-gray-800 hover:text-black hover:bg-gray-50 transition-colors">
             <FaRegCirclePlay className="mr-2" />
             Demo
           </Button>
@@ -77,7 +77,7 @@ const Navbar = () => {
           ) : (
             <>
               <Link href="/auth">
-                <Button variant="outline" className="border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors">
+                <Button variant="outline" className="border-gray-300 text-gray-800 hover:bg-gray-50 transition-colors">
                   <FiUser className="mr-2" />
                   Sign In
                 </Button>
@@ -100,7 +100,7 @@ const Navbar = () => {
           onClick={() => setMobileOpen((v) => !v)}
           className="p-2 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-1 transition-colors"
         >
-          <GiHamburgerMenu size={24} className="text-gray-700" />
+          <GiHamburgerMenu size={24} className="text-gray-800" />
         </button>
       </div>
       
@@ -127,7 +127,7 @@ const Navbar = () => {
             onClick={() => setMobileOpen(false)}
             className="p-2 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-1 transition-colors"
           >
-            <FiX size={24} className="text-gray-700" />
+            <FiX size={24} className="text-gray-800" />
           </button>
         </div>
         
@@ -136,28 +136,28 @@ const Navbar = () => {
           <Link href="/" onClick={() => setMobileOpen(false)}>
             <button className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 text-left transition-colors">
               <FiHome size={20} className="text-gray-600" />
-              <span className="text-gray-700">Home</span>
+              <span className="text-gray-800">Home</span>
             </button>
           </Link>
           
           <Link href="/pricing" onClick={() => setMobileOpen(false)}>
             <button className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 text-left transition-colors">
               <FiDollarSign size={20} className="text-gray-600" />
-              <span className="text-gray-700">Pricing</span>
+              <span className="text-gray-800">Pricing</span>
             </button>
           </Link>
           
           <Link href="/contact" onClick={() => setMobileOpen(false)}>
             <button className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 text-left transition-colors">
               <FiMail size={20} className="text-gray-600" />
-              <span className="text-gray-700">Contact</span>
+              <span className="text-gray-800">Contact</span>
             </button>
           </Link>
           
           <Link href="/demo" onClick={() => setMobileOpen(false)}>
             <button className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 text-left transition-colors">
               <FaRegCirclePlay size={20} className="text-gray-600" />
-              <span className="text-gray-700">Demo</span>
+              <span className="text-gray-800">Demo</span>
             </button>
           </Link>
           
@@ -182,7 +182,7 @@ const Navbar = () => {
             <>
               <div className="border-t border-gray-100 pt-4 mt-4 space-y-3">
                 <Link href="/auth" onClick={() => setMobileOpen(false)}>
-                  <Button variant="outline" className="w-full justify-start border-gray-300 text-gray-700 hover:bg-gray-50">
+                  <Button variant="outline" className="w-full justify-start border-gray-300 text-gray-800 hover:bg-gray-50">
                     <FiUser size={20} className="mr-3" />
                     Sign In
                   </Button>
