@@ -42,12 +42,6 @@ const Navbar = () => {
             Home
           </Button>
         </Link>
-        <Link href="/pricing">
-          <Button variant="ghost" className="text-gray-800 hover:text-black hover:bg-gray-50 transition-colors">
-            <FiDollarSign className="mr-2" />
-            Pricing
-          </Button>
-        </Link>
         <Link href="/contact">
           <Button variant="ghost" className="text-gray-800 hover:text-black hover:bg-gray-50 transition-colors">
             <FiMail className="mr-2" />
@@ -137,13 +131,6 @@ const Navbar = () => {
             <button className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 text-left transition-colors">
               <FiHome size={20} className="text-gray-600" />
               <span className="text-gray-800">Home</span>
-            </button>
-          </Link>
-          
-          <Link href="/pricing" onClick={() => setMobileOpen(false)}>
-            <button className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 text-left transition-colors">
-              <FiDollarSign size={20} className="text-gray-600" />
-              <span className="text-gray-800">Pricing</span>
             </button>
           </Link>
           
