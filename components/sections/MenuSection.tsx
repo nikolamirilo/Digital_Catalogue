@@ -10,6 +10,9 @@ import Toggle from "../common/Toggle";
 import CardType4 from "../cards/CardType4";
 import { FiChevronDown } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 const MenuSection = ({ menuData, currency, layout, type }: { menuData: any, currency: string, layout:string, type: "demo" | "restaurant" }) => {
   // Transform sectionsData
@@ -42,14 +45,8 @@ const MenuSection = ({ menuData, currency, layout, type }: { menuData: any, curr
       case "variant_3":
         return "grid grid-cols-1 md:grid-cols-2 gap-3 mt-4"
       case "variant_4":
-  return `
-    flex gap-4
-    mt-4 overflow-x-auto
-    scrollbar-hide
-    snap-x
-    snap-mandatory
-    px-2
-  `.replace(/\s+/g, ' ').trim();
+  return ""
+    
       default:
         return "flex flex-row flex-wrap gap-6 mt-4"
     }
@@ -108,22 +105,36 @@ const MenuSection = ({ menuData, currency, layout, type }: { menuData: any, curr
                   transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
                   className="overflow-hidden"
                 >
-                  <div className={`${returnVariantStyle(variant)}`}>
-                    {menuData[item.code].map((record, i) => {
-                      switch (variant) {
-                        case "variant_1":
-                          return <CardType1 key={i} record={record} currency={currency} />;
-                        case "variant_2":
-                          return <CardType2 key={i} record={record} currency={currency}/>;
-                        case "variant_3":
-                          return <CardType3 key={i} record={record} currency={currency}/>;
-                        case "variant_4":
-                          return <CardType4 key={i} record={record} currency={currency}/>;
-                        default:
-                          return <CardType1 key={i} record={record} currency={currency}/>;
-                      }
-                    })}
-                  </div>
+                  {variant === "variant_4" ? (
+                  <Swiper
+                          spaceBetween={12}  slidesPerView={'auto'}  className="mt-4 !px-2"
+                        >
+                          {menuData[item.code].map((record, i) => (
+                            <SwiperSlide
+                              key={i}
+                              className="!w-[220px] sm:!w-[260px] md:!w-[320px]flex flex-col max-w-[90vw]"
+                            >
+                              <CardType4 record={record} currency={currency} />
+                            </SwiperSlide>
+                          ))}
+                   </Swiper>
+) : (
+  <div className={`${returnVariantStyle(variant)}`}>
+    {menuData[item.code].map((record, i) => {
+      switch (variant) {
+        case "variant_1":
+          return <CardType1 key={i} record={record} currency={currency} />;
+        case "variant_2":
+          return <CardType2 key={i} record={record} currency={currency}/>;
+        case "variant_3":
+          return <CardType3 key={i} record={record} currency={currency}/>;
+        default:
+          return <CardType1 key={i} record={record} currency={currency}/>;
+      }
+    })}
+  </div>
+)}
+
                 </motion.div>
               )}
             </AnimatePresence>
