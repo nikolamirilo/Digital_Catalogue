@@ -152,15 +152,28 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
   const [touched, setTouched] = useState<{ [key: string]: boolean }>({});
   const [step2Error, setStep2Error] = useState<string>("");
   const [step3Error, setStep3Error] = useState<string>("");
-  const [nextDisabled, setNextDisabled] = useState(false);
-  const nextDisableTimer = useRef<NodeJS.Timeout | null>(null);
 
-  // Ensure timer is cleared on step change or unmount
-  useEffect(() => {
-    return () => {
-      if (nextDisableTimer.current) clearTimeout(nextDisableTimer.current);
-    };
-  }, []);
+  const isStepValid = (step: number): boolean => {
+    if (step === 1) {
+      return (
+        !!formData.name.trim() &&
+        !!formData.title?.trim() &&
+        !!formData.currency?.trim() &&
+        !!formData.theme?.trim() &&
+        !!formData.logo?.trim()
+      );
+    }
+    if (step === 2) {
+      if (formData.menu.length === 0) return false;
+      return formData.menu.every((category) => !!category.name.trim());
+    }
+    // For step 3, we can do a basic check, but detailed validation happens on submit
+    if (step === 3) {
+      return formData.menu.every((category) => category.items.length > 0);
+    }
+    return true;
+  };
+
 
   const validateStep = (step: number): boolean => {
     let newErrors: { [key: string]: string } = {};
@@ -239,14 +252,6 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
   const handleNext = () => {
     if (validateStep(currentStep)) {
       setCurrentStep((prev) => prev + 1);
-    } else {
-      setNextDisabled(true);
-      if (nextDisableTimer.current) {
-        clearTimeout(nextDisableTimer.current);
-      }
-      nextDisableTimer.current = setTimeout(() => {
-        setNextDisabled(false);
-      }, 3000);
     }
   };
 
@@ -446,7 +451,12 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
               </Button>
             )}
             {currentStep < 3 && (
-              <Button type="button" onClick={handleNext} className="ml-auto" disabled={nextDisabled}>
+              <Button
+                type="button"
+                onClick={handleNext}
+                className={`ml-auto ${!isStepValid(currentStep) ? 'bg-gray-400 hover:bg-gray-400' : ''}`}
+                disabled={!isStepValid(currentStep)}
+              >
                 Next <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             )}
