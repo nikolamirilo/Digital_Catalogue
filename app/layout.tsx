@@ -32,7 +32,7 @@ export default function RootLayout({
   return (
     <html className={`${loraRegular.variable} ${loraSemiBold.variable} antialiased`}>
     <ClerkProvider>
-      <body className="main-theme">
+      <body className="product">
         <PageWrapperClient children={children} />
       </body>
     </ClerkProvider>

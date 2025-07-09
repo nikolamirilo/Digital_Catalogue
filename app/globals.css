@@ -36,18 +36,6 @@ a {
   position: relative;
   text-decoration: none;
 }
-.main-theme {
-  --primary: #1c1c1c;              
-  --secondary: #666666;            
-  --accent: #D3AF37;               
-  --card: #FFFFFF;                
-  --foreground: #333333;
-  --button: #ffffffff;           
-  --background: #FFFFFF;           
-  --primary-foreground: #FFFFFF;   
-  --secondary-foreground: #FFFFFF; 
-  --card-foreground: #333333;      
-}
 .theme-luxury {
   --background: #ffffff;
   --foreground: #1a1a1a;

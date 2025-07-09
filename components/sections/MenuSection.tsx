@@ -86,7 +86,7 @@ const MenuSection = ({
                       {menuData[item.code].items.map((record, i) => (
                         <SwiperSlide
                           key={i}
-                          className="!w-[220px] sm:!w-[260px] md:!w-[320px] flex flex-col max-w-[90vw]"
+                          className="!w-[222px] sm:!w-[260px] md:!w-[320px] flex flex-col max-w-[90vw] !h-auto"
                         >
                           <CardsSwitcher
                             variant={currentLayout}

@@ -11,18 +11,18 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-primary hover:bg-gray-900 text-button transition-colors shadow-md",
+          "bg-product-primary text-button transition-colors shadow-md",
         destructive:
-          "bg-red-400 text-white shadow-sm hover:bg-red-400/90",
+          "bg-red-400 text-white shadow-sm",
         outline:
-          "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground",
+          "border border-input bg-background shadow-sm ",
         secondary:
-          "bg-background text-secondary-foreground shadow-sm hover:bg-secondary/80 text-gray-900",
-        ghost: "hover:bg-accent hover:text-accent-foreground text-gray-900",
-        success: "bg-green-500 hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
+          "bg-background text-secondary-foreground shadow-sm text-gray-900",
+        ghost: "text-gray-900",
+        success: "bg-green-500",
+        link: "text-primary underline-offset-4",
         'primary-inverted':
-          "bg-white text-primary border-2 border-primary shadow hover:bg-primary hover:text-white transition-colors duration-200",
+          "bg-white text-primary border-2 border-primary shadow transition-colors duration-200",
       },
       size: {
         default: "h-9 px-4 py-2",

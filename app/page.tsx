@@ -13,7 +13,7 @@ import Navbar from "@/components/navigation/Navbar";
 
 const HomePage: React.FC = () => {
   return (
-    <div className="product">
+    <div>
       <Navbar/>
       <Hero />
       <Logos />

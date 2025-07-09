@@ -39,7 +39,7 @@ export default function Billing({ pricingPlan }: { pricingPlan: any }) {
     const name = planName?.toLowerCase();
     if (name?.includes('pro') || name?.includes('premium')) return 'bg-gradient-to-r from-purple-500 to-pink-500';
     if (name?.includes('enterprise')) return 'bg-gradient-to-r from-blue-600 to-indigo-600';
-    return 'bg-gradient-to-r from-green-500 to-emerald-500';
+    return 'bg-gradient-to-r from-indigo-700 to-indigo-100';
   };
 
   if (!pricingPlan) {
@@ -54,7 +54,7 @@ export default function Billing({ pricingPlan }: { pricingPlan: any }) {
             <p className="text-gray-500 text-center mb-6">
               You haven't selected a billing plan yet. Choose a plan to get started.
             </p>
-            <Button className="bg-blue-600 hover:bg-blue-700">
+            <Button className="bg-product-primary">
               View Available Plans
             </Button>
           </CardContent>
@@ -80,7 +80,7 @@ export default function Billing({ pricingPlan }: { pricingPlan: any }) {
             </div>
             <Badge 
               variant={pricingPlan.is_active ? "default" : "secondary"}
-              className={`${pricingPlan.is_active ? 'bg-green-500 hover:bg-green-600' : 'bg-gray-500'} text-white`}
+              className={`${pricingPlan.is_active ? 'bg-green-500' : 'bg-gray-500'} text-white text-sm`}
             >
               {pricingPlan.is_active ? 'Active' : 'Inactive'}
             </Badge>
@@ -146,7 +146,7 @@ export default function Billing({ pricingPlan }: { pricingPlan: any }) {
       {pricingPlan.features && (
         <Card className="shadow-lg">
           <CardHeader className="pb-4">
-            <CardTitle className="text-xl font-bold flex items-center space-x-2">
+            <CardTitle className="text-xl font-bold flex items-center">
               <Star className="w-5 h-5 text-yellow-500" />
               <span>Plan Features</span>
             </CardTitle>
@@ -184,20 +184,20 @@ export default function Billing({ pricingPlan }: { pricingPlan: any }) {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
               variant="outline" 
-              className="flex items-center space-x-2 hover:bg-gray-50 dark:hover:bg-gray-800"
+              className="flex items-center"
             >
-              <CreditCard className="w-4 h-4" />
+              <CreditCard size={20} />
               <span>Update Payment Method</span>
             </Button>
             <Button 
               variant="outline"
-              className="flex items-center space-x-2 hover:bg-gray-50 dark:hover:bg-gray-800"
+              className="flex items-center"
             >
-              <Calendar className="w-4 h-4" />
+              <Calendar size={20} />
               <span>View Billing History</span>
             </Button>
             <Button 
-              className="bg-blue-600 hover:bg-blue-700 text-white"
+              className="bg-product-primary text-product-foreground"
             >
               Upgrade Plan
             </Button>

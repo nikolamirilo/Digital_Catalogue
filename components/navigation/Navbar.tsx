@@ -23,7 +23,7 @@ const Navbar = () => {
   return (
     <nav className="w-full flex items-center justify-between px-6 py-4 bg-white shadow-lg border-b border-gray-100 fixed top-0 left-0 z-50">
       <div className="flex items-center gap-3">
-        <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+        <Link href="/" className="flex items-center gap-3 transition-opacity">
           <div className="relative">
             <Avatar className="w-10 h-10 ring-2 ring-black ring-offset-2">
               <AvatarImage src="/logo.webp" alt="Logo" />
@@ -37,20 +37,20 @@ const Navbar = () => {
       {/* Desktop links */}
       <div className="hidden md:flex items-center gap-2">
         <Link href="/">
-          <Button variant="ghost" className="text-gray-800 hover:text-black hover:bg-gray-50 transition-colors">
-            <FiHome className="mr-2" />
+          <Button variant="ghost" className="text-gray-800  transition-colors">
+            <FiHome  />
             Home
           </Button>
         </Link>
         <Link href="/contact">
-          <Button variant="ghost" className="text-gray-800 hover:text-black hover:bg-gray-50 transition-colors">
-            <FiMail className="mr-2" />
+          <Button variant="ghost" className="text-gray-800  transition-colors">
+            <FiMail  />
             Contact
           </Button>
         </Link>
         <Link href="/demo">
-          <Button variant="ghost" className="text-gray-800 hover:text-black hover:bg-gray-50 transition-colors">
-            <FaRegCirclePlay className="mr-2" />
+          <Button variant="ghost" className="text-gray-800  transition-colors">
+            <FaRegCirclePlay  />
             Demo
           </Button>
         </Link>
@@ -59,8 +59,8 @@ const Navbar = () => {
           {isSignedIn ? (
             <>
               <Link href="/admin/dashboard">
-                <Button className="bg-black hover:bg-gray-900 text-white transition-colors shadow-md">
-                  <FiGrid className="mr-2" />
+                <Button className="bg-product-primary text-product-foreground transition-colors shadow-md">
+                  <FiGrid  />
                   Dashboard
                 </Button>
               </Link>
@@ -72,13 +72,13 @@ const Navbar = () => {
             <>
               <Link href="/auth">
                 <Button>
-                <FiUser className="mr-2" />
+                <FiUser  />
                 Sign In
                 </Button>
               </Link>
               <Link href="/auth?mode=signup">
                 <Button>
-                  <FiUserPlus className="mr-2" />
+                  <FiUserPlus  />
                   Sign Up
                 </Button>
               </Link>
@@ -92,7 +92,7 @@ const Navbar = () => {
         <button
           aria-label="Open menu"
           onClick={() => setMobileOpen((v) => !v)}
-          className="p-2 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-1 transition-colors"
+          className="p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-1 transition-colors"
         >
           <GiHamburgerMenu size={24} className="text-gray-800" />
         </button>
@@ -119,7 +119,7 @@ const Navbar = () => {
           <button
             aria-label="Close menu"
             onClick={() => setMobileOpen(false)}
-            className="p-2 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-1 transition-colors"
+            className="p-2 rounded-lg  focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-1 transition-colors"
           >
             <FiX size={24} className="text-gray-800" />
           </button>
@@ -128,21 +128,21 @@ const Navbar = () => {
         {/* Mobile menu items */}
         <div className="flex flex-col p-6 gap-3">
           <Link href="/" onClick={() => setMobileOpen(false)}>
-            <button className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 text-left transition-colors">
+            <button className="w-full flex items-center gap-3 p-3 rounded-lg  text-left transition-colors">
               <FiHome size={20} className="text-gray-600" />
               <span className="text-gray-800">Home</span>
             </button>
           </Link>
           
           <Link href="/contact" onClick={() => setMobileOpen(false)}>
-            <button className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 text-left transition-colors">
+            <button className="w-full flex items-center gap-3 p-3 rounded-lg  text-left transition-colors">
               <FiMail size={20} className="text-gray-600" />
               <span className="text-gray-800">Contact</span>
             </button>
           </Link>
           
           <Link href="/demo" onClick={() => setMobileOpen(false)}>
-            <button className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 text-left transition-colors">
+            <button className="w-full flex items-center gap-3 p-3 rounded-lg  text-left transition-colors">
               <FaRegCirclePlay size={20} className="text-gray-600" />
               <span className="text-gray-800">Demo</span>
             </button>
@@ -155,9 +155,9 @@ const Navbar = () => {
                   href="/admin/dashboard"
                   onClick={() => setMobileOpen(false)}
                 >
-                  <button className="w-full flex items-center gap-3 p-3 rounded-lg bg-black hover:bg-gray-900 text-white transition-colors">
+                  <button className="w-full flex items-center gap-3 p-3 rounded-lg bg-product-primary text-product-foreground transition-colors">
                     <FiGrid size={20} />
-                    <span>Dashboard</span>
+                    Dashboard
                   </button>
                 </Link>
                 <div className="mt-4 flex items-center justify-center">
@@ -169,7 +169,7 @@ const Navbar = () => {
             <>
               <div className="border-t border-gray-100 pt-4 mt-4 space-y-3">
                 <Link href="/auth" onClick={() => setMobileOpen(false)}>
-                  <Button variant="outline" className="w-full justify-start border-gray-300 text-gray-800 hover:bg-gray-50">
+                  <Button variant="outline" className="w-full justify-start border-gray-300 text-gray-800 ">
                     <FiUser size={20} className="mr-3" />
                     Sign In
                   </Button>
@@ -178,7 +178,7 @@ const Navbar = () => {
                   href="/auth?mode=signup"
                   onClick={() => setMobileOpen(false)}
                 >
-                  <Button className="w-full justify-start bg-black hover:bg-gray-900 text-white">
+                  <Button className="w-full justify-start bg-black  text-white">
                     <FiUserPlus size={20} className="mr-3" />
                     Sign Up
                   </Button>

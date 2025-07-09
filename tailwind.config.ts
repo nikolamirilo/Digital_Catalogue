@@ -20,7 +20,6 @@ export default withUt(
           "primary-accent": "var(--product-primary-accent)",
           "foreground-accent": "var(--product-foreground-accent)",
           "hero-product-background": "var(--hero-product-background)",
-          button: "var(--button)",
           primary: "var(--primary)",
           secondary: "var(--secondary)",
           accent: "var(--accent)",

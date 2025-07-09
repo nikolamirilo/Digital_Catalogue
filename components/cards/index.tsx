@@ -25,18 +25,11 @@ const CardsSwitcher = ({
     case "variant_3":
       return <CardType3 key={i} record={record} currency={currency} />;
     case "variant_4":
-      return <CardType4 key={i} record={record} currency={currency} />;
-    case "swiper":
       return (
-        <SwiperSlide
-          key={i}
-          className="!w-[220px] sm:!w-[260px] md:!w-[320px] flex flex-col max-w-[90vw]"
-        >
-          <CardType4 record={record} currency={currency} />
-        </SwiperSlide>
+          <CardType4 key={i} record={record} currency={currency} />
       );
     default:
-      return <CardType4 key={i} record={record} currency={currency} />;
+      return <CardType1 key={i} record={record} currency={currency} />;
   }
 };
 

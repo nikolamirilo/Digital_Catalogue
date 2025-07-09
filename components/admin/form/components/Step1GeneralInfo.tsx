@@ -33,10 +33,10 @@ const currencies = [
 ];
 
 const themes = [
-  { value: "light_1", label: "Creative Light", image: "/themes/light_1.jpg" },
-  { value: "light_2", label: "Luxury Light", image: "/themes/light_2.jpg" },
-  { value: "dark_1", label: "Creative Dark", image: "/themes/dark_1.jpg" },
-  { value: "dark_2", label: "Luxury Dark", image: "/themes/dark_2.jpg" },
+  { value: "theme-elegant ", label: "Creative Light", image: "/themes/light_1.jpg" },
+  { value: "theme-modern", label: "Luxury Light", image: "/themes/light_2.jpg" },
+  { value: "theme-organic", label: "Creative Dark", image: "/themes/dark_1.jpg" },
+  { value: "theme-luxury", label: "Luxury Dark", image: "/themes/dark_2.jpg" },
 ];
 
 const layouts = [

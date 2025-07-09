@@ -81,18 +81,18 @@ export default function Dashboard({
     <div className="container mx-auto py-20 px-4 overflow-auto">
       <Tabs defaultValue="overview" className="w-full">
         <TabsList className="my-4 flex gap-2 w-full justify-start">
-          <TabsTrigger value="overview" className="bg-primary text-button">
+          <TabsTrigger value="overview" className="bg-product-primary text-product-foreground">
             Overview
           </TabsTrigger>
-          <TabsTrigger value="billing" className="bg-primary text-button">
+          <TabsTrigger value="billing" className="bg-product-primary text-product-foreground">
             Billing
           </TabsTrigger>
         </TabsList>
         <TabsContent value="overview">
           {user && (
             <div className="mb-8 p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 flex flex-col md:flex-row gap-6 items-center relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-400/20 to-indigo-500/20 rounded-full blur-xl"></div>
-              <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-purple-400/20 to-pink-500/20 rounded-full blur-xl"></div>
+              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br rounded-full blur-xl"></div>
+              <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr rounded-full blur-xl"></div>
               <div className="flex-1 relative z-10">
                 <div className="flex items-center gap-4 mb-4">
                   <div className="relative">
@@ -103,15 +103,13 @@ export default function Dashboard({
                       height={80}
                       className="rounded-full ring-4 ring-white/50 shadow-lg"
                     />
-                    <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-2 border-white"></div>
                   </div>
                   <div>
-                    <div className="text-2xl font-bold text-gray-900 mb-1">
+                    <div className="text-2xl font-bold text-product-foreground mb-1">
                       Welcome back,{" "}
                       {`${user.firstName} ${user.lastName}` || "User"}! 👋
                     </div>
                     <div className="text-gray-600 flex items-center gap-2">
-                      <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
                       {user.email}
                     </div>
                   </div>
@@ -124,34 +122,34 @@ export default function Dashboard({
             <h2 className="text-2xl font-semibold mb-4">Usage Overview</h2>
             <div className="mb-8 grid grid-cols-1 md:grid-cols-4 gap-4">
               <Card className="p-4 flex flex-col items-center max-w-72">
-                <div className="text-lg font-semibold text-gray-900 mb-2">
+                <div className="text-lg font-semibold text-product-foreground mb-2">
                   Total Page Views
                 </div>
-                <div className="text-3xl font-bold text-gray-900">
+                <div className="text-3xl font-bold text-product-foreground">
                   {totalPageViews}
                 </div>
               </Card>
               <Card className="p-4 flex flex-col items-center max-w-72">
-                <div className="text-lg font-semibold text-gray-900 mb-2">
+                <div className="text-lg font-semibold text-product-foreground mb-2">
                   Total Unique Visitors
                 </div>
-                <div className="text-3xl font-bold text-gray-900">
+                <div className="text-3xl font-bold text-product-foreground">
                   {totalUniqueVisitors}
                 </div>
               </Card>
               <Card className="p-4 flex flex-col items-center max-w-72">
-                <div className="text-lg font-semibold text-gray-900 mb-2">
+                <div className="text-lg font-semibold text-product-foreground mb-2">
                   Total Restaurants
                 </div>
-                <div className="text-3xl font-bold text-gray-900">
+                <div className="text-3xl font-bold text-product-foreground">
                   {totalRestaurants}
                 </div>
               </Card>
               <Card className="p-4 flex flex-col items-center max-w-72">
-                <div className="text-lg font-semibold text-gray-900 mb-2">
+                <div className="text-lg font-semibold text-product-foreground mb-2">
                   Additional Measure
                 </div>
-                <div className="text-3xl font-bold text-gray-900">
+                <div className="text-3xl font-bold text-product-foreground">
                   121
                 </div>
               </Card>
@@ -163,8 +161,6 @@ export default function Dashboard({
             <div className="flex justify-start mb-4">
               <Link href="/admin/create-menu">
                 <Button
-                  variant="primary-inverted"
-                  className="border border-white flex items-center gap-2 text-lg font-bold px-6 py-3 rounded-xl shadow-lg"
                 >
                   <FiPlus size={30} />
                   Create Menu
@@ -182,7 +178,7 @@ export default function Dashboard({
                   key={restaurant.id}
                   className="p-6 flex flex-col gap-2 relative"
                 >
-                  <div className="font-bold text-lg text-gray-900">
+                  <div className="font-bold text-lg text-product-foreground">
                     {restaurant.name}
                   </div>
                   <div className="text-gray-800">Theme: {restaurant.theme}</div>
@@ -215,7 +211,7 @@ export default function Dashboard({
                         <DropdownMenuTrigger asChild>
                           <FiMoreVertical
                             size={25}
-                            className="text-gray-900 cursor-pointer"
+                            className="text-product-foreground cursor-pointer"
                           />
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
@@ -226,7 +222,7 @@ export default function Dashboard({
                           >
                             <DropdownMenuItem
                               asChild
-                              className="text-gray-900 hover:bg-gray-900/10 cursor-pointer"
+                              className="text-product-foreground hover:bg-gray-900/10 cursor-pointer"
                             >
                               <div className="flex items-center gap-2">
                                 <FiEdit size={18} /> Edit Menu
@@ -236,7 +232,7 @@ export default function Dashboard({
                           <DropdownMenuItem
                             onClick={() => handleDuplicateMenu(restaurant.id)}
                             disabled={duplicatingId === restaurant.id}
-                            className="text-gray-900 hover:bg-gray-900/10 cursor-pointer"
+                            className="text-product-foreground hover:bg-gray-900/10 cursor-pointer"
                           >
                             <span className="flex items-center gap-2">
                               <FiCopy size={18} />
@@ -271,7 +267,7 @@ export default function Dashboard({
             message="Are you sure you want to delete this menu? This action cannot be undone."
           />
         </TabsContent>
-        <TabsContent value="billing" className="text-gray-900">
+        <TabsContent value="billing" className="text-product-foreground">
           <Billing pricingPlan={pricingPlan} />
         </TabsContent>
       </Tabs>

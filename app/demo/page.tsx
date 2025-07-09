@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 
 const DigitalMenu: React.FC = async () => {
   return (
-    <div className="theme-creative">
+    <div>
       <Navbar />
       <main>
         <div className="pt-24 text-center flex flex-col justify-center items-center gap-4">
