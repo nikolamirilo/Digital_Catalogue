@@ -13,7 +13,7 @@
 - selecting layout for different sections
 
 ### UI:
-1. **Transform layout 4 into caroseul** IN PROGRESS
+1. **Transform layout 4 into caroseul** DONE
 2. **Themes for digital catalogues (at least 4 themes)**
     - Apply variables to cards 1-4 DONE 
     - Define colors for themes (make it simple)DONE
@@ -21,7 +21,7 @@
 3. **Responsive - Mobile First** DONE 
     - Reduce font sizes for mobile view + reduce size of image & card DONE 
 4. Themes update
-    - hsl => hex for all themes
-    - create main product theme
+    - hsl => hex for all themes DONE 
+    - create main product theme IN PROGRESS
     - add theme variables on contact, demo
 5. Update edit and create form

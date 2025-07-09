@@ -10,7 +10,7 @@ const Stats: React.FC = () => {
                             {stat.icon}
                             {stat.title}
                         </h3>
-                        <p className="text-home-foreground-accent">{stat.description}</p>
+                        <p className="text-product-foreground-accent">{stat.description}</p>
                     </div>
                 ))}
             </div>

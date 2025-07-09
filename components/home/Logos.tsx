@@ -1,7 +1,7 @@
 const Logos: React.FC = () => {
     return (
         <section id="logos" className="py-32 px-5 bg-product-background">
-            {/* <p className="text-2xl text-center text-home-foreground">Trusted by <span className="text-home-secondary">2000+</span> customers worldwide</p> */}
+            {/* <p className="text-2xl text-center text-product-foreground">Trusted by <span className="text-product-secondary">2000+</span> customers worldwide</p> */}
             <div className="mt-5 w-full flex flex-wrap flex-row items-center justify-evenly gap-5 sm:gap-10 opacity-45 logos-container">
                 {/* Notion */}
                 <svg width="129" height="48" viewBox="0 0 129 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-5/6">

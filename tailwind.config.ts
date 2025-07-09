@@ -14,11 +14,11 @@ export default withUt(
       extend: {
         colors: {
           "product-background": "var(--product-background)",
-          "home-foreground": "var(--home-foreground)",
-          "home-primary": "var(--home-primary)",
-          "home-secondary": "var(--home-secondary)",
-          "primary-accent": "var(--home-primary-accent)",
-          "foreground-accent": "var(--home-foreground-accent)",
+          "product-foreground": "var(--product-foreground)",
+          "product-primary": "var(--product-primary)",
+          "product-secondary": "var(--product-secondary)",
+          "primary-accent": "var(--product-primary-accent)",
+          "foreground-accent": "var(--product-foreground-accent)",
           "hero-product-background": "var(--hero-product-background)",
           primary: "hsl(var(--primary))",
           secondary: "hsl(var(--secondary))",

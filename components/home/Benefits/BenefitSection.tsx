@@ -74,7 +74,7 @@ const BenefitSection: React.FC<Props> = ({ benefit, imageAtRight }: Props) => {
                                 </h3>
                             </SectionTitle>
 
-                            <p className="mt-1.5 mx-auto lg:ml-0 leading-normal text-home-foreground-accent">
+                            <p className="mt-1.5 mx-auto lg:ml-0 leading-normal text-product-foreground-accent">
                                 {description}
                             </p>
                         </motion.div>

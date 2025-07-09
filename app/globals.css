@@ -10,16 +10,16 @@ html, body {
   @apply scroll-smooth;
 }
 
-.home {
+.product {
   --product-background: #ffffff;
-  --home-foreground: #171717;
-  --home-primary: #FED835;
-  --home-secondary: #010e58;
-  --home-primary-accent: #e5c230;
-  --home-foreground-accent: #454545;
+  --product-foreground: #171717;
+  --product-primary: #ffc107;
+  --product-secondary: #010e58;
+  --product-primary-accent: #e5c230;
+  --product-foreground-accent: #454545;
   --hero-product-background: #F3F3F5;
   @apply text-lg;
-  color: var(--home-foreground);
+  color: var(--product-foreground);
   background: var(--product-background);
 }
 
@@ -37,127 +37,130 @@ a {
   text-decoration: none;
 }
 .main-theme {
-  --primary: 0 0% 20%;           /* #333333 */
-  --secondary: 0 0% 40%;         /* #666666 */
-  --accent: 47 64% 52%;          /* #D3AF37 */
-  --card: 0 0% 100%;             /* #FFFFFF */
-  --foreground: 0 0% 20%;
-  --background: 0 0% 100%;
-  --primary-foreground: 0 0% 100%;
-  --secondary-foreground: 0 0% 100%;
-  --card-foreground: 0 0% 20%;
+  --primary: #333333;              
+  --secondary: #666666;            
+  --accent: #D3AF37;               
+  --card: #FFFFFF;                
+  --foreground: #333333;           
+  --background: #FFFFFF;           
+  --primary-foreground: #FFFFFF;   
+  --secondary-foreground: #FFFFFF; 
+  --card-foreground: #333333;      
 }
 .theme-luxury {
-  --background: 0 0% 100%;
-  --foreground: 0 0% 10%;
-  --heading: 0 0% 10%;
-  --text: 0 0% 30%;
-  --button: 47 64% 52%;
-  --button-text: 0 0% 10%;
-  --price: 47 64% 52%;
+  --background: #ffffff;
+  --foreground: #1a1a1a;
+  --heading: #1a1a1a;
+  --text: #4d4d4d;
+  --button: #d3af37;
+  --button-text: #1a1a1a;
+  --price: #d3af37;
 
-  --card-bg: 0 0% 100%;
-  --card-text: 0 0% 20%;
-  --card-heading: 0 0% 10%;
-  --card-description: 0 0% 40%;
-  --card-border: 0 0% 85%;
+  --card-bg: #ffffff;
+  --card-text: #333333;
+  --card-heading: #1a1a1a;
+  --card-description: #666666;
+  --card-border: #d9d9d9;
 
-  --section-bg: 0 0% 90%;
-  --section-heading: 0 0% 10%;
-  --section-border: 0 0% 85%;
-  --section-icon: 47 64% 52%;
-  --section-hover: 0 0% 95%;
+  --section-bg: #e6e6e6;
+  --section-heading: #1a1a1a;
+  --section-border: #d9d9d9;
+  --section-icon: #d3af37;
+  --section-hover: #f2f2f2;
 }
+
 
 .theme-creative {
-  --background: 248 20% 14%;
-  --foreground: 60 17% 97%;
-  --heading: 60 17% 97%;
-  --text: 230 30% 80%;
-  --button: 0 97% 71%;
-  --button-text: 60 17% 97%;
-  --price: 0 97% 71%;
+  --background: #1d1e28;
+  --foreground: #f8f8f1;
+  --heading: #f8f8f1;
+  --text: #aab7d4;
+  --button: #ff6b6b;
+  --button-text: #f8f8f1;
+  --price: #ff6b6b;
 
-  --card-bg: 248 20% 20%;
-  --card-text: 60 17% 97%;
-  --card-heading: 0 0% 100%;
-  --card-description: 230 30% 80%;
-  --card-border: 248 20% 30%;
+  --card-bg: #2a2b39;
+  --card-text: #f8f8f1;
+  --card-heading: #ffffff;
+  --card-description: #aab7d4;
+  --card-border: #3c3d4f;
 
-  --section-bg: 248 20% 20%;
-  --section-heading: 60 17% 97%;
-  --section-border: 248 20% 30%;
-  --section-icon: 60 17% 97%;
-  --section-hover: 248 20% 25%;
+  --section-bg: #2a2b39;
+  --section-heading: #f8f8f1;
+  --section-border: #3c3d4f;
+  --section-icon: #f8f8f1;
+  --section-hover: #343545;
 }
+
 
 .theme-organic {
-  --background: 60 30% 94%;
-  --foreground: 122 27% 20%;
-  --primary: 122 27% 35%;
-  --secondary: 31 47% 62%;
-  --accent: 97 37% 55%;
-  --primary-foreground: 60 30% 94%;
-  --secondary-foreground: 122 27% 20%;
-  --price: 31 47% 62%;
+  --background: #f5f2de;
+  --foreground: #354834;
+  --primary: #5c7453;
+  --secondary: #cba463;
+  --accent: #c5d68f;
+  --primary-foreground: #f5f2de;
+  --secondary-foreground: #354834;
+  --price: #cba463;
 
-  --card-bg: 60 30% 96%;
-  --card-text: 122 27% 20%;
-  --card-heading: 122 27% 30%;
-  --card-description: 31 20% 50%;
-  --card-border: 60 20% 85%;
+  --card-bg: #f9f7e7;
+  --card-text: #354834;
+  --card-heading: #486345;
+  --card-description: #a58e6f;
+  --card-border: #e3e0c9;
 
-  --section-bg: 60 30% 96%;
-  --section-heading: 122 27% 20%;
-  --section-border: 60 20% 85%;
-  --section-icon: 122 27% 35%;
-  --section-hover: 60 30% 90%;
+  --section-bg: #f9f7e7;
+  --section-heading: #354834;
+  --section-border: #e3e0c9;
+  --section-icon: #5c7453;
+  --section-hover: #ece8c5;
 }
 
+
 .theme-elegant {
-   --background: 240 10% 10%;
-  background-image: linear-gradient(to bottom, hsl(var(--background)), hsl(240, 10%, 6%));
-  --foreground: 0 0% 98%;
-  --heading: 0 0% 98%;
-  --text: 0 0% 70%;
-  --button: 210 30% 60%;
-  --button-text: 0 0% 10%;
-  --price: 50 100% 70%;
+  --background: #1a1a1a;
+  background-image: linear-gradient(to bottom, #1a1a1a, #0f0f0f);
+  --foreground: #fafafa;
+  --heading: #fafafa;
+  --text: #b3b3b3;
+  --button: #6699cc;
+  --button-text: #1a1a1a;
+  --price: #ffe680;
 
-  --card-bg: 0 0% 15%;
-  --card-text: 0 0% 90%;
-  --card-heading: 0 0% 100%;
-  --card-description: 0 0% 70%;
-  --card-border: 0 0% 20%;
+  --card-bg: #262626;
+  --card-text: #e6e6e6;
+  --card-heading: #ffffff;
+  --card-description: #b3b3b3;
+  --card-border: #333333;
 
-  --section-bg: 0 0% 15%;
-  --section-heading: 0 0% 98%;
-  --section-border: 0 0% 20%;
-  --section-icon: 0 0% 70%;
-  --section-hover: 0 0% 20%;
+  --section-bg: #262626;
+  --section-heading: #fafafa;
+  --section-border: #333333;
+  --section-icon: #b3b3b3;
+  --section-hover: #333333;
 }
 
 .theme-modern {
-  --background: 240 20% 10%;
-  --foreground: 0 0% 100%;
-  --primary: 263 30% 50%;
-  --secondary: 240 20% 20%;
-  --accent: 342 85% 60%;
-  --primary-foreground: 0 0% 100%;
-  --secondary-foreground: 0 0% 100%;
-  --price: 342 85% 60%;
+  --background: #1a1a2b;
+  --foreground: #ffffff;
+  --primary: #8b6cb3;
+  --secondary: #33334d;
+  --accent: #e64676;
+  --primary-foreground: #ffffff;
+  --secondary-foreground: #ffffff;
+  --price: #e64676;
 
-  --card-bg: 240 20% 14%;
-  --card-text: 0 0% 95%;
-  --card-heading: 0 0% 100%;
-  --card-description: 0 0% 70%;
-  --card-border: 0 0% 25%;
+  --card-bg: #23233a;
+  --card-text: #f2f2f2;
+  --card-heading: #ffffff;
+  --card-description: #b3b3b3;
+  --card-border: #404040;
 
-  --section-bg: 240 20% 14%;
-  --section-heading: 0 0% 100%;
-  --section-border: 0 0% 25%;
-  --section-icon: 342 85% 60%;
-  --section-hover: 240 20% 18%;
+  --section-bg: #23233a;
+  --section-heading: #ffffff;
+  --section-border: #404040;
+  --section-icon: #e64676;
+  --section-hover: #2d2d45;
 }
 
 

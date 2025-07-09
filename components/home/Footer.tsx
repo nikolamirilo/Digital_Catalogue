@@ -8,7 +8,7 @@ import { getPlatformIconByName } from '@/utils/client';
 
 const Footer: React.FC = () => {
     return (
-        <footer className="bg-hero-product-background text-home-foreground py-10">
+        <footer className="bg-hero-product-background text-product-foreground py-10">
             <div className="max-w-7xl w-full mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-10">
                 <div>
                     <Link href="/" className="flex items-center gap-2">
@@ -17,16 +17,16 @@ const Footer: React.FC = () => {
                             {siteDetails.siteName}
                         </h3>
                     </Link>
-                    <p className="mt-3.5 text-home-foreground-accent">
+                    <p className="mt-3.5 text-product-foreground-accent">
                         {footerDetails.subheading}
                     </p>
                 </div>
                 <div>
                     <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
-                    <ul className="text-home-foreground-accent">
+                    <ul className="text-product-foreground-accent">
                         {footerDetails.quickLinks.map(link => (
                             <li key={link.text} className="mb-2">
-                                <Link href={link.url} className="hover:text-home-foreground">{link.text}</Link>
+                                <Link href={link.url} className="hover:text-product-foreground">{link.text}</Link>
                             </li>
                         ))}
                     </ul>
@@ -34,9 +34,9 @@ const Footer: React.FC = () => {
                 <div>
                     <h4 className="text-lg font-semibold mb-4">Contact Us</h4>
 
-                    {footerDetails.email && <a href={`mailto:${footerDetails.email}`}  className="block text-home-foreground-accent hover:text-home-foreground">Email: {footerDetails.email}</a>}
+                    {footerDetails.email && <a href={`mailto:${footerDetails.email}`}  className="block text-product-foreground-accent hover:text-product-foreground">Email: {footerDetails.email}</a>}
 
-                    {footerDetails.telephone && <a href={`tel:${footerDetails.telephone}`} className="block text-home-foreground-accent hover:text-home-foreground">Phone: {footerDetails.telephone}</a>}
+                    {footerDetails.telephone && <a href={`tel:${footerDetails.telephone}`} className="block text-product-foreground-accent hover:text-product-foreground">Phone: {footerDetails.telephone}</a>}
 
                     {footerDetails.socials && (
                         <div className="mt-5 flex items-center gap-5 flex-wrap">
@@ -57,10 +57,10 @@ const Footer: React.FC = () => {
                     )}
                 </div>
             </div>
-            <div className="mt-8 md:text-center text-home-foreground-accent px-6">
+            <div className="mt-8 md:text-center text-product-foreground-accent px-6">
                 <p>Copyright &copy; {new Date().getFullYear()} {siteDetails.siteName}. All rights reserved.</p>
-                <p className="text-sm mt-2 text-gray-500">Made with &hearts; by <a href="https://nexilaunch.com" target="_blank">Nexi Launch</a></p>
-                <p className="text-sm mt-2 text-gray-500">UI kit by <a href="https://ui8.net/youthmind/products/fintech-finance-mobile-app-ui-kit" target="_blank">Youthmind</a></p>
+                {/* <p className="text-sm mt-2 text-gray-500">Made with &hearts; by <a href="https://nexilaunch.com" target="_blank">Nexi Launch</a></p> */}
+                {/* <p className="text-sm mt-2 text-gray-500">UI kit by <a href="https://ui8.net/youthmind/products/fintech-finance-mobile-app-ui-kit" target="_blank">Youthmind</a></p> */}
             </div>
         </footer>
     );

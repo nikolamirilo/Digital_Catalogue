@@ -10,14 +10,14 @@ const FAQ: React.FC = () => {
         <section id="faq" className="py-10 lg:py-20">
             <div className="flex flex-col lg:flex-row gap-10">
                 <div className="">
-                    <p className="hidden lg:block text-home-foreground-accent">FAQ&apos;S</p>
+                    <p className="hidden lg:block text-product-foreground-accent">FAQ&apos;S</p>
                     <SectionTitle>
                         <h2 className="my-3 !leading-snug lg:max-w-sm text-center lg:text-left">Frequently Asked Questions</h2>
                     </SectionTitle>
-                    <p className="lg:mt-10 text-home-foreground-accent text-center lg:text-left">
+                    <p className="lg:mt-10 text-product-foreground-accent text-center lg:text-left">
                         Ask us anything!
                     </p>
-                    <a href="mailto:" className="mt-3 block text-xl lg:text-4xl text-home-secondary font-semibold hover:underline text-center lg:text-left">help@finwise.com</a>
+                    <a href="mailto:" className="mt-3 block text-xl lg:text-4xl text-product-secondary font-semibold hover:underline text-center lg:text-left">help@finwise.com</a>
                 </div>
 
                 <div className="w-full lg:max-w-2xl mx-auto border-b">
@@ -28,9 +28,9 @@ const FAQ: React.FC = () => {
                                     <>
                                         <DisclosureButton className="flex items-center justify-between w-full px-4 pt-7 text-lg text-left border-t">
                                             <span className="text-2xl font-semibold">{faq.question}</span>
-                                            {open ? <BiMinus className="w-5 h-5 text-home-secondary" /> : <BiPlus className="w-5 h-5 text-home-secondary" />}
+                                            {open ? <BiMinus className="w-5 h-5 text-product-secondary" /> : <BiPlus className="w-5 h-5 text-product-secondary" />}
                                         </DisclosureButton>
-                                        <DisclosurePanel className="px-4 pt-4 pb-2 text-home-foreground-accent">
+                                        <DisclosurePanel className="px-4 pt-4 pb-2 text-product-foreground-accent">
                                             {faq.answer}
                                         </DisclosurePanel>
                                     </>
