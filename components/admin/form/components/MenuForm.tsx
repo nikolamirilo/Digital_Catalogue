@@ -159,66 +159,76 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
   useEffect(() => {
     return () => {
       if (nextDisableTimer.current) clearTimeout(nextDisableTimer.current);
-      setNextDisabled(false);
     };
-  }, [currentStep]);
+  }, []);
 
   const validateStep = (step: number): boolean => {
-    switch (step) {
-      case 1:
-        const newErrors: { [key: string]: string } = {};
-        if (!formData.name.trim()) newErrors.name = "Restaurant name is required.";
-        if (!formData.title?.trim()) newErrors.title = "Title is required.";
-        if (!formData.currency?.trim()) newErrors.currency = "Currency is required.";
-        if (!formData.theme?.trim()) newErrors.theme = "Theme is required.";
-        if (!formData.logo?.trim()) newErrors.logo = "Logo is required.";
-        setErrors(newErrors);
-        setTouched({ name: true, title: true, currency: true, theme: true, logo: true });
-        return Object.keys(newErrors).length === 0;
-      case 2:
-        if (formData.menu.length === 0) {
-          setStep2Error("Please add at least one menu category.");
-          return false;
-        }
+    let newErrors: { [key: string]: string } = {};
+    let isValid = true;
+  
+    if (step === 1) {
+      if (!formData.name.trim()) newErrors.name = "Restaurant name is required.";
+      if (!formData.title?.trim()) newErrors.title = "Title is required.";
+      if (!formData.currency?.trim()) newErrors.currency = "Currency is required.";
+      if (!formData.theme?.trim()) newErrors.theme = "Theme is required.";
+      if (!formData.logo?.trim()) newErrors.logo = "Logo is required.";
+      
+      setErrors(newErrors);
+      setTouched({ name: true, title: true, currency: true, theme: true, logo: true });
+      isValid = Object.keys(newErrors).length === 0;
+    }
+  
+    if (step === 2) {
+      if (formData.menu.length === 0) {
+        setStep2Error("Please add at least one menu category.");
+        isValid = false;
+      } else {
         for (const category of formData.menu) {
           if (!category.name.trim()) {
             setStep2Error("All menu categories must have a name.");
-            return false;
+            isValid = false;
+            break;
           }
         }
-        setStep2Error("");
-        return true;
-      case 3:
-        for (const category of formData.menu) {
-          if (category.items.length === 0) {
-            setStep3Error(`Category "${category.name}" must have at least one menu item.`);
-            return false;
-          }
-          for (const item of category.items) {
-            if (!item.name.trim()) {
-              setStep3Error(`All items in category "${category.name}" must have a name.`);
-              return false;
-            }
-            if (!item.description.trim()) {
-              setStep3Error(`All items in category "${category.name}" must have a description.`);
-              return false;
-            }
-            if (item.price <= 0) {
-              setStep3Error(`Price for item "${item.name}" in category "${category.name}" must be greater than 0.`);
-              return false;
-            }
-            // Image required for all layouts except variant_3
-            if (category.layout !== "variant_3" && !item.image?.trim()) {
-              setStep3Error(`Image for item "${item.name}" in category "${category.name}" is required for this layout.`);
-              return false;
-            }
-          }
-        }
-        setStep3Error("");
-        return true;
-      default:
-        return false;
+      }
+      if (isValid) setStep2Error("");
     }
+  
+    if (step === 3) {
+      for (const category of formData.menu) {
+        if (category.items.length === 0) {
+          setStep3Error(`Category "${category.name}" must have at least one menu item.`);
+          isValid = false;
+          break;
+        }
+        for (const item of category.items) {
+          if (!item.name.trim()) {
+            setStep3Error(`All items in category "${category.name}" must have a name.`);
+            isValid = false;
+            break;
+          }
+          if (!item.description.trim()) {
+            setStep3Error(`All items in category "${category.name}" must have a description.`);
+            isValid = false;
+            break;
+          }
+          if (item.price <= 0) {
+            setStep3Error(`Price for item "${item.name}" in category "${category.name}" must be greater than 0.`);
+            isValid = false;
+            break;
+          }
+          if (category.layout !== "variant_3" && !item.image?.trim()) {
+            setStep3Error(`Image for item "${item.name}" in category "${category.name}" is required for this layout.`);
+            isValid = false;
+            break;
+          }
+        }
+        if (!isValid) break;
+      }
+      if (isValid) setStep3Error("");
+    }
+  
+    return isValid;
   };
 
   // Handle field blur for touched state
@@ -229,31 +239,25 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
   const handleNext = () => {
     if (validateStep(currentStep)) {
       setCurrentStep((prev) => prev + 1);
-      setNextDisabled(false);
-      if (nextDisableTimer.current) clearTimeout(nextDisableTimer.current);
     } else {
-      if (currentStep === 1) {
-        setNextDisabled(true);
-        if (nextDisableTimer.current) clearTimeout(nextDisableTimer.current);
-        nextDisableTimer.current = setTimeout(() => {
-          setNextDisabled(false);
-        }, 3000);
+      setNextDisabled(true);
+      if (nextDisableTimer.current) {
+        clearTimeout(nextDisableTimer.current);
       }
+      nextDisableTimer.current = setTimeout(() => {
+        setNextDisabled(false);
+      }, 3000);
     }
   };
 
-  // Remove error as soon as user fixes a field, but do not re-enable Next (let timer do it)
+  // Remove error as soon as user fixes a field
   const handleInputChangeWithValidation = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | { target: { name: string; value: string } }) => {
+    const { name, value } = e.target;
     handleInputChange(e);
-    if (currentStep === 1) {
-      const { name, value } = 'target' in e ? e.target : { name: '', value: '' };
-      if (errors[name]) {
-        const newErrors = { ...errors };
-        if (value && value.trim()) {
-          delete newErrors[name];
-          setErrors(newErrors);
-        }
-      }
+    if (errors[name] && value.trim()) {
+      const newErrors = { ...errors };
+      delete newErrors[name];
+      setErrors(newErrors);
     }
   };
 
@@ -442,9 +446,7 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
               </Button>
             )}
             {currentStep < 3 && (
-              <Button type="button" onClick={handleNext} className="ml-auto" disabled={
-                (currentStep === 1 && (Object.keys(errors).length > 0 || nextDisabled))
-              }>
+              <Button type="button" onClick={handleNext} className="ml-auto" disabled={nextDisabled}>
                 Next <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             )}
@@ -464,4 +466,4 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
     </Card>
   );
 }
-export default MenuForm
+export default MenuForm;

@@ -71,13 +71,13 @@ const Navbar = () => {
           ) : (
             <>
               <Link href="/auth">
-                <Button variant="outline" className="border-gray-300 text-gray-800 hover:bg-gray-50 transition-colors">
-                  <FiUser className="mr-2" />
-                  Sign In
+                <Button>
+                <FiUser className="mr-2" />
+                Sign In
                 </Button>
               </Link>
               <Link href="/auth?mode=signup">
-                <Button className="bg-black hover:bg-gray-900 text-white transition-colors shadow-md">
+                <Button>
                   <FiUserPlus className="mr-2" />
                   Sign Up
                 </Button>

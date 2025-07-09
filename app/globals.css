@@ -37,11 +37,12 @@ a {
   text-decoration: none;
 }
 .main-theme {
-  --primary: #333333;              
+  --primary: #1c1c1c;              
   --secondary: #666666;            
   --accent: #D3AF37;               
   --card: #FFFFFF;                
-  --foreground: #333333;           
+  --foreground: #333333;
+  --button: #ffffffff;           
   --background: #FFFFFF;           
   --primary-foreground: #FFFFFF;   
   --secondary-foreground: #FFFFFF; 

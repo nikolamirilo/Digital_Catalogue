@@ -1,146 +1,123 @@
 // @ts-nocheck
 "use client";
-import React, { useEffect, useState } from "react";
-import data from "../../data.json";
-import CardType1 from "../cards/CardType1";
-import CardType2 from "../cards/CardType2";
-import CardType3 from "../cards/CardType3";
-import { useMainContext } from "@/context/MainContext";
-import Toggle from "../common/Toggle";
-import CardType4 from "../cards/CardType4";
-import { FiChevronDown } from "react-icons/fi";
+import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/pagination';
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
 
-const MenuSection = ({ menuData, currency, layout, type }: { menuData: any, currency: string, layout:string, type: "demo" | "restaurant" }) => {
-  // Transform sectionsData
-  const context = useMainContext()
-  const sectionsData = Object.keys(menuData).map((item) => ({
-    title: item.charAt(0).toUpperCase() + item.slice(1).replace(/_/g, " "),
-    code: item,
-  }));
+import { useMainContext } from "@/context/MainContext";
+import CardsSwitcher from "../cards";
+import SectionHeader from "./SectionHeader";
+import { contentVariants, getGridStyle } from "./helpers";
 
-  const customOrder = ['breakfast', 'lunch', 'snacks', 'desserts'];
+const MenuSection = ({
+  menuData,
+  currency,
+  type,
+}: {
+  menuData: any;
+  currency: string;
+  type: "demo" | "restaurant";
+}) => {
+  const { layout } = useMainContext();
+  const [expandedSections, setExpandedSections] = useState<{
+    [key: string]: boolean;
+  }>({});
 
-  const sortedSections = sectionsData.sort((a, b) => {
-    const aIndex = customOrder.indexOf(a.code);
-    const bIndex = customOrder.indexOf(b.code);
-    return (aIndex === -1 ? 999 : aIndex) - (bIndex === -1 ? 999 : bIndex);
-  });
-
-  // State to track expanded sections
-  const [expandedSections, setExpandedSections] = useState<{ [key: string]: boolean }>({});
-
-  //Obrati paznju - tu se radi positioning kartica
-  function returnVariantStyle(variant){
-    switch (variant){
-      case "variant_1":
-        return "grid grid-cols-1 md:grid-cols-2 gap-3 mt-4"
-      case "variant_2":
-        return "flex flex-wrap justify-start gap-3 mx-auto sm:gap-4 md:gap-6 mt-4"
-
-      case "variant_3":
-        return "grid grid-cols-1 md:grid-cols-2 gap-3 mt-4"
-      case "variant_4":
-  return ""
+  const sectionsData = useMemo(() => {
+    if (!menuData) return [];
+    const customOrder = ["breakfast", "lunch", "snacks", "desserts"];
     
-      default:
-        return "flex flex-row flex-wrap gap-6 mt-4"
-    }
-  }
+    return Object.keys(menuData)
+      .map((item) => ({
+        title: item.charAt(0).toUpperCase() + item.slice(1).replace(/_/g, " "),
+        code: item,
+      }))
+      .sort((a, b) => {
+        const aIndex = customOrder.indexOf(a.code);
+        const bIndex = customOrder.indexOf(b.code);
+        return (aIndex === -1 ? 999 : aIndex) - (bIndex === -1 ? 999 : bIndex);
+      });
+  }, [menuData]);
 
-  // Toggle expand/collapse for a section
   const handleToggleSection = (code: string) => {
-    setExpandedSections((prev) => {
-      const isExpanding = !prev[code];
-      return { [code]: isExpanding };
-    });
+    setExpandedSections((prev) => ({
+      ...prev,
+      [code]: !prev[code],
+    }));
   };
-  useEffect(() => {
-    if(type=="demo"){
-      // setVariant(context.layout) // This line is removed as per the edit hint
-    }else{
-      // setVariant(layout) // This line is removed as per the edit hint
-    }
-  }, [context.layout, type])
 
-  //console.log(sortedSections)
-  if (menuData)
-    return (
-      <main className="max-w-6xl mx-auto px-4 py-4">
-        {sortedSections.map((item, index) => (
+  if (!menuData) return null;
+
+  return (
+    <main className="max-w-6xl mx-auto px-4 py-4">
+      {sectionsData.map((item) => {
+        // The 'layout' variable now comes directly from the context
+        const currentLayout = type === "demo" ? layout : menuData[item.code]?.layout;
+
+        return (
           <section key={item.code} className="mb-10" id={item.code}>
-<button
-  className=" w-full flex items-center justify-between 
-    px-4 py-3 text-xl sm:text-2xl md:text-3xl font-semibold 
-    border border-section-border 
-    text-section-heading bg-section-bg 
-    hover:bg-section-hover 
-    rounded-xl shadow-md 
-    transition-colors duration-200 group"
-  onClick={() => handleToggleSection(item.code)}
-  aria-expanded={!!expandedSections[item.code]}
-  aria-controls={`section-content-${item.code}`}
-  type="button"
->
-  <span className="truncate font-lora">{item.title}</span>
-  <FiChevronDown
-    className={`
-      ml-4 text-3xl transition-transform duration-300 
-      text-section-icon ${expandedSections[item.code] ? 'rotate-180' : 'rotate-0'}`}
-    aria-hidden="true"
-  />
-</button>
+            <SectionHeader
+              title={item.title}
+              code={item.code}
+              isExpanded={!!expandedSections[item.code]}
+              onToggle={handleToggleSection}
+            />
+            
             <AnimatePresence initial={false}>
               {expandedSections[item.code] && (
                 <motion.div
                   id={`section-content-${item.code}`}
-                  key={item.code}
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: 'auto', opacity: 1, marginTop: 16 }}
-                  exit={{ height: 0, opacity: 0, marginTop: 0 }}
+                  key="content"
+                  variants={contentVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="hidden"
                   transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
                   className="overflow-hidden"
                 >
-                  {menuData[item.code].layout === "variant_4" ? (
-                  <Swiper
-                          spaceBetween={12}  slidesPerView={'auto'}  className="mt-4 !px-2"
+                  {currentLayout === "variant_4" ? (
+                    <Swiper
+                      spaceBetween={12}
+                      slidesPerView={"auto"}
+                      className="mt-4 !px-2"
+                    >
+                      {menuData[item.code].items.map((record, i) => (
+                        <SwiperSlide
+                          key={i}
+                          className="!w-[220px] sm:!w-[260px] md:!w-[320px] flex flex-col max-w-[90vw]"
                         >
-                          {menuData[item.code].items.map((record, i) => (
-                            <SwiperSlide
-                              key={i}
-                              className="!w-[220px] sm:!w-[260px] md:!w-[320px]flex flex-col max-w-[90vw]"
-                            >
-                              <CardType4 record={record} currency={currency} />
-                            </SwiperSlide>
-                          ))}
-                   </Swiper>
-) : (
-  <div className={`${returnVariantStyle(menuData[item.code].layout)}`}>
-    {menuData[item.code].items.map((record, i) => {
-      switch (menuData[item.code].layout) {
-        case "variant_1":
-          return <CardType1 key={i} record={record} currency={currency} />;
-        case "variant_2":
-          return <CardType2 key={i} record={record} currency={currency}/>;
-        case "variant_3":
-          return <CardType3 key={i} record={record} currency={currency}/>;
-        default:
-          return <CardType1 key={i} record={record} currency={currency}/>;
-      }
-    })}
-  </div>
-)}
-
+                          <CardsSwitcher
+                            variant={currentLayout}
+                            record={record}
+                            currency={currency}
+                            i={i}
+                          />
+                        </SwiperSlide>
+                      ))}
+                    </Swiper>
+                  ) : (
+                    <div className={getGridStyle(currentLayout)}>
+                      {menuData[item.code].items.map((record, i) => (
+                        <CardsSwitcher
+                          key={i}
+                          variant={currentLayout}
+                          record={record}
+                          currency={currency}
+                          i={i}
+                        />
+                      ))}
+                    </div>
+                  )}
                 </motion.div>
               )}
             </AnimatePresence>
           </section>
-        ))}
-      </main>
-    );
+        );
+      })}
+    </main>
+  );
 };
 
 export default MenuSection;

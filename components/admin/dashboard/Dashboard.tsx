@@ -81,10 +81,10 @@ export default function Dashboard({
     <div className="container mx-auto py-20 px-4 overflow-auto">
       <Tabs defaultValue="overview" className="w-full">
         <TabsList className="my-4 flex gap-2 w-full justify-start">
-          <TabsTrigger value="overview" className="bg-primary">
+          <TabsTrigger value="overview" className="bg-primary text-button">
             Overview
           </TabsTrigger>
-          <TabsTrigger value="billing" className="bg-primary">
+          <TabsTrigger value="billing" className="bg-primary text-button">
             Billing
           </TabsTrigger>
         </TabsList>

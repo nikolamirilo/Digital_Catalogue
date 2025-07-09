@@ -9,10 +9,10 @@ export const dynamic = "force-dynamic";
 
 const DigitalMenu: React.FC = async () => {
   return (
-    <div className="theme-luxury">
+    <div className="theme-creative">
       <Navbar />
       <main>
-        <div className="pt-24 text-center flex flex-col justify-center items-center gap-4 text-black">
+        <div className="pt-24 text-center flex flex-col justify-center items-center gap-4">
           <h1 className="text-4xl font-bold text-navigationMain">
             Digital Menu
           </h1>
@@ -30,7 +30,6 @@ const DigitalMenu: React.FC = async () => {
           <MenuSection
             menuData={data.menu}
             currency={data.currency}
-            layout={data.layout}
             type="demo"
           />
         )}
