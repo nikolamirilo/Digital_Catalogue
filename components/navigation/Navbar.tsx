@@ -21,13 +21,13 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   
   return (
-    <nav className="w-full flex items-center justify-between px-6 py-4 bg-white shadow-lg border-b border-gray-100 fixed top-0 left-0 z-50">
+    <nav className="w-full flex items-center justify-between px-6 py-4 bg-product-background shadow-lg border-b border-gray-100 fixed top-0 left-0 z-50">
       <div className="flex items-center gap-3">
         <Link href="/" className="flex items-center gap-3 transition-opacity">
           <div className="relative">
             <Avatar className="w-10 h-10 ring-2 ring-black ring-offset-2">
               <AvatarImage src="/logo.webp" alt="Logo" />
-              <AvatarFallback className="bg-black text-white font-bold">DM</AvatarFallback>
+              <AvatarFallback className="bg-product-foreground text-white font-bold">DM</AvatarFallback>
             </Avatar>
           </div>
           <span className="font-bold text-xl text-black">Digital Menu</span>

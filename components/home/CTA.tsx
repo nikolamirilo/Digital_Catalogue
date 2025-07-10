@@ -18,8 +18,8 @@ const CTA: React.FC = () => {
                         <p className="mx-auto max-w-xl md:px-5">{ctaDetails.subheading}</p>
 
                         <div className="mt-4 flex flex-col sm:flex-row items-center sm:gap-4">
-                        <AppStoreButton />
-                        <PlayStoreButton />
+                        {/* <AppStoreButton /> */}
+                        {/* <PlayStoreButton /> */}
                         </div>
                     </div>
                 </div>

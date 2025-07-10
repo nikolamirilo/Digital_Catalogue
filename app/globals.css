@@ -17,11 +17,18 @@ html, body {
   --product-secondary: #010e58;
   --product-primary-accent: #e5c230;
   --product-foreground-accent: #454545;
-  --hero-product-background: #F3F3F5;
+  --hero-product-background: #f3f3f5;
+
+  --product-border: #eaeaea;
+  --product-hover-background: #fff9e5;
+  --product-icon: #e5c230;
+  --product-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+
   @apply text-lg;
   color: var(--product-foreground);
   background: var(--product-background);
 }
+
 
 .home #logos svg {
   @apply w-fit h-10 sm:h-12;

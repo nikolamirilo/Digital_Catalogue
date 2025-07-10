@@ -33,7 +33,7 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="min-h-screen bg-gradient-to-br from-gray-50 to-white py-32"
+      className="min-h-screen font-lora bg-gradient-to-br from-gray-50 to-white py-32"
     >
       {/* Success Modal */}
       {isOpen && (

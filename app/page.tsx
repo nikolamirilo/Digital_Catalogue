@@ -13,10 +13,10 @@ import Navbar from "@/components/navigation/Navbar";
 
 const HomePage: React.FC = () => {
   return (
-    <div>
+    <div className="font-lora">
       <Navbar/>
       <Hero />
-      <Logos />
+      {/* <Logos /> */}
       <Container>
         <Benefits />
 

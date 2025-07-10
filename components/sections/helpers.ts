@@ -10,7 +10,7 @@ export const getGridStyle = (variant: string): string => {
       case "variant_4":
         return "";
       default:
-        return "flex flex-row flex-wrap gap-6 mt-4";
+        return "flex flex-row flex-wrap gap-3 mt-4";
     }
   };
   

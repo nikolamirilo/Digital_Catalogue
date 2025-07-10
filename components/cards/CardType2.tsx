@@ -4,7 +4,7 @@ import React from 'react'
 
 const CardType2 = ({ record, currency }: { record: Record, currency: string }) => {
   return (
- <div className="flex flex-col bg-card-bg text-card-text rounded-[16px] border border-card-border
+ <div className="flex flex-col bg-card-bg text-card-text rounded-[12px] border border-card-border
   shadow-[0_0_5px_1px_rgba(233,245,254,0.2)] overflow-hidden
   w-[45%] max-w-[180px] sm:max-w-[220px] md:max-w-[260px]">
 

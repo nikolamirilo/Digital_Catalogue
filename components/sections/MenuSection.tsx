@@ -57,7 +57,7 @@ const MenuSection = ({
         const currentLayout = type === "demo" ? layout : menuData[item.code]?.layout;
 
         return (
-          <section key={item.code} className="mb-10" id={item.code}>
+          <section key={item.code} className="mb-5" id={item.code}>
             <SectionHeader
               title={item.title}
               code={item.code}
@@ -81,20 +81,20 @@ const MenuSection = ({
                     <Swiper
                       spaceBetween={12}
                       slidesPerView={"auto"}
-                      className="mt-4 !px-2"
+                      className="mt-4 px-2"
                     >
                       {menuData[item.code].items.map((record, i) => (
-                        <SwiperSlide
-                          key={i}
-                          className="!w-[222px] sm:!w-[260px] md:!w-[320px] flex flex-col max-w-[90vw] !h-auto"
-                        >
-                          <CardsSwitcher
-                            variant={currentLayout}
-                            record={record}
-                            currency={currency}
-                            i={i}
-                          />
-                        </SwiperSlide>
+               <SwiperSlide
+                      key={i}
+                      className="!w-[180px] sm:!w-[220px] md:!w-[260px] lg:!w-[320px] flex-shrink-0 flex flex-col !h-auto"
+                    >
+                      <CardsSwitcher
+                        variant={currentLayout}
+                        record={record}
+                        currency={currency}
+                        i={i}
+                      />
+                    </SwiperSlide>
                       ))}
                     </Swiper>
                   ) : (
