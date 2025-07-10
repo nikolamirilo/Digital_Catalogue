@@ -44,13 +44,19 @@ a {
   text-decoration: none;
 }
 .theme-luxury {
-  --background: #ffffff;
+  --background: #FFF8E7;
   --foreground: #1a1a1a;
   --heading: #1a1a1a;
-  --text: #4d4d4d;
+  --text: #080808;
   --button: #d3af37;
   --button-text: #1a1a1a;
   --price: #d3af37;
+
+  --primary: #d3af37;
+  --secondary: #856d3d;
+  --accent: #f0e3b2;
+  --primary-foreground: #1a1a1a;
+  --secondary-foreground: #ffffff;
 
   --card-bg: #ffffff;
   --card-text: #333333;
@@ -65,7 +71,6 @@ a {
   --section-hover: #f2f2f2;
 }
 
-
 .theme-creative {
   --background: #1d1e28;
   --foreground: #f8f8f1;
@@ -74,6 +79,12 @@ a {
   --button: #ff6b6b;
   --button-text: #f8f8f1;
   --price: #ff6b6b;
+
+  --primary: #ff6b6b;
+  --secondary: #6b8bff;
+  --accent: #ffd166;
+  --primary-foreground: #1d1e28;
+  --secondary-foreground: #ffffff;
 
   --card-bg: #2a2b39;
   --card-text: #f8f8f1;
@@ -88,16 +99,20 @@ a {
   --section-hover: #343545;
 }
 
-
 .theme-organic {
   --background: #f5f2de;
   --foreground: #354834;
+  --heading: #354834;
+  --text: #5c7453;
+  --button: #5c7453;
+  --button-text: #f5f2de;
+  --price: #cba463;
+
   --primary: #5c7453;
   --secondary: #cba463;
   --accent: #c5d68f;
   --primary-foreground: #f5f2de;
   --secondary-foreground: #354834;
-  --price: #cba463;
 
   --card-bg: #f9f7e7;
   --card-text: #354834;
@@ -112,7 +127,6 @@ a {
   --section-hover: #ece8c5;
 }
 
-
 .theme-elegant {
   --background: #1a1a1a;
   background-image: linear-gradient(to bottom, #1a1a1a, #0f0f0f);
@@ -121,7 +135,13 @@ a {
   --text: #b3b3b3;
   --button: #6699cc;
   --button-text: #1a1a1a;
-  --price: #ffe680;
+  --price: #00BCD4;
+
+  --primary: #6699cc;
+  --secondary: #2c2c2c;
+  --accent: #ffd699;
+  --primary-foreground: #ffffff;
+  --secondary-foreground: #fafafa;
 
   --card-bg: #262626;
   --card-text: #e6e6e6;
@@ -139,12 +159,17 @@ a {
 .theme-modern {
   --background: #1a1a2b;
   --foreground: #ffffff;
+  --heading: #ffffff;
+  --text: #f3f3f3;
+  --button: #8b6cb3;
+  --button-text: #1a1a1a;
+  --price: #e64676;
+
   --primary: #8b6cb3;
   --secondary: #33334d;
   --accent: #e64676;
   --primary-foreground: #ffffff;
   --secondary-foreground: #ffffff;
-  --price: #e64676;
 
   --card-bg: #23233a;
   --card-text: #f2f2f2;
@@ -158,6 +183,7 @@ a {
   --section-icon: #e64676;
   --section-hover: #2d2d45;
 }
+
 
 
 

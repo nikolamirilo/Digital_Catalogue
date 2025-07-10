@@ -19,7 +19,7 @@ const SectionHeader = ({
       type="button"
       className="w-full group relative flex items-center justify-between 
         px-5 py-4 text-xl sm:text-2xl md:text-3xl font-semibold font-lora 
-        text-product-fg bg-product-bg border border-product-border 
+        text-product-fg bg-section-bg border border-product-border 
         rounded-2xl shadow-md transition-all duration-300 ease-in-out 
         hover:bg-product-hover hover:shadow-xl"
     >

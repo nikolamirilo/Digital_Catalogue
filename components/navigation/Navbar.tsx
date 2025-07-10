@@ -21,7 +21,7 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   
   return (
-    <nav className="w-full flex items-center justify-between px-6 py-4 bg-product-background shadow-lg border-b border-gray-100 fixed top-0 left-0 z-50">
+    <nav className="w-full flex items-center justify-between px-6 font-lora py-4 bg-product-background shadow-lg border-b border-gray-100 fixed top-0 left-0 z-50">
       <div className="flex items-center gap-3">
         <Link href="/" className="flex items-center gap-3 transition-opacity">
           <div className="relative">
@@ -71,13 +71,13 @@ const Navbar = () => {
           ) : (
             <>
               <Link href="/auth">
-                <Button>
+                <Button className="text-button-text">
                 <FiUser  />
                 Sign In
                 </Button>
               </Link>
               <Link href="/auth?mode=signup">
-                <Button>
+                <Button className="text-button-text">
                   <FiUserPlus  />
                   Sign Up
                 </Button>
@@ -169,7 +169,7 @@ const Navbar = () => {
             <>
               <div className="border-t border-gray-100 pt-4 mt-4 space-y-3">
                 <Link href="/auth" onClick={() => setMobileOpen(false)}>
-                  <Button variant="outline" className="w-full justify-start border-gray-300 text-gray-800 ">
+                  <Button variant="outline" className="w-full justify-start mb-3 border-gray-300 text-gray-800 ">
                     <FiUser size={20} className="mr-3" />
                     Sign In
                   </Button>
