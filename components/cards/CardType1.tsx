@@ -10,8 +10,8 @@ const CardType1 = ({
   currency: string
 }) => {
   return (
-   <div className="flex flex-row bg-card-bg text-card-text rounded-[12px] border border-card-border 
-shadow-[0_0_5px_1px_rgba(233,245,254,0.2)] overflow-hidden max-w-full min-h-[110px] sm:min-h-[150px]">
+   <div className="flex flex-row bg-card-bg text-card-text rounded-[12px]
+shadow-lg overflow-hidden max-w-full min-h-[110px] sm:min-h-[150px]">
   
   <div
     style={{ backgroundImage: `url(${record.image})` }}

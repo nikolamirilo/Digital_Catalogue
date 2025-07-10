@@ -1,7 +1,7 @@
 //@ts-nocheck
 "use server";
 import InformationEmail from "@/components/emails/InformationEmail";
-import { resend } from "@/constants";
+import { resend } from "@/constants/server";
 import { ContactData } from "@/types";
 
 export async function 
