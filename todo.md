@@ -3,14 +3,11 @@
 ### Funcitonalities:
 - [Paddle](https://www.paddle.com) integration for payment, tax and subscription
 - Dashboard update:
-    - plan name
     - subscription end
-    - billing page
     - plan usage (number of menus)
     - traffic usage
 - Cron job that will delete unused images from uploadthing
 - Job that will save once per month overall analytics per user and delete events data from posthog analytics
-- Theme toggle
 
 ### UI:
 1. **Transform layout 4 into caroseul** DONE
