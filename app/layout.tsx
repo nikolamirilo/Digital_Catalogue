@@ -31,7 +31,7 @@ export default function RootLayout({
 }) {
   return (
     <html className={`${loraRegular.variable} ${loraSemiBold.variable} antialiased`}>
-    <ClerkProvider>
+    <ClerkProvider afterSignOutUrl="/">
       <body className="product">
         <PageWrapperClient children={children} />
       </body>

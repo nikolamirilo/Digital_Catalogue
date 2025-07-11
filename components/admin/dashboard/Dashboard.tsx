@@ -119,35 +119,35 @@ export default function Dashboard({
           )}
           {/* Total Analytics Card */}
           <div>
-            <h2 className="text-2xl font-semibold mb-4">Usage Overview</h2>
-            <div className="mb-8 grid grid-cols-1 md:grid-cols-4 gap-4">
-              <Card className="p-4 flex flex-col items-center max-w-72">
-                <div className="text-lg font-semibold text-product-foreground mb-2">
+            <h2 className="text-center md:text-left text-2xl font-semibold mb-4">Usage Overview</h2>
+            <div className="mb-8 grid grid-cols-2 md:grid md:grid-cols-4 gap-4">
+              <Card className="p-4 flex flex-col items-center max-w-72 w-full justify-between">
+                <div className="text-base md:text-lg font-semibold text-product-foreground mb-2 text-center">
                   Total Page Views
                 </div>
                 <div className="text-3xl font-bold text-product-foreground">
                   {totalPageViews}
                 </div>
               </Card>
-              <Card className="p-4 flex flex-col items-center max-w-72">
-                <div className="text-lg font-semibold text-product-foreground mb-2">
-                  Total Unique Visitors
+              <Card className="p-4 flex flex-col items-center max-w-72 w-full justify-between">
+                <div className="text-base md:text-lg font-semibold text-product-foreground mb-2 text-center">
+                  Total Visitors
                 </div>
                 <div className="text-3xl font-bold text-product-foreground">
                   {totalUniqueVisitors}
                 </div>
               </Card>
-              <Card className="p-4 flex flex-col items-center max-w-72">
-                <div className="text-lg font-semibold text-product-foreground mb-2">
+              <Card className="p-4 flex flex-col items-center max-w-72 w-full justify-between">
+                <div className="text-base md:text-lg font-semibold text-product-foreground mb-2 text-center">
                   Total Restaurants
                 </div>
                 <div className="text-3xl font-bold text-product-foreground">
                   {totalRestaurants}
                 </div>
               </Card>
-              <Card className="p-4 flex flex-col items-center max-w-72">
-                <div className="text-lg font-semibold text-product-foreground mb-2">
-                  Additional Measure
+              <Card className="p-4 flex flex-col items-center max-w-72 w-full justify-between">
+                <div className="text-base md:text-lg font-semibold text-product-foreground mb-2 text-center">
+                  Engagement
                 </div>
                 <div className="text-3xl font-bold text-product-foreground">
                   121

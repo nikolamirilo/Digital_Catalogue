@@ -15,7 +15,7 @@ const DigitalMenu: React.FC = () => {
       <div className={`min-h-screen text-text bg-background ${theme ? theme : "theme-elegant"}`}>
         <main>
           <section className="w-full bg-background pt-36 px-4 text-center flex flex-col items-center">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-lora font-semibold text-foreground tracking-tight mb-4">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl max-w-[800px] font-lora font-semibold text-foreground tracking-tight mb-4">
               Welcome to our interactive menu demo!
             </h1>
             <div className="w-60 h-[3px] bg-foreground mb-6 rounded-full"></div>

@@ -64,8 +64,8 @@ const Navbar = () => {
                   Dashboard
                 </Button>
               </Link>
-              <div className="ml-2">
-                <UserButton />
+              <div className="ml-2 flex items-center gap-1 text-base">
+                <UserButton/>
               </div>
             </>
           ) : (
@@ -161,7 +161,7 @@ const Navbar = () => {
                   </button>
                 </Link>
                 <div className="mt-4 flex items-center justify-center">
-                  <UserButton />
+                  <UserButton showName={true}/>
                 </div>
               </div>
             </>
