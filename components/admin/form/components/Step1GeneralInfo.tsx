@@ -18,6 +18,7 @@ import { IoClose } from "react-icons/io5";
 import ImageDropzone from "@/components/common/ImageDropzone";
 
 import { ContactInfo, contactTypes } from "@/types";
+import { Card } from "@/components/ui/card";
 
 const currencies = [
   { value: "USD", label: "USD - United States Dollar" },
@@ -90,7 +91,7 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
   );
 
   return (
-    <div className="space-y-6 p-6 border rounded-lg shadow-sm bg-gray-50">
+    <Card className="space-y-6 p-6" type="form">
       <h2 className="text-2xl font-semibold text-gray-800 flex items-center gap-2">
         <FileText className="text-orange-600" size={25}/>
         Restaurant Details
@@ -305,7 +306,7 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
           </Button>
         </div>
       </div>
-    </div>
+    </Card>
   );
 };
 

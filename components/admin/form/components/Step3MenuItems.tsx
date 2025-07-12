@@ -53,7 +53,7 @@ const Step3MenuItems: React.FC<Step3MenuItemsProps> = ({
               onClick={() => handleAddItem(categoryIndex)}
               className="ml-auto"
             >
-              <Plus className="mr-2 h-4 w-4" /> Add New Item to {category.name || "this Category"}
+              <Plus className="h-4 w-4" /> Add New Item to {category.name || "this Category"}
             </Button>
 
             {category.items.map((item, itemIndex) => (

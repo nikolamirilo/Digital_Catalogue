@@ -95,19 +95,19 @@ const SuccessModal: React.FC<SuccessModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[480px] w-full !p-6">
+      <DialogContent className="sm:max-w-[480px] w-full !p-6 bg-product-background">
         <DialogHeader className="flex flex-col">
           <div className="flex flex-row gap-1 items-center justify-left">
-          <DialogTitle className="text-black">Digital Menu Created Successfully!</DialogTitle>
+          <DialogTitle className="text-product-foreground">Digital Menu Created Successfully!</DialogTitle>
           <FaCheckCircle size={25} color="green" />
           </div>
-          <DialogDescription className="text-black">
+          <DialogDescription className="text-product-foreground">
             Your digital menu has been created and is ready to view.
           </DialogDescription>
         </DialogHeader>
         {/* QR Code Section */}
         <div className="flex flex-col items-start gap-2 w-full">
-          <h4 className="font-semibold mb-2 text-black">Add QR code as your menu</h4>
+          <h4 className="font-semibold mb-2 text-product-foreground">Add QR code as your menu</h4>
           <div id="success-modal-qr">
             <QRCodeSVG value={fullURL} size={180} bgColor="#fff" fgColor="#000" />
           </div>
@@ -118,7 +118,7 @@ const SuccessModal: React.FC<SuccessModalProps> = ({
           </div>
         </div>
         {/* Embeddable Iframe Section */}
-        <div className="text-black w-full mt-2">
+        <div className="text-product-foreground w-full mt-2">
           <h4 className="font-semibold mb-2">Embed in your website</h4>
           <div
             ref={codeRef}

@@ -144,7 +144,7 @@ export default function Billing({ pricingPlan }: { pricingPlan: any }) {
 
       {/* Features Card */}
       {pricingPlan.features && (
-        <Card className="shadow-lg">
+        <Card>
           <CardHeader className="pb-4">
             <CardTitle className="text-xl font-bold flex items-center">
               <Star className="w-5 h-5 text-yellow-500" />
@@ -179,7 +179,7 @@ export default function Billing({ pricingPlan }: { pricingPlan: any }) {
       )}
 
       {/* Action Buttons */}
-      <Card className="shadow-lg">
+      <Card>
         <CardContent className="p-6">
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 

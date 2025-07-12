@@ -3,20 +3,34 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
-const Card = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn(
-      "rounded-xl border bg-card text-card-foreground shadow",
-      className
-    )}
-    {...props}
-  />
-))
-Card.displayName = "Card"
+interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+  type?: 'form' | string;
+}
+
+const Card = React.forwardRef<HTMLDivElement, CardProps>(
+  ({ className, type, ...props }, ref) => {
+    const baseClasses =
+      "text-product-foreground backdrop-blur-sm rounded-2xl shadow-product-shadow border border-product-border";
+    const defaultBackground =
+      "bg-gradient-to-br from-product-background to-hero-product-background";
+    const formBackground = "bg-white";
+
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          baseClasses,
+          type === "form" ? formBackground : defaultBackground,
+          className
+        )}
+        {...props}
+      />
+    );
+  }
+);
+
+Card.displayName = "Card";
+
 
 const CardHeader = React.forwardRef<
   HTMLDivElement,

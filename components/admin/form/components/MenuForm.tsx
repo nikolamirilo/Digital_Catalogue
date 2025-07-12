@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { toast } from "@/hooks/use-toast"
-import { ArrowRight, ArrowLeft } from "lucide-react"
+import { ArrowRight, ArrowLeft, Edit, Plus } from "lucide-react"
 import Step1GeneralInfo from "./Step1GeneralInfo";
 import Step2MenuSections from "./Step2MenuSections";
 import Step3MenuItems from "./Step3MenuItems";
@@ -396,7 +396,7 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
   };
 
   return (
-    <Card className="w-full max-w-4xl mx-auto my-20 text-gray-900">
+    <Card className="w-full max-w-4xl mx-auto" type="form">
       <CardHeader>
         <CardTitle className="text-3xl font-bold text-center">
           {type === 'edit' ? 'Edit Your Digital Menu' : 'Create Your Digital Menu'}
@@ -461,8 +461,9 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
               </Button>
             )}
             {currentStep === 3 && (
-              <Button type="submit" className="py-3 px-6 text-lg" disabled={isSubmitting}>
-                {isSubmitting ? (type === 'edit' ? 'Saving Changes...' : 'Creating Digital Menu...') : (type === 'edit' ? 'Save Changes' : 'Create Digital Menu')}
+              <Button type="submit" disabled={isSubmitting} className="flex items-center justify-center">
+                {type === 'edit' ? <Edit className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
+                {isSubmitting ? (type === 'edit' ? 'Saving...' : 'Creating...') : (type === 'edit' ? 'Save Changes' : 'Create Digital Menu')}
               </Button>
             )}
           </div>

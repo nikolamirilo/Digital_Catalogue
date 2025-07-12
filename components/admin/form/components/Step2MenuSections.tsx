@@ -32,8 +32,8 @@ const Step2MenuSections: React.FC<Step2MenuSectionsProps> = ({
   handleCategoryChange,
 }) => {
   return (
-    <div className="space-y-6 p-6 border rounded-lg shadow-sm bg-gray-50">
-      <h2 className="text-2xl font-semibold text-gray-800 flex items-center gap-2">
+     <Card className="space-y-6 p-6" type="form">
+      <h2 className="text-2xl font-semibold text-gray-800 flex items-center">
       <MdRestaurantMenu className="text-orange-600" size={30} />
         Menu Categories
       </h2>
@@ -42,11 +42,11 @@ const Step2MenuSections: React.FC<Step2MenuSectionsProps> = ({
         onClick={handleAddCategory}
         className="ml-auto"
       >
-        <Plus className="mr-2 h-4 w-4" /> Add New Category
+        <Plus className="h-4 w-4" /> Add New Category
       </Button>
 
       {formData.menu.map((category, categoryIndex) => (
-        <Card key={categoryIndex} className="p-4 space-y-4 shadow-md bg-white">
+        <Card key={categoryIndex} className="space-y-6 p-6" type="form">
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-xl font-semibold text-gray-700">Category {categoryIndex + 1}</h3>
             <Button
@@ -95,7 +95,7 @@ const Step2MenuSections: React.FC<Step2MenuSectionsProps> = ({
           </div>
         </Card>
       ))}
-    </div>
+    </Card>
   );
 };
 
