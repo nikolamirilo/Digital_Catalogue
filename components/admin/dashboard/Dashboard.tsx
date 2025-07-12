@@ -78,7 +78,7 @@ export default function Dashboard({
   }
 
   return (
-    <div className="container mx-auto py-20 px-4 overflow-auto">
+    <div className="container mx-auto py-32 px-4 overflow-auto">
       <Tabs defaultValue="overview" className="w-full">
         <TabsList className="my-4 flex gap-2 w-full justify-start">
           <TabsTrigger value="overview" className="bg-product-primary text-product-foreground">

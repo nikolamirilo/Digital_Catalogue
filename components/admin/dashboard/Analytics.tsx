@@ -2,10 +2,10 @@
 import React from 'react'
 import LineChart from '../../charts/LineChart'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "../../ui/card";
-import { Badge } from "../../ui/badge";
-import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from "../../ui/table";
-import { Progress } from "../../ui/progress";
-import { Separator } from "../../ui/separator";
+// import { Badge } from "../../ui/badge";
+// import { Separator } from "../../ui/separator";
+import { FiTrendingUp, FiUsers, FiCalendar, FiBarChart} from 'react-icons/fi';
+// import { FiGlobe, FiMonitor, FiChrome } from 'react-icons/fi';
 
 interface AnalyticsProps {
   data: { date: string; count: number }[];
@@ -22,148 +22,193 @@ const Analytics = ({ data, rawEvents }: AnalyticsProps) => {
   // Average page views per day
   const avgPageViews = data.length > 0 ? (totalPageViews / data.length).toFixed(2) : '0';
   // Top browsers
-  const browserCounts = rawEvents.reduce((acc, e) => {
-    const browser = e.properties?.$browser;
-    if (browser) acc[browser] = (acc[browser] || 0) + 1;
-    return acc;
-  }, {} as Record<string, number>);
-  const topBrowsers = Object.entries(browserCounts).map(([browser, count]) => [browser, Number(count)]).sort((a, b) => Number(b[1]) - Number(a[1]));
-  // Top devices
-  const deviceCounts = rawEvents.reduce((acc, e) => {
-    const device = e.properties?.$device_type;
-    if (device) acc[device] = (acc[device] || 0) + 1;
-    return acc;
-  }, {} as Record<string, number>);
-  const topDevices = Object.entries(deviceCounts).map(([device, count]) => [device, Number(count)]).sort((a, b) => Number(b[1]) - Number(a[1]));
-  // Top countries
-  const countryCounts = rawEvents.reduce((acc, e) => {
-    const country = e.properties?.$geoip_country_name;
-    if (country) acc[country] = (acc[country] || 0) + 1;
-    return acc;
-  }, {} as Record<string, number>);
-  const topCountries = Object.entries(countryCounts).map(([country, count]) => [country, Number(count)]).sort((a, b) => Number(b[1]) - Number(a[1]));
+  // const browserCounts = rawEvents.reduce((acc, e) => {
+  //   const browser = e.properties?.$browser;
+  //   if (browser) acc[browser] = (acc[browser] || 0) + 1;
+  //   return acc;
+  // }, {} as Record<string, number>);
+  // const topBrowsers = Object.entries(browserCounts).map(([browser, count]) => [browser, Number(count)]).sort((a, b) => Number(b[1]) - Number(a[1]));
+  // // Top devices
+  // const deviceCounts = rawEvents.reduce((acc, e) => {
+  //   const device = e.properties?.$device_type;
+  //   if (device) acc[device] = (acc[device] || 0) + 1;
+  //   return acc;
+  // }, {} as Record<string, number>);
 
-  // For progress bars, get max for each section
-  const browserTotal = topBrowsers.reduce((sum, [, count]) => sum + Number(count), 0) || 1;
-  const deviceTotal = topDevices.reduce((sum, [, count]) => sum + Number(count), 0) || 1;
-  const countryTotal = topCountries.reduce((sum, [, count]) => sum + Number(count), 0) || 1;
+  // // Top countries
+  // const countryCounts = rawEvents.reduce((acc, e) => {
+  //   const country = e.properties?.$geoip_country_name;
+  //   if (country) acc[country] = (acc[country] || 0) + 1;
+  //   return acc;
+  // }, {} as Record<string, number>);
+  // const topCountries = Object.entries(countryCounts).map(([country, count]) => [country, Number(count)]).sort((a, b) => Number(b[1]) - Number(a[1]));
+
+  // const topDevices = Object.entries(deviceCounts).map(([device, count]) => [device, Number(count)]).sort((a, b) => Number(b[1]) - Number(a[1]));
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', { 
+      weekday: 'short', 
+      month: 'short', 
+      day: 'numeric' 
+    });
+  };
 
   return (
-    <Card className="w-full max-w-[1000px] mx-auto text-gray-900">
-      <CardHeader>
-        <CardTitle>Analytics Overview</CardTitle>
-        <CardDescription>Key metrics and insights for your restaurant</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <Card className="flex flex-col items-center justify-center p-4">
-            <Badge className="mb-2 text-white">Total Page Views</Badge>
-            <span className="text-2xl font-bold text-gray-900">{totalPageViews}</span>
-          </Card>
-          <Card className="flex flex-col items-center justify-center p-4">
-            <Badge className="mb-2 text-white">Unique Visitors</Badge>
-            <span className="text-2xl font-bold text-gray-900">{uniqueVisitors}</span>
-          </Card>
-          <Card className="flex flex-col items-center justify-center p-4">
-            <Badge className="mb-2 text-white">Most Popular Day</Badge>
-            <span className="text-lg font-bold text-gray-900">{mostPopularDay && mostPopularDay.date ? mostPopularDay.date : '-'}</span>
-            <span className="text-gray-900 text-sm">{mostPopularDay && mostPopularDay.date ? `${mostPopularDay.count} views` : ''}</span>
-          </Card>
-          <Card className="flex flex-col items-center justify-center p-4">
-            <Badge className="mb-2 text-white">Avg. Views/Day</Badge>
-            <span className="text-2xl font-bold text-gray-900">{avgPageViews}</span>
-          </Card>
-        </div>
-        <Separator className="my-6" />
-        <div className="mb-8">
-          <LineChart data={data} />
-        </div>
-        <Separator className="my-6" />
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-2">
-          <Card>
-            <CardHeader>
-              <CardTitle>Top Browsers</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="font-bold">Browser</TableHead>
-                    <TableHead className="font-bold">Views</TableHead>
-                    <TableHead className="font-bold">Share</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {topBrowsers.map(([browser, count]) => (
-                    <TableRow key={browser}>
-                      <TableCell className="text-gray-900">{browser}</TableCell>
-                      <TableCell className="text-gray-900">{count}</TableCell>
-                      <TableCell className="w-32">
-                        <Progress value={Math.round((Number(count) / browserTotal) * 100)} />
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle>Top Devices</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="font-bold">Device</TableHead>
-                    <TableHead className="font-bold">Views</TableHead>
-                    <TableHead className="font-bold">Share</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {topDevices.map(([device, count]) => (
-                    <TableRow key={device}>
-                      <TableCell className="text-gray-900">{device}</TableCell>
-                      <TableCell className="text-gray-900">{count}</TableCell>
-                      <TableCell className="w-32">
-                        <Progress value={Math.round((Number(count) / deviceTotal) * 100)} />
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle>Top Countries</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="font-bold">Country</TableHead>
-                    <TableHead className="font-bold">Views</TableHead>
-                    <TableHead className="font-bold">Share</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {topCountries.map(([country, count]) => (
-                    <TableRow key={country}>
-                      <TableCell className="text-gray-900">{country}</TableCell>
-                      <TableCell className="text-gray-900">{count}</TableCell>
-                      <TableCell className="w-32">
-                        <Progress value={Math.round((Number(count) / countryTotal) * 100)} />
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
-        </div>
-      </CardContent>
-    </Card>
+    <div className="px-2 max-w-[1200px] mx-auto space-y-8">
+      {/* Header */}
+      <div className="text-center space-y-2">
+        <h1 className="text-3xl font-bold text-product-foreground flex items-center justify-center gap-2">
+          <FiBarChart className="w-8 h-8 text-product-primary" />
+          Analytics Dashboard
+        </h1>
+        <p className="text-product-foreground-accent text-lg">
+          Comprehensive insights and performance metrics for your restaurant
+        </p>
+      </div>
+
+      {/* Key Metrics Grid */}
+      <div className="grid w-full mx-auto grid-cols-1 md:w-full md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
+        <Card className="bg-gradient-to-br from-product-background to-hero-product-background border-product-border shadow-product-shadow hover:shadow-product-hover-shadow transition-all duration-300 hover:scale-product-hover-scale">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-product-foreground-accent text-sm font-medium">Total Page Views</p>
+                <p className="text-3xl font-bold text-product-foreground mt-1">{totalPageViews.toLocaleString()}</p>
+              </div>
+              <div className="w-12 h-12 bg-product-primary/10 rounded-full flex items-center justify-center">
+                <FiTrendingUp className="w-6 h-6 text-product-icon" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-gradient-to-br from-product-background to-hero-product-background border-product-border shadow-product-shadow hover:shadow-product-hover-shadow transition-all duration-300 hover:scale-product-hover-scale">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-product-foreground-accent text-sm font-medium">Unique Visitors</p>
+                <p className="text-3xl font-bold text-product-foreground mt-1">{uniqueVisitors.toLocaleString()}</p>
+              </div>
+              <div className="w-12 h-12 bg-product-secondary/10 rounded-full flex items-center justify-center">
+                <FiUsers className="w-6 h-6 text-product-icon" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-gradient-to-br from-product-background to-hero-product-background border-product-border shadow-product-shadow hover:shadow-product-hover-shadow transition-all duration-300 hover:scale-product-hover-scale">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-product-foreground-accent text-sm font-medium">Most Popular Day</p>
+                <p className="text-lg font-bold text-product-foreground mt-1">
+                  {mostPopularDay && mostPopularDay.date ? formatDate(mostPopularDay.date) : '-'}
+                </p>
+                {mostPopularDay && mostPopularDay.count > 0 && (
+                  <p className="text-xs text-product-foreground-accent mt-1">
+                    {mostPopularDay.count} views
+                  </p>
+                )}
+              </div>
+              <div className="w-12 h-12 bg-product-primary-accent/10 rounded-full flex items-center justify-center">
+                <FiCalendar className="w-6 h-6 text-product-icon" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-gradient-to-br from-product-background to-hero-product-background border-product-border shadow-product-shadow hover:shadow-product-hover-shadow transition-all duration-300 hover:scale-product-hover-scale">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-product-foreground-accent text-sm font-medium">Avg. Views/Day</p>
+                <p className="text-3xl font-bold text-product-foreground mt-1">{avgPageViews}</p>
+              </div>
+              <div className="w-12 h-12 bg-product-icon/10 rounded-full flex items-center justify-center">
+                <FiBarChart className="w-6 h-6 text-product-icon" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Chart Section */}
+      <Card className="bg-gradient-to-br from-product-background to-hero-product-background border-product-border shadow-product-shadow">
+        <CardHeader>
+          <CardTitle className="text-xl font-bold text-product-foreground">Traffic Overview</CardTitle>
+          <CardDescription className="text-product-foreground-accent">
+            Daily page views over time
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="p-4">
+          <div className="h-fit">
+            <LineChart data={data} />
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Quick Stats Grid */}
+      {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <Card className="bg-gradient-to-br from-product-background to-hero-product-background border-product-border shadow-product-shadow">
+          <CardHeader className="pb-3">
+            <CardTitle className="text-lg font-semibold text-product-foreground flex items-center gap-2">
+              <FiChrome className="w-5 h-5 text-product-primary" />
+              Top Browsers
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {topBrowsers.slice(0, 5).map(([browser, count]) => (
+              <div key={browser} className="flex items-center justify-between p-2 rounded-lg bg-product-hover-background">
+                <span className="text-product-foreground font-medium">{browser}</span>
+                <Badge variant="outline" className="bg-product-primary/10 text-product-primary border-product-primary/20">
+                  {count}
+                </Badge>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+
+        <Card className="bg-gradient-to-br from-product-background to-hero-product-background border-product-border shadow-product-shadow">
+          <CardHeader className="pb-3">
+            <CardTitle className="text-lg font-semibold text-product-foreground flex items-center gap-2">
+              <FiMonitor className="w-5 h-5 text-product-secondary" />
+              Top Devices
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {topDevices.slice(0, 5).map(([device, count]) => (
+              <div key={device} className="flex items-center justify-between p-2 rounded-lg bg-product-hover-background">
+                <span className="text-product-foreground font-medium">{device}</span>
+                <Badge variant="outline" className="bg-product-secondary/10 text-product-secondary border-product-secondary/20">
+                  {count}
+                </Badge>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+
+        <Card className="bg-gradient-to-br from-product-background to-hero-product-background border-product-border shadow-product-shadow">
+          <CardHeader className="pb-3">
+            <CardTitle className="text-lg font-semibold text-product-foreground flex items-center gap-2">
+              <FiGlobe className="w-5 h-5 text-product-icon" />
+              Top Countries
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {topCountries.slice(0, 5).map(([country, count]) => (
+              <div key={country} className="flex items-center justify-between p-2 rounded-lg bg-product-hover-background">
+                <span className="text-product-foreground font-medium">{country}</span>
+                <Badge variant="outline" className="bg-product-icon/10 text-product-icon border-product-icon/20">
+                  {count}
+                </Badge>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+      </div> */}
+    </div>
   );
 }
-export default Analytics
+
+export default Analytics;

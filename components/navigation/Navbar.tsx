@@ -21,7 +21,7 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   
   return (
-    <nav className="w-full flex items-center justify-between px-6 font-lora py-4 bg-product-background shadow-lg border-b border-gray-100 fixed top-0 left-0 z-50">
+    <nav className="w-full flex items-center justify-between px-6 font-lora py-2 bg-product-background shadow-lg border-b border-gray-100 fixed top-0 left-0 z-50">
       <div className="flex items-center gap-3">
         <Link href="/" className="flex items-center gap-3 transition-all duration-200 hover:scale-105 hover:opacity-80 group">
           <div className="relative">

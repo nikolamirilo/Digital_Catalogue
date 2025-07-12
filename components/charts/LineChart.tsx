@@ -129,7 +129,7 @@ export default function LineChart({ data = [] }: LineChartProps) {
       {/*@ts-ignore */}
       <CardBody className="px-2 pb-0">
         {/*@ts-ignore */}
-        <Chart {...chartConfig} />
+        <Chart {...chartConfig} height={350}/>
       </CardBody>
     </Card>
   );
