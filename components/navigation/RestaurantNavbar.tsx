@@ -78,7 +78,11 @@ const RestaurantNavbar = ({ restaurantData }: NavbarProps) => {
           <button
             key={item.code}
             onClick={() => handleSectionClick(item.code)}
-            className={`px-3 py-2 rounded-md font-medium transition-colors duration-200 hover:bg-gray-100 ${selectedSection === item.code ? "bg-gray-200 text-primary" : "text-gray-900"}`}
+            className={`px-3 py-2 rounded-md font-medium transition-all duration-200 hover:bg-navbar-button-hover-bg hover:text-navbar-button-hover-text hover:shadow-navbar-button-hover-shadow hover:transform-navbar-button-hover-transform hover:scale-navbar-button-hover-scale hover:font-bold focus:ring-2 focus:ring-navbar-button-focus-ring focus:ring-offset-2 border border-transparent hover:border-navbar-button-hover-border ${
+              selectedSection === item.code 
+                ? "bg-navbar-button-active-bg text-navbar-button-active-text shadow-md border-navbar-button-hover-border" 
+                : "text-gray-900"
+            }`}
           >
             {item.title}
           </button>
@@ -118,7 +122,11 @@ const RestaurantNavbar = ({ restaurantData }: NavbarProps) => {
             <button
               key={item.code}
               onClick={() => handleSectionClick(item.code)}
-              className="w-full justify-start px-2 py-2 rounded-md hover:bg-gray-100 text-left"
+              className={`w-full justify-start px-2 py-2 rounded-md hover:bg-navbar-button-hover-bg hover:text-navbar-button-hover-text hover:shadow-md hover:scale-105 hover:transform hover:-translate-y-1 text-left transition-all duration-200 border border-transparent hover:border-navbar-button-hover-border hover:font-bold font-medium ${
+                selectedSection === item.code 
+                  ? "bg-navbar-button-active-bg text-navbar-button-active-text shadow-md border-navbar-button-hover-border" 
+                  : ""
+              }`}
             >
               {item.title}
             </button>

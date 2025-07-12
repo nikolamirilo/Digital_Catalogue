@@ -25,6 +25,20 @@ export default withUt(
           "product-icon": "var(--product-icon)",
           "product-shadow": "var(--product-shadow)",
           "button-text":"var(--button-text)",
+          "product-hover-scale": "var(--product-hover-scale)",
+          "product-hover-shadow": "var(--product-hover-shadow)",
+
+          /* Navbar button hover colors */
+          "navbar-button-hover-bg": "var(--navbar-button-hover-bg)",
+          "navbar-button-hover-text": "var(--navbar-button-hover-text)",
+          "navbar-button-hover-border": "var(--navbar-button-hover-border)",
+          "navbar-button-hover-shadow": "var(--navbar-button-hover-shadow)",
+          "navbar-button-active-bg": "var(--navbar-button-active-bg)",
+          "navbar-button-active-text": "var(--navbar-button-active-text)",
+          "navbar-button-transition": "var(--navbar-button-transition)",
+          "navbar-button-hover-transform": "var(--navbar-button-hover-transform)",
+          "navbar-button-focus-ring": "var(--navbar-button-focus-ring)",
+          "navbar-button-hover-scale": "var(--navbar-button-hover-scale)",
 
           primary: "var(--primary)",
           secondary: "var(--secondary)",
@@ -46,6 +60,24 @@ export default withUt(
           "section-border": "var(--section-border)",
           "section-icon": "var(--section-icon)",
           "section-hover": "var(--section-hover)",
+
+          /* Section Header Variables */
+          "section-header-bg": "var(--section-header-bg)",
+          "section-header-text": "var(--section-header-text)",
+          "section-header-border": "var(--section-header-border)",
+          "section-header-shadow": "var(--section-header-shadow)",
+          "section-header-hover-bg": "var(--section-header-hover-bg)",
+          "section-header-hover-shadow": "var(--section-header-hover-shadow)",
+          "section-header-accent": "var(--section-header-accent)",
+          "section-header-gradient": "var(--section-header-gradient)",
+
+          /* Typography Variables */
+          "font-family-heading": "var(--font-family-heading)",
+          "font-family-body": "var(--font-family-body)",
+          "font-weight-heading": "var(--font-weight-heading)",
+          "font-weight-body": "var(--font-weight-body)",
+          "letter-spacing-heading": "var(--letter-spacing-heading)",
+          "letter-spacing-body": "var(--letter-spacing-body)",
         },
         fontFamily: {
           lora: ["var(--font-lora-regular)"],

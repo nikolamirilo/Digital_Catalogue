@@ -6,23 +6,82 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
-        default:
-          "bg-product-primary text-button transition-colors shadow-md",
-        destructive:
-          "bg-red-400 text-white shadow-sm",
-        outline:
-          "border border-input bg-background shadow-sm ",
-        secondary:
-          "bg-background text-secondary-foreground shadow-sm text-gray-900",
-        ghost: "text-gray-900",
-        success: "bg-green-500",
-        link: "text-primary underline-offset-4",
-        'primary-inverted':
-          "bg-white text-primary border-2 border-primary shadow transition-colors duration-200",
+        default: `
+          bg-product-primary 
+          text-button-text 
+          shadow 
+          hover:bg-primary-accent 
+          hover:shadow-md 
+          hover:text-product-foreground 
+          hover:scale-[1.02]
+        `,
+        destructive: `
+          bg-red-500 
+          text-white 
+          hover:bg-red-600 
+          shadow-sm
+        `,
+        outline: `
+          border border-product-border 
+          bg-transparent 
+          text-product-foreground 
+          hover:bg-product-hover-background 
+          hover:text-product-foreground-accent 
+          transition-colors shadow-sm
+        `,
+        secondary: `
+          bg-product-background 
+          text-product-foreground-accent 
+          border border-product-border 
+          hover:bg-product-hover-background 
+          hover:text-product-foreground 
+          shadow-sm
+        `,
+        ghost: `
+          text-product-foreground 
+          hover:bg-product-hover-background 
+          hover:text-product-foreground-accent
+        `,
+        success: `
+          bg-green-500 
+          text-white 
+          hover:bg-green-600
+        `,
+        link: `
+          text-product-secondary 
+          underline-offset-4 
+          hover:underline
+        `,
+        'primary-inverted': `
+          bg-white 
+          text-product-primary 
+          border-2 border-product-primary 
+          hover:bg-product-hover-background 
+          hover:text-product-foreground 
+          hover:border-primary-accent 
+          shadow
+        `,
+        navbar: `
+          text-product-foreground 
+          hover:bg-navbar-button-hover-bg 
+          hover:text-navbar-button-hover-text 
+          hover:shadow-navbar-button-hover-shadow 
+          hover:transform-navbar-button-hover-transform 
+          hover:scale-navbar-button-hover-scale
+          hover:font-bold
+          focus:ring-2 
+          focus:ring-navbar-button-focus-ring 
+          focus:ring-offset-2 
+          active:bg-navbar-button-active-bg 
+          active:text-navbar-button-active-text 
+          transition-navbar-button-transition
+          border border-transparent
+          hover:border-navbar-button-hover-border
+        `,
       },
       size: {
         default: "h-9 px-4 py-2",

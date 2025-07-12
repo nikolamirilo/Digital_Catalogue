@@ -3,7 +3,7 @@ import "./globals.css";
 import { PageWrapperClient } from "@/components/wrappers/PageWrapperClient";
 import Script from 'next/script'
 import { ClerkProvider } from '@clerk/nextjs';
-import { Lora } from 'next/font/google';
+import { Lora, Playfair_Display, Inter, Nunito, Crimson_Text, Poppins } from 'next/font/google';
 
 const loraRegular = Lora({
   weight: '400',
@@ -19,6 +19,42 @@ const loraSemiBold = Lora({
   display: 'swap',
 });
 
+// Theme Fonts
+const playfairDisplay = Playfair_Display({
+  weight: ['400', '600', '700'],
+  subsets: ['latin'],
+  variable: '--font-playfair-display',
+  display: 'swap',
+});
+
+const inter = Inter({
+  weight: ['400', '500', '600', '700'],
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+});
+
+const nunito = Nunito({
+  weight: ['400', '600', '700'],
+  subsets: ['latin'],
+  variable: '--font-nunito',
+  display: 'swap',
+});
+
+const crimsonText = Crimson_Text({
+  weight: ['400', '600', '700'],
+  subsets: ['latin'],
+  variable: '--font-crimson-text',
+  display: 'swap',
+});
+
+const poppins = Poppins({
+  weight: ['400', '500', '600', '700'],
+  subsets: ['latin'],
+  variable: '--font-poppins',
+  display: 'swap',
+});
+
 export const metadata: Metadata = {
   title: "Digital Menu",
   description: "Digital menu for restaurants and caffe shops",
@@ -30,7 +66,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html className={`${loraRegular.variable} ${loraSemiBold.variable} antialiased`}>
+    <html className={`${loraRegular.variable} ${loraSemiBold.variable} ${playfairDisplay.variable} ${inter.variable} ${nunito.variable} ${crimsonText.variable} ${poppins.variable} antialiased`}>
     <ClerkProvider afterSignOutUrl="/">
       <body className="product">
         <PageWrapperClient children={children} />

@@ -18,26 +18,46 @@ const SectionHeader = ({
       aria-controls={`section-content-${code}`}
       type="button"
       className="w-full group relative flex items-center justify-between 
-        px-5 py-4 text-xl sm:text-2xl md:text-3xl font-semibold font-lora 
-        text-product-fg bg-section-bg border border-product-border 
-        rounded-2xl shadow-md transition-all duration-300 ease-in-out 
-        hover:bg-product-hover hover:shadow-xl"
+        px-6 py-5 text-xl sm:text-2xl md:text-3xl font-semibold
+        bg-section-header-bg text-section-header-text border-2 border-section-header-border 
+        rounded-2xl shadow-section-header-shadow transition-all duration-300 ease-in-out 
+        hover:bg-section-header-hover-bg hover:shadow-section-header-hover-shadow
+        hover:scale-[1.02] hover:transform hover:-translate-y-1
+        backdrop-blur-sm overflow-hidden"
+      style={{
+        background: 'var(--section-header-gradient)',
+        fontFamily: 'var(--font-family-heading)',
+        fontWeight: 'var(--font-weight-heading)',
+        letterSpacing: 'var(--letter-spacing-heading)',
+      }}
     >
-      <span className="relative inline-block">
-        <span>{title}</span>
-
-        <span
-          className="absolute left-0 -bottom-1 h-[2px] w-0 bg-product-primary 
-            transition-all duration-300 group-hover:w-full"
-        ></span>
+      {/* Gradient overlay on hover */}
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-section-header-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      
+      <span className="relative inline-block z-10">
+        <span className="relative">
+          {title}
+          {/* Animated underline */}
+          <span
+            className="absolute left-0 -bottom-1 h-[3px] w-0 bg-section-header-accent 
+              transition-all duration-500 ease-out group-hover:w-full rounded-full"
+          ></span>
+        </span>
       </span>
 
-      {/* Icon */}
-      <FiChevronDown
-        className={`ml-4 text-3xl text-product-icon transition-transform duration-300 
-          ${isExpanded ? "rotate-180" : "rotate-0"}`}
-        aria-hidden="true"
-      />
+      {/* Icon with enhanced styling */}
+      <div className="relative z-10 flex items-center">
+        <div className="w-8 h-8 bg-section-header-accent/10 rounded-full flex items-center justify-center mr-2 group-hover:bg-section-header-accent/20 transition-colors duration-300">
+          <FiChevronDown
+            className={`text-2xl text-section-header-accent transition-all duration-300 
+              ${isExpanded ? "rotate-180 scale-110" : "rotate-0 scale-100"}`}
+            aria-hidden="true"
+          />
+        </div>
+      </div>
+
+      {/* Subtle glow effect */}
+      <div className="absolute inset-0 rounded-2xl bg-section-header-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></div>
     </button>
   );
 };

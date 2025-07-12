@@ -9,16 +9,37 @@ const CardType3 = ({ record, currency }: { record: Record, currency: string }) =
 
 
 <div className="flex flex-col flex-1 gap-0.5 sm:gap-1 min-w-0">
-    <h3 className="text-[14px] sm:text-[24px] font-normal text-card-heading font-lora leading-tight ">
+    <h3 
+      className="text-[14px] sm:text-[24px] font-normal text-card-heading leading-tight"
+      style={{
+        fontFamily: 'var(--font-family-heading)',
+        fontWeight: 'var(--font-weight-heading)',
+        letterSpacing: 'var(--letter-spacing-heading)',
+      }}
+    >
       {record.name}
     </h3>
-    <p className="text-[12px] sm:text-[16px] text-card-description font-normal font-lora leading-snug overflow-hidden">
+    <p 
+      className="text-[12px] sm:text-[16px] text-card-description font-normal leading-snug overflow-hidden"
+      style={{
+        fontFamily: 'var(--font-family-body)',
+        fontWeight: 'var(--font-weight-body)',
+        letterSpacing: 'var(--letter-spacing-body)',
+      }}
+    >
       {record.description}
     </p>
   </div>
 
   <div className="pt-1 sm:pt-0 sm:pl-4 flex-shrink-0 text-right">
-    <span className="text-[14px] sm:text-[22px] font-thin text-price font-lora-semibold block">
+    <span 
+      className="text-[14px] sm:text-[22px] font-thin text-price block"
+      style={{
+        fontFamily: 'var(--font-family-heading)',
+        fontWeight: 'var(--font-weight-heading)',
+        letterSpacing: 'var(--letter-spacing-heading)',
+      }}
+    >
       {record.price} {currency}
     </span>
   </div>

@@ -23,33 +23,33 @@ const Navbar = () => {
   return (
     <nav className="w-full flex items-center justify-between px-6 font-lora py-4 bg-product-background shadow-lg border-b border-gray-100 fixed top-0 left-0 z-50">
       <div className="flex items-center gap-3">
-        <Link href="/" className="flex items-center gap-3 transition-opacity">
+        <Link href="/" className="flex items-center gap-3 transition-all duration-200 hover:scale-105 hover:opacity-80 group">
           <div className="relative">
-            <Avatar className="w-10 h-10 ring-2 ring-black ring-offset-2">
-              <AvatarImage src="/logo.webp" alt="Logo" />
+            <Avatar className="w-20 h-auto transition-all duration-200 group-hover:shadow-md">
+              <AvatarImage src="/logo.svg" alt="Logo" />
               <AvatarFallback className="bg-product-foreground text-white font-bold">DM</AvatarFallback>
             </Avatar>
           </div>
-          <span className="font-bold text-xl text-black">Digital Menu</span>
+          <span className="font-bold text-xl text-black transition-colors duration-200 group-hover:text-product-primary">Digital Menu</span>
         </Link>
       </div>
       
       {/* Desktop links */}
       <div className="hidden md:flex items-center gap-2">
         <Link href="/">
-          <Button variant="ghost" className="text-product-foreground  transition-colors">
+          <Button variant="navbar" className="font-semibold">
             <FiHome  />
             Home
           </Button>
         </Link>
         <Link href="/contact">
-          <Button variant="ghost" className="text-product-foreground  transition-colors">
+          <Button variant="navbar" className="font-semibold">
             <FiMail  />
             Contact
           </Button>
         </Link>
         <Link href="/demo">
-          <Button variant="ghost" className="text-product-foreground  transition-colors">
+          <Button variant="navbar" className="font-semibold">
             <FaRegCirclePlay  />
             Demo
           </Button>
@@ -59,7 +59,7 @@ const Navbar = () => {
           {isSignedIn ? (
             <>
               <Link href="/admin/dashboard">
-                <Button className="bg-product-primary text-product-foreground transition-colors shadow-md">
+                <Button className="bg-product-primary text-product-foreground hover:bg-primary-accent hover:shadow-lg hover:scale-105 hover:transform hover:-translate-y-1 transition-all duration-200 shadow-md font-semibold">
                   <FiGrid  />
                   Dashboard
                 </Button>
@@ -71,13 +71,13 @@ const Navbar = () => {
           ) : (
             <>
               <Link href="/auth">
-                <Button className="text-button-text">
+                <Button className="bg-white text-product-foreground border-2 border-product-primary hover:bg-product-primary hover:text-white hover:shadow-lg hover:scale-105 hover:transform hover:-translate-y-1 transition-all duration-200 font-semibold">
                 <FiUser  />
                 Sign In
                 </Button>
               </Link>
               <Link href="/auth?mode=signup">
-                <Button className="text-button-text">
+                <Button className="bg-product-primary text-product-foreground hover:bg-primary-accent hover:shadow-lg hover:scale-105 hover:transform hover:-translate-y-1 transition-all duration-200 font-semibold">
                   <FiUserPlus  />
                   Sign Up
                 </Button>
@@ -128,23 +128,23 @@ const Navbar = () => {
         {/* Mobile menu items */}
         <div className="flex flex-col p-6 gap-3">
           <Link href="/" onClick={() => setMobileOpen(false)}>
-            <button className="w-full flex items-center gap-3 p-3 rounded-lg  text-left transition-colors">
+            <button className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-navbar-button-hover-bg hover:text-navbar-button-hover-text text-left transition-all duration-200 hover:shadow-md hover:scale-105 hover:transform hover:-translate-y-1 border border-transparent hover:border-navbar-button-hover-border hover:font-bold">
               <FiHome size={20} className="text-gray-600" />
-              <span className="text-product-foreground">Home</span>
+              <span className="text-product-foreground font-medium">Home</span>
             </button>
           </Link>
           
           <Link href="/contact" onClick={() => setMobileOpen(false)}>
-            <button className="w-full flex items-center gap-3 p-3 rounded-lg  text-left transition-colors">
+            <button className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-navbar-button-hover-bg hover:text-navbar-button-hover-text text-left transition-all duration-200 hover:shadow-md hover:scale-105 hover:transform hover:-translate-y-1 border border-transparent hover:border-navbar-button-hover-border hover:font-bold">
               <FiMail size={20} className="text-gray-600" />
-              <span className="text-product-foreground">Contact</span>
+              <span className="text-product-foreground font-medium">Contact</span>
             </button>
           </Link>
           
           <Link href="/demo" onClick={() => setMobileOpen(false)}>
-            <button className="w-full flex items-center gap-3 p-3 rounded-lg  text-left transition-colors">
+            <button className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-navbar-button-hover-bg hover:text-navbar-button-hover-text text-left transition-all duration-200 hover:shadow-md hover:scale-105 hover:transform hover:-translate-y-1 border border-transparent hover:border-navbar-button-hover-border hover:font-bold">
               <FaRegCirclePlay size={20} className="text-gray-600" />
-              <span className="text-product-foreground">Demo</span>
+              <span className="text-product-foreground font-medium">Demo</span>
             </button>
           </Link>
           

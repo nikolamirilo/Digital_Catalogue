@@ -33,16 +33,16 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="min-h-screen font-lora bg-gradient-to-br from-gray-50 to-white py-32"
+      className="min-h-screen font-lora bg-product-background pt-32 md:pt-40 pb-32"
     >
       {/* Success Modal */}
       {isOpen && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-white rounded-2xl p-8 max-w-md mx-4 shadow-2xl">
+          <div className="bg-product-background rounded-2xl p-8 max-w-md mx-4 shadow-2xl border border-product-border">
             <div className="text-center">
-              <div className="w-16 h-16 bg-black rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-product-primary rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg
-                  className="w-8 h-8 text-white"
+                  className="w-8 h-8 text-product-foreground"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -55,16 +55,16 @@ const Contact = () => {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+              <h3 className="text-xl font-semibold text-product-foreground mb-2">
                 Message Sent!
               </h3>
-              <p className="text-gray-600 mb-6">
+              <p className="text-product-foreground-accent mb-6">
                 Thank you for reaching out! We have received your message and
                 will respond to you via email shortly.
               </p>
               <button
                 onClick={() => setIsOpen(false)}
-                className="bg-black hover:bg-gray-800 text-white px-6 py-2 rounded-lg transition-colors duration-200"
+                className="bg-product-primary hover:bg-primary-accent text-product-foreground px-6 py-2 rounded-lg transition-all duration-200 hover:shadow-md hover:scale-105"
               >
                 Close
               </button>
@@ -76,27 +76,27 @@ const Contact = () => {
       <div className="container mx-auto px-4 max-w-4xl">
         {/* Header */}
         <div className="text-center mb-16">
-          <h1 className="text-5xl font-bold text-gray-900 mb-4">
+          <h1 className="text-5xl font-bold text-product-foreground mb-4">
             Get In{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600">
+            <span className="text-product-primary">
               Touch
             </span>
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-product-foreground-accent max-w-2xl mx-auto">
             Ready to start your next project? We'd love to hear from you. Send
             us a message and we'll respond as soon as possible.
           </p>
         </div>
 
         {/* Contact Form */}
-        <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 border border-gray-100">
+        <div className="bg-product-background rounded-3xl shadow-product-shadow p-8 md:p-12 border border-product-border">
           <div className="space-y-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {/* Name Field */}
               <div className="space-y-2">
                 <label
                   htmlFor="name"
-                  className="block text-sm font-semibold text-gray-900 mb-2"
+                  className="block text-sm font-semibold text-product-foreground mb-2"
                 >
                   Your Name
                 </label>
@@ -107,12 +107,12 @@ const Contact = () => {
                     onChange={(e) => setName(e.target.value)}
                     type="text"
                     placeholder="John Doe"
-                    className="w-full px-4 py-4 bg-gray-50 border-2 border-gray-200 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:border-black focus:bg-white transition-all duration-300 shadow-sm hover:shadow-md"
+                    className="w-full px-4 py-4 bg-product-background border-2 border-product-border rounded-xl text-product-foreground placeholder-product-foreground-accent focus:outline-none focus:border-product-primary focus:bg-product-hover-background transition-all duration-300 shadow-product-shadow hover:shadow-product-hover-shadow"
                     required
                   />
                   <div className="absolute inset-y-0 right-4 flex items-center">
                     <svg
-                      className="w-5 h-5 text-gray-400"
+                      className="w-5 h-5 text-product-icon"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -132,7 +132,7 @@ const Contact = () => {
               <div className="space-y-2">
                 <label
                   htmlFor="email"
-                  className="block text-sm font-semibold text-gray-900 mb-2"
+                  className="block text-sm font-semibold text-product-foreground mb-2"
                 >
                   Your Email
                 </label>
@@ -143,12 +143,12 @@ const Contact = () => {
                     onChange={(e) => setEmail(e.target.value)}
                     type="email"
                     placeholder="john@example.com"
-                    className="w-full px-4 py-4 bg-gray-50 border-2 border-gray-200 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:border-black focus:bg-white transition-all duration-300 shadow-sm hover:shadow-md"
+                    className="w-full px-4 py-4 bg-product-background border-2 border-product-border rounded-xl text-product-foreground placeholder-product-foreground-accent focus:outline-none focus:border-product-primary focus:bg-product-hover-background transition-all duration-300 shadow-product-shadow hover:shadow-product-hover-shadow"
                     required
                   />
                   <div className="absolute inset-y-0 right-4 flex items-center">
                     <svg
-                      className="w-5 h-5 text-gray-400"
+                      className="w-5 h-5 text-product-icon"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -169,7 +169,7 @@ const Contact = () => {
             <div className="space-y-2">
               <label
                 htmlFor="message"
-                className="block text-sm font-semibold text-gray-900 mb-2"
+                className="block text-sm font-semibold text-product-foreground mb-2"
               >
                 Your Message
               </label>
@@ -180,12 +180,12 @@ const Contact = () => {
                   onChange={(e) => setMessage(e.target.value)}
                   rows={6}
                   placeholder="Tell us about your project..."
-                  className="w-full px-4 py-4 bg-gray-50 border-2 border-gray-200 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:border-black focus:bg-white transition-all duration-300 shadow-sm hover:shadow-md resize-none"
+                  className="w-full px-4 py-4 bg-product-background border-2 border-product-border rounded-xl text-product-foreground placeholder-product-foreground-accent focus:outline-none focus:border-product-primary focus:bg-product-hover-background transition-all duration-300 shadow-product-shadow hover:shadow-product-hover-shadow resize-none"
                   required
                 />
                 <div className="absolute top-4 right-4">
                   <svg
-                    className="w-5 h-5 text-gray-400"
+                    className="w-5 h-5 text-product-icon"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -206,12 +206,12 @@ const Contact = () => {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="group relative bg-black hover:bg-gray-800 text-white px-12 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-2xl disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none min-w-[200px]"
+                className="group relative bg-product-primary hover:bg-primary-accent text-product-foreground px-12 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-product-hover-scale hover:shadow-product-hover-shadow disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none min-w-[200px]"
               >
                 {isLoading ? (
                   <div className="flex items-center justify-center">
                     <svg
-                      className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                      className="animate-spin -ml-1 mr-3 h-5 w-5 text-product-foreground"
                       fill="none"
                       viewBox="0 0 24 24"
                     >
@@ -259,17 +259,17 @@ const Contact = () => {
 
         {/* Contact Info */}
         <div className="mt-20">
-          <div className="bg-gradient-to-r from-gray-900 to-black rounded-3xl shadow-2xl p-8 md:p-12 overflow-hidden relative">
+          <div className="bg-product-secondary rounded-3xl shadow-product-shadow p-8 md:p-12 overflow-hidden relative">
             {/* Decorative elements */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-32 translate-x-32"></div>
-            <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/10 rounded-full translate-y-16 -translate-x-16"></div>
+            <div className="absolute top-0 right-0 w-64 h-64 bg-product-primary/10 rounded-full -translate-y-32 translate-x-32"></div>
+            <div className="absolute bottom-0 left-0 w-32 h-32 bg-product-primary/20 rounded-full translate-y-16 -translate-x-16"></div>
 
             <div className="relative z-10">
               <div className="text-center mb-12">
                 <h2 className="text-3xl font-bold text-white mb-4">
                   Ready to Connect?
                 </h2>
-                <p className="text-gray-300 text-lg">
+                <p className="text-product-hover-background text-lg">
                   Reach out through any of these channels
                 </p>
               </div>
@@ -277,9 +277,9 @@ const Contact = () => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div className="group text-center">
                   <div className="relative">
-                    <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                    <div className="w-16 h-16 bg-product-primary rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-product-shadow">
                       <svg
-                        className="w-8 h-8 text-black"
+                        className="w-8 h-8 text-product-foreground"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -294,17 +294,17 @@ const Contact = () => {
                     </div>
                   </div>
                   <h3 className="font-bold text-white mb-2 text-xl">Email</h3>
-                  <p className="text-gray-300 text-lg">hello@reactify.com</p>
-                  <div className="mt-4 h-1 bg-white/20 rounded-full overflow-hidden">
-                    <div className="h-full bg-white rounded-full transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
+                  <p className="text-product-hover-background text-lg">hello@digital-menu.com</p>
+                  <div className="mt-4 h-1 bg-product-primary/20 rounded-full overflow-hidden">
+                    <div className="h-full bg-product-primary rounded-full transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
                   </div>
                 </div>
 
                 <div className="group text-center">
                   <div className="relative">
-                    <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                    <div className="w-16 h-16 bg-product-primary rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-product-shadow">
                       <svg
-                        className="w-8 h-8 text-black"
+                        className="w-8 h-8 text-product-foreground"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -319,17 +319,17 @@ const Contact = () => {
                     </div>
                   </div>
                   <h3 className="font-bold text-white mb-2 text-xl">Phone</h3>
-                  <p className="text-gray-300 text-lg">+1 (555) 123-4567</p>
-                  <div className="mt-4 h-1 bg-white/20 rounded-full overflow-hidden">
-                    <div className="h-full bg-white rounded-full transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500 delay-100"></div>
+                  <p className="text-product-hover-background text-lg">+1 (555) 123-4567</p>
+                  <div className="mt-4 h-1 bg-product-primary/20 rounded-full overflow-hidden">
+                    <div className="h-full bg-product-primary rounded-full transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500 delay-100"></div>
                   </div>
                 </div>
 
                 <div className="group text-center">
                   <div className="relative">
-                    <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                    <div className="w-16 h-16 bg-product-primary rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-product-shadow">
                       <svg
-                        className="w-8 h-8 text-black"
+                        className="w-8 h-8 text-product-foreground"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -350,9 +350,9 @@ const Contact = () => {
                     </div>
                   </div>
                   <h3 className="font-bold text-white mb-2 text-xl">Office</h3>
-                  <p className="text-gray-300 text-lg">New York, NY</p>
-                  <div className="mt-4 h-1 bg-white/20 rounded-full overflow-hidden">
-                    <div className="h-full bg-white rounded-full transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500 delay-200"></div>
+                  <p className="text-product-hover-background text-lg">New York, NY</p>
+                  <div className="mt-4 h-1 bg-product-primary/20 rounded-full overflow-hidden">
+                    <div className="h-full bg-product-primary rounded-full transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500 delay-200"></div>
                   </div>
                 </div>
               </div>

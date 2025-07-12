@@ -24,6 +24,21 @@ html, body {
   --product-icon: #e5c230;
   --product-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 
+  --product-hover-scale: 1.02;
+  --product-hover-shadow: 0 4px 10px rgba(229, 194, 48, 0.15); 
+
+  /* Navbar button hover enhancements */
+  --navbar-button-hover-bg: #f0f0f0;
+  --navbar-button-hover-text: #d3af37;
+  --navbar-button-hover-border: #d3af37;
+  --navbar-button-hover-shadow: 0 4px 12px rgba(211, 175, 55, 0.25);
+  --navbar-button-active-bg: #fff3cd;
+  --navbar-button-active-text: #856404;
+  --navbar-button-transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --navbar-button-hover-transform: translateY(-2px);
+  --navbar-button-focus-ring: 0 0 0 3px rgba(211, 175, 55, 0.2);
+  --navbar-button-hover-scale: 1.05;
+
   @apply text-lg;
   color: var(--product-foreground);
   background: var(--product-background);
@@ -69,6 +84,24 @@ a {
   --section-border: #d9d9d9;
   --section-icon: #d3af37;
   --section-hover: #f2f2f2;
+
+  /* Modern Section Header Variables */
+  --section-header-bg: #ffffff;
+  --section-header-text: #1a1a1a;
+  --section-header-border: #d3af37;
+  --section-header-shadow: 0 4px 20px rgba(211, 175, 55, 0.15);
+  --section-header-hover-bg: #f8f4e0;
+  --section-header-hover-shadow: 0 8px 30px rgba(211, 175, 55, 0.25);
+  --section-header-accent: #d3af37;
+  --section-header-gradient: linear-gradient(135deg, #ffffff 0%, #f8f4e0 100%);
+
+  /* Typography Variables */
+  --font-family-heading: var(--font-playfair-display);
+  --font-family-body: var(--font-inter);
+  --font-weight-heading: 600;
+  --font-weight-body: 400;
+  --letter-spacing-heading: -0.02em;
+  --letter-spacing-body: 0;
 }
 
 .theme-creative {
@@ -97,6 +130,24 @@ a {
   --section-border: #3c3d4f;
   --section-icon: #f8f8f1;
   --section-hover: #343545;
+
+  /* Modern Section Header Variables */
+  --section-header-bg: #2a2b39;
+  --section-header-text: #f8f8f1;
+  --section-header-border: #ff6b6b;
+  --section-header-shadow: 0 4px 20px rgba(255, 107, 107, 0.2);
+  --section-header-hover-bg: #343545;
+  --section-header-hover-shadow: 0 8px 30px rgba(255, 107, 107, 0.3);
+  --section-header-accent: #ff6b6b;
+  --section-header-gradient: linear-gradient(135deg, #2a2b39 0%, #343545 100%);
+
+  /* Typography Variables */
+  --font-family-heading: var(--font-inter);
+  --font-family-body: var(--font-inter);
+  --font-weight-heading: 700;
+  --font-weight-body: 400;
+  --letter-spacing-heading: -0.025em;
+  --letter-spacing-body: 0;
 }
 
 .theme-organic {
@@ -125,6 +176,24 @@ a {
   --section-border: #e3e0c9;
   --section-icon: #5c7453;
   --section-hover: #ece8c5;
+
+  /* Modern Section Header Variables */
+  --section-header-bg: #f9f7e7;
+  --section-header-text: #354834;
+  --section-header-border: #5c7453;
+  --section-header-shadow: 0 4px 20px rgba(92, 116, 83, 0.15);
+  --section-header-hover-bg: #ece8c5;
+  --section-header-hover-shadow: 0 8px 30px rgba(92, 116, 83, 0.25);
+  --section-header-accent: #5c7453;
+  --section-header-gradient: linear-gradient(135deg, #f9f7e7 0%, #ece8c5 100%);
+
+  /* Typography Variables */
+  --font-family-heading: var(--font-nunito);
+  --font-family-body: var(--font-nunito);
+  --font-weight-heading: 700;
+  --font-weight-body: 400;
+  --letter-spacing-heading: -0.01em;
+  --letter-spacing-body: 0.01em;
 }
 
 .theme-elegant {
@@ -154,6 +223,24 @@ a {
   --section-border: #333333;
   --section-icon: #b3b3b3;
   --section-hover: #333333;
+
+  /* Modern Section Header Variables */
+  --section-header-bg: #262626;
+  --section-header-text: #fafafa;
+  --section-header-border: #6699cc;
+  --section-header-shadow: 0 4px 20px rgba(102, 153, 204, 0.2);
+  --section-header-hover-bg: #333333;
+  --section-header-hover-shadow: 0 8px 30px rgba(102, 153, 204, 0.3);
+  --section-header-accent: #6699cc;
+  --section-header-gradient: linear-gradient(135deg, #262626 0%, #333333 100%);
+
+  /* Typography Variables */
+  --font-family-heading: var(--font-crimson-text);
+  --font-family-body: var(--font-inter);
+  --font-weight-heading: 600;
+  --font-weight-body: 400;
+  --letter-spacing-heading: -0.015em;
+  --letter-spacing-body: 0;
 }
 
 .theme-modern {
@@ -182,6 +269,24 @@ a {
   --section-border: #404040;
   --section-icon: #e64676;
   --section-hover: #2d2d45;
+
+  /* Modern Section Header Variables */
+  --section-header-bg: #23233a;
+  --section-header-text: #ffffff;
+  --section-header-border: #8b6cb3;
+  --section-header-shadow: 0 4px 20px rgba(139, 108, 179, 0.2);
+  --section-header-hover-bg: #2d2d45;
+  --section-header-hover-shadow: 0 8px 30px rgba(139, 108, 179, 0.3);
+  --section-header-accent: #8b6cb3;
+  --section-header-gradient: linear-gradient(135deg, #23233a 0%, #2d2d45 100%);
+
+  /* Typography Variables */
+  --font-family-heading: var(--font-poppins);
+  --font-family-body: var(--font-inter);
+  --font-weight-heading: 600;
+  --font-weight-body: 400;
+  --letter-spacing-heading: -0.02em;
+  --letter-spacing-body: 0;
 }
 
 
