@@ -113,7 +113,6 @@ export default function Dashboard({
                       {`${user.firstName} ${user.lastName}` || "User"}! 👋
                     </div>
                     <div className="text-product-foreground-accent flex items-center gap-2">
-                    <div className="text-product-foreground-accent flex items-center gap-2">
                       {user.email}
                     </div>
                   </div>
