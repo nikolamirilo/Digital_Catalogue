@@ -83,18 +83,18 @@ export default function Dashboard({
     <div className="container mx-auto py-32 px-4 overflow-auto">
       <Tabs defaultValue="overview" className="w-full">
         <TabsList className="my-4 flex gap-2 w-full justify-start">
-          <TabsTrigger value="overview" className="bg-product-primary text-product-foreground">
+          <TabsTrigger value="overview" className="bg-product-primary text-product-foreground hover:bg-primary-accent">
             Overview
           </TabsTrigger>
-          <TabsTrigger value="billing" className="bg-product-primary text-product-foreground">
+          <TabsTrigger value="billing" className="bg-product-primary text-product-foreground hover:bg-primary-accent">
             Billing
           </TabsTrigger>
         </TabsList>
         <TabsContent value="overview">
           {user && (
-            <div className="mb-8 p-8 bg-gradient-to-br from-product-background to-hero-product-background backdrop-blur-sm rounded-2xl shadow-product-shadow border border-product-border flex flex-col md:flex-row gap-6 items-center relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-product-primary/10 to-product-primary-accent/10 rounded-full blur-xl"></div>
-              <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-product-secondary/10 to-product-icon/10 rounded-full blur-xl"></div>
+            <div className="mb-8 p-8 bg-product-background rounded-2xl shadow-product-shadow border border-product-border flex flex-col md:flex-row gap-6 items-center relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-product-primary/20 to-product-primary-accent/20 rounded-full blur-xl"></div>
+              <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-product-primary/20 to-product-primary-accent/20 rounded-full blur-xl"></div>
               <div className="flex-1 relative z-10">
                 <div className="flex items-center gap-4 mb-4">
                   <div className="relative">
@@ -103,7 +103,7 @@ export default function Dashboard({
                       alt="Profile"
                       width={80}
                       height={80}
-                      className="rounded-full ring-4 ring-product-primary/30 shadow-product-shadow"
+                      className="rounded-full ring-4 ring-product-primary/20 shadow-lg"
                     />
                     <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-green-500 rounded-full border-2 border-product-background"></div>
                   </div>
@@ -112,6 +112,7 @@ export default function Dashboard({
                       Welcome back,{" "}
                       {`${user.firstName} ${user.lastName}` || "User"}! 👋
                     </div>
+                    <div className="text-product-foreground-accent flex items-center gap-2">
                     <div className="text-product-foreground-accent flex items-center gap-2">
                       {user.email}
                     </div>
@@ -122,37 +123,37 @@ export default function Dashboard({
           )}
           {/* Total Analytics Card */}
           <div>
-            <h2 className="text-center md:text-left text-2xl font-semibold mb-4">Usage Overview</h2>
+            <h2 className="text-center md:text-left text-2xl font-semibold mb-4 text-product-foreground">Usage Overview</h2>
             <div className="mb-8 grid grid-cols-2 md:grid md:grid-cols-4 gap-4">
-              <Card className="p-4 flex flex-col items-center max-w-72 w-full justify-between">
+              <Card className="p-4 flex flex-col items-center max-w-72 w-full justify-between bg-product-background border border-product-border shadow-product-shadow">
                 <div className="text-base md:text-lg font-semibold text-product-foreground mb-2 text-center">
                   Total Page Views
                 </div>
-                <div className="text-3xl font-bold text-product-foreground">
+                <div className="text-3xl font-bold text-product-primary">
                   {totalPageViews}
                 </div>
               </Card>
-              <Card className="p-4 flex flex-col items-center max-w-72 w-full justify-between">
+              <Card className="p-4 flex flex-col items-center max-w-72 w-full justify-between bg-product-background border border-product-border shadow-product-shadow">
                 <div className="text-base md:text-lg font-semibold text-product-foreground mb-2 text-center">
                   Total Visitors
                 </div>
-                <div className="text-3xl font-bold text-product-foreground">
+                <div className="text-3xl font-bold text-product-primary">
                   {totalUniqueVisitors}
                 </div>
               </Card>
-              <Card className="p-4 flex flex-col items-center max-w-72 w-full justify-between">
+              <Card className="p-4 flex flex-col items-center max-w-72 w-full justify-between bg-product-background border border-product-border shadow-product-shadow">
                 <div className="text-base md:text-lg font-semibold text-product-foreground mb-2 text-center">
                   Total Restaurants
                 </div>
-                <div className="text-3xl font-bold text-product-foreground">
+                <div className="text-3xl font-bold text-product-primary">
                   {totalRestaurants}
                 </div>
               </Card>
-              <Card className="p-4 flex flex-col items-center max-w-72 w-full justify-between">
+              <Card className="p-4 flex flex-col items-center max-w-72 w-full justify-between bg-product-background border border-product-border shadow-product-shadow">
                 <div className="text-base md:text-lg font-semibold text-product-foreground mb-2 text-center">
                   Engagement
                 </div>
-                <div className="text-3xl font-bold text-product-foreground">
+                <div className="text-3xl font-bold text-product-primary">
                   121
                 </div>
               </Card>
@@ -160,14 +161,11 @@ export default function Dashboard({
           </div>
 
           <div>
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold text-product-foreground flex items-center gap-2">
-                <LuSquareMenu className="text-product-primary" />
-                Your Restaurants
-              </h2>
+            <h2 className="text-2xl font-semibold mb-4 text-product-foreground">Your Restaurants</h2>
+            <div className="flex justify-start mb-4">
               <Link href="/admin/create-menu">
-                <Button className="bg-product-primary hover:bg-product-primary-accent text-product-foreground transition-colors duration-200 flex items-center gap-2 px-6">
-                  <FiPlus size={20} />
+                <Button className="bg-product-primary text-product-foreground hover:bg-primary-accent hover:shadow-lg hover:scale-105 hover:transform hover:-translate-y-1 transition-all duration-200">
+                  <FiPlus size={30} />
                   Create Menu
                 </Button>
               </Link>
@@ -175,104 +173,33 @@ export default function Dashboard({
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {restaurants.length === 0 && (
-                <div className="col-span-full text-center py-12">
-                  <div className="w-16 h-16 bg-product-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <LuSquareMenu className="w-8 h-8 text-product-primary" />
-                  </div>
-                  <p className="text-product-foreground-accent text-lg">
-                    No restaurants created yet.
-                  </p>
-                  <p className="text-product-foreground-accent text-sm mt-2">
-                    Create your first menu to get started!
-                  </p>
+                <div className="col-span-full text-product-foreground-accent">
+                  No restaurants created yet.
                 </div>
               )}
               
               {restaurants.map((restaurant) => (
                 <Card
                   key={restaurant.id}
-                  className="p-6 flex flex-col gap-4 relative"
+                  className="p-6 flex flex-col gap-2 relative bg-product-background border border-product-border shadow-product-shadow hover:shadow-product-hover-shadow transition-all duration-200"
                 >
-                  <div className="absolute top-4 right-4">
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <div className="w-8 h-8 bg-product-hover-background hover:bg-product-primary/10 rounded-full flex items-center justify-center cursor-pointer transition-colors duration-200">
-                          <FiMoreVertical
-                            size={16}
-                            className="text-product-foreground"
-                          />
-                        </div>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end" className="bg-product-background border-product-border">
-                        <Link
-                          href={`/admin/restaurants/${restaurant.name}/edit`}
-                          passHref
-                          legacyBehavior
-                        >
-                          <DropdownMenuItem
-                            asChild
-                            className="text-product-foreground hover:bg-product-hover-background cursor-pointer"
-                          >
-                            <div className="flex items-center gap-2">
-                              <FiEdit size={16} /> Edit Menu
-                            </div>
-                          </DropdownMenuItem>
-                        </Link>
-                        <DropdownMenuItem
-                          onClick={() => handleDuplicateMenu(restaurant.id)}
-                          disabled={duplicatingId === restaurant.id}
-                          className="text-product-foreground hover:bg-product-hover-background cursor-pointer"
-                        >
-                          <span className="flex items-center gap-2">
-                            <FiCopy size={16} />
-                            {duplicatingId === restaurant.id
-                              ? "Loading..."
-                              : "Duplicate"}
-                          </span>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem
-                          onClick={() => handleDeleteMenu(restaurant.id)}
-                          disabled={isModalOpen}
-                          className="text-red-500 hover:bg-red-50 cursor-pointer"
-                        >
-                          <span className="flex items-center gap-2">
-                            <FiTrash2 size={16} />
-                            Delete
-                          </span>
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
+                  <div className="font-bold text-lg text-product-foreground">
+                    {restaurant.name}
                   </div>
-                  
-                  <div className="pr-8">
-                    <div className="font-bold text-xl text-product-foreground mb-3">
-                      {restaurant.name}
-                    </div>
-                    <div className="space-y-2">
-                      <div className="flex items-center gap-2 text-product-foreground-accent">
-                        <div className="w-2 h-2 bg-product-primary rounded-full"></div>
-                        <span className="text-sm">Theme: {restaurant.theme}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-product-foreground-accent">
-                        <div className="w-2 h-2 bg-product-secondary rounded-full"></div>
-                        <span className="text-sm">Layout: {restaurant.layout}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-product-foreground-accent">
-                        <FiCalendar size={12} />
-                        <span className="text-sm">
-                          Created: {new Date(restaurant.created_at).toLocaleDateString()}
-                        </span>
-                      </div>
-                    </div>
+                  <div className="text-product-foreground-accent">Theme: {restaurant.theme}</div>
+                  <div className="text-product-foreground-accent">
+                    Layout: {restaurant.layout}
                   </div>
-                  
-                  <div className="flex gap-2 mt-4">
+                  <div className="text-product-foreground-accent">
+                    Created: {new Date(restaurant.created_at).toLocaleString()}
+                  </div>
+                  <div className="flex flex-row-reverse gap-2 mt-2 items-center">
                     <Link
                       href={`/restaurants/${restaurant.name}`}
                       className="flex-1"
                     >
-                      <Button className="w-full bg-product-primary hover:bg-product-primary-accent text-product-foreground transition-colors duration-200 flex items-center gap-2">
-                        <FiEye size={16} />
+                      <Button className="w-full bg-product-primary text-product-foreground hover:bg-primary-accent hover:shadow-lg hover:scale-105 hover:transform hover:-translate-y-1 transition-all duration-200">
+                        <LuSquareMenu size={25} />
                         View Menu
                       </Button>
                     </Link>
@@ -280,14 +207,58 @@ export default function Dashboard({
                       href={`/admin/restaurants/${restaurant.name}/analytics`}
                       className="flex-1"
                     >
-                      <Button 
-                        variant="outline" 
-                        className="w-full border-product-border bg-product-background hover:bg-product-hover-background text-product-foreground transition-colors duration-200 flex items-center gap-2"
-                      >
-                        <TbBrandGoogleAnalytics size={16} /> 
-                        Analytics
+                      <Button variant="secondary" className="w-full border border-product-primary text-product-foreground hover:bg-product-primary hover:text-product-foreground hover:shadow-lg hover:scale-105 hover:transform hover:-translate-y-1 transition-all duration-200">
+                        <TbBrandGoogleAnalytics size={25} /> Analytics
                       </Button>
                     </Link>
+                    <div className="absolute top-2 right-2">
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <FiMoreVertical
+                            size={25}
+                            className="text-product-foreground cursor-pointer hover:text-product-primary transition-colors duration-200"
+                          />
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end" className="bg-product-background border border-product-border">
+                          <Link
+                            href={`/admin/restaurants/${restaurant.name}/edit`}
+                            passHref
+                            legacyBehavior
+                          >
+                            <DropdownMenuItem
+                              asChild
+                              className="text-product-foreground hover:bg-product-hover-background cursor-pointer"
+                            >
+                              <div className="flex items-center gap-2">
+                                <FiEdit size={18} /> Edit Menu
+                              </div>
+                            </DropdownMenuItem>
+                          </Link>
+                          <DropdownMenuItem
+                            onClick={() => handleDuplicateMenu(restaurant.id)}
+                            disabled={duplicatingId === restaurant.id}
+                            className="text-product-foreground hover:bg-product-hover-background cursor-pointer"
+                          >
+                            <span className="flex items-center gap-2">
+                              <FiCopy size={18} />
+                              {duplicatingId === restaurant.id
+                                ? "Loading..."
+                                : "Duplicate"}
+                            </span>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={() => handleDeleteMenu(restaurant.id)}
+                            disabled={isModalOpen}
+                            className="text-red-400 hover:bg-red-50 cursor-pointer"
+                          >
+                            <span className="flex items-center gap-2">
+                              <FiTrash2 size={18} />
+                              Delete
+                            </span>
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </div>
                   </div>
                 </Card>
               ))}

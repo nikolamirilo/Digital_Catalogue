@@ -379,4 +379,237 @@ a.selected:after {
     background-position: 0% 0%, 50% 0%, 100% 0%
   }
 }
+
+/* Clerk Auth Widget Product Theme Overrides */
+.cl-internal-1fsg6zy, /* main container */
+.cl-card, .cl-signIn-root, .cl-signUp-root {
+  background: var(--product-background) !important;
+  border-radius: 1.25rem !important;
+  border: 1px solid var(--product-border) !important;
+  font-family: var(--font-family-body, 'Inter', sans-serif) !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Override the global border-border class for Clerk components */
+.cl-card,
+.cl-internal-1fsg6zy,
+.cl-signIn-root,
+.cl-signUp-root,
+.cl-card *,
+.cl-internal-1fsg6zy *,
+.cl-signIn-root *,
+.cl-signUp-root * {
+  border-color: transparent !important;
+}
+
+/* Remove any additional borders or outlines from inner elements */
+.cl-card *,
+.cl-internal-1fsg6zy *,
+.cl-signIn-root *,
+.cl-signUp-root * {
+  outline: none !important;
+}
+
+/* Restore borders only for specific elements that need them */
+.cl-formFieldInput, .cl-formFieldInputWrapper {
+  border-color: var(--product-border) !important;
+}
+
+.cl-formFieldInput:focus, .cl-formFieldInputWrapper:focus-within {
+  border-color: var(--product-primary) !important;
+}
+
+.cl-formButtonSecondary {
+  border-color: var(--product-primary) !important;
+}
+
+.cl-socialButtonsBlockButton {
+  border-color: var(--product-border) !important;
+}
+
+.cl-socialButtonsBlockButton:hover {
+  border-color: var(--product-primary) !important;
+}
+
+/* Remove borders from all other Clerk elements */
+.cl-headerTitle, .cl-headerSubtitle, .cl-internal-1b5y6t5, .cl-internal-1b5y6t6,
+.cl-formFieldLabel, .cl-footerActionLink, .cl-dividerText, .cl-formFieldErrorText {
+  border: none !important;
+}
+
+/* Typography - Headers */
+.cl-headerTitle, .cl-headerSubtitle, .cl-internal-1b5y6t5, .cl-internal-1b5y6t6 {
+  color: var(--product-foreground) !important;
+  font-family: var(--font-family-heading, 'Lora', serif) !important;
+  font-weight: 700 !important;
+  letter-spacing: var(--letter-spacing-heading, -0.02em) !important;
+}
+
+.cl-headerSubtitle {
+  color: var(--product-foreground-accent) !important;
+  font-weight: 400 !important;
+  letter-spacing: var(--letter-spacing-body, 0) !important;
+}
+
+/* Form fields - matching contact page exactly */
+.cl-formFieldInput, .cl-formFieldInputWrapper {
+  background: var(--product-background) !important;
+  border: 2px solid var(--product-border) !important;
+  border-radius: 0.75rem !important; /* rounded-xl = 12px = 0.75rem */
+  color: var(--product-foreground) !important;
+  font-family: var(--font-family-body, 'Inter', sans-serif) !important;
+  font-weight: 400 !important;
+  letter-spacing: var(--letter-spacing-body, 0) !important;
+  box-shadow: var(--product-shadow) !important;
+  outline: none !important;
+  transition: all 0.3s ease !important;
+}
+
+.cl-formFieldInput:focus, .cl-formFieldInputWrapper:focus-within {
+  border-color: var(--product-primary) !important;
+  background: var(--product-hover-background) !important;
+  box-shadow: var(--product-hover-shadow) !important;
+  outline: none !important;
+}
+
+.cl-formFieldInput::placeholder {
+  color: var(--product-foreground-accent) !important;
+}
+
+/* Labels */
+.cl-formFieldLabel {
+  color: var(--product-foreground) !important;
+  font-family: var(--font-family-heading, 'Lora', serif) !important;
+  font-weight: 600 !important;
+  letter-spacing: var(--letter-spacing-heading, -0.02em) !important;
+}
+
+/* Primary buttons */
+.cl-formButtonPrimary {
+  background: var(--product-primary) !important;
+  color: var(--product-foreground) !important;
+  border-radius: 0.5rem !important;
+  font-family: var(--font-family-heading, 'Lora', serif) !important;
+  font-weight: 600 !important;
+  letter-spacing: var(--letter-spacing-heading, -0.02em) !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.cl-formButtonPrimary:hover {
+  background: var(--product-primary-accent) !important;
+}
+
+/* Secondary buttons */
+.cl-formButtonSecondary {
+  background: transparent !important;
+  color: var(--product-foreground) !important;
+  border: 1px solid var(--product-primary) !important;
+  border-radius: 0.5rem !important;
+  font-family: var(--font-family-heading, 'Lora', serif) !important;
+  font-weight: 600 !important;
+  letter-spacing: var(--letter-spacing-heading, -0.02em) !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.cl-formButtonSecondary:hover {
+  background: var(--product-primary) !important;
+  color: var(--product-foreground) !important;
+}
+
+/* Social buttons */
+.cl-socialButtonsBlockButton {
+  background: var(--product-background) !important;
+  border: 2px solid var(--product-border) !important;
+  border-radius: 0.75rem !important; /* Match input fields */
+  color: var(--product-foreground) !important;
+  font-family: var(--font-family-body, 'Inter', sans-serif) !important;
+  font-weight: 600 !important;
+  font-size: 0.875rem !important;
+  padding: 0.75rem 1rem !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.5rem !important;
+  min-height: 2.75rem !important;
+  box-shadow: var(--product-shadow) !important;
+  outline: none !important;
+  transition: all 0.3s ease !important;
+}
+
+.cl-socialButtonsBlockButton:hover {
+  background: var(--product-hover-background) !important;
+  border-color: var(--product-primary) !important;
+  box-shadow: var(--product-hover-shadow) !important;
+}
+
+/* Social button icons */
+.cl-socialButtonsBlockButton svg,
+.cl-socialButtonsBlockButton img {
+  width: 1.25rem !important;
+  height: 1.25rem !important;
+  flex-shrink: 0 !important;
+}
+
+/* Social button text */
+.cl-socialButtonsBlockButton span {
+  font-weight: 600 !important;
+  letter-spacing: 0.025em !important;
+}
+
+/* Social buttons container */
+.cl-socialButtonsBlock {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.75rem !important;
+  width: 100% !important;
+}
+
+/* Links */
+.cl-footerActionLink {
+  color: var(--product-primary) !important;
+  font-family: var(--font-family-body, 'Inter', sans-serif) !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+}
+
+.cl-footerActionLink:hover {
+  color: var(--product-primary-accent) !important;
+  text-decoration: underline !important;
+}
+
+/* Footer section with border */
+.cl-footer {
+  border-top: 1px solid var(--product-border) !important;
+  padding-top: 1rem !important;
+  margin-top: 1rem !important;
+}
+
+/* Divider */
+.cl-dividerLine {
+  background: var(--product-border) !important;
+}
+
+.cl-dividerText {
+  color: var(--product-foreground-accent) !important;
+  font-family: var(--font-family-body, 'Inter', sans-serif) !important;
+  font-weight: 400 !important;
+}
+
+/* Error messages */
+.cl-formFieldErrorText {
+  color: #ef4444 !important;
+  font-family: var(--font-family-body, 'Inter', sans-serif) !important;
+  font-weight: 400 !important;
+}
+
+/* Loading states */
+.cl-formButtonPrimary:disabled {
+  opacity: 0.7 !important;
+  cursor: not-allowed !important;
+}
     

@@ -54,9 +54,9 @@ export default async function page() {
   };
 
   return (
-    <>
+    <div className="product font-lora min-h-screen">
       <Navbar />
       <Dashboard restaurants={restaurants} user={userData} analytics={analytics} pricingPlan={pricingPlan} />
-    </>
+    </div>
   );
 }

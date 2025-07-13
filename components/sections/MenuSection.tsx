@@ -81,12 +81,12 @@ const MenuSection = ({
                     <Swiper
                       spaceBetween={12}
                       slidesPerView={"auto"}
-                      className="mt-4 px-2"
+                      className="mt-4 px-0 sm:px-2"
                     >
                       {menuData[item.code].items.map((record, i) => (
                <SwiperSlide
                       key={i}
-                      className="!w-[180px] sm:!w-[220px] md:!w-[260px] lg:!w-[320px] flex-shrink-0 flex flex-col !h-auto"
+                      className="!w-[160px] sm:!w-[220px] md:!w-[260px] lg:!w-[320px] flex-shrink-0 flex flex-col !h-auto"
                     >
                       <CardsSwitcher
                         variant={currentLayout}

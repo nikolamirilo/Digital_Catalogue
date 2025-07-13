@@ -21,64 +21,64 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   
   return (
-    <nav className="w-full flex items-center justify-between px-6 font-lora py-2 bg-product-background shadow-lg border-b border-gray-100 fixed top-0 left-0 z-50">
-      <div className="flex items-center gap-3">
-        <Link href="/" className="flex items-center gap-3 transition-all duration-200 hover:scale-105 hover:opacity-80 group">
+    <nav className="w-full flex items-center justify-between px-4 sm:px-6 font-lora py-2 sm:py-3 bg-product-background shadow-lg border-b border-gray-100 fixed top-0 left-0 z-50">
+      <div className="flex items-center gap-2 sm:gap-3">
+        <Link href="/" className="flex items-center gap-2 sm:gap-3 transition-all duration-200 hover:scale-105 hover:opacity-80 group">
           <div className="relative">
-            <Avatar className="w-20 h-auto transition-all duration-200 group-hover:shadow-md">
+            <Avatar className="w-12 h-auto sm:w-16 md:w-20 transition-all duration-200 group-hover:shadow-md">
               <AvatarImage src="/logo.svg" alt="Logo" />
-              <AvatarFallback className="bg-product-foreground text-white font-bold">DM</AvatarFallback>
+              <AvatarFallback className="bg-product-foreground text-white font-bold text-xs sm:text-sm">DM</AvatarFallback>
             </Avatar>
           </div>
-          <span className="font-bold text-xl text-black transition-colors duration-200 group-hover:text-product-primary">Digital Menu</span>
+          {/* <span className="font-bold text-xl text-black transition-colors duration-200 group-hover:text-product-primary">Digital Menu</span> */}
         </Link>
       </div>
       
       {/* Desktop links */}
       <div className="hidden md:flex items-center gap-2">
         <Link href="/">
-          <Button variant="navbar" className="font-semibold">
-            <FiHome  />
+          <Button variant="navbar" className="font-semibold text-sm px-3 py-2 h-9">
+            <FiHome className="w-4 h-4" />
             Home
           </Button>
         </Link>
         <Link href="/contact">
-          <Button variant="navbar" className="font-semibold">
-            <FiMail  />
+          <Button variant="navbar" className="font-semibold text-sm px-3 py-2 h-9">
+            <FiMail className="w-4 h-4" />
             Contact
           </Button>
         </Link>
         <Link href="/demo">
-          <Button variant="navbar" className="font-semibold">
-            <FaRegCirclePlay  />
+          <Button variant="navbar" className="font-semibold text-sm px-3 py-2 h-9">
+            <FaRegCirclePlay className="w-4 h-4" />
             Demo
           </Button>
         </Link>
         
-        <div className="ml-4 flex items-center gap-3">
+        <div className="ml-3 flex items-center gap-2">
           {isSignedIn ? (
             <>
               <Link href="/admin/dashboard">
-                <Button className="bg-product-primary text-product-foreground hover:bg-primary-accent hover:shadow-lg hover:scale-105 hover:transform hover:-translate-y-1 transition-all duration-200 shadow-md font-semibold">
-                  <FiGrid  />
+                <Button className="bg-product-primary text-product-foreground hover:bg-primary-accent hover:shadow-lg hover:scale-105 hover:transform hover:-translate-y-1 transition-all duration-200 shadow-md font-semibold text-sm px-4 py-2 h-9">
+                  <FiGrid className="w-4 h-4" />
                   Dashboard
                 </Button>
               </Link>
-              <div className="ml-2 flex items-center gap-1 text-base">
+              <div className="ml-2 flex items-center gap-1">
                 <UserButton/>
               </div>
             </>
           ) : (
             <>
               <Link href="/auth">
-                <Button className="bg-white text-product-foreground border-2 border-product-primary hover:bg-product-primary hover:text-white hover:shadow-lg hover:scale-105 hover:transform hover:-translate-y-1 transition-all duration-200 font-semibold">
-                <FiUser  />
+                <Button className="bg-white text-product-foreground border-2 border-product-primary hover:bg-product-primary hover:text-white hover:shadow-lg hover:scale-105 hover:transform hover:-translate-y-1 transition-all duration-200 font-semibold text-sm px-3 py-2 h-9">
+                <FiUser className="w-4 h-4" />
                 Sign In
                 </Button>
               </Link>
               <Link href="/auth?mode=signup">
-                <Button className="bg-product-primary text-product-foreground hover:bg-primary-accent hover:shadow-lg hover:scale-105 hover:transform hover:-translate-y-1 transition-all duration-200 font-semibold">
-                  <FiUserPlus  />
+                <Button className="bg-product-primary text-product-foreground hover:bg-primary-accent hover:shadow-lg hover:scale-105 hover:transform hover:-translate-y-1 transition-all duration-200 font-semibold text-sm px-3 py-2 h-9">
+                  <FiUserPlus className="w-4 h-4" />
                   Sign Up
                 </Button>
               </Link>
@@ -94,7 +94,7 @@ const Navbar = () => {
           onClick={() => setMobileOpen((v) => !v)}
           className="p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-1 transition-colors"
         >
-          <GiHamburgerMenu size={24} className="text-product-foreground" />
+          <GiHamburgerMenu size={20} className="text-product-foreground" />
         </button>
       </div>
       
@@ -108,69 +108,69 @@ const Navbar = () => {
       
       {/* Mobile menu */}
       <div
-        className={`fixed flex flex-col top-0 right-0 h-full w-80 bg-white shadow-xl z-50 transform transition-transform duration-300 ease-in-out ${
+        className={`fixed flex flex-col top-0 right-0 h-full w-72 sm:w-80 bg-white shadow-xl z-50 transform transition-transform duration-300 ease-in-out ${
           mobileOpen ? "translate-x-0" : "translate-x-full"
         }`}
         style={{ willChange: "transform" }}
       >
         {/* Mobile menu header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-100">
-          <span className="font-bold text-lg text-black">Menu</span>
+        <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-100">
+          <span className="font-bold text-base sm:text-lg text-black">Menu</span>
           <button
             aria-label="Close menu"
             onClick={() => setMobileOpen(false)}
-            className="p-2 rounded-lg  focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-1 transition-colors"
+            className="p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-1 transition-colors"
           >
-            <FiX size={24} className="text-product-foreground" />
+            <FiX size={20} className="text-product-foreground" />
           </button>
         </div>
         
         {/* Mobile menu items */}
-        <div className="flex flex-col p-6 gap-3">
+        <div className="flex flex-col p-4 sm:p-6 gap-2 sm:gap-3">
           <Link href="/" onClick={() => setMobileOpen(false)}>
-            <button className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-navbar-button-hover-bg hover:text-navbar-button-hover-text text-left transition-all duration-200 hover:shadow-md hover:scale-105 hover:transform hover:-translate-y-1 border border-transparent hover:border-navbar-button-hover-border hover:font-bold">
-              <FiHome size={20} className="text-gray-600" />
-              <span className="text-product-foreground font-medium">Home</span>
+            <button className="w-full flex items-center gap-3 p-2.5 sm:p-3 rounded-lg hover:bg-navbar-button-hover-bg hover:text-navbar-button-hover-text text-left transition-all duration-200 hover:shadow-md hover:scale-105 hover:transform hover:-translate-y-1 border border-transparent hover:border-navbar-button-hover-border hover:font-bold">
+              <FiHome size={18} className="text-gray-600 sm:w-5 sm:h-5" />
+              <span className="text-product-foreground font-medium text-sm sm:text-base">Home</span>
             </button>
           </Link>
           
           <Link href="/contact" onClick={() => setMobileOpen(false)}>
-            <button className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-navbar-button-hover-bg hover:text-navbar-button-hover-text text-left transition-all duration-200 hover:shadow-md hover:scale-105 hover:transform hover:-translate-y-1 border border-transparent hover:border-navbar-button-hover-border hover:font-bold">
-              <FiMail size={20} className="text-gray-600" />
-              <span className="text-product-foreground font-medium">Contact</span>
+            <button className="w-full flex items-center gap-3 p-2.5 sm:p-3 rounded-lg hover:bg-navbar-button-hover-bg hover:text-navbar-button-hover-text text-left transition-all duration-200 hover:shadow-md hover:scale-105 hover:transform hover:-translate-y-1 border border-transparent hover:border-navbar-button-hover-border hover:font-bold">
+              <FiMail size={18} className="text-gray-600 sm:w-5 sm:h-5" />
+              <span className="text-product-foreground font-medium text-sm sm:text-base">Contact</span>
             </button>
           </Link>
           
           <Link href="/demo" onClick={() => setMobileOpen(false)}>
-            <button className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-navbar-button-hover-bg hover:text-navbar-button-hover-text text-left transition-all duration-200 hover:shadow-md hover:scale-105 hover:transform hover:-translate-y-1 border border-transparent hover:border-navbar-button-hover-border hover:font-bold">
-              <FaRegCirclePlay size={20} className="text-gray-600" />
-              <span className="text-product-foreground font-medium">Demo</span>
+            <button className="w-full flex items-center gap-3 p-2.5 sm:p-3 rounded-lg hover:bg-navbar-button-hover-bg hover:text-navbar-button-hover-text text-left transition-all duration-200 hover:shadow-md hover:scale-105 hover:transform hover:-translate-y-1 border border-transparent hover:border-navbar-button-hover-border hover:font-bold">
+              <FaRegCirclePlay size={18} className="text-gray-600 sm:w-5 sm:h-5" />
+              <span className="text-product-foreground font-medium text-sm sm:text-base">Demo</span>
             </button>
           </Link>
           
           {isSignedIn ? (
             <>
-              <div className="border-t border-gray-100 pt-4 mt-4">
+              <div className="border-t border-gray-100 pt-3 sm:pt-4 mt-3 sm:mt-4">
                 <Link
                   href="/admin/dashboard"
                   onClick={() => setMobileOpen(false)}
                 >
-                  <button className="w-full flex items-center gap-3 p-3 rounded-lg bg-product-primary text-product-foreground transition-colors">
-                    <FiGrid size={20} />
+                  <button className="w-full flex items-center gap-3 p-2.5 sm:p-3 rounded-lg bg-product-primary text-product-foreground transition-colors text-sm sm:text-base">
+                    <FiGrid size={18} className="sm:w-5 sm:h-5" />
                     Dashboard
                   </button>
                 </Link>
-                <div className="mt-4 flex items-center justify-center">
+                <div className="mt-3 sm:mt-4 flex items-center justify-center">
                   <UserButton showName={true}/>
                 </div>
               </div>
             </>
           ) : (
             <>
-              <div className="border-t border-gray-100 pt-4 mt-4 space-y-3">
+              <div className="border-t border-gray-100 pt-3 sm:pt-4 mt-3 sm:mt-4 space-y-2 sm:space-y-3">
                 <Link href="/auth" onClick={() => setMobileOpen(false)}>
-                  <Button variant="outline" className="w-full justify-start mb-3 border-gray-300 text-product-foreground ">
-                    <FiUser size={20} className="mr-3" />
+                  <Button variant="outline" className="w-full justify-start mb-2 sm:mb-3 border-gray-300 text-product-foreground text-sm sm:text-base h-10 sm:h-11">
+                    <FiUser size={18} className="mr-3 sm:w-5 sm:h-5" />
                     Sign In
                   </Button>
                 </Link>
@@ -178,8 +178,8 @@ const Navbar = () => {
                   href="/auth?mode=signup"
                   onClick={() => setMobileOpen(false)}
                 >
-                  <Button className="w-full justify-start bg-black  text-white">
-                    <FiUserPlus size={20} className="mr-3" />
+                  <Button className="w-full justify-start bg-black text-white text-sm sm:text-base h-10 sm:h-11">
+                    <FiUserPlus size={18} className="mr-3 sm:w-5 sm:h-5" />
                     Sign Up
                   </Button>
                 </Link>

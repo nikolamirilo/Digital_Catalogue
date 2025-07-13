@@ -16,8 +16,12 @@ export default function AuthPage() {
   }, [isSignedIn, router]);
 
   return (
-    <div className="flex justify-center items-center min-h-screen">
-      {mode === 'signup' ? <SignUp afterSignOutUrl='/' /> : <SignIn afterSignOutUrl='/' />}
+    <div className="product font-lora min-h-screen">
+      <div className="flex justify-center items-center min-h-screen px-4">
+        <div className="w-full max-w-md">
+          {mode === 'signup' ? <SignUp afterSignOutUrl='/' /> : <SignIn afterSignOutUrl='/' />}
+        </div>
+      </div>
     </div>
   );
 }
