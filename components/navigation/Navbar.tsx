@@ -156,7 +156,7 @@ const Navbar = () => {
       
       {/* Mobile menu */}
       <div
-        className={`fixed flex flex-col top-0 right-0 h-full w-72 sm:w-80 bg-white shadow-xl z-50 transform transition-transform duration-300 ease-in-out ${
+        className={`mobile-menu fixed flex flex-col top-0 right-0 h-full w-72 sm:w-80 bg-white shadow-xl z-50 transform transition-transform duration-300 ease-in-out ${
           mobileOpen ? "translate-x-0" : "translate-x-full"
         }`}
         style={{ willChange: "transform" }}
@@ -197,30 +197,32 @@ const Navbar = () => {
                 >
                   Dashboard
                 </MobileNavLink>
-                <button 
+                <div 
                   onClick={() => {
-                    // Programmatically trigger the UserButton click
+                    // Find and click the UserButton
                     const userButton = document.querySelector('.cl-userButtonBox') as HTMLElement;
                     if (userButton) {
                       userButton.click();
                     }
                   }}
-                  className="w-full flex items-center gap-3 p-2.5 sm:p-3 rounded-lg text-left transition-all duration-200 hover:bg-navbar-button-hover-bg hover:text-navbar-button-hover-text hover:shadow-md hover:scale-105 hover:transform hover:-translate-y-1 border border-transparent hover:border-navbar-button-hover-border hover:font-bold"
+                  className="w-full flex items-center gap-3 p-2.5 sm:p-3 rounded-lg text-left transition-all duration-200 hover:bg-navbar-button-hover-bg hover:text-navbar-button-hover-text hover:shadow-md hover:scale-105 hover:transform hover:-translate-y-1 border border-transparent hover:border-navbar-button-hover-border hover:font-bold cursor-pointer"
                 >
                   <FiUser size={18} className="text-gray-600 sm:w-5 sm:h-5 flex-shrink-0" />
                   <span className="text-product-foreground font-medium text-sm sm:text-base flex-1 text-left">
                     {user?.firstName ? `${user.firstName} ${user.lastName || ''}` : 'Account'}
                   </span>
-                  <div className="flex-shrink-0">
+                  <div className="flex-shrink-0 pointer-events-none">
                     <UserButton 
                       appearance={{
                         elements: {
-                          userButtonBox: "w-8 h-8 sm:w-10 sm:h-10 cursor-pointer"
+                          userButtonBox: "w-8 h-8 sm:w-10 sm:h-10 cursor-pointer",
+                          userButtonPopoverCard: "mobile-menu-dropdown",
+                          userButtonPopoverCardRoot: "mobile-menu-dropdown-root"
                         }
                       }}
                     />
                   </div>
-                </button>
+                </div>
               </div>
             </>
           ) : (

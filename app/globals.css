@@ -613,23 +613,13 @@ a.selected:after {
   cursor: not-allowed !important;
 }
     
-/* UserButton dropdown positioning */
-.cl-userButtonPopoverCard {
-  position: fixed !important;
-  top: auto !important;
-  left: auto !important;
-  right: auto !important;
-  bottom: auto !important;
-  transform: none !important;
-  margin-top: 0.5rem !important;
-  margin-left: 0 !important;
-}
-
-.cl-userButtonPopoverCardRoot {
+/* UserButton dropdown positioning - Mobile menu only */
+.mobile-menu .cl-userButtonPopoverCardRoot {
   position: relative !important;
+  display: inline-block !important;
 }
 
-.cl-userButtonPopoverCardRoot .cl-userButtonPopoverCard {
+.mobile-menu .cl-userButtonPopoverCardRoot .cl-userButtonPopoverCard {
   position: absolute !important;
   top: 100% !important;
   left: 0 !important;
@@ -640,22 +630,106 @@ a.selected:after {
   z-index: 1000 !important;
 }
 
-/* Ensure the dropdown appears below the button */
-.cl-userButtonPopoverCardRoot {
+/* Target all possible Clerk dropdown classes in mobile menu */
+.mobile-menu .cl-userButtonPopoverCard,
+.mobile-menu .cl-userButtonPopoverCardRoot .cl-userButtonPopoverCard,
+.mobile-menu [class*="cl-userButtonPopoverCard"],
+.mobile-menu .cl-userButtonPopoverCardRoot [class*="cl-userButtonPopoverCard"] {
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: none !important;
+  margin-top: 0.5rem !important;
+  z-index: 1001 !important;
+}
+
+/* Override any fixed positioning that might be applied */
+.mobile-menu .cl-userButtonPopoverCard[style*="position: fixed"],
+.mobile-menu .cl-userButtonPopoverCard[style*="position:fixed"] {
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: none !important;
+  margin-top: 0.5rem !important;
+}
+
+/* Custom UserButton dropdown classes for mobile menu */
+.mobile-menu-dropdown-root {
   position: relative !important;
   display: inline-block !important;
 }
 
-/* Mobile menu UserButton dropdown positioning */
+.mobile-menu-dropdown {
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: none !important;
+  margin-top: 0.5rem !important;
+  z-index: 1001 !important;
+}
+
+/* Target Clerk's portal container and force positioning */
+body > div[class*="cl-userButtonPopoverCard"],
+body > div[class*="cl-userButtonPopoverCardRoot"],
+body > div[class*="cl-userButtonPopover"],
+body > div[class*="cl-userButtonPopoverCardRoot"] > div,
+body > div[class*="cl-userButtonPopoverCard"] > div {
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: none !important;
+  margin-top: 0.5rem !important;
+  z-index: 1001 !important;
+}
+
+/* Force all Clerk dropdowns in mobile context to be positioned correctly */
+.mobile-menu ~ div[class*="cl-userButtonPopoverCard"],
+.mobile-menu ~ div[class*="cl-userButtonPopoverCardRoot"],
+.mobile-menu ~ div[class*="cl-userButtonPopover"] {
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: none !important;
+  margin-top: 0.5rem !important;
+  z-index: 1001 !important;
+}
+
+/* Mobile menu UserButton dropdown positioning - ensure it stays below the button */
 @media (max-width: 768px) {
-  .cl-userButtonPopoverCard {
-    position: fixed !important;
-    top: 50% !important;
-    left: 50% !important;
+  .mobile-menu .cl-userButtonPopoverCardRoot .cl-userButtonPopoverCard,
+  .mobile-menu .cl-userButtonPopoverCard,
+  .mobile-menu [class*="cl-userButtonPopoverCard"] {
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
     right: auto !important;
     bottom: auto !important;
-    transform: translate(-50%, -50%) !important;
-    margin: 0 !important;
+    transform: none !important;
+    margin-top: 0.5rem !important;
+    z-index: 1001 !important;
+  }
+  
+  /* Target any portal-rendered dropdowns */
+  body > div[class*="cl-userButtonPopoverCard"],
+  body > div[class*="cl-userButtonPopoverCardRoot"],
+  body > div[class*="cl-userButtonPopover"] {
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+    margin-top: 0.5rem !important;
     z-index: 1001 !important;
   }
 }
