@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useUser, UserButton } from "@clerk/nextjs";
@@ -14,7 +15,66 @@ import {
   FiUser,
   FiUserPlus,
   FiGrid,
+  FiSettings,
 } from "react-icons/fi";
+
+// TypeScript interfaces
+interface NavLinkProps {
+  href: string;
+  children: React.ReactNode;
+  icon?: React.ComponentType<{ className?: string }>;
+  className?: string;
+}
+
+interface MobileNavLinkProps {
+  href: string;
+  children: React.ReactNode;
+  icon?: React.ComponentType<{ size?: number; className?: string }>;
+  onClick: () => void;
+}
+
+// NavLink component for active state handling
+const NavLink = ({ href, children, icon: Icon, className = "" }: NavLinkProps) => {
+  const pathname = usePathname();
+  const isActive = pathname === href;
+  
+  return (
+    <Link href={href}>
+      <Button 
+        variant="navbar" 
+        className={`font-semibold text-sm px-3 py-2 h-9 transition-all duration-200 ${
+          isActive 
+            ? "bg-product-hover-background text-product-primary border border-product-primary shadow-sm" 
+            : "hover:bg-navbar-button-hover-bg hover:text-navbar-button-hover-text hover:shadow-md hover:scale-105 hover:transform hover:-translate-y-1 hover:border-navbar-button-hover-border"
+        } ${className}`}
+      >
+        {Icon && <Icon className="w-4 h-4" />}
+        {children}
+      </Button>
+    </Link>
+  );
+};
+
+// Mobile NavLink component
+const MobileNavLink = ({ href, children, icon: Icon, onClick }: MobileNavLinkProps) => {
+  const pathname = usePathname();
+  const isActive = pathname === href;
+  
+  return (
+    <Link href={href} onClick={onClick}>
+      <button className={`w-full flex items-center gap-3 p-2.5 sm:p-3 rounded-lg text-left transition-all duration-200 ${
+        isActive
+          ? "bg-product-hover-background text-product-primary border border-product-primary shadow-sm font-semibold"
+          : "hover:bg-navbar-button-hover-bg hover:text-navbar-button-hover-text hover:shadow-md hover:scale-105 hover:transform hover:-translate-y-1 border border-transparent hover:border-navbar-button-hover-border hover:font-bold"
+      }`}>
+        {Icon && <Icon size={18} className={`${isActive ? "text-product-primary" : "text-gray-600"} sm:w-5 sm:h-5`} />}
+        <span className={`font-medium text-sm sm:text-base ${isActive ? "text-product-primary" : "text-product-foreground"}`}>
+          {children}
+        </span>
+      </button>
+    </Link>
+  );
+};
 
 const Navbar = () => {
   const { isSignedIn, user } = useUser();
@@ -36,34 +96,22 @@ const Navbar = () => {
       
       {/* Desktop links */}
       <div className="hidden md:flex items-center gap-2">
-        <Link href="/">
-          <Button variant="navbar" className="font-semibold text-sm px-3 py-2 h-9">
-            <FiHome className="w-4 h-4" />
-            Home
-          </Button>
-        </Link>
-        <Link href="/contact">
-          <Button variant="navbar" className="font-semibold text-sm px-3 py-2 h-9">
-            <FiMail className="w-4 h-4" />
-            Contact
-          </Button>
-        </Link>
-        <Link href="/demo">
-          <Button variant="navbar" className="font-semibold text-sm px-3 py-2 h-9">
-            <FaRegCirclePlay className="w-4 h-4" />
-            Demo
-          </Button>
-        </Link>
+        <NavLink href="/" icon={FiHome}>
+          Home
+        </NavLink>
+        <NavLink href="/contact" icon={FiMail}>
+          Contact
+        </NavLink>
+        <NavLink href="/demo" icon={FaRegCirclePlay}>
+          Demo
+        </NavLink>
         
         <div className="ml-3 flex items-center gap-2">
           {isSignedIn ? (
             <>
-              <Link href="/admin/dashboard">
-                <Button className="bg-product-primary text-product-foreground hover:bg-primary-accent hover:shadow-lg hover:scale-105 hover:transform hover:-translate-y-1 transition-all duration-200 shadow-md font-semibold text-sm px-4 py-2 h-9">
-                  <FiGrid className="w-4 h-4" />
-                  Dashboard
-                </Button>
-              </Link>
+              <NavLink href="/admin/dashboard" icon={FiGrid}>
+                Dashboard
+              </NavLink>
               <div className="ml-2 flex items-center gap-1">
                 <UserButton/>
               </div>
@@ -127,50 +175,60 @@ const Navbar = () => {
         
         {/* Mobile menu items */}
         <div className="flex flex-col p-4 sm:p-6 gap-2 sm:gap-3">
-          <Link href="/" onClick={() => setMobileOpen(false)}>
-            <button className="w-full flex items-center gap-3 p-2.5 sm:p-3 rounded-lg hover:bg-navbar-button-hover-bg hover:text-navbar-button-hover-text text-left transition-all duration-200 hover:shadow-md hover:scale-105 hover:transform hover:-translate-y-1 border border-transparent hover:border-navbar-button-hover-border hover:font-bold">
-              <FiHome size={18} className="text-gray-600 sm:w-5 sm:h-5" />
-              <span className="text-product-foreground font-medium text-sm sm:text-base">Home</span>
-            </button>
-          </Link>
+          <MobileNavLink href="/" icon={FiHome} onClick={() => setMobileOpen(false)}>
+            Home
+          </MobileNavLink>
           
-          <Link href="/contact" onClick={() => setMobileOpen(false)}>
-            <button className="w-full flex items-center gap-3 p-2.5 sm:p-3 rounded-lg hover:bg-navbar-button-hover-bg hover:text-navbar-button-hover-text text-left transition-all duration-200 hover:shadow-md hover:scale-105 hover:transform hover:-translate-y-1 border border-transparent hover:border-navbar-button-hover-border hover:font-bold">
-              <FiMail size={18} className="text-gray-600 sm:w-5 sm:h-5" />
-              <span className="text-product-foreground font-medium text-sm sm:text-base">Contact</span>
-            </button>
-          </Link>
+          <MobileNavLink href="/contact" icon={FiMail} onClick={() => setMobileOpen(false)}>
+            Contact
+          </MobileNavLink>
           
-          <Link href="/demo" onClick={() => setMobileOpen(false)}>
-            <button className="w-full flex items-center gap-3 p-2.5 sm:p-3 rounded-lg hover:bg-navbar-button-hover-bg hover:text-navbar-button-hover-text text-left transition-all duration-200 hover:shadow-md hover:scale-105 hover:transform hover:-translate-y-1 border border-transparent hover:border-navbar-button-hover-border hover:font-bold">
-              <FaRegCirclePlay size={18} className="text-gray-600 sm:w-5 sm:h-5" />
-              <span className="text-product-foreground font-medium text-sm sm:text-base">Demo</span>
-            </button>
-          </Link>
+          <MobileNavLink href="/demo" icon={FaRegCirclePlay} onClick={() => setMobileOpen(false)}>
+            Demo
+          </MobileNavLink>
           
           {isSignedIn ? (
             <>
               <div className="border-t border-gray-100 pt-3 sm:pt-4 mt-3 sm:mt-4">
-                <Link
+                <MobileNavLink
                   href="/admin/dashboard"
+                  icon={FiGrid}
                   onClick={() => setMobileOpen(false)}
                 >
-                  <button className="w-full flex items-center gap-3 p-2.5 sm:p-3 rounded-lg bg-product-primary text-product-foreground transition-colors text-sm sm:text-base">
-                    <FiGrid size={18} className="sm:w-5 sm:h-5" />
-                    Dashboard
-                  </button>
-                </Link>
-                <div className="mt-3 sm:mt-4 flex items-center justify-center">
-                  <UserButton showName={true}/>
-                </div>
+                  Dashboard
+                </MobileNavLink>
+                <button 
+                  onClick={() => {
+                    // Programmatically trigger the UserButton click
+                    const userButton = document.querySelector('.cl-userButtonBox') as HTMLElement;
+                    if (userButton) {
+                      userButton.click();
+                    }
+                  }}
+                  className="w-full flex items-center gap-3 p-2.5 sm:p-3 rounded-lg text-left transition-all duration-200 hover:bg-navbar-button-hover-bg hover:text-navbar-button-hover-text hover:shadow-md hover:scale-105 hover:transform hover:-translate-y-1 border border-transparent hover:border-navbar-button-hover-border hover:font-bold"
+                >
+                  <FiUser size={18} className="text-gray-600 sm:w-5 sm:h-5 flex-shrink-0" />
+                  <span className="text-product-foreground font-medium text-sm sm:text-base flex-1 text-left">
+                    {user?.firstName ? `${user.firstName} ${user.lastName || ''}` : 'Account'}
+                  </span>
+                  <div className="flex-shrink-0">
+                    <UserButton 
+                      appearance={{
+                        elements: {
+                          userButtonBox: "w-8 h-8 sm:w-10 sm:h-10 cursor-pointer"
+                        }
+                      }}
+                    />
+                  </div>
+                </button>
               </div>
             </>
           ) : (
             <>
-              <div className="border-t border-gray-100 pt-3 sm:pt-4 mt-3 sm:mt-4 space-y-2 sm:space-y-3">
+              <div className="border-t border-gray-100 pt-3 sm:pt-4 mt-3 sm:mt-4">
                 <Link href="/auth" onClick={() => setMobileOpen(false)}>
-                  <Button variant="outline" className="w-full justify-start mb-2 sm:mb-3 border-gray-300 text-product-foreground text-sm sm:text-base h-10 sm:h-11">
-                    <FiUser size={18} className="mr-3 sm:w-5 sm:h-5" />
+                  <Button className="w-full bg-white text-product-foreground border-2 border-product-primary hover:bg-product-primary hover:text-white hover:shadow-lg hover:scale-105 hover:transform hover:-translate-y-1 transition-all duration-200 font-semibold text-sm px-3 py-2 h-9 mb-2 sm:mb-3">
+                    <FiUser className="w-4 h-4" />
                     Sign In
                   </Button>
                 </Link>
@@ -178,8 +236,8 @@ const Navbar = () => {
                   href="/auth?mode=signup"
                   onClick={() => setMobileOpen(false)}
                 >
-                  <Button className="w-full justify-start bg-black text-white text-sm sm:text-base h-10 sm:h-11">
-                    <FiUserPlus size={18} className="mr-3 sm:w-5 sm:h-5" />
+                  <Button className="w-full bg-product-primary text-product-foreground hover:bg-primary-accent hover:shadow-lg hover:scale-105 hover:transform hover:-translate-y-1 transition-all duration-200 font-semibold text-sm px-3 py-2 h-9">
+                    <FiUserPlus className="w-4 h-4" />
                     Sign Up
                   </Button>
                 </Link>

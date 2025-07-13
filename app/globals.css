@@ -613,3 +613,50 @@ a.selected:after {
   cursor: not-allowed !important;
 }
     
+/* UserButton dropdown positioning */
+.cl-userButtonPopoverCard {
+  position: fixed !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: none !important;
+  margin-top: 0.5rem !important;
+  margin-left: 0 !important;
+}
+
+.cl-userButtonPopoverCardRoot {
+  position: relative !important;
+}
+
+.cl-userButtonPopoverCardRoot .cl-userButtonPopoverCard {
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: none !important;
+  margin-top: 0.5rem !important;
+  z-index: 1000 !important;
+}
+
+/* Ensure the dropdown appears below the button */
+.cl-userButtonPopoverCardRoot {
+  position: relative !important;
+  display: inline-block !important;
+}
+
+/* Mobile menu UserButton dropdown positioning */
+@media (max-width: 768px) {
+  .cl-userButtonPopoverCard {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: translate(-50%, -50%) !important;
+    margin: 0 !important;
+    z-index: 1001 !important;
+  }
+}
+    
