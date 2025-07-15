@@ -15,6 +15,7 @@ import { deleteMenu, revalidateData, duplicateMenu } from "@/utils/server";
 import { TbBrandGoogleAnalytics } from "react-icons/tb";
 import { useState } from "react";
 import InformModal from "./InformModal";
+import { RiSparkling2Line } from "react-icons/ri";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -161,13 +162,20 @@ export default function Dashboard({
 
           <div>
             <h2 className="text-2xl font-semibold mb-4 text-product-foreground">Your Restaurants</h2>
-            <div className="flex justify-start mb-4">
+            <div className="flex justify-start mb-4 gap-2">
               <Link href="/admin/create-menu">
                 <Button className="bg-product-primary text-product-foreground hover:bg-primary-accent hover:shadow-lg hover:scale-105 hover:transform hover:-translate-y-1 transition-all duration-200">
                   <FiPlus size={30} />
                   Create Menu
                 </Button>
               </Link>
+              <Link href="/admin/create-menu/ai">
+                <Button variant="outline" className="flex flex-row items-center gap-1">
+                  <RiSparkling2Line size={30} />
+                  Generate Menu with AI
+                </Button>
+              </Link>
+              
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -222,7 +230,6 @@ export default function Dashboard({
                           <Link
                             href={`/admin/restaurants/${restaurant.name}/edit`}
                             passHref
-                            legacyBehavior
                           >
                             <DropdownMenuItem
                               asChild

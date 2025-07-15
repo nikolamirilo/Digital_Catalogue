@@ -13,26 +13,30 @@ import {
 import { useRouter } from "next/navigation";
 import { IoMdOpen } from "react-icons/io";
 import { QRCodeSVG } from "qrcode.react";
-import { IoQrCode } from "react-icons/io5";
+import { IoQrCode, IoShareSocialOutline } from "react-icons/io5";
 import { FaCheckCircle } from "react-icons/fa";
 import { FaCode } from "react-icons/fa6";
 import { MdContentCopy } from "react-icons/md";
+import { ImEmbed2 } from "react-icons/im";
 
 interface SuccessModalProps {
   isOpen: boolean;
   onClose: () => void;
   restaurantUrl: string;
+  type?: "regular" | "ai"; 
 }
 
 const SuccessModal: React.FC<SuccessModalProps> = ({
   isOpen,
   onClose,
   restaurantUrl,
+  type="regular"
 }) => {
   const [fullURL, setFullURL] = useState("");
   const router = useRouter();
   const codeRef = useRef<HTMLDivElement>(null);
   const iframeCode = `<iframe src="${fullURL}" style="width:100vw;height:100vh;border:none;position:fixed;top:0;left:0;z-index:9999;background:#fff;"></iframe>`;
+  
   const handleCopyCode = async () => {
     await navigator.clipboard.writeText(iframeCode);
     if (codeRef.current) {
@@ -40,6 +44,7 @@ const SuccessModal: React.FC<SuccessModalProps> = ({
       setTimeout(() => codeRef.current?.classList.remove("ring-2", "ring-green-400"), 1000);
     }
   };
+  
   const handleDownloadPng = () => {
     const svg = document.querySelector("#success-modal-qr svg");
     if (!svg) {
@@ -89,25 +94,28 @@ const SuccessModal: React.FC<SuccessModalProps> = ({
     };
     img.src = url;
   };
+  
   useEffect(() => {
     setFullURL(`${window.location.origin}${restaurantUrl}`);
   }, [restaurantUrl]);
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[480px] w-full !p-6 bg-product-background">
+      <DialogContent className="sm:max-w-[600px] max-h-screen overflow-x-auto w-full !p-6 bg-product-background">
         <DialogHeader className="flex flex-col">
           <div className="flex flex-row gap-1 items-center justify-left">
-          <DialogTitle className="text-product-foreground">Digital Menu Created Successfully!</DialogTitle>
-          <FaCheckCircle size={25} color="green" />
+            <DialogTitle className="text-product-foreground">🎉 Congratulations!</DialogTitle>
+            {/* <FaCheckCircle size={25} color="green" /> */}
           </div>
-          <DialogDescription className="text-product-foreground">
-            Your digital menu has been created and is ready to view.
+          <DialogDescription className="text-product-foreground px-1">
+            {type== "ai" ? "Your AI-generated digital menu is now live and ready to share with your customers." : "Your digital menu is now live and ready to share with your customers."}
           </DialogDescription>
         </DialogHeader>
+      
+
         {/* QR Code Section */}
         <div className="flex flex-col items-start gap-2 w-full">
-          <h4 className="font-semibold mb-2 text-product-foreground">Add QR code as your menu</h4>
+          <h4 className="flex flex-row gap-1 items-center text-base bg-green-50 border border-green-200 rounded-lg p-2 text-green-800"><strong className="flex flex-row gap-1 items-center"><IoShareSocialOutline size={25}/>Share instantly:</strong>Use the QR code below for quick access</h4>
           <div id="success-modal-qr">
             <QRCodeSVG value={fullURL} size={180} bgColor="#fff" fgColor="#000" />
           </div>
@@ -117,9 +125,10 @@ const SuccessModal: React.FC<SuccessModalProps> = ({
             </Button>
           </div>
         </div>
+        
         {/* Embeddable Iframe Section */}
-        <div className="text-product-foreground w-full mt-2">
-          <h4 className="font-semibold mb-2">Embed in your website</h4>
+        <div className="text-product-foreground w-full">
+          <h4 className="flex flex-row gap-1 items-center text-base bg-green-50 border border-green-200 rounded-lg p-2 text-green-800 mb-2"><strong className="flex flex-row gap-1 items-center"><ImEmbed2  size={25}/>Embed Anywhere:</strong>Copy the code to add to your website</h4>
           <div
             ref={codeRef}
             className="bg-[#1e1e1e] rounded-lg p-4 text-xs overflow-x-auto font-[Fira_Mono,JetBrains_Mono,Source_Code_Pro,monospace] border border-[#333] shadow-inner mb-2 transition-all duration-200"
@@ -132,7 +141,7 @@ const SuccessModal: React.FC<SuccessModalProps> = ({
               onClick={handleCopyCode}
               className="flex gap-1 items-center justify-center"
             >
-              <MdContentCopy  size={25}/> Copy code
+              <MdContentCopy size={25}/> Copy code
             </Button>
             <Button
               onClick={() => {
@@ -155,14 +164,16 @@ const SuccessModal: React.FC<SuccessModalProps> = ({
             </Button>
           </div>
         </div>
+        
         <DialogFooter>
           <Button
             className="flex gap-1"
+            variant="outline"
             onClick={() => {
               window.open(fullURL, '_blank');
             }}
           >
-            <IoMdOpen size={25} /> View
+            <IoMdOpen size={25} /> Visit
           </Button>
           <Button onClick={onClose} variant="destructive">
             Close
