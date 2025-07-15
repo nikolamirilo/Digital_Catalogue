@@ -7,7 +7,14 @@ import { Textarea } from '@/components/ui/textarea';
 import { toast } from '@/hooks/use-toast';
 import Link from 'next/link';
 import SuccessModal from '@/components/admin/form/components/SuccessModal';
-import { RiSparkling2Line } from "react-icons/ri";
+import {
+  RiSparkling2Line,
+  RiLightbulbLine,
+  RiStore2Line,
+  RiScissorsLine,
+  RiHeartPulseLine,
+  RiGamepadLine
+} from "react-icons/ri";
 import { revalidateData } from '@/utils/server';
 
 export default function AiMenuForm() {
@@ -24,9 +31,7 @@ export default function AiMenuForm() {
     try {
       const response = await fetch('/api/menu/ai', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt }),
       });
 
@@ -38,8 +43,8 @@ export default function AiMenuForm() {
           title: 'Success!',
           description: (
             <p>
-              Your menu has been created. You can view it at{' '}
-              <Link href={restaurantUrl} className="text-blue-500 hover:underline">
+              Your digital showcase has been created. You can view it at{' '}
+              <Link href={restaurantUrl} className="text-primary-accent hover:underline">
                 {restaurantUrl}
               </Link>
             </p>
@@ -49,7 +54,7 @@ export default function AiMenuForm() {
         const errorData = await response.json();
         toast({
           title: 'Error',
-          description: `Failed to create menu: ${errorData.error || 'Unknown error'}`,
+          description: `Failed to create showcase: ${errorData.error || 'Unknown error'}`,
           variant: 'destructive',
         });
       }
@@ -61,37 +66,147 @@ export default function AiMenuForm() {
       });
     } finally {
       setIsSubmitting(false);
-      revalidateData()
+      revalidateData();
     }
   };
 
-  const handleCloseModal = () => {
-    setShowSuccessModal(false);
-  };
+  const handleCloseModal = () => setShowSuccessModal(false);
+
+  const businessExamples = [
+    {
+      icon: <RiStore2Line size={18} />,
+      category: "Restaurant",
+      prompt: "A cozy Italian restaurant with fresh pasta, wood-fired pizzas, and wine pairings in a warm, family-friendly atmosphere"
+    },
+    {
+      icon: <RiScissorsLine size={18} />,
+      category: "Beauty Salon",
+      prompt: "A modern beauty salon offering haircuts, coloring, styling, manicures, and facial treatments with premium products"
+    },
+    {
+      icon: <RiHeartPulseLine size={18} />,
+      category: "Fitness Gym",
+      prompt: "A fitness center with personal training, group classes, weight training, and cardio equipment for all fitness levels"
+    },
+    {
+      icon: <RiGamepadLine size={18} />,
+      category: "Entertainment",
+      prompt: "A bowling alley with lane rentals, birthday parties, arcade games, and food service for families and groups"
+    },
+    {
+      icon: <RiStore2Line size={18} />,
+      category: "Café",
+      prompt: "A specialty coffee shop with artisan drinks, fresh pastries, light meals, and a cozy workspace atmosphere"
+    }
+  ];
 
   return (
-    <>
-      <Card className="w-full max-w-3xl mx-auto">
-        <CardHeader>
-          <CardTitle className="text-3xl font-bold text-center">Create Menu with AI</CardTitle>
-          <CardDescription className="text-center">
-            Enter a prompt to generate a menu using AI.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-8">
-            <Textarea
-              placeholder="e.g., A high-end Italian restaurant with a focus on fresh pasta and seafood."
-              value={prompt}
-              onChange={(e) => setPrompt(e.target.value)}
-              rows={5}
-            />
-            <Button type="submit" disabled={isSubmitting} className="w-full">
-              {isSubmitting ? <div className='flex flex-row gap-1 items-center justify-center animate-pulse'><RiSparkling2Line size={25}/>Generating...</div> : <div className='flex flex-row gap-1 items-center justify-center'><RiSparkling2Line size={25}/>Generate</div>}
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
+    <div className="min-h-screen bg-product-background p-4 text-product-foreground">
+      <div className="max-w-4xl mx-auto space-y-8">
+
+        {/* Header */}
+        <div className="text-center space-y-4 pt-8">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary-accent text-white mb-4 shadow-md">
+            <RiSparkling2Line size={32} />
+          </div>
+          <h1 className="text-4xl md:text-5xl font-bold text-product-foreground">
+            AI Business Showcase Generator
+          </h1>
+          <p className="text-lg text-product-foreground-accent max-w-2xl mx-auto">
+            Create stunning digital showcases for your services in minutes. Perfect for restaurants, salons, gyms, and more.
+          </p>
+        </div>
+
+        {/* Form Card */}
+        <Card className="bg-product-background border border-product-border shadow-[var(--product-shadow)]">
+          <CardHeader className="pb-6">
+            <CardTitle className="text-2xl font-semibold flex items-center gap-2 text-product-foreground">
+              <RiStore2Line className="text-product-icon" />
+              Describe Your Business
+            </CardTitle>
+            <CardDescription className="text-product-foreground-accent">
+              Tell us about your business type, services, target audience, and unique features
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="space-y-2">
+                <label htmlFor="prompt" className="text-sm font-medium text-product-foreground">
+                  Business Description
+                </label>
+                <Textarea
+                  id="prompt"
+                  placeholder="e.g., A modern beauty salon specializing in premium hair treatments, nail services, and skincare..."
+                  value={prompt}
+                  onChange={(e) => setPrompt(e.target.value)}
+                  rows={6}
+                  className="resize-none border border-product-border focus:border-product-primary focus:ring-product-primary bg-transparent text-product-foreground transition-colors"
+                />
+                <p className="text-xs text-product-foreground-accent">
+                  {prompt.length}/500 characters
+                </p>
+              </div>
+
+              <Button
+                type="submit"
+                disabled={isSubmitting || !prompt.trim()}
+                className="w-full h-12 bg-product-primary hover:bg-primary-accent text-button-text font-medium rounded-lg shadow-md hover:shadow-xl transition-all duration-200 disabled:opacity-50"
+              >
+                {isSubmitting ? (
+                  <div className='flex items-center gap-2 animate-pulse'>
+                    <RiSparkling2Line size={20} className="animate-spin" />
+                    Creating Your Showcase...
+                  </div>
+                ) : (
+                  <div className='flex items-center gap-2'>
+                    <RiSparkling2Line size={20} />
+                    Generate Showcase
+                  </div>
+                )}
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+
+        {/* Example Prompts */}
+        <Card className="bg-product-background border border-product-border shadow">
+          <CardHeader className="pb-4">
+            <CardTitle className="text-lg font-semibold text-product-foreground flex items-center gap-2">
+              <RiLightbulbLine className="text-primary-accent" />
+              Business Examples
+            </CardTitle>
+            <CardDescription className="text-product-foreground-accent">
+              Choose your business type or get inspired
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid gap-3">
+              {businessExamples.map((example, index) => (
+                <button
+                  key={index}
+                  onClick={() => setPrompt(example.prompt)}
+                  disabled={isSubmitting}
+                  className="text-left p-4 rounded-lg bg-transparent hover:bg-product-hover-background border border-product-border transition-all group"
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 rounded-full bg-primary-accent/10 flex items-center justify-center group-hover:bg-primary-accent/20 transition-colors">
+                      <span className="text-product-primary">{example.icon}</span>
+                    </div>
+                    <div className="flex-1">
+                      <div className="font-medium text-product-foreground group-hover:text-product-primary mb-1">
+                        {example.category}
+                      </div>
+                      <div className="text-sm text-product-foreground-accent group-hover:text-product-primary">
+                        {example.prompt}
+                      </div>
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
 
       <SuccessModal
         isOpen={showSuccessModal}
@@ -99,6 +214,6 @@ export default function AiMenuForm() {
         restaurantUrl={restaurantUrl}
         type='ai'
       />
-    </>
+    </div>
   );
 }

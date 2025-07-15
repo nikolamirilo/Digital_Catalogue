@@ -28,7 +28,7 @@ export const MainContextProvider = ({
   children: React.ReactNode;
 }) => {
   const [layout, setLayout] = useState("variant_1")
-  const [theme, setTheme] = useState("theme-modern");
+  const [theme, setTheme] = useState("theme-luxury");
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   return (

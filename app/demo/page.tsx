@@ -12,7 +12,7 @@ const DigitalMenu: React.FC = () => {
   return (
     <>
       <Navbar />
-      <div className={`min-h-screen text-text bg-background ${theme ? theme : "theme-elegant"}`}>
+      <div className={`min-h-screen text-text bg-background ${theme ? theme : "theme-luxury"}`}>
         <main>
           <section className="w-full bg-background pt-36 px-4 text-center flex flex-col items-center">
             <h1 className="text-4xl sm:text-5xl md:text-6xl max-w-[800px] font-lora font-semibold text-foreground tracking-tight mb-4">
