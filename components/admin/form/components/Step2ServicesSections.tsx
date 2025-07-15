@@ -5,27 +5,22 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Plus, Trash2 } from "lucide-react";
-import { MdRestaurantMenu } from "react-icons/md";
+import { MdRestaurant } from "react-icons/md";
 
-import { MenuCategory } from "@/types";
+import { ServicesCategory } from "@/types";
+import { layouts } from "@/constants/client";
 
-interface Step2MenuSectionsProps {
+interface Step2ServicesSectionsProps {
   formData: {
-    menu: MenuCategory[];
+    services: ServicesCategory[];
   };
   handleAddCategory: () => void;
   handleRemoveCategory: (index: number) => void;
   handleCategoryChange: (index: number, field: 'name' | 'layout', value: string) => void;
 }
 
-const layouts = [
-  { value: "variant_1", label: "Layout Variant 1", image: "/layouts/layout_1.jpg" },
-  { value: "variant_2", label: "Layout Variant 2", image: "/layouts/layout_2.jpg" },
-  { value: "variant_3", label: "Layout Variant 3", image: "/layouts/layout_3.jpg" },
-  { value: "variant_4", label: "Layout Variant 4", image: "/layouts/layout_4.jpg" },
-];
 
-const Step2MenuSections: React.FC<Step2MenuSectionsProps> = ({
+const Step2ServicesSections: React.FC<Step2ServicesSectionsProps> = ({
   formData,
   handleAddCategory,
   handleRemoveCategory,
@@ -34,8 +29,8 @@ const Step2MenuSections: React.FC<Step2MenuSectionsProps> = ({
   return (
      <Card className="space-y-6 p-6" type="form">
       <h2 className="text-2xl font-semibold text-gray-800 flex items-center">
-      <MdRestaurantMenu className="text-orange-600" size={30} />
-        Menu Categories
+      <MdRestaurant className="text-orange-600" size={30} />
+        Services Categories
       </h2>
       <Button
         type="button"
@@ -45,7 +40,7 @@ const Step2MenuSections: React.FC<Step2MenuSectionsProps> = ({
         <Plus className="h-4 w-4" /> Add New Category
       </Button>
 
-      {formData.menu.map((category, categoryIndex) => (
+      {formData.services.map((category, categoryIndex) => (
         <Card key={categoryIndex} className="space-y-6 p-6" type="form">
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-xl font-semibold text-gray-700">Category {categoryIndex + 1}</h3>
@@ -99,4 +94,4 @@ const Step2MenuSections: React.FC<Step2MenuSectionsProps> = ({
   );
 };
 
-export default Step2MenuSections;
+export default Step2ServicesSections;

@@ -12,7 +12,7 @@
     "phone": "+3816042723",
     "email": "plato.restoran@gmail.com"
   },
-  "menu": {
+  "services": {
     "breakfast": {
       "layout": "variant_1",
       "items": [

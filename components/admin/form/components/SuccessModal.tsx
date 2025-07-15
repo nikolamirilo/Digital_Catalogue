@@ -108,7 +108,7 @@ const SuccessModal: React.FC<SuccessModalProps> = ({
             {/* <FaCheckCircle size={25} color="green" /> */}
           </div>
           <DialogDescription className="text-product-foreground px-1">
-            {type== "ai" ? "Your AI-generated digital menu is now live and ready to share with your customers." : "Your digital menu is now live and ready to share with your customers."}
+            {type== "ai" ? "Your AI-generated Service Catalogue is now live and ready to share with your customers." : "Your Service Catalogue is now live and ready to share with your customers."}
           </DialogDescription>
         </DialogHeader>
       

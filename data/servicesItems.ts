@@ -1,6 +1,6 @@
-import { IMenuItem } from "@/types";
+import { IServicesItem } from "@/types";
 
-export const menuItems: IMenuItem[] = [
+export const servicesItems: IServicesItem[] = [
     {
         text: "Features",
         url: "#features"

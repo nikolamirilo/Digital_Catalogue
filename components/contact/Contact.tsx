@@ -17,7 +17,7 @@ const Contact = () => {
       message,
       email,
       name,
-      subject: "New message from digital-menu.com",
+      subject: "New message from Service Catalogue Contact Form",
     });
     if(res == true){
         setIsOpen(true);

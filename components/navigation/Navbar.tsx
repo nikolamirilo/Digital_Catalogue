@@ -90,7 +90,7 @@ const Navbar = () => {
               <AvatarFallback className="bg-product-foreground text-white font-bold text-xs sm:text-sm">DM</AvatarFallback>
             </Avatar>
           </div>
-          {/* <span className="font-bold text-xl text-black transition-colors duration-200 group-hover:text-product-primary">Digital Menu</span> */}
+          {/* <span className="font-bold text-xl text-black transition-colors duration-200 group-hover:text-product-primary">Service Catalogue</span> */}
         </Link>
       </div>
       

@@ -7,14 +7,14 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation'
 import Link from 'next/link';
 
-const RestaurantNavbar = ({ restaurantData }: NavbarProps) => {
+const ServiceCatalogueNavbar = ({ itemData }: NavbarProps) => {
   const [selectedSection, setSelectedSection] = useState('breakfast'); // Default selected section
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [type, setType] = useState<string>("menu")
-  const [restaurant, setRestaurant] = useState<string>("")
+  const [type, setType] = useState<string>("services")
+  const [restaurant, setServiceCatalogue] = useState<string>("")
   const pathname = usePathname()
 
-  const navItems = Object.keys(restaurantData.menu).map((item) => {
+  const navItems = Object.keys(itemData.services).map((item) => {
     return {
       title: item.charAt(0).toUpperCase() + item.slice(1).replace(/_/g, ' '),
       code: item,
@@ -42,9 +42,9 @@ const RestaurantNavbar = ({ restaurantData }: NavbarProps) => {
     if(pathname.includes("admin")){
       setType("dashboard")
       const name = pathname.split("/")
-      setRestaurant(name[3])
+      setServiceCatalogue(name[3])
     }else{
-      setType("menu")
+      setType("services")
     }
     console.log(pathname)
   },[])
@@ -68,7 +68,7 @@ const RestaurantNavbar = ({ restaurantData }: NavbarProps) => {
       <div className="flex items-center pl-4">
         <Link href="/">
           <div className="h-12 w-12 relative">
-            <Image src={restaurantData.logo || "/logo.webp"} alt="Logo" fill style={{objectFit:'contain'}} />
+            <Image src={itemData.logo || "/logo.webp"} alt="Logo" fill style={{objectFit:'contain'}} />
           </div>
         </Link>
       </div>
@@ -137,4 +137,4 @@ const RestaurantNavbar = ({ restaurantData }: NavbarProps) => {
   );
 };
 
-export default RestaurantNavbar;
+export default ServiceCatalogueNavbar;

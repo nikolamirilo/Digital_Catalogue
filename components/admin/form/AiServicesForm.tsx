@@ -17,19 +17,19 @@ import {
 } from "react-icons/ri";
 import { revalidateData } from '@/utils/server';
 
-export default function AiMenuForm() {
+export default function AiServicesForm() {
   const [prompt, setPrompt] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [restaurantUrl, setRestaurantUrl] = useState('');
+  const [restaurantUrl, setServiceCatalogueUrl] = useState('');
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setRestaurantUrl('');
+    setServiceCatalogueUrl('');
 
     try {
-      const response = await fetch('/api/menu/ai', {
+      const response = await fetch('/api/items/ai', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt }),
@@ -37,7 +37,7 @@ export default function AiMenuForm() {
 
       if (response.ok) {
         const { restaurantUrl } = await response.json();
-        setRestaurantUrl(restaurantUrl);
+        setServiceCatalogueUrl(restaurantUrl);
         setShowSuccessModal(true);
         toast({
           title: 'Success!',
@@ -75,7 +75,7 @@ export default function AiMenuForm() {
   const businessExamples = [
     {
       icon: <RiStore2Line size={18} />,
-      category: "Restaurant",
+      category: "ServiceCatalogue",
       prompt: "A cozy Italian restaurant with fresh pasta, wood-fired pizzas, and wine pairings in a warm, family-friendly atmosphere"
     },
     {

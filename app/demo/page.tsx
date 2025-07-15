@@ -1,13 +1,13 @@
 // @ts-nocheck
 "use client"
 import Toggle from "@/components/common/Toggle";
-import MenuSection from "@/components/sections/MenuSection";
+import ServicesSection from "@/components/sections/ServicesSection";
 import data from "../../showcase.json";
 import Navbar from "@/components/navigation/Navbar";
 import theme from "@material-tailwind/react/theme";
 import { useMainContext } from "@/context/MainContext";
 
-const DigitalMenu: React.FC = () => {
+const page: React.FC = () => {
   const {theme} = useMainContext();
   return (
     <>
@@ -21,7 +21,7 @@ const DigitalMenu: React.FC = () => {
             <div className="w-60 h-[3px] bg-foreground mb-6 rounded-full"></div>
             <p className="text-lg sm:text-xl text-heading max-w-2xl font-lora leading-relaxed mb-6">
               Customize the look and feel by switching between different layouts and visual themes.
-              Whether you prefer bold and modern or soft and elegant, explore how our menu adapts to match your brand’s unique vibe.
+              Whether you prefer bold and modern or soft and elegant, explore how our Service Catalogue adapts to match your brand’s unique vibe.
             </p>
           </section>
 
@@ -30,8 +30,8 @@ const DigitalMenu: React.FC = () => {
           </div>
 
           {data && (
-            <MenuSection
-              menuData={data.menu}
+            <ServicesSection
+              servicesData={data.services}
               currency={data.currency}
               type="demo"
             />
@@ -42,4 +42,4 @@ const DigitalMenu: React.FC = () => {
   );
 };
 
-export default DigitalMenu;
+export default page;

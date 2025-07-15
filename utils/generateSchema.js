@@ -46,7 +46,7 @@ const schema = {
       }
     },
     subtitle: { type: "string" },
-    menu: {
+    services: {
       type: "object",
       patternProperties: {
         "^.*$": {

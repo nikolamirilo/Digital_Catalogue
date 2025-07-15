@@ -70,7 +70,7 @@
     "subtitle": {
       "type": "string"
     },
-    "menu": {
+    "services": {
       "type": "object",
       "patternProperties": {
         "^.*$": {
@@ -142,7 +142,7 @@
     "legal_name",
     "contact",
     "subtitle",
-    "menu",
+    "services",
     "created_at",
     "updated_at"
   ],

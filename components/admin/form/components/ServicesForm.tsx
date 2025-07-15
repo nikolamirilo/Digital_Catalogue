@@ -6,22 +6,22 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { toast } from "@/hooks/use-toast"
 import { ArrowRight, ArrowLeft, Edit, Plus } from "lucide-react"
 import Step1GeneralInfo from "./Step1GeneralInfo";
-import Step2MenuSections from "./Step2MenuSections";
-import Step3MenuItems from "./Step3MenuItems";
+import Step2MenuSections from "./Step2ServicesSections";
+import Step3MenuItems from "./Step3ServicesItems";
 import SuccessModal from "./SuccessModal";
 
-import { MenuItem, ContactInfo, RestaurantFormData } from "@/types";
+import { ServicesItem, ContactInfo, ServicesFormData } from "@/types";
 import { saEvent } from "@/utils/analytics";
 import { useUser } from "@clerk/nextjs";
 
 interface MenuFormBaseProps {
   type: 'create' | 'edit';
-  initialData?: RestaurantFormData;
+  initialData?: ServicesFormData;
   onSuccess?: (restaurantUrl: string) => void;
 }
 
 function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
-  const [formData, setFormData] = useState<RestaurantFormData>(
+  const [formData, setFormData] = useState<ServicesFormData>(
     initialData || {
       name: "",
       theme: "",
@@ -32,13 +32,13 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
       legal_name: "",
       contact: [],
       subtitle: "",
-      menu: [],
+      services: [],
     }
   );
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const [restaurantUrl, setRestaurantUrl] = useState("");
+  const [restaurantUrl, setServiceCatalogueUrl] = useState("");
   const [imagePreviews, setImagePreviews] = useState<{ [key: string]: string }>({});
   const {user} = useUser() 
 
@@ -56,25 +56,25 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
   const handleAddCategory = () => {
     setFormData((prev) => ({
       ...prev,
-      menu: [...prev.menu, { name: "", layout: "variant_1", items: [] }],
+      menu: [...prev.services, { name: "", layout: "variant_1", items: [] }],
     }));
   };
 
   const handleRemoveCategory = (categoryIndex: number) => {
     setFormData((prev) => ({
       ...prev,
-      menu: prev.menu.filter((_, index) => index !== categoryIndex),
+      menu: prev.services.filter((_, index) => index !== categoryIndex),
     }));
   };
 
   const handleCategoryChange = (index: number, field: 'name' | 'layout', value: string) => {
-    const updatedMenu = [...formData.menu];
+    const updatedMenu = [...formData.services];
     updatedMenu[index][field] = value;
     setFormData((prev) => ({ ...prev, menu: updatedMenu }));
   };
 
   const handleAddItem = (categoryIndex: number) => {
-    const updatedMenu = [...formData.menu];
+    const updatedMenu = [...formData.services];
     updatedMenu[categoryIndex].items = [
       { name: "", description: "", price: 0, image: "" },
       ...updatedMenu[categoryIndex].items.map(item => ({ ...item, image: item.image || "" })),
@@ -92,7 +92,7 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
   };
 
   const handleRemoveItem = (categoryIndex: number, itemIndex: number) => {
-    const updatedMenu = [...formData.menu];
+    const updatedMenu = [...formData.services];
     updatedMenu[categoryIndex].items = updatedMenu[categoryIndex].items.filter(
       (_, index) => index !== itemIndex
     );
@@ -102,11 +102,11 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
   const handleItemChange = (
     categoryIndex: number,
     itemIndex: number,
-    field: keyof MenuItem,
+    field: keyof ServicesItem,
     value: string | number
   ) => {
     setFormData((prev) => {
-      const newMenu = prev.menu.map((category, cIndex) => {
+      const newMenu = prev.services.map((category, cIndex) => {
         if (cIndex !== categoryIndex) {
           return category;
         }
@@ -164,12 +164,12 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
       );
     }
     if (step === 2) {
-      if (formData.menu.length === 0) return false;
-      return formData.menu.every((category) => !!category.name.trim());
+      if (formData.services.length === 0) return false;
+      return formData.services.every((category) => !!category.name.trim());
     }
     // For step 3, we can do a basic check, but detailed validation happens on submit
     if (step === 3) {
-      return formData.menu.every((category) => category.items.length > 0);
+      return formData.services.every((category) => category.items.length > 0);
     }
     return true;
   };
@@ -180,7 +180,7 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
     let isValid = true;
   
     if (step === 1) {
-      if (!formData.name.trim()) newErrors.name = "Restaurant name is required.";
+      if (!formData.name.trim()) newErrors.name = "ServiceCatalogue name is required.";
       if (!formData.title?.trim()) newErrors.title = "Title is required.";
       if (!formData.currency?.trim()) newErrors.currency = "Currency is required.";
       if (!formData.theme?.trim()) newErrors.theme = "Theme is required.";
@@ -192,11 +192,11 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
     }
   
     if (step === 2) {
-      if (formData.menu.length === 0) {
+      if (formData.services.length === 0) {
         setStep2Error("Please add at least one menu category.");
         isValid = false;
       } else {
-        for (const category of formData.menu) {
+        for (const category of formData.services) {
           if (!category.name.trim()) {
             setStep2Error("All menu categories must have a name.");
             isValid = false;
@@ -208,7 +208,7 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
     }
   
     if (step === 3) {
-      for (const category of formData.menu) {
+      for (const category of formData.services) {
         if (category.items.length === 0) {
           setStep3Error(`Category "${category.name}" must have at least one menu item.`);
           isValid = false;
@@ -296,17 +296,17 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
       const transformedFormData = { ...formData };
       const restaurantSlug = transformedFormData.name.toLowerCase().replace(/\s+/g, '-');
       transformedFormData.name = restaurantSlug;
-      const transformedMenu = transformedFormData.menu.reduce((acc, category) => {
+      const transformedMenu = transformedFormData.services.reduce((acc, category) => {
         const categorySlug = category.name.toLowerCase().replace(/\s+/g, '-');
         acc[categorySlug] = {
           layout: category.layout,
           items: category.items,
         };
         return acc;
-      }, {} as Record<string, { layout: string; items: MenuItem[] }>);
+      }, {} as Record<string, { layout: string; items: ServicesItem[] }>);
       const contactData = transformedFormData.contact;
       const method = type === 'edit' ? 'PATCH' : 'POST';
-      const response = await fetch('/api/menu', {
+      const response = await fetch('/api/items', {
         method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -318,9 +318,9 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
       });
       if (response.ok) {
         const result = await response.json();
-        setRestaurantUrl(`/restaurants/${restaurantSlug}`);
+        setServiceCatalogueUrl(`/service-catalogues/${restaurantSlug}`);
         setShowSuccessModal(true);
-        if (onSuccess) onSuccess(`/restaurants/${restaurantSlug}`);
+        if (onSuccess) onSuccess(`/service-catalogues/${restaurantSlug}`);
         if (type === 'create') {
           setFormData({
             name: "",
@@ -332,7 +332,7 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
             legal_name: "",
             contact: [],
             subtitle: "",
-            menu: [],
+            services: [],
           });
           setCurrentStep(1);
         }
@@ -399,7 +399,7 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
     <Card className="w-full max-w-4xl mx-auto" type="form">
       <CardHeader>
         <CardTitle className="text-3xl font-bold text-center">
-          {type === 'edit' ? 'Edit Your Digital Menu' : 'Create Your Digital Menu'}
+          {type === 'edit' ? 'Edit Your Service Catalogue' : 'Create Your Service Catalogue'}
         </CardTitle>
         <CardDescription className="text-center">
           Step {currentStep} of 3: {
@@ -463,7 +463,7 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
             {currentStep === 3 && (
               <Button type="submit" disabled={isSubmitting} className="flex items-center justify-center">
                 {type === 'edit' ? <Edit className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
-                {isSubmitting ? (type === 'edit' ? 'Saving...' : 'Creating...') : (type === 'edit' ? 'Save Changes' : 'Create Digital Menu')}
+                {isSubmitting ? (type === 'edit' ? 'Saving...' : 'Creating...') : (type === 'edit' ? 'Save Changes' : 'Create Service Catalogue')}
               </Button>
             )}
           </div>

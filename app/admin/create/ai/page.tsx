@@ -1,13 +1,13 @@
 import React from 'react';
 import Navbar from '@/components/navigation/Navbar';
-import AiMenuForm from '@/components/admin/form/AiMenuForm';
+import AiServicesForm from '@/components/admin/form/AiServicesForm';
 
-export default function AiCreateMenuPage() {
+export default function AiCreateServicesPage() {
   return (
     <>
       <Navbar />
       <div className="container mx-auto p-4 py-32">
-        <AiMenuForm />
+        <AiServicesForm />
       </div>
     </>
   );

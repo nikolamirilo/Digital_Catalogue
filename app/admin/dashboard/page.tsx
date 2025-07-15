@@ -3,7 +3,7 @@ import { createClient } from "@/utils/supabase/server";
 import { currentUser } from "@clerk/nextjs/server";
 import Navbar from "@/components/navigation/Navbar";
 import Dashboard from "@/components/admin/dashboard/Dashboard";
-import type { SupabaseUser, PricingPlan, Restaurant, Analytics } from "@/types";
+import type { SupabaseUser, PricingPlan, ServiceCatalogue, Analytics } from "@/types";
 
 export default async function page() {
   const cookieStore = await cookies();
@@ -11,14 +11,14 @@ export default async function page() {
 
   // Get current user by session (assuming Clerk user id is stored in users table)
   const clerkUser = await currentUser();
-  let restaurants: Restaurant[] = [];
+  let restaurants: ServiceCatalogue[] = [];
   let analytics: Analytics[] = [];
   let supabaseUser: SupabaseUser | null = null;
   let pricingPlan: PricingPlan | null = null;
 
   if (clerkUser && clerkUser.id) {
     const { data: restaurantData } = await supabase
-      .from("restaurants")
+      .from("service-catalogues")
       .select("*")
       .eq("created_by", clerkUser.id);
     restaurants = restaurantData || [];

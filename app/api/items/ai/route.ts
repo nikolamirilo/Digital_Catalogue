@@ -2,9 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import Groq from 'groq-sdk';
 import { createClient } from '@/utils/supabase/server';
 import { cookies } from 'next/headers';
-import { RestaurantFormData } from '@/types';
+import { ServicesFormData } from '@/types';
 import { currentUser } from '@clerk/nextjs/server';
-import { layouts, themes } from '@/constants/client';
 import schema from '@/utils/catalogue.schema.json';
 
 export async function POST(req: NextRequest) {
@@ -22,36 +21,38 @@ export async function POST(req: NextRequest) {
     });
 
     // Get example restaurant data properly
-    const { data: exampleRestaurant } = await supabase
-      .from('restaurants')
+    const { data: exampleItem } = await supabase
+      .from('service-catalogues')
       .select("*")
       .eq('name', 'plato')
       .single();
 
     const generationPrompt = `
-      You are an expert in creating service offers (restaurant menus, beauty center service offer, etc.).
+      You are an expert in creating service offers (restaurant services, beauty center service offer, etc.).
       Based on the following prompt, generate a complete service offer configuration in JSON format.
-      The JSON object should strictly follow the RestaurantFormData type definition from the project.
+      The JSON object should strictly follow the ServicesFormData type definition from the project.
       
       Prompt: "${prompt}"
       
       Schema: ${JSON.stringify(schema)}
       
-      ${exampleRestaurant ? `Example/Expected structure: ${JSON.stringify(exampleRestaurant)}` : ''}
+      ${exampleItem ? `Example/Expected structure: ${JSON.stringify(exampleItem)}` : ''}
 
       For all images use placeholder: https://static1.squarespace.com/static/5898e29c725e25e7132d5a5a/58aa11bc9656ca13c4524c68/58aa11e99656ca13c45253e2/1487540713345/600x400-Image-Placeholder.jpg?format=original
       
       IMPORTANT REQUIREMENTS:
       1. Return ONLY the JSON object, no additional text, explanations, or formatting
       2. Start your response directly with { and end with }
-      3. Service offer should be created in the language and alphabet of the prompt. If in Serbian, use Serbian Cyrillic and so on (for menu items, category names, for everything!!!).
-      4. The menu field should be an ARRAY of categories, NOT an object
+      3. Service offer should be created in the language and alphabet of the prompt.
+      4. The services field should be an ARRAY of categories, NOT an object
       5. Do NOT include id, created_at, updated_at, or created_by fields
       6. Each category should have: name, layout, items array
       7. Each item should have: name, description, price, image
       8. Add at least 3 categories with at least 5 items each
       9. Depending on the prompt use either dark or light theme. 
     `;
+
+    //curl "https://api.unsplash.com/search/photos?page=1&per_page=2&query=pizza&client_id=l0xdnStSc7LRokloanyQWlF0LC-son5p8AP0cI-orjU"
 
     const chatCompletion = await groq.chat.completions.create({
       messages: [
@@ -60,16 +61,16 @@ export async function POST(req: NextRequest) {
           content: generationPrompt,
         },
       ],
-      model: 'llama3-8b-8192',
+      model: 'deepseek-r1-distill-llama-70b',
       temperature: 0.7,
-      max_tokens: 4000,
+      max_tokens: 10000,
       top_p: 1,
       stream: false,
     });
 
     const text = chatCompletion.choices[0]?.message?.content || '';
     
-    let generatedData: RestaurantFormData;
+    let generatedData: ServicesFormData;
     try {
       // Clean up the response to extract JSON
       let cleanedText = text
@@ -89,10 +90,10 @@ export async function POST(req: NextRequest) {
       
       generatedData = JSON.parse(cleanedText);
       
-      // Validate that menu is an array
-      if (!Array.isArray(generatedData.menu)) {
-        console.error('Menu is not an array:', generatedData.menu);
-        return NextResponse.json({ error: 'Invalid menu structure generated' }, { status: 500 });
+      // Validate that services is an array
+      if (!Array.isArray(generatedData.services)) {
+        console.error('Services is not an array:', generatedData.services);
+        return NextResponse.json({ error: 'Invalid services structure generated' }, { status: 500 });
       }
       
     } catch (e) {
@@ -113,20 +114,20 @@ export async function POST(req: NextRequest) {
     
     // Check if slug already exists and make it unique
     while (true) {
-      const { data: existingRestaurant } = await supabase
-        .from('restaurants')
+      const { data: existingServiceCatalogue } = await supabase
+        .from('service-catalogues')
         .select('name')
         .eq('name', restaurantSlug)
         .single();
       
-      if (!existingRestaurant) break;
+      if (!existingServiceCatalogue) break;
       
       restaurantSlug = `${baseSlug}-${counter}`;
       counter++;
     }
 
-    // Transform menu array to object structure expected by database
-    const transformedMenu = generatedData.menu.reduce((acc, category) => {
+    // Transform services array to object structure expected by database
+    const transformedServices = generatedData.services.reduce((acc, category) => {
       const categorySlug = category.name.toLowerCase().replace(/\s+/g, '-');
       acc[categorySlug] = {
         layout: category.layout,
@@ -136,7 +137,7 @@ export async function POST(req: NextRequest) {
     }, {} as Record<string, { layout: string; items: any[] }>);
 
     const { data, error } = await supabase
-      .from('restaurants')
+      .from('service-catalogues')
       .insert([
         {
           name: restaurantSlug,
@@ -149,7 +150,7 @@ export async function POST(req: NextRequest) {
           legal_name: generatedData.legal_name,
           contact: generatedData.contact,
           subtitle: generatedData.subtitle,
-          menu: transformedMenu,
+          services: transformedServices,
         },
       ])
       .select();
@@ -159,9 +160,9 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    return NextResponse.json({ restaurantUrl: `/restaurants/${restaurantSlug}` });
+    return NextResponse.json({ restaurantUrl: `/service-catalogues/${restaurantSlug}` });
   } catch (error) {
-    console.error('Error generating menu:', error);
+    console.error('Error generating services:', error);
     
     // Handle specific Groq API errors
     if (error instanceof Error) {
@@ -177,6 +178,6 @@ export async function POST(req: NextRequest) {
       }
     }
     
-    return NextResponse.json({ error: 'Failed to generate menu' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to generate services' }, { status: 500 });
   }
 }

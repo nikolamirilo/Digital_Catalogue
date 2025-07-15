@@ -11,14 +11,14 @@ import CardsSwitcher from "../cards";
 import SectionHeader from "./SectionHeader";
 import { contentVariants, getGridStyle } from "./helpers";
 
-const MenuSection = ({
-  menuData,
+const ServicesSection = ({
+  servicesData,
   currency,
   type,
 }: {
-  menuData: any;
+  servicesData: any;
   currency: string;
-  type: "demo" | "restaurant";
+  type: "demo" | "item";
 }) => {
   const { layout } = useMainContext();
   const [expandedSections, setExpandedSections] = useState<{
@@ -26,20 +26,23 @@ const MenuSection = ({
   }>({});
 
   const sectionsData = useMemo(() => {
-    if (!menuData) return [];
+    if (!servicesData) return [];
     const customOrder = ["breakfast", "lunch", "snacks", "desserts"];
     
-    return Object.keys(menuData)
-      .map((item) => ({
-        title: item.charAt(0).toUpperCase() + item.slice(1).replace(/_/g, " "),
-        code: item,
-      }))
+    return Object.keys(servicesData).map((item) => ({
+      title: item
+        .replace(/[-_]/g, " ")                      // Replace dashes/underscores with space
+        .split(" ")                                 // Split into words
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))  // Capitalize each word
+        .join(" "),                                 // Join back into a string
+      code: item,
+    }))
       .sort((a, b) => {
         const aIndex = customOrder.indexOf(a.code);
         const bIndex = customOrder.indexOf(b.code);
         return (aIndex === -1 ? 999 : aIndex) - (bIndex === -1 ? 999 : bIndex);
       });
-  }, [menuData]);
+  }, [servicesData]);
 
   const handleToggleSection = (code: string) => {
     setExpandedSections((prev) => ({
@@ -48,13 +51,13 @@ const MenuSection = ({
     }));
   };
 
-  if (!menuData) return null;
+  if (!servicesData) return null;
 
   return (
     <main className="max-w-6xl mx-auto px-4 py-4">
       {sectionsData.map((item) => {
         // The 'layout' variable now comes directly from the context
-        const currentLayout = type === "demo" ? layout : menuData[item.code]?.layout;
+        const currentLayout = type === "demo" ? layout : servicesData[item.code]?.layout;
 
         return (
           <section key={item.code} className="mb-5" id={item.code}>
@@ -83,7 +86,7 @@ const MenuSection = ({
                       slidesPerView={"auto"}
                       className="mt-4 px-0 sm:px-2"
                     >
-                      {menuData[item.code].items.map((record, i) => (
+                      {servicesData[item.code].items.map((record, i) => (
                <SwiperSlide
                       key={i}
                       className="!w-[160px] sm:!w-[220px] md:!w-[260px] lg:!w-[320px] flex-shrink-0 flex flex-col !h-auto"
@@ -99,7 +102,7 @@ const MenuSection = ({
                     </Swiper>
                   ) : (
                     <div className={getGridStyle(currentLayout)}>
-                      {menuData[item.code].items.map((record, i) => (
+                      {servicesData[item.code].items.map((record, i) => (
                         <CardsSwitcher
                           key={i}
                           variant={currentLayout}
@@ -120,4 +123,4 @@ const MenuSection = ({
   );
 };
 
-export default MenuSection;
+export default ServicesSection;

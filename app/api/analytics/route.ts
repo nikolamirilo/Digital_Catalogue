@@ -29,7 +29,7 @@ export async function GET(request: NextRequest) {
 FROM events
 WHERE event = '$pageview'
   AND properties.$current_url NOT ILIKE '%admin%'
-  AND properties.$current_url LIKE '%/restaurants/%'
+  AND properties.$current_url LIKE '%/service-catalogues/%'
   AND properties.$current_url NOT ILIKE '%localhost%'
   AND timestamp >= toDateTime('${startDate.toISOString().replace('Z', '000Z')}') 
   AND timestamp < toDateTime('${endDate.toISOString().replace('Z', '000Z')}')
@@ -58,8 +58,8 @@ ORDER BY date DESC, hour DESC`,
     const restaurantNames = [
       ...new Set(
         analyticsData.map(item => {
-          // Assuming current_url is like "/restaurants/[name]"
-          const match = item.current_url.match(/\/restaurants\/([^/]+)/);
+          // Assuming current_url is like "/service-catalogues/[name]"
+          const match = item.current_url.match(/\/service-catalogues\/([^/]+)/);
           return match ? match[1] : null;
         }).filter(Boolean)
       )
@@ -67,7 +67,7 @@ ORDER BY date DESC, hour DESC`,
 
     // 2. Query all relevant restaurants in one go
     const { data: restaurants, error: restaurantError } = await supabase
-      .from("restaurants")
+      .from("service-catalogues")
       .select("name, created_by")
       .in("name", restaurantNames);
 
@@ -83,7 +83,7 @@ ORDER BY date DESC, hour DESC`,
 
     // 4. Add user_id to each analytics row
     const analyticsDataWithUserId = analyticsData.map(item => {
-      const match = item.current_url.match(/\/restaurants\/([^/]+)/);
+      const match = item.current_url.match(/\/service-catalogues\/([^/]+)/);
       const restaurantName = match ? match[1] : null;
       return {
         ...item,

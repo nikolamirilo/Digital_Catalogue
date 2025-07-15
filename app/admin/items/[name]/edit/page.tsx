@@ -1,15 +1,15 @@
 import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
 import {
-  RestaurantFormData,
-  MenuCategory,
-  MenuItem,
+  ServicesFormData,
+  ServicesCategory,
+  ServicesItem,
   ContactInfo,
 } from "@/types";
-import EditMenuForm from "@/components/admin/form/EditMenuForm";
+import EditServicesForm from "@/components/admin/form/EditServicesForm";
 import Navbar from "@/components/navigation/Navbar";
 
-export default async function EditMenuPage({
+export default async function EditServicesPage({
   params,
 }: {
   params: Promise<{ name: string }>;
@@ -18,7 +18,7 @@ export default async function EditMenuPage({
   const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
   const { data, error } = await supabase
-    .from("restaurants")
+    .from("service-catalogues")
     .select("*")
     .eq("name", name)
     .single();
@@ -31,10 +31,10 @@ export default async function EditMenuPage({
     );
   }
 
-  // Transform DB data to RestaurantFormData shape
-  const menuObj = data.menu || {};
-  const menu: MenuCategory[] = Object.entries(menuObj).map(
-    ([name, section]: [string, { layout: string; items: MenuItem[] }]) => ({
+  // Transform DB data to ServicesFormData shape
+  const servicesObj = data.services || {};
+  const services: ServicesCategory[] = Object.entries(servicesObj).map(
+    ([name, section]: [string, { layout: string; items: ServicesItem[] }]) => ({
       name,
       layout: section.layout || "variant_1",
       items: section.items || [],
@@ -49,7 +49,7 @@ export default async function EditMenuPage({
       value: String(value),
     }));
   }
-  const initialData: RestaurantFormData = {
+  const initialData: ServicesFormData = {
     name: data.name || "",
     theme: data.theme || "",
     logo: data.logo || "",
@@ -59,14 +59,14 @@ export default async function EditMenuPage({
     legal_name: data.legal_name || "",
     contact,
     subtitle: data.subtitle || "",
-    menu,
+    services,
   };
 
   return (
     <>
       <Navbar />
       <div className="container mx-auto p-4 py-32">
-        <EditMenuForm initialData={initialData} />
+        <EditServicesForm initialData={initialData} />
       </div>
     </>
   );

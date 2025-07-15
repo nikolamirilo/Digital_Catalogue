@@ -11,7 +11,7 @@ import {
   FiEye,
   FiCalendar,
 } from "react-icons/fi";
-import { deleteMenu, revalidateData, duplicateMenu } from "@/utils/server";
+import { deleteServiceCatalogue, revalidateData, duplicateServiceCatalogue } from "@/utils/server";
 import { TbBrandGoogleAnalytics } from "react-icons/tb";
 import { useState } from "react";
 import InformModal from "./InformModal";
@@ -45,7 +45,7 @@ export default function Dashboard({
     (sum, a) => sum + (a.unique_visitors || 0),
     0
   );
-  const totalRestaurants = restaurants?.length || 0;
+  const totalServiceCatalogues = restaurants?.length || 0;
 
   async function handleDeleteMenu(id: string) {
     setMenuToDelete(id);
@@ -54,7 +54,7 @@ export default function Dashboard({
 
   async function confirmDelete() {
     if (menuToDelete) {
-      await deleteMenu(menuToDelete);
+      await deleteServiceCatalogue(menuToDelete);
       revalidateData();
       setMenuToDelete(null);
       setIsModalOpen(false);
@@ -64,7 +64,7 @@ export default function Dashboard({
   async function handleDuplicateMenu(id: string) {
     setDuplicatingId(id);
     try {
-      await duplicateMenu(id);
+      await duplicateServiceCatalogue(id);
       await revalidateData();
       // Optionally show a toast or alert
       // alert('Menu duplicated!');
@@ -143,10 +143,10 @@ export default function Dashboard({
               </Card>
               <Card className="p-4 flex flex-col items-center max-w-72 w-full justify-between bg-product-background border border-product-border shadow-product-shadow">
                 <div className="text-base md:text-lg font-semibold text-product-foreground mb-2 text-center">
-                  Total Restaurants
+                  Total ServiceCatalogues
                 </div>
                 <div className="text-3xl font-bold text-product-primary">
-                  {totalRestaurants}
+                  {totalServiceCatalogues}
                 </div>
               </Card>
               <Card className="p-4 flex flex-col items-center max-w-72 w-full justify-between bg-product-background border border-product-border shadow-product-shadow">
@@ -161,15 +161,15 @@ export default function Dashboard({
           </div>
 
           <div>
-            <h2 className="text-2xl font-semibold mb-4 text-product-foreground">Your Restaurants</h2>
+            <h2 className="text-2xl font-semibold mb-4 text-product-foreground">Your ServiceCatalogues</h2>
             <div className="flex justify-start mb-4 gap-2">
-              <Link href="/admin/create-menu">
+              <Link href="/admin/create">
                 <Button className="bg-product-primary text-product-foreground hover:bg-primary-accent hover:shadow-lg hover:scale-105 hover:transform hover:-translate-y-1 transition-all duration-200">
                   <FiPlus size={30} />
                   Create Menu
                 </Button>
               </Link>
-              <Link href="/admin/create-menu/ai">
+              <Link href="/admin/create/ai">
                 <Button variant="outline" className="flex flex-row items-center gap-1">
                   <RiSparkling2Line size={30} />
                   Generate Menu with AI
@@ -202,7 +202,7 @@ export default function Dashboard({
                   </div>
                   <div className="flex flex-row-reverse gap-2 mt-2 items-center">
                     <Link
-                      href={`/restaurants/${restaurant.name}`}
+                      href={`/service-catalogues/${restaurant.name}`}
                       className="flex-1"
                     >
                       <Button className="w-full bg-product-primary text-product-foreground hover:bg-primary-accent hover:shadow-lg hover:scale-105 hover:transform hover:-translate-y-1 transition-all duration-200">
@@ -211,7 +211,7 @@ export default function Dashboard({
                       </Button>
                     </Link>
                     <Link
-                      href={`/admin/restaurants/${restaurant.name}/analytics`}
+                      href={`/admin/items/${restaurant.name}/analytics`}
                       className="flex-1"
                     >
                       <Button variant="secondary" className="w-full border border-product-primary text-product-foreground hover:bg-product-primary hover:text-product-foreground hover:shadow-lg hover:scale-105 hover:transform hover:-translate-y-1 transition-all duration-200">
@@ -228,7 +228,7 @@ export default function Dashboard({
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" className="bg-product-background border border-product-border">
                           <Link
-                            href={`/admin/restaurants/${restaurant.name}/edit`}
+                            href={`/admin/items/${restaurant.name}/edit`}
                             passHref
                           >
                             <DropdownMenuItem

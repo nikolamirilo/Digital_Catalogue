@@ -40,13 +40,6 @@ const themes = [
   { value: "theme-luxury", label: "Luxury Dark", image: "/themes/dark_2.jpg" },
 ];
 
-const layouts = [
-  { value: "variant_1", label: "Layout Variant 1", image: "/layouts/layout_1.jpg" },
-  { value: "variant_2", label: "Layout Variant 2", image: "/layouts/layout_2.jpg" },
-  { value: "variant_3", label: "Layout Variant 3", image: "/layouts/layout_3.jpg" },
-  { value: "variant_4", label: "Layout Variant 4", image: "/layouts/layout_4.jpg" },
-];
-
 interface Step1GeneralInfoProps {
   formData: {
     name: string;
@@ -94,11 +87,11 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
     <Card className="space-y-6 p-6" type="form">
       <h2 className="text-2xl font-semibold text-gray-800 flex items-center gap-2">
         <FileText className="text-orange-600" size={25}/>
-        Restaurant Details
+        ServiceCatalogue Details
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
-          <Label htmlFor="name">Restaurant Name<span className="text-red-500">*</span></Label>
+          <Label htmlFor="name">ServiceCatalogue Name<span className="text-red-500">*</span></Label>
           <Input
             id="name"
             type="text"
@@ -113,7 +106,7 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
           )}
         </div>
         <div className="space-y-2">
-          <Label htmlFor="title">Title (e.g., Plato Restaurant)<span className="text-red-500">*</span></Label>
+          <Label htmlFor="title">Title (e.g., Plato ServiceCatalogue)<span className="text-red-500">*</span></Label>
           <Input
             id="title"
             type="text"

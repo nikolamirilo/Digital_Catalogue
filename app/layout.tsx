@@ -56,8 +56,8 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Digital Menu",
-  description: "Digital menu for restaurants and caffe shops",
+  title: "Service Catalogue",
+  description: "Service Catalogue for restaurants and caffe shops",
 };
 
 export default function RootLayout({

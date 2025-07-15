@@ -8,27 +8,27 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Plus, Trash2 } from "lucide-react";
 import { BiDish } from "react-icons/bi";
-import { MenuItem, MenuCategory } from "@/types";
+import { ServicesItem, ServicesCategory } from "@/types";
 import ImageDropzone from "@/components/common/ImageDropzone";
 import { IoClose } from "react-icons/io5";
 
-interface Step3MenuItemsProps {
+interface Step3ServicesItemsProps {
   formData: {
-    menu: { name: string; layout: string; items: MenuItem[] }[];
+    services: { name: string; layout: string; items: ServicesItem[] }[];
   };
   handleAddItem: (categoryIndex: number) => void;
   handleRemoveItem: (categoryIndex: number, itemIndex: number) => void;
   handleItemChange: (
     categoryIndex: number,
     itemIndex: number,
-    field: keyof MenuItem,
+    field: keyof ServicesItem,
     value: string | number
   ) => void;
   imagePreviews: { [key: string]: string };
   setImagePreviews: React.Dispatch<React.SetStateAction<{ [key: string]: string }>>;
 }
 
-const Step3MenuItems: React.FC<Step3MenuItemsProps> = ({
+const Step3ServicesItems: React.FC<Step3ServicesItemsProps> = ({
   formData,
   handleAddItem,
   handleRemoveItem,
@@ -40,12 +40,12 @@ const Step3MenuItems: React.FC<Step3MenuItemsProps> = ({
     <div className="space-y-6 p-6 border rounded-lg shadow-sm bg-gray-50">
       <h2 className="text-2xl font-semibold text-gray-800 flex items-center gap-2">
         <BiDish className="text-orange-600" size={30} />
-        Add Menu Items
+        Add Services Items
       </h2>
-      {formData.menu.length === 0 ? (
+      {formData.services.length === 0 ? (
         <p className="text-center text-gray-600">Please add categories in Step 2 first.</p>
       ) : (
-        formData.menu.map((category, categoryIndex) => (
+        formData.services.map((category, categoryIndex) => (
           <Card key={categoryIndex} className="p-4 space-y-4 shadow-md bg-white">
             <h3 className="text-xl font-semibold text-gray-700">Category: {category.name || "Unnamed Category"}</h3>
             <Button
@@ -164,4 +164,4 @@ const Step3MenuItems: React.FC<Step3MenuItemsProps> = ({
   );
 };
 
-export default Step3MenuItems;
+export default Step3ServicesItems;

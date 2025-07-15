@@ -8,22 +8,22 @@ export type Record = {
 };
 
 export type NavbarProps = {
-  restaurantData?:any;
+  itemData?:any;
 }
 
-export interface MenuItem {
+export interface ServicesItem {
   name: string;
   description: string;
   price: number;
   image: string;
 }
 
-export interface MenuCategory {
+export interface ServicesCategory {
   name: string;
   layout: string; // e.g., 'variant_1', 'variant_2', etc.
-  items: MenuItem[];
+  items: ServicesItem[];
 }
-export interface Restaurant {
+export interface ServiceCatalogue {
   id: string;
   name: string;
   created_by: string;
@@ -35,7 +35,7 @@ export interface Restaurant {
   legal_name?: string;
   contact?: any;
   subtitle?: string;
-  menu?: any;
+  services?: any;
   created_at: string;
   updated_at: string;
 }
@@ -72,7 +72,7 @@ export interface ContactInfo {
   value: string;
 }
 
-export interface RestaurantFormData {
+export interface ServicesFormData {
   name: string;
   theme?: string;
   logo?: string;
@@ -82,7 +82,7 @@ export interface RestaurantFormData {
   legal_name?: string;
   contact: ContactInfo[];
   subtitle?: string;
-  menu: MenuCategory[];
+  services: ServicesCategory[];
 }
 
 export const contactTypes = [
@@ -95,7 +95,7 @@ export const contactTypes = [
   { value: "twitter", label: "Twitter" },
 ];
 
-export interface IMenuItem {
+export interface IServicesItem {
   text: string;
   url: string;
 }
