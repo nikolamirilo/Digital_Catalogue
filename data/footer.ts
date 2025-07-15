@@ -1,8 +1,8 @@
-import { IMenuItem, ISocials } from "@/types";
+import { IServicesItem, ISocials } from "@/types";
 
 export const footerDetails: {
     subheading: string;
-    quickLinks: IMenuItem[];
+    quickLinks: IServicesItem[];
     email: string;
     telephone: string;
     socials: ISocials;
