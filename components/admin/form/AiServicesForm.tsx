@@ -75,7 +75,7 @@ export default function AiServicesForm() {
   const businessExamples = [
     {
       icon: <RiStore2Line size={18} />,
-      category: "ServiceCatalogue",
+      category: "Restaurant",
       prompt: "A cozy Italian restaurant with fresh pasta, wood-fired pizzas, and wine pairings in a warm, family-friendly atmosphere"
     },
     {

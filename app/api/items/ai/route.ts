@@ -5,6 +5,7 @@ import { cookies } from 'next/headers';
 import { ServicesFormData } from '@/types';
 import { currentUser } from '@clerk/nextjs/server';
 import schema from '@/utils/catalogue.schema.json';
+import { fetchImageFromUnsplash } from '@/helpers/server';
 
 export async function POST(req: NextRequest) {
   const { prompt } = await req.json();
@@ -37,8 +38,6 @@ export async function POST(req: NextRequest) {
       Schema: ${JSON.stringify(schema)}
       
       ${exampleItem ? `Example/Expected structure: ${JSON.stringify(exampleItem)}` : ''}
-
-      For all images use placeholder: https://static1.squarespace.com/static/5898e29c725e25e7132d5a5a/58aa11bc9656ca13c4524c68/58aa11e99656ca13c45253e2/1487540713345/600x400-Image-Placeholder.jpg?format=original
       
       IMPORTANT REQUIREMENTS:
       1. Return ONLY the JSON object, no additional text, explanations, or formatting
@@ -50,9 +49,9 @@ export async function POST(req: NextRequest) {
       7. Each item should have: name, description, price, image
       8. Add at least 3 categories with at least 5 items each
       9. Depending on the prompt use either dark or light theme. 
+      10. Name all items in full name of the dish e.g. "Spaghetti Carbonara", "Caesar Salad", "Pizza Margarita" etc.
+      10. For all images add placeholder "https://static1.squarespace.com/static/5898e29c725e25e7132d5a5a/58aa11bc9656ca13c4524c68/58aa11e99656ca13c45253e2/1487540713345/600x400-Image-Placeholder.jpg?format=original"
     `;
-
-    //curl "https://api.unsplash.com/search/photos?page=1&per_page=2&query=pizza&client_id=l0xdnStSc7LRokloanyQWlF0LC-son5p8AP0cI-orjU"
 
     const chatCompletion = await groq.chat.completions.create({
       messages: [
@@ -61,9 +60,9 @@ export async function POST(req: NextRequest) {
           content: generationPrompt,
         },
       ],
-      model: 'deepseek-r1-distill-llama-70b',
+      model: 'gemma2-9b-it',
       temperature: 0.7,
-      max_tokens: 10000,
+      max_tokens: 8000,
       top_p: 1,
       stream: false,
     });
@@ -89,6 +88,13 @@ export async function POST(req: NextRequest) {
       cleanedText = cleanedText.substring(jsonStart, jsonEnd + 1);
       
       generatedData = JSON.parse(cleanedText);
+
+      for (const category of generatedData.services) {
+        for (const item of category.items) {
+            item.image = await fetchImageFromUnsplash(item.name);
+          
+        }
+    } 
       
       // Validate that services is an array
       if (!Array.isArray(generatedData.services)) {
