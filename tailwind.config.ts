@@ -39,6 +39,7 @@ export default withUt(
           "navbar-button-hover-transform": "var(--navbar-button-hover-transform)",
           "navbar-button-focus-ring": "var(--navbar-button-focus-ring)",
           "navbar-button-hover-scale": "var(--navbar-button-hover-scale)",
+          "navbar-button-active": "var(--navbar-button-active)",
 
           primary: "var(--primary)",
           secondary: "var(--secondary)",

@@ -82,6 +82,30 @@ const buttonVariants = cva(
           border border-transparent
           hover:border-navbar-button-hover-border
         `,
+        store: `
+          flex items-center justify-center min-w-[205px] mt-3 px-6 h-14 rounded-full w-full sm:w-fit
+          text-white bg-product-foreground
+        `,
+        'store-light': `
+          flex items-center justify-center min-w-[205px] mt-3 px-6 h-14 rounded-full w-full sm:w-fit
+          text-product-foreground bg-white
+        `,
+        cta: `
+          w-full py-3 px-4 rounded-full font-semibold transition-all duration-300 transform overflow-hidden group/btn
+          bg-product-primary hover:bg-product-primary-accent text-product-foreground shadow-lg hover:shadow-xl
+        `,
+        'cta-secondary': `
+          w-full py-3 px-4 rounded-full font-semibold transition-all duration-300 transform overflow-hidden group/btn
+          bg-hero-product-background hover:bg-product-primary text-product-foreground shadow-md hover:shadow-lg
+        `,
+        header: `
+          text-black bg-product-primary hover:bg-product-primary-accent px-8 py-3 rounded-full transition-colors
+        `,
+        'header-mobile': `
+          text-black bg-product-primary hover:bg-product-primary-accent px-5 py-2 rounded-full block w-fit
+        `,
+        contact: `
+          group relative bg-product-primary hover:bg-primary-accent text-product-foreground px-12 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-product-hover-scale hover:shadow-product-hover-shadow disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none min-w-[200px]`
       },
       size: {
         default: "h-9 px-4 py-2",

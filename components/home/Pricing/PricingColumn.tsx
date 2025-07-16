@@ -4,6 +4,7 @@ import { BsFillCheckCircleFill } from "react-icons/bs";
 import { useState } from "react";
 
 import { IPricing } from "@/types";
+import { Button } from '@/components/ui/button';
 
 interface Props {
     tier: IPricing;
@@ -20,9 +21,9 @@ const PricingColumn: React.FC<Props> = ({ tier, highlight }: Props) => {
                 "group relative w-full max-w-sm mx-auto bg-white text-product-foreground rounded-xl border border-gray-200 lg:max-w-full transition-all duration-300 ease-out",
                 { 
                     "shadow-xl": highlight,
-                    "shadow-lg hover:shadow-2xl hover:scale-105 hover:-translate-y-1": !highlight,
-                    "shadow-2xl scale-110 -translate-y-2": highlight && isHovered,
-                    "shadow-xl scale-105 -translate-y-1": !highlight && isHovered
+                    "shadow-lg hover:shadow-xl hover:scale-101 hover:-translate-y-0.5": !highlight,
+                    "shadow-2xl scale-102 -translate-y-1": highlight && isHovered,
+                    "shadow-xl scale-101 -translate-y-0.5": !highlight && isHovered
                 }
             )}
             onMouseEnter={() => setIsHovered(true)}
@@ -41,11 +42,13 @@ const PricingColumn: React.FC<Props> = ({ tier, highlight }: Props) => {
                     "text-3xl md:text-5xl font-bold mb-6 transition-all duration-300",
                     { 
                         "text-product-secondary": highlight,
-                        "text-product-primary": highlight && isHovered,
-                        "scale-105": isHovered
+                        "text-product-primary": highlight && isHovered
                     }
                 )}>
-                    <span className="inline-block transition-transform duration-300">
+                    <span className={clsx(
+                        "inline-block transition-transform duration-300",
+                        { "scale-105": isHovered }
+                    )}>
                         {typeof price === 'number' ? `$${price}` : price}
                     </span>
                     {typeof price === 'number' && (
@@ -55,17 +58,11 @@ const PricingColumn: React.FC<Props> = ({ tier, highlight }: Props) => {
                     )}
                 </p>
 
-                <button className={clsx(
-                    "relative w-full py-3 px-4 rounded-full font-semibold transition-all duration-300 transform overflow-hidden group/btn",
-                    { 
-                        "bg-product-primary hover:bg-product-primary-accent text-product-foreground shadow-lg hover:shadow-xl": highlight,
-                        "bg-hero-product-background hover:bg-product-primary text-product-foreground shadow-md hover:shadow-lg": !highlight
-                    }
-                )}>
+                <Button variant={highlight ? 'cta' : 'cta-secondary'} className="transition-transform duration-200 group-hover/btn:translate-x-0.5">
                     <span className="relative z-10 flex items-center justify-center gap-2">
                         Get Started
                         <svg 
-                            className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" 
+                            className="w-4 h-4 transition-transform duration-200 group-hover/btn:translate-x-0.5" 
                             fill="none" 
                             stroke="currentColor" 
                             viewBox="0 0 24 24"
@@ -73,7 +70,7 @@ const PricingColumn: React.FC<Props> = ({ tier, highlight }: Props) => {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                         </svg>
                     </span>
-                </button>
+                </Button>
             </div>
 
             {/* Features Section */}

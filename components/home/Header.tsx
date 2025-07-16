@@ -8,6 +8,7 @@ import { FaFingerprint } from 'react-icons/fa';
 import Container from './Container';
 import { siteDetails } from '@/data/siteDetails';
 import { menuItems } from '@/data/menuItems';
+import { Button } from '@/components/ui/button';
 
 const Header: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -38,9 +39,11 @@ const Header: React.FC = () => {
                             </li>
                         ))}
                         <li>
-                            <Link href="#cta" className="text-black bg-product-primary hover:bg-product-primary-accent px-8 py-3 rounded-full transition-colors">
-                                Download
-                            </Link>
+                            <Button asChild variant="header">
+                                <Link href="#cta">
+                                    Download
+                                </Link>
+                            </Button>
                         </li>
                     </ul>
 
@@ -84,9 +87,11 @@ const Header: React.FC = () => {
                             </li>
                         ))}
                         <li>
-                            <Link href="#cta" className="text-black bg-product-primary hover:bg-product-primary-accent px-5 py-2 rounded-full block w-fit" onClick={toggleMenu}>
-                                Get Started
-                            </Link>
+                            <Button asChild variant="header-mobile" onClick={toggleMenu}>
+                                <Link href="#cta">
+                                    Get Started
+                                </Link>
+                            </Button>
                         </li>
                     </ul>
                 </div>

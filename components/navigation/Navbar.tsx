@@ -37,15 +37,16 @@ interface MobileNavLinkProps {
 const NavLink = ({ href, children, icon: Icon, className = "" }: NavLinkProps) => {
   const pathname = usePathname();
   const isActive = pathname === href;
-  
+  // Use a special hover color for Home, Contact, Demo, and Dashboard
+  const isSpecial = href === "/" || href === "/contact" || href === "/demo" || href === "/admin/dashboard";
   return (
     <Link href={href}>
       <Button 
         variant="navbar" 
-        className={`font-semibold text-sm px-3 py-2 h-9 transition-all duration-200 ${
+        className={`font-semibold text-sm sm:text-sm md:text-base px-3 py-2 h-9 transition-all duration-200 ${
           isActive 
-            ? "bg-product-hover-background text-product-primary border border-product-primary shadow-sm" 
-            : "hover:bg-navbar-button-hover-bg hover:text-navbar-button-hover-text hover:shadow-md hover:scale-105 hover:transform hover:-translate-y-1 hover:border-navbar-button-hover-border"
+            ? "bg-product-hover-background text-navbar-button-active border border-product-primary shadow-sm" 
+            : `${isSpecial ? "hover:bg-yellow-200 hover:text-black hover:font-bold" : "hover:bg-navbar-button-hover-bg hover:text-navbar-button-hover-text"} hover:shadow-md hover:scale-105 hover:transform hover:-translate-y-1 hover:border-navbar-button-hover-border`
         } ${className}`}
       >
         {Icon && <Icon className="w-4 h-4" />}
@@ -85,7 +86,7 @@ const Navbar = () => {
       <div className="flex items-center gap-2 sm:gap-3">
         <Link href="/" className="flex items-center gap-2 sm:gap-3 transition-all duration-200 hover:scale-105 hover:opacity-80 group">
           <div className="relative">
-            <Avatar className="w-12 h-auto sm:w-16 md:w-20 transition-all duration-200 group-hover:shadow-md">
+            <Avatar className="w-12 h-12 transition-all duration-200 group-hover:shadow-md">
               <AvatarImage src="/logo.svg" alt="Logo" />
               <AvatarFallback className="bg-product-foreground text-white font-bold text-xs sm:text-sm">DM</AvatarFallback>
             </Avatar>

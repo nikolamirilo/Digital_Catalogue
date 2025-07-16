@@ -1,6 +1,7 @@
 "use client";
 import { sendEmail } from "@/actions/email";
 import { useState } from "react";
+import { Button } from '@/components/ui/button';
 
 const Contact = () => {
   const [name, setName] = useState("");
@@ -62,12 +63,12 @@ const Contact = () => {
                 Thank you for reaching out! We have received your message and
                 will respond to you via email shortly.
               </p>
-              <button
+              <Button
                 onClick={() => setIsOpen(false)}
-                className="bg-product-primary hover:bg-primary-accent text-product-foreground px-6 py-2 rounded-lg transition-all duration-200 hover:shadow-md hover:scale-105"
+                variant="contact"
               >
                 Close
-              </button>
+              </Button>
             </div>
           </div>
         </div>
@@ -203,10 +204,10 @@ const Contact = () => {
 
             {/* Submit Button */}
             <div className="flex justify-center pt-4">
-              <button
+              <Button
                 type="submit"
                 disabled={isLoading}
-                className="group relative bg-product-primary hover:bg-primary-accent text-product-foreground px-12 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-product-hover-scale hover:shadow-product-hover-shadow disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none min-w-[200px]"
+                variant="contact"
               >
                 {isLoading ? (
                   <div className="flex items-center justify-center">
@@ -252,7 +253,7 @@ const Contact = () => {
                     </svg>
                   </div>
                 )}
-              </button>
+              </Button>
             </div>
           </div>
         </div>

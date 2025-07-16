@@ -150,7 +150,8 @@ export default function AiServicesForm() {
               <Button
                 type="submit"
                 disabled={isSubmitting || !prompt.trim()}
-                className="w-full h-12 bg-product-primary hover:bg-primary-accent text-button-text font-medium rounded-lg shadow-md hover:shadow-xl transition-all duration-200 disabled:opacity-50"
+                variant="cta"
+                className="h-12 font-medium rounded-lg"
               >
                 {isSubmitting ? (
                   <div className='flex items-center gap-2 animate-pulse'>
@@ -182,10 +183,11 @@ export default function AiServicesForm() {
           <CardContent>
             <div className="grid gap-3">
               {businessExamples.map((example, index) => (
-                <button
+                <Button
                   key={index}
                   onClick={() => setPrompt(example.prompt)}
                   disabled={isSubmitting}
+                  variant="ghost"
                   className="text-left p-4 rounded-lg bg-transparent hover:bg-product-hover-background border border-product-border transition-all group"
                 >
                   <div className="flex items-start gap-3">
@@ -201,7 +203,7 @@ export default function AiServicesForm() {
                       </div>
                     </div>
                   </div>
-                </button>
+                </Button>
               ))}
             </div>
           </CardContent>

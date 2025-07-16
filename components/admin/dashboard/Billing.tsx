@@ -197,6 +197,7 @@ export default function Billing({ pricingPlan }: { pricingPlan: any }) {
               <span>View Billing History</span>
             </Button>
             <Button 
+              variant="default"
               className="bg-product-primary text-product-foreground"
             >
               Upgrade Plan
