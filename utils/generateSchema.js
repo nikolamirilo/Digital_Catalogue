@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { layouts, themes } = require('../constants/client');
+const { layouts, themes } = require('../constants/client.js');
 
 const layoutKeys = layouts.map(l => l.key);
 const themeKeys = themes.map(t => t.key);

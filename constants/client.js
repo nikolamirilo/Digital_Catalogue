@@ -1,6 +1,4 @@
-import { Layout, Theme } from "@/types";
-
-export const themes: Theme[] = [
+export const themes = [
     { key: "theme-elegant", label: "Elegant", image: "/themes/light_1.jpg", description: "A sophisticated and refined design for upscale dining experiences." },
     { key: "theme-luxury", label: "Luxury",  image: "/themes/dark_2.jpg", description: "A sophisticated and refined design for upscale dining experiences." },
     { key: "theme-modern", label: "Modern", image: "/themes/light_2.jpg", description: "A sophisticated and refined design for upscale dining experiences." },
@@ -8,7 +6,7 @@ export const themes: Theme[] = [
     { key: "theme-creative", label: "Creative",  image: "/themes/dark_2.jpg", description: "A sophisticated and refined design for upscale dining experiences." },
   ];
 
-  export const layouts: Layout[] = [
+  export const layouts = [
   { key: "variant_1", label: "Layout 1", image: "/layouts/layout_1.jpg", description: "Layout with image used to emphasize importance of menu" },
   { key: "variant_2", label: "Layout 2", image: "/layouts/layout_2.jpg", description: "Layout with image used to emphasize importance of menu" },
   { key: "variant_3", label: "Layout 3", image: "/layouts/layout_3.jpg", description: "Layout with image used to emphasize importance of menu" },
