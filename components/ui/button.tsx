@@ -105,7 +105,7 @@ const buttonVariants = cva(
           text-black bg-product-primary hover:bg-product-primary-accent px-5 py-2 rounded-full block w-fit
         `,
         contact: `
-          group relative bg-product-primary hover:bg-primary-accent text-product-foreground px-12 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-product-hover-scale hover:shadow-product-hover-shadow disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none min-w-[200px]`
+          group relative bg-product-primary hover:bg-primary-accent text-product-foreground px-12 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-product-hover-scale hover:shadow-product-hover-shadow disabled:opacity-30 disabled:cursor-not-allowed disabled:transform-none min-w-[200px]`
       },
       size: {
         default: "h-9 px-4 py-2",

@@ -10,6 +10,10 @@ const Contact = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
+  // Email validation regex (simple version)
+  const isValidEmail = (email: string) =>
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
   async function handleSubmit(e) {
     e.preventDefault();
     setIsLoading(true);
@@ -144,7 +148,7 @@ const Contact = () => {
                     onChange={(e) => setEmail(e.target.value)}
                     type="email"
                     placeholder="john@example.com"
-                    className="w-full px-4 py-4 bg-product-background border-2 border-product-border rounded-xl text-product-foreground placeholder-product-foreground-accent focus:outline-none focus:border-product-primary focus:bg-product-hover-background transition-all duration-300 shadow-product-shadow hover:shadow-product-hover-shadow"
+                    className={`w-full px-4 py-4 bg-product-background border-2 rounded-xl text-product-foreground placeholder-product-foreground-accent focus:outline-none focus:border-product-primary focus:bg-product-hover-background transition-all duration-300 shadow-product-shadow hover:shadow-product-hover-shadow ${email && !isValidEmail(email) ? 'border-red-500' : 'border-product-border'}`}
                     required
                   />
                   <div className="absolute inset-y-0 right-4 flex items-center">
@@ -162,6 +166,9 @@ const Contact = () => {
                       />
                     </svg>
                   </div>
+                  {email && !isValidEmail(email) && (
+                    <p className="text-xs text-red-500 mt-1 ml-1">Please enter a valid email address</p>
+                  )}
                 </div>
               </div>
             </div>
@@ -206,7 +213,7 @@ const Contact = () => {
             <div className="flex justify-center pt-4">
               <Button
                 type="submit"
-                disabled={isLoading}
+                disabled={isLoading || !name.trim() || !email.trim() || !message.trim() || !isValidEmail(email)}
                 variant="contact"
               >
                 {isLoading ? (
