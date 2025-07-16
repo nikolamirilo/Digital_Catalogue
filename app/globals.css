@@ -54,6 +54,21 @@ html, body {
   @apply mb-10;
 }
 
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--product-background);
+  border-radius: 0rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--product-primary);
+  border-radius: 1rem;
+}
+
+
 /* styles.css or your existing CSS file */
 a {
   position: relative;
@@ -361,15 +376,6 @@ a.selected:after {
   }
 }
 
-
-.custom-loader {
-  background: linear-gradient(#0000 calc(1*100%/6),#fff 0 calc(3*100%/6),#0000 0),
-            linear-gradient(#0000 calc(2*100%/6),#fff 0 calc(4*100%/6),#0000 0),
-            linear-gradient(#0000 calc(3*100%/6),#fff 0 calc(5*100%/6),#0000 0);
-  background-size: 10px 400%;
-  background-repeat: no-repeat;
-  animation: matrix 1s infinite linear;
-}
 
 @keyframes matrix {
   0% {

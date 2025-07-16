@@ -29,7 +29,6 @@ export const tiers: IPricing[] = [
         features: [
             'Unlimited catalogues',
             'Unlimited products/services',
-            'Full analytics suite',
             'Dedicated account manager',
             'Custom integrations',
             '24/7 support',

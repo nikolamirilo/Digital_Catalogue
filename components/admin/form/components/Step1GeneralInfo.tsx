@@ -16,29 +16,9 @@ import {
 import { Plus, Tag, Trash2, FileText } from "lucide-react";
 import { IoClose } from "react-icons/io5";
 import ImageDropzone from "@/components/common/ImageDropzone";
-
-import { ContactInfo, contactTypes } from "@/types";
+import { ContactInfo, contactTypes, Theme } from "@/types";
 import { Card } from "@/components/ui/card";
-
-const currencies = [
-  { value: "USD", label: "USD - United States Dollar" },
-  { value: "EUR", label: "EUR - Euro" },
-  { value: "GBP", label: "GBP - British Pound" },
-  { value: "JPY", label: "JPY - Japanese Yen" },
-  { value: "CAD", label: "CAD - Canadian Dollar" },
-  { value: "AUD", label: "AUD - Australian Dollar" },
-  { value: "CHF", label: "CHF - Swiss Franc" },
-  { value: "CNY", label: "CNY - Chinese Yuan" },
-  { value: "RUB", label: "RUB - Russian Ruble" },
-  { value: "RSD", label: "RSD - Serbian Dinar" },
-];
-
-const themes = [
-  { value: "theme-elegant ", label: "Creative Light", image: "/themes/light_1.jpg" },
-  { value: "theme-modern", label: "Luxury Light", image: "/themes/light_2.jpg" },
-  { value: "theme-organic", label: "Creative Dark", image: "/themes/dark_1.jpg" },
-  { value: "theme-luxury", label: "Luxury Dark", image: "/themes/dark_2.jpg" },
-];
+import { currencies, themes } from "@/constants/client";
 
 interface Step1GeneralInfoProps {
   formData: {
@@ -206,20 +186,20 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
         {/* Theme Selection */}
         <div className="space-y-2 col-span-full">
           <Label htmlFor="theme">
-            Theme<span className="text-red-500">*</span>: {themes.find((t) => t.value === formData.theme)?.label || "Not Selected"}
+            Theme<span className="text-red-500">*</span>: {themes.find((t: Theme) => t.key === formData.theme)?.label || "Not Selected"}
           </Label>
           <div className="grid grid-cols-2 gap-2">
             {themes.map((themeOption) => (
               <div
-                key={themeOption.value}
+                key={themeOption.key}
                 className={`relative cursor-pointer rounded-lg border-2 p-1 ${
-                  formData.theme === themeOption.value
+                  formData.theme === themeOption.key
                     ? "border-orange-600"
                     : "border-gray-200 hover:border-gray-300"
                 }`}
                 onClick={() =>
                   handleInputChange({
-                    target: { name: "theme", value: themeOption.value },
+                    target: { name: "theme", value: themeOption.key },
                   } as React.ChangeEvent<HTMLInputElement>)
                 }
               >

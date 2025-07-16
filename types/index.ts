@@ -18,6 +18,15 @@ export interface ServicesItem {
   image: string;
 }
 
+export type Theme ={
+  key: string;
+  label: string;
+  image: string;
+  description: string; 
+}
+
+export type Layout = Theme
+
 export interface ServicesCategory {
   name: string;
   layout: string; // e.g., 'variant_1', 'variant_2', etc.

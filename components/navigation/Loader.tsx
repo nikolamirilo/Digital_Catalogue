@@ -1,9 +1,10 @@
 import React from "react";
+import { ScaleLoader } from 'react-spinners'
 
 const Loader = () => {
   return (
-    <div className="h-screen flex justify-center items-center w-full">
-      <div className="custom-loader w-[40px] h-[38px]"></div>
+    <div className="h-screen flex justify-center items-center w-full bg-product-background">
+      <ScaleLoader height={50} width={8} className="!text-product-primary" color="#ffc107"/>
     </div>
   );
 };

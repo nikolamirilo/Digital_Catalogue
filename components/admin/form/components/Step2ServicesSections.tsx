@@ -66,17 +66,17 @@ const Step2ServicesSections: React.FC<Step2ServicesSectionsProps> = ({
           </div>
           {/* Layout Selection for this category */}
           <div className="space-y-2">
-            <Label htmlFor={`category-layout-${categoryIndex}`}>Layout: {layouts.find((l) => l.value === category.layout)?.label || "Not Selected"}</Label>
+            <Label htmlFor={`category-layout-${categoryIndex}`}>Layout: {layouts.find((l) => l.key === category.layout)?.label || "Not Selected"}</Label>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               {layouts.map((layoutOption) => (
                 <div
-                  key={layoutOption.value}
+                  key={layoutOption.key}
                   className={`relative cursor-pointer rounded-lg border-2 p-1 ${
-                    category.layout === layoutOption.value
+                    category.layout === layoutOption.key
                       ? "border-orange-600"
                       : "border-gray-200 hover:border-gray-300"
                   }`}
-                  onClick={() => handleCategoryChange(categoryIndex, 'layout', layoutOption.value)}
+                  onClick={() => handleCategoryChange(categoryIndex, 'layout', layoutOption.key)}
                 >
                   <img
                     src={layoutOption.image}

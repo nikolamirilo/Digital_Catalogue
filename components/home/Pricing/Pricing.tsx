@@ -1,5 +1,4 @@
 import PricingColumn from "./PricingColumn";
-
 import { tiers } from "@/data/pricing";
 
 const Pricing: React.FC = () => {
