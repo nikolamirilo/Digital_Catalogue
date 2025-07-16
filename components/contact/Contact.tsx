@@ -151,7 +151,7 @@ const Contact = () => {
                     className={`w-full px-4 py-4 bg-product-background border-2 rounded-xl text-product-foreground placeholder-product-foreground-accent focus:outline-none focus:border-product-primary focus:bg-product-hover-background transition-all duration-300 shadow-product-shadow hover:shadow-product-hover-shadow ${email && !isValidEmail(email) ? 'border-red-500' : 'border-product-border'}`}
                     required
                   />
-                  <div className="absolute inset-y-0 right-4 flex items-center">
+                  <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 flex items-center">
                     <svg
                       className="w-5 h-5 text-product-icon"
                       fill="none"
@@ -166,6 +166,8 @@ const Contact = () => {
                       />
                     </svg>
                   </div>
+                </div>
+                <div style={{ minHeight: '1.25rem' }}>
                   {email && !isValidEmail(email) && (
                     <p className="text-xs text-red-500 mt-1 ml-1">Please enter a valid email address</p>
                   )}
