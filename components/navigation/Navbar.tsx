@@ -43,8 +43,8 @@ const NavLink = ({ href, children, icon: Icon, className = "" }: NavLinkProps) =
   // Only apply hover classes if not active
   const hoverClasses = !isActive
     ? isSpecial
-      ? "hover:bg-yellow-200 hover:text-black hover:font-bold hover:shadow-md hover:scale-105 hover:transform hover:-translate-y-1 hover:border-navbar-button-hover-border"
-      : "hover:bg-navbar-button-hover-bg hover:text-navbar-button-hover-text hover:shadow-md hover:scale-105 hover:transform hover:-translate-y-1 hover:border-navbar-button-hover-border"
+      ? "hover:bg-yellow-200 hover:text-black hover:font-bold hover:shadow-md hover:scale-[1.03] hover:transform hover:-translate-y-[2px] hover:border-navbar-button-hover-border"
+      : "hover:bg-navbar-button-hover-bg hover:text-navbar-button-hover-text hover:shadow-md hover:scale-[1.03] hover:transform hover:-translate-y-[2px] hover:border-navbar-button-hover-border"
     : "";
 
   return (
@@ -53,7 +53,7 @@ const NavLink = ({ href, children, icon: Icon, className = "" }: NavLinkProps) =
         variant="navbar" 
         className={`font-semibold text-sm sm:text-sm md:text-base px-3 py-2 h-9 transition-all duration-200 ${
           isActive 
-            ? "!bg-product-hover-background !text-navbar-button-active !border !border-product-primary shadow-sm hover:scale-105 hover:transform"
+            ? "!bg-product-hover-background !text-navbar-button-active !border !border-product-primary shadow-sm hover:scale-[1.03] hover:transform"
             : hoverClasses
         } ${className}`}
       >
@@ -74,7 +74,7 @@ const MobileNavLink = ({ href, children, icon: Icon, onClick }: MobileNavLinkPro
       <button className={`w-full flex items-center gap-3 p-2.5 sm:p-3 rounded-lg text-left transition-all duration-200 ${
         isActive
           ? "bg-product-hover-background text-product-primary border border-product-primary shadow-sm font-semibold"
-          : "hover:bg-navbar-button-hover-bg hover:text-navbar-button-hover-text hover:shadow-md hover:scale-105 hover:transform hover:-translate-y-1 border border-transparent hover:border-navbar-button-hover-border hover:font-bold"
+          : "hover:bg-navbar-button-hover-bg hover:text-navbar-button-hover-text hover:shadow-md hover:scale-[1.03] hover:transform hover:-translate-y-[2px] border border-transparent hover:border-navbar-button-hover-border hover:font-bold"
       }`}>
         {Icon && <Icon size={18} className={`${isActive ? "text-product-primary" : "text-gray-600"} sm:w-5 sm:h-5`} />}
         <span className={`font-medium text-sm sm:text-base ${isActive ? "text-product-primary" : "text-product-foreground"}`}>
@@ -92,7 +92,7 @@ const Navbar = () => {
   return (
     <nav className="w-full flex items-center justify-between px-4 sm:px-6 font-lora py-2 sm:py-3 bg-product-background shadow-lg border-b border-gray-100 fixed top-0 left-0 z-50">
       <div className="flex items-center gap-2 sm:gap-3">
-        <Link href="/" className="flex items-center gap-2 sm:gap-3 transition-all duration-200 hover:scale-105 hover:opacity-80 group">
+        <Link href="/" className="flex items-center gap-2 sm:gap-3 transition-all duration-200 hover:scale-[1.03] hover:opacity-80 group">
           <div className="relative">
             <Avatar className="w-12 h-12 transition-all duration-200 group-hover:shadow-md">
               <AvatarImage src="/logo.svg" alt="Logo" />
@@ -128,13 +128,13 @@ const Navbar = () => {
           ) : (
             <>
               <Link href="/auth">
-                <Button className="bg-white text-product-foreground border-2 border-product-primary hover:bg-product-primary hover:text-white hover:shadow-lg hover:scale-105 hover:transform hover:-translate-y-1 transition-all duration-200 font-semibold text-sm px-3 py-2 h-9">
+                <Button className="bg-white text-product-foreground border-2 border-product-primary hover:bg-product-primary hover:text-white hover:shadow-lg hover:scale-[1.03] hover:transform hover:-translate-y-[2px] transition-all duration-200 font-semibold text-sm px-3 py-2 h-9">
                 <FiUser className="w-4 h-4" />
                 Sign In
                 </Button>
               </Link>
               <Link href="/auth?mode=signup">
-                <Button className="bg-product-primary text-product-foreground hover:bg-primary-accent hover:shadow-lg hover:scale-105 hover:transform hover:-translate-y-1 transition-all duration-200 font-semibold text-sm px-3 py-2 h-9">
+                <Button className="bg-product-primary text-product-foreground hover:bg-primary-accent hover:shadow-lg hover:scale-[1.03] hover:transform hover:-translate-y-[2px] transition-all duration-200 font-semibold text-sm px-3 py-2 h-9">
                   <FiUserPlus className="w-4 h-4" />
                   Sign Up
                 </Button>
@@ -214,7 +214,7 @@ const Navbar = () => {
                       userButton.click();
                     }
                   }}
-                  className="w-full flex items-center gap-3 p-2.5 sm:p-3 rounded-lg text-left transition-all duration-200 hover:bg-navbar-button-hover-bg hover:text-navbar-button-hover-text hover:shadow-md hover:scale-105 hover:transform hover:-translate-y-1 border border-transparent hover:border-navbar-button-hover-border hover:font-bold cursor-pointer"
+                  className="w-full flex items-center gap-3 p-2.5 sm:p-3 rounded-lg text-left transition-all duration-200 hover:bg-navbar-button-hover-bg hover:text-navbar-button-hover-text hover:shadow-md hover:scale-[1.03] hover:transform hover:-translate-y-[2px] border border-transparent hover:border-navbar-button-hover-border hover:font-bold cursor-pointer"
                 >
                   <FiUser size={18} className="text-gray-600 sm:w-5 sm:h-5 flex-shrink-0" />
                   <span className="text-product-foreground font-medium text-sm sm:text-base flex-1 text-left">
@@ -238,7 +238,7 @@ const Navbar = () => {
             <>
               <div className="border-t border-gray-100 pt-3 sm:pt-4 mt-3 sm:mt-4">
                 <Link href="/auth" onClick={() => setMobileOpen(false)}>
-                  <Button className="w-full bg-white text-product-foreground border-2 border-product-primary hover:bg-product-primary hover:text-white hover:shadow-lg hover:scale-105 hover:transform hover:-translate-y-1 transition-all duration-200 font-semibold text-sm px-3 py-2 h-9 mb-2 sm:mb-3">
+                  <Button className="w-full bg-white text-product-foreground border-2 border-product-primary hover:bg-product-primary hover:text-white hover:shadow-lg hover:scale-[1.03] hover:transform hover:-translate-y-[2px] transition-all duration-200 font-semibold text-sm px-3 py-2 h-9 mb-2 sm:mb-3">
                     <FiUser className="w-4 h-4" />
                     Sign In
                   </Button>
@@ -247,7 +247,7 @@ const Navbar = () => {
                   href="/auth?mode=signup"
                   onClick={() => setMobileOpen(false)}
                 >
-                  <Button className="w-full bg-product-primary text-product-foreground hover:bg-primary-accent hover:shadow-lg hover:scale-105 hover:transform hover:-translate-y-1 transition-all duration-200 font-semibold text-sm px-3 py-2 h-9">
+                  <Button className="w-full bg-product-primary text-product-foreground hover:bg-primary-accent hover:shadow-lg hover:scale-[1.03] hover:transform hover:-translate-y-[2px] transition-all duration-200 font-semibold text-sm px-3 py-2 h-9">
                     <FiUserPlus className="w-4 h-4" />
                     Sign Up
                   </Button>
