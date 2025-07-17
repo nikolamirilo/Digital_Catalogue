@@ -39,14 +39,22 @@ const NavLink = ({ href, children, icon: Icon, className = "" }: NavLinkProps) =
   const isActive = pathname === href;
   // Use a special hover color for Home, Contact, Demo, and Dashboard
   const isSpecial = href === "/" || href === "/contact" || href === "/demo" || href === "/admin/dashboard";
+  
+  // Only apply hover classes if not active
+  const hoverClasses = !isActive
+    ? isSpecial
+      ? "hover:bg-yellow-200 hover:text-black hover:font-bold hover:shadow-md hover:scale-105 hover:transform hover:-translate-y-1 hover:border-navbar-button-hover-border"
+      : "hover:bg-navbar-button-hover-bg hover:text-navbar-button-hover-text hover:shadow-md hover:scale-105 hover:transform hover:-translate-y-1 hover:border-navbar-button-hover-border"
+    : "";
+
   return (
     <Link href={href}>
       <Button 
         variant="navbar" 
         className={`font-semibold text-sm sm:text-sm md:text-base px-3 py-2 h-9 transition-all duration-200 ${
           isActive 
-            ? "bg-product-hover-background text-navbar-button-active border border-product-primary shadow-sm" 
-            : `${isSpecial ? "hover:bg-yellow-200 hover:text-black hover:font-bold" : "hover:bg-navbar-button-hover-bg hover:text-navbar-button-hover-text"} hover:shadow-md hover:scale-105 hover:transform hover:-translate-y-1 hover:border-navbar-button-hover-border`
+            ? "!bg-product-hover-background !text-navbar-button-active !border !border-product-primary shadow-sm hover:scale-105 hover:transform"
+            : hoverClasses
         } ${className}`}
       >
         {Icon && <Icon className="w-4 h-4" />}
