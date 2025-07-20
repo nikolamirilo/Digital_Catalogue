@@ -18,7 +18,7 @@ export default async function EditServicesPage({
   const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
   const { data, error } = await supabase
-    .from("service-catalogues")
+    .from("service_catalogues")
     .select("*")
     .eq("name", name)
     .single();

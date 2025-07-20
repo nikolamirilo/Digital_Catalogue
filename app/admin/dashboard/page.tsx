@@ -18,7 +18,7 @@ export default async function page() {
 
   if (clerkUser && clerkUser.id) {
     const { data: restaurantData } = await supabase
-      .from("service-catalogues")
+      .from("service_catalogues")
       .select("*")
       .eq("created_by", clerkUser.id);
     restaurants = restaurantData || [];

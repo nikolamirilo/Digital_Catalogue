@@ -12,14 +12,14 @@ export async function revalidateTagCustom(tag: string) {
 
 export async function deleteServiceCatalogue(id: string): Promise<boolean> {
   const supabase = createClient(cookies());
-  const { error } = await supabase.from('service-catalogues').delete().eq('id', id);
+  const { error } = await supabase.from('service_catalogues').delete().eq('id', id);
   return !error;
 }
 
 export async function duplicateServiceCatalogue(id: string) {
   const supabase = createClient(cookies());
   // Fetch the original record
-  const { data, error } = await supabase.from('service-catalogues').select('*').eq('id', id).single();
+  const { data, error } = await supabase.from('service_catalogues').select('*').eq('id', id).single();
   if (error || !data) return null;
   // Remove id and update name
   const { id: _oldId, name, ...rest } = data;
@@ -29,13 +29,13 @@ export async function duplicateServiceCatalogue(id: string) {
   let tryName = newName + suffix;
   let count = 1;
   while (true) {
-    const { data: exists } = await supabase.from('service-catalogues').select('id').eq('name', tryName);
+    const { data: exists } = await supabase.from('service_catalogues').select('id').eq('name', tryName);
     if (!exists || exists.length === 0) break;
     tryName = `${newName}${suffix}${count}`;
     count++;
   }
   // Insert the duplicate
-  const { data: newData, error: insertError } = await supabase.from('service-catalogues').insert({ ...rest, name: tryName }).select().single();
+  const { data: newData, error: insertError } = await supabase.from('service_catalogues').insert({ ...rest, name: tryName }).select().single();
   if (insertError) return null;
   return newData;
 }

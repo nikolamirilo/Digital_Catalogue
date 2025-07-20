@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
 
     // Get example restaurant data properly
     const { data: exampleItem } = await supabase
-      .from('service-catalogues')
+      .from('service_catalogues')
       .select("*")
       .eq('name', 'plato')
       .single();
@@ -121,7 +121,7 @@ export async function POST(req: NextRequest) {
     // Check if slug already exists and make it unique
     while (true) {
       const { data: existingServiceCatalogue } = await supabase
-        .from('service-catalogues')
+        .from('service_catalogues')
         .select('name')
         .eq('name', restaurantSlug)
         .single();
@@ -143,7 +143,7 @@ export async function POST(req: NextRequest) {
     }, {} as Record<string, { layout: string; items: any[] }>);
 
     const { data, error } = await supabase
-      .from('service-catalogues')
+      .from('service_catalogues')
       .insert([
         {
           name: restaurantSlug,

@@ -8,7 +8,7 @@ const page = async ({ params }: { params: Promise<{ name: string }> }) => {
   const { name } = await params;
   const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
-  const { data } = await supabase.from("service-catalogues").select().eq("name", name);
+  const { data } = await supabase.from("service_catalogues").select().eq("name", name);
   const theme = "theme-elegant "; // menjas temu ovde da testiras, inace ce doci iz baze
   if (data[0]) {
     let item: any = data[0];

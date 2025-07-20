@@ -67,7 +67,7 @@ ORDER BY date DESC, hour DESC`,
 
     // 2. Query all relevant restaurants in one go
     const { data: restaurants, error: restaurantError } = await supabase
-      .from("service-catalogues")
+      .from("service_catalogues")
       .select("name, created_by")
       .in("name", restaurantNames);
 

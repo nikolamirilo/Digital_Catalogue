@@ -9,7 +9,7 @@ export async function POST(request: Request) {
 
     // Insert the new restaurant record with services data
     const { data, error } = await supabase
-      .from('service-catalogues')
+      .from('service_catalogues')
       .insert([
         {
           name,
@@ -47,7 +47,7 @@ export async function PATCH(request: Request) {
 
     // Update the restaurant record with the new services data
     const { data, error } = await supabase
-      .from('service-catalogues')
+      .from('service_catalogues')
       .update({
         services,
         theme,
