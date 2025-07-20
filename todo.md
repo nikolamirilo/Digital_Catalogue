@@ -12,7 +12,7 @@
     - in case user already created all catalogues in the plan tell him to upgrade (add validation on create catalogue page)
 
 ### UI:
-1. update navbar on desktop (decrease animations, make links bigger and more accessble)
-2. decrease animations for pricing and buttons
-3. refactors @/components/ui which are used in the app (buttons, labels, salect, etc.) - make variants that will cover most of our cases and delete inline class name when using those components
-4. Update edit and create form with themes and images (in public folder images, in constants )
+1. update navbar on desktop (decrease animations, make links bigger and more accessble) DONE
+2. decrease animations for pricing and buttons DONE 
+3. refactors @/components/ui which are used in the app (buttons, labels, salect, etc.) - make variants that will cover most of our cases and delete inline class name when using those components DONE 
+4. Update edit and create form with themes and images (in public folder images, in constants ) IN PROGRESS 
