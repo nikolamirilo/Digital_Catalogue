@@ -18,15 +18,8 @@ export async function POST(req: NextRequest) {
 
   try {
     const groq = new Groq({
-      apiKey: process.env.GROQ_API_KEY!, // Use environment variable instead of hardcoded key
+      apiKey: process.env.GROQ_API_KEY!,
     });
-
-    // Get example restaurant data properly
-    const { data: exampleItem } = await supabase
-      .from('service_catalogues')
-      .select("*")
-      .eq('name', 'plato')
-      .single();
 
     const generationPrompt = `
       You are an expert in creating service offers (restaurant services, beauty center service offer, etc.).
@@ -36,8 +29,6 @@ export async function POST(req: NextRequest) {
       Prompt: "${prompt}"
       
       Schema: ${JSON.stringify(schema)}
-      
-      ${exampleItem ? `Example/Expected structure: ${JSON.stringify(exampleItem)}` : ''}
       
       IMPORTANT REQUIREMENTS:
       1. Return ONLY the JSON object, no additional text, explanations, or formatting

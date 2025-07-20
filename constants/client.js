@@ -56,7 +56,7 @@ export const layouts = [
     label: "Layout 3",
     image: "/layouts/layout_3.jpg",
     description:
-      "Alternative grid layout: Similar to Layout 1 but with subtle style differences, such as spacing or card appearance. Useful for menus needing a slightly different grid presentation."
+      "Alternative grid layout: Similar to Layout 1 but with subtle style differences, such as spacing or card appearance. Useful for menus needing a slightly different grid presentation. This layout does not contain image."
   },
   {
     key: "variant_4",
