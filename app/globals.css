@@ -741,3 +741,15 @@ body > div[class*="cl-userButtonPopoverCard"] > div {
   }
 }
     
+/* Custom ultra-thin scrollbar for dashboard tab bar only */
+.dashboard-tabbar-scroll::-webkit-scrollbar {
+  height: 3px;
+}
+.dashboard-tabbar-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.dashboard-tabbar-scroll::-webkit-scrollbar-thumb {
+  background: var(--product-primary); /* product-primary */
+  border-radius: 2px;
+}
+    
