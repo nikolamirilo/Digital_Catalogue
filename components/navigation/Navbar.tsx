@@ -3,19 +3,17 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { HiOutlineTrophy } from 'react-icons/hi2';
 import { useUser, UserButton } from "@clerk/nextjs";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { FaRegCirclePlay } from "react-icons/fa6";
 import {
   FiX,
   FiHome,
-  FiDollarSign,
   FiMail,
   FiUser,
   FiUserPlus,
-  FiGrid,
-  FiSettings,
+  FiGrid
 } from "react-icons/fi";
 import Image from "next/image";
 
@@ -38,8 +36,8 @@ interface MobileNavLinkProps {
 const NavLink = ({ href, children, icon: Icon, className = "" }: NavLinkProps) => {
   const pathname = usePathname();
   const isActive = pathname === href;
-  // Use a special hover color for Home, Contact, Demo, and Dashboard
-  const isSpecial = href === "/" || href === "/contact" || href === "/demo" || href === "/admin/dashboard";
+  // Use a special hover color for Home, Contact, Playground, and Dashboard
+  const isSpecial = href === "/" || href === "/contact" || href === "/playground" || href === "/admin/dashboard";
   
   // Only apply hover classes if not active
   const hoverClasses = !isActive
@@ -106,8 +104,11 @@ const Navbar = () => {
         <NavLink href="/contact" icon={FiMail}>
           Contact
         </NavLink>
-        <NavLink href="/demo" icon={FaRegCirclePlay}>
-          Demo
+        <NavLink href="/playground" icon={FaRegCirclePlay}>
+          Playground
+        </NavLink>
+        <NavLink href="/showcases" icon={HiOutlineTrophy}>
+          Showcases
         </NavLink>
         
         <div className="ml-3 flex items-center gap-2">
@@ -187,8 +188,11 @@ const Navbar = () => {
             Contact
           </MobileNavLink>
           
-          <MobileNavLink href="/demo" icon={FaRegCirclePlay} onClick={() => setMobileOpen(false)}>
-            Demo
+          <MobileNavLink href="/playground" icon={FaRegCirclePlay} onClick={() => setMobileOpen(false)}>
+            Playground
+          </MobileNavLink>
+          <MobileNavLink href="/showcases" icon={HiOutlineTrophy} onClick={() => setMobileOpen(false)}>
+            Showcases
           </MobileNavLink>
           
           {isSignedIn ? (

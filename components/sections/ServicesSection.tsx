@@ -18,7 +18,7 @@ const ServicesSection = ({
 }: {
   servicesData: any;
   currency: string;
-  type: "demo" | "item";
+  type: "playground" | "item";
 }) => {
   const { layout } = useMainContext();
   const [expandedSections, setExpandedSections] = useState<{
@@ -57,7 +57,7 @@ const ServicesSection = ({
     <main className="max-w-6xl mx-auto px-4 py-4">
       {sectionsData.map((item) => {
         // The 'layout' variable now comes directly from the context
-        const currentLayout = type === "demo" ? layout : servicesData[item.code]?.layout;
+        const currentLayout = type === "playground" ? layout : servicesData[item.code]?.layout;
 
         return (
           <section key={item.code} className="mb-5" id={item.code}>
