@@ -17,6 +17,7 @@ import {
   FiGrid,
   FiSettings,
 } from "react-icons/fi";
+import Image from "next/image";
 
 // TypeScript interfaces
 interface NavLinkProps {
@@ -92,14 +93,8 @@ const Navbar = () => {
   return (
     <nav className="w-full flex items-center justify-between px-4 sm:px-6 font-lora py-2 sm:py-3 bg-product-background shadow-lg border-b border-gray-100 fixed top-0 left-0 z-50">
       <div className="flex items-center gap-2 sm:gap-3">
-        <Link href="/" className="flex items-center gap-2 sm:gap-3 transition-all duration-200 hover:scale-[1.03] hover:opacity-80 group">
-          <div className="relative">
-            <Avatar className="w-32 h-32 -my-10 transition-all duration-200">
-              <AvatarImage src="/logo.svg" alt="Logo" />
-              <AvatarFallback className="bg-product-foreground text-white font-bold text-xs sm:text-sm">DM</AvatarFallback>
-            </Avatar>
-          </div>
-          {/* <span className="font-bold text-xl text-black transition-colors duration-200 group-hover:text-product-primary">Service Catalogue</span> */}
+        <Link href="/">
+            <Image width={40} height={40} src="/logo.svg" alt="Quicktalog Logo" className="w-auto h-[7vh] rounded-full object-cover"/>
         </Link>
       </div>
       
