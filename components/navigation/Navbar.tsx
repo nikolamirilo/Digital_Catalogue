@@ -94,7 +94,7 @@ const Navbar = () => {
       <div className="flex items-center gap-2 sm:gap-3">
         <Link href="/" className="flex items-center gap-2 sm:gap-3 transition-all duration-200 hover:scale-[1.03] hover:opacity-80 group">
           <div className="relative">
-            <Avatar className="w-12 h-12 transition-all duration-200 group-hover:shadow-md">
+            <Avatar className="w-32 h-32 -my-10 transition-all duration-200">
               <AvatarImage src="/logo.svg" alt="Logo" />
               <AvatarFallback className="bg-product-foreground text-white font-bold text-xs sm:text-sm">DM</AvatarFallback>
             </Avatar>
