@@ -10,6 +10,9 @@
     - add status for users. In case they reached limit change status and forbid their service catalogues
     - add status for catalogues, move to inactive in case user reached limit
     - in case user already created all catalogues in the plan tell him to upgrade (add validation on create catalogue page)
+- Cookie banner
+- Privacy policy & T&C
+- Refund policy
 
 ### UI:
 1. update navbar on desktop (decrease animations, make links bigger and more accessble) DONE

@@ -56,8 +56,8 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Service Catalogue",
-  description: "Service Catalogue for restaurants and caffe shops",
+  title: "Quicktalog App",
+  description: "Qicktalog is Sass application that allows you to create and manage your own catalog of services and digitlize your business.",
 };
 
 export default function RootLayout({
