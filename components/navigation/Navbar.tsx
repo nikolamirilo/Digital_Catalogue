@@ -36,25 +36,16 @@ interface MobileNavLinkProps {
 const NavLink = ({ href, children, icon: Icon, className = "" }: NavLinkProps) => {
   const pathname = usePathname();
   const isActive = pathname === href;
-  // Use a special hover color for Home, Contact, Playground, and Dashboard
-  const isSpecial = href === "/" || href === "/contact" || href === "/playground" || href === "/admin/dashboard";
-  
-  // Only apply hover classes if not active
+  // All non-active buttons get yellow hover background and black text
   const hoverClasses = !isActive
-    ? isSpecial
-      ? "hover:bg-yellow-200 hover:text-black hover:font-bold hover:shadow-md hover:scale-[1.03] hover:transform hover:-translate-y-[2px] hover:border-navbar-button-hover-border"
-      : "hover:bg-navbar-button-hover-bg hover:text-navbar-button-hover-text hover:shadow-md hover:scale-[1.03] hover:transform hover:-translate-y-[2px] hover:border-navbar-button-hover-border"
+    ? "hover:bg-yellow-200 hover:text-black hover:font-bold hover:shadow-md hover:scale-[1.03] hover:transform hover:-translate-y-[2px] hover:border-navbar-button-hover-border"
     : "";
 
   return (
     <Link href={href}>
       <Button 
-        variant="navbar" 
-        className={`font-semibold text-sm sm:text-sm md:text-base px-3 py-2 h-9 transition-all duration-200 ${
-          isActive 
-            ? "!bg-product-hover-background !text-navbar-button-active !border !border-product-primary shadow-sm hover:scale-[1.03] hover:transform"
-            : hoverClasses
-        } ${className}`}
+        variant="nav"
+        className={`${isActive ? 'font-bold !bg-product-hover-background !text-navbar-button-active !border !border-product-primary shadow-sm hover:scale-[1.03] hover:transform' : 'font-medium'} ${className}`}
       >
         {Icon && <Icon className="w-4 h-4" />}
         {children}
@@ -142,13 +133,13 @@ const Navbar = () => {
       
       {/* Hamburger for mobile */}
       <div className="md:hidden flex items-center">
-        <button
+        <Button
           aria-label="Open menu"
           onClick={() => setMobileOpen((v) => !v)}
-          className="p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-1 transition-colors"
+          variant="sidebar-rail"
         >
           <GiHamburgerMenu size={20} className="text-product-foreground" />
-        </button>
+        </Button>
       </div>
       
       {/* Mobile menu overlay */}

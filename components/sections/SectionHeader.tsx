@@ -1,4 +1,5 @@
 import { FiChevronDown } from "react-icons/fi";
+import { Button } from '../ui/button';
 
 const SectionHeader = ({
   title,
@@ -12,18 +13,12 @@ const SectionHeader = ({
   onToggle: (code: string) => void;
 }) => {
   return (
-    <button
+    <Button
       onClick={() => onToggle(code)}
       aria-expanded={isExpanded}
       aria-controls={`section-content-${code}`}
       type="button"
-      className="w-full group relative flex items-center justify-between 
-        px-6 py-5 text-xl sm:text-2xl md:text-3xl font-semibold
-        bg-section-header-bg text-section-header-text border-2 border-section-header-border 
-        rounded-2xl shadow-section-header-shadow transition-all duration-300 ease-in-out 
-        hover:bg-section-header-hover-bg hover:shadow-section-header-hover-shadow
-        hover:scale-[1.02] hover:transform hover:-translate-y-1
-        backdrop-blur-sm overflow-hidden"
+      variant="section-header"
       style={{
         background: 'var(--section-header-gradient)',
         fontFamily: 'var(--font-family-heading)',
@@ -58,7 +53,7 @@ const SectionHeader = ({
 
       {/* Subtle glow effect */}
       <div className="absolute inset-0 rounded-2xl bg-section-header-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></div>
-    </button>
+    </Button>
   );
 };
 

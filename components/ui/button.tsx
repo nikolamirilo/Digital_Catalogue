@@ -65,23 +65,6 @@ const buttonVariants = cva(
           hover:border-primary-accent 
           shadow
         `,
-        navbar: `
-          text-product-foreground 
-          hover:bg-navbar-button-hover-bg 
-          hover:text-navbar-button-hover-text 
-          hover:shadow-navbar-button-hover-shadow 
-          hover:transform-navbar-button-hover-transform 
-          hover:scale-navbar-button-hover-scale
-          hover:font-bold
-          focus:ring-2 
-          focus:ring-navbar-button-focus-ring 
-          focus:ring-offset-2 
-          active:bg-navbar-button-active-bg 
-          active:text-navbar-button-active-text 
-          transition-navbar-button-transition
-          border border-transparent
-          hover:border-navbar-button-hover-border
-        `,
         store: `
           flex items-center justify-center min-w-[205px] mt-3 px-6 h-14 rounded-full w-full sm:w-fit
           text-white bg-product-foreground
@@ -93,6 +76,7 @@ const buttonVariants = cva(
         cta: `
           w-full py-3 px-4 rounded-full font-semibold transition-all duration-300 transform overflow-hidden group/btn
           bg-product-primary hover:bg-product-primary-accent text-product-foreground shadow-lg hover:shadow-xl
+          hover:scale-[1.03] hover:-translate-y-[2px]
         `,
         'cta-secondary': `
           w-full py-3 px-4 rounded-full font-semibold transition-all duration-300 transform overflow-hidden group/btn
@@ -105,7 +89,45 @@ const buttonVariants = cva(
           text-black bg-product-primary hover:bg-product-primary-accent px-5 py-2 rounded-full block w-fit
         `,
         contact: `
-          group relative bg-product-primary hover:bg-primary-accent text-product-foreground px-12 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-product-hover-scale hover:shadow-product-hover-shadow disabled:opacity-30 disabled:cursor-not-allowed disabled:transform-none min-w-[200px]`
+          group relative bg-product-primary hover:bg-primary-accent text-product-foreground px-12 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-product-hover-scale hover:shadow-product-hover-shadow disabled:opacity-30 disabled:cursor-not-allowed disabled:transform-none min-w-[200px]`,
+        'section-header': `
+          w-full group relative flex items-center justify-between 
+          px-6 py-5 text-xl sm:text-2xl md:text-3xl font-semibold
+          bg-section-header-bg text-section-header-text border-2 border-section-header-border 
+          rounded-2xl shadow-section-header-shadow transition-all duration-300 ease-in-out 
+          hover:bg-section-header-hover-bg hover:shadow-section-header-hover-shadow
+          hover:scale-[1.02] hover:transform hover:-translate-y-1
+          backdrop-blur-sm overflow-hidden
+          !px-6 !py-5 !rounded-2xl !h-auto !min-h-0
+        `,
+        tab: `
+          flex items-center px-4 py-2 rounded-lg transition-all text-sm sm:text-base md:text-lg
+          font-medium border border-transparent hover:bg-navbar-button-hover-bg hover:text-navbar-button-hover-text hover:shadow-md hover:scale-[1.03] hover:transform hover:-translate-y-[2px] hover:border-navbar-button-hover-border
+        `,
+        'tab-active': `
+          !bg-product-hover-background !text-navbar-button-active !border !border-product-primary shadow-sm font-semibold hover:scale-[1.03] hover:transform
+        `,
+        'sidebar-rail': `
+          absolute inset-y-0 z-20 hidden w-4 -translate-x-1/2 transition-all ease-linear after:absolute after:inset-y-0 after:left-1/2 after:w-[2px] hover:after:bg-sidebar-border group-data-[side=left]:-right-4 group-data-[side=right]:left-0 sm:flex
+          [[data-side=left]_&]:cursor-w-resize [[data-side=right]_&]:cursor-e-resize
+          [[data-side=left][data-state=collapsed]_&]:cursor-e-resize [[data-side=right][data-state=collapsed]_&]:cursor-w-resize
+          group-data-[collapsible=offcanvas]:translate-x-0 group-data-[collapsible=offcanvas]:after:left-full group-data-[collapsible=offcanvas]:hover:bg-sidebar
+          [[data-side=left][data-collapsible=offcanvas]_&]:-right-2 [[data-side=right][data-collapsible=offcanvas]_&]:-left-2
+        `,
+        modal: `
+          text-white bg-primaryColor font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center
+        `,
+        'file-action': `
+          px-8 py-3 rounded-lg font-bold text-lg transition-all duration-300 ease-in-out
+          focus:outline-none focus:ring-2 focus:ring-product-primary-accent focus:ring-opacity-50
+        `,
+        nav: `
+          text-product-foreground text-sm font-medium px-3 py-2 h-9 transition-all duration-200
+          hover:bg-yellow-200 hover:text-black hover:font-bold hover:shadow-md hover:scale-[1.03] hover:transform hover:-translate-y-[2px] hover:border-navbar-button-hover-border
+          focus:ring-2 focus:ring-navbar-button-focus-ring focus:ring-offset-2
+          border border-transparent
+          active:bg-product-hover-background active:text-navbar-button-active active:border-product-primary
+        `,
       },
       size: {
         default: "h-9 px-4 py-2",

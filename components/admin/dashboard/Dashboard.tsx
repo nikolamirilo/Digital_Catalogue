@@ -90,23 +90,25 @@ export default function Dashboard({
   }
 
   // Sidebar content for md+ screens
+  function getSidebarButtonClass(isActive: boolean) {
+    return isActive
+      ? 'font-bold !bg-product-hover-background !text-navbar-button-active !border !border-product-primary shadow-sm hover:scale-[1.03] hover:transform'
+      : 'font-medium';
+  }
+
   const SidebarContent = (
     <nav className="p-4 flex md:flex-col flex-row gap-2 md:gap-3">
       {TABS.map(tab => (
-        <button
+        <Button
           key={tab.value}
           onClick={() => setActiveTab(tab.value)}
-          className={`flex items-center w-full md:w-auto px-4 py-2 rounded-lg transition-all text-sm sm:text-base md:text-lg
-            ${activeTab === tab.value
-              ? '!bg-product-hover-background !text-navbar-button-active !border !border-product-primary shadow-sm font-semibold hover:scale-[1.03] hover:transform'
-              : 'bg-transparent text-product-foreground border border-transparent font-medium hover:bg-navbar-button-hover-bg hover:text-navbar-button-hover-text hover:shadow-md hover:scale-[1.03] hover:transform hover:-translate-y-[2px] hover:border-navbar-button-hover-border'}
-          `}
-          style={{ fontFamily: 'var(--font-inter), sans-serif' }}
+          variant="nav"
+          className={getSidebarButtonClass(activeTab === tab.value)}
           aria-current={activeTab === tab.value ? 'page' : undefined}
         >
           {tab.icon}
           {tab.label}
-        </button>
+        </Button>
       ))}
     </nav>
   );
@@ -118,20 +120,19 @@ export default function Dashboard({
       style={{ WebkitOverflowScrolling: 'touch' }}
     >
       {TABS.map(tab => (
-        <button
+        <Button
           key={tab.value}
           onClick={() => setActiveTab(tab.value)}
-          className={`flex items-center flex-shrink-0 px-4 py-2 rounded-lg transition-all text-sm sm:text-base md:text-lg
-            ${activeTab === tab.value
-              ? '!bg-product-hover-background !text-navbar-button-active !border !border-product-primary shadow-sm font-semibold hover:scale-[1.03] hover:transform'
-              : 'bg-transparent text-product-foreground border border-transparent font-medium hover:bg-navbar-button-hover-bg hover:text-navbar-button-hover-text hover:shadow-md hover:scale-[1.03] hover:transform hover:-translate-y-[2px] hover:border-navbar-button-hover-border'}
-          `}
+          variant="nav"
+          className={activeTab === tab.value
+            ? '!bg-product-hover-background !text-navbar-button-active !border !border-product-primary shadow-sm font-semibold hover:scale-[1.03] hover:transform'
+            : ''}
           style={{ fontFamily: 'var(--font-inter), sans-serif' }}
           aria-current={activeTab === tab.value ? 'page' : undefined}
         >
           {tab.icon}
           {tab.label}
-        </button>
+        </Button>
       ))}
     </nav>
   );
@@ -140,7 +141,7 @@ export default function Dashboard({
     <div className="w-full min-h-screen px-2 md:px-8 pt-24 pb-12 bg-gradient-to-br from-product-background to-hero-product-background animate-fade-in">
       <div className="container mx-auto flex flex-col md:flex-row px-4 gap-8">
         {/* Sidebar Tabs (hidden on mobile) */}
-        <aside className="hidden md:block w-full md:w-56 flex-shrink-0 mb-6 md:mb-0 md:mr-0 bg-white/90 border border-product-border shadow-md rounded-2xl">
+        <aside className="hidden md:block w-full md:w-56 flex-shrink-0 md:mr-0 bg-white/90 border border-product-border shadow-md rounded-2xl sticky top-24 self-start">
           {SidebarContent}
         </aside>
         {/* Main Content Section */}
@@ -206,12 +207,12 @@ export default function Dashboard({
                 </h2>
                 <div className="flex flex-wrap gap-4 mb-6">
                   <Link href="/admin/create">
-                    <Button className="bg-product-primary text-product-foreground hover:bg-product-primary-accent hover:shadow-lg hover:scale-105 hover:transform hover:-translate-y-1 transition-all duration-200 font-semibold text-sm sm:text-base md:text-lg px-6 py-2 rounded-full">
+                    <Button variant="cta" className="flex flex-row items-center gap-2 px-6 py-2 rounded-full">
                       <FiPlus size={24} /> Create Menu
                     </Button>
                   </Link>
                   <Link href="/admin/create/ai">
-                    <Button variant="outline" className="flex flex-row items-center gap-2 font-semibold text-sm sm:text-base md:text-lg px-6 py-2 rounded-full border border-product-primary text-product-primary hover:bg-product-primary/10 transition-all duration-200">
+                    <Button variant="outline" className="flex flex-row items-center gap-2 px-6 py-2 rounded-full">
                       <RiSparkling2Line size={24} /> Generate Menu with AI
                     </Button>
                   </Link>

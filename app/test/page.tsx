@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { createWorker, PSM, OEM } from 'tesseract.js';
+import { Button } from '../../components/ui/button';
 
 // Language options for Tesseract.js
 const LANGUAGE_OPTIONS = [
@@ -429,18 +430,16 @@ const OcrReader = () => {
       )}
 
       <div className="mb-8">
-        <button
+        <Button
           onClick={readImageText}
           disabled={!selectedImage || ocrStatus.includes('Processing') || ocrStatus.includes('Initializing') || ocrStatus.includes('Analyzing')}
-          className={`px-8 py-3 rounded-lg font-bold text-lg transition-all duration-300 ease-in-out
-                     ${selectedImage && !ocrStatus.includes('Processing') && !ocrStatus.includes('Initializing') && !ocrStatus.includes('Analyzing')
-              ? 'bg-product-primary text-product-secondary hover:bg-product-primary-accent hover:shadow-product-hover hover:scale-105 cursor-pointer'
-              : 'bg-gray-300 text-gray-600 cursor-not-allowed'
-            }
-                     focus:outline-none focus:ring-2 focus:ring-product-primary-accent focus:ring-opacity-50`}
+          variant="file-action"
+          className={selectedImage && !ocrStatus.includes('Processing') && !ocrStatus.includes('Initializing') && !ocrStatus.includes('Analyzing')
+            ? 'bg-product-primary text-product-secondary hover:bg-product-primary-accent hover:shadow-product-hover hover:scale-105 cursor-pointer'
+            : 'bg-gray-300 text-gray-600 cursor-not-allowed'}
         >
           Extract Text
-        </button>
+        </Button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
