@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Quicktalog
 
-## Getting Started
+**Quicktalog** is a modern SaaS platform that helps small businesses instantly create and share beautiful digital catalogues of their services, offers, or menus - no developer or designer required.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✨ Purpose
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Enable small businesses to launch elegant, mobile-first service catalogues in minutes, with advanced customization and OCR-powered digitalization of existing catalogues.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 💎 Key Values
 
-## Learn More
+- Simplicity of use  
+- Quick setup & maintenance  
+- Cross-industry support  
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🚀 Features
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Instant digital catalogue creation  
+- Advanced customization (themes, layouts)  
+- OCR & AI-powered catalogue import  
+- Analytics dashboard  
+- Multi-location management  
+- Collaborative editing  
+- Tiered pricing plans  
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🏆 Competitive Advantages
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Fast setup (<5 min average launch time)  
+- No tech/design skills required  
+- White-label friendly for freelancers  
+- Flexible for hospitality, beauty, fitness, wellness, and more  
+
+---
+
+## 📦 Tech Stack
+
+- **Next.js** (App Router)  
+- **TypeScript**  
+- **React**  
+- **Tailwind CSS** (custom product themes)  
+- **Supabase** (backend)  
+- **UploadThing** (file uploads)  
+- **Clerk** (authentication)  
+- **OCR/AI** (catalogue import)  
+
+---
+
+## 🖥️ Getting Started
+
+1. **Clone the repository**  
+2. **Install dependencies**  
+3. **Configure environment variables**  
+   - Copy `.env.example` to `.env` and fill in your Supabase, Clerk, and other keys  
+4. **Run the development server**  
+5. **Build for production**  
+
+---
+
+## 📁 Project Structure
+
+- `app` - Next.js App Router pages  
+- `components` - UI and feature components  
+- `context` - React context providers  
+- `data` - Static data files  
+- `hooks` - Custom React hooks  
+- `lib` - Utility functions  
+- `public` - Static assets  
+- `types` - TypeScript types  
+- `utils` - Utility modules (e.g., uploadthing)  
