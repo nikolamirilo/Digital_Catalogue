@@ -10,10 +10,6 @@ export const footerDetails: {
     subheading: "Empowering businesses to go digital with interactive catalogues.",
     quickLinks: [
         {
-            text: "Features",
-            url: "#features"
-        },
-        {
             text: "Pricing",
             url: "/pricing"
         },
@@ -24,6 +20,14 @@ export const footerDetails: {
         {
             text: "Terms & Conditions",
             url: "/terms-and-conditions"
+        },
+        {
+            text: "Privacy Policy",
+            url: "/privacy-policy"
+        },
+        {
+            text: "Refund Policy",
+            url: "/refund-policy"
         }
     ],
     email: 'quicktalog@outlook.com',

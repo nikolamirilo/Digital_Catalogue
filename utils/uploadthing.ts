@@ -5,8 +5,8 @@ import {
 import type { OurFileRouter } from "@/app/api/items/uploadthing/core";
 
 export const UploadButton = generateUploadButton<OurFileRouter>({
-  url: "/api/services/uploadthing",
+  url: "/api/items/uploadthing",
 });
 export const UploadDropzone = generateUploadDropzone<OurFileRouter>({
-  url: "/api/services/uploadthing",
+  url: "/api/items/uploadthing",
 });

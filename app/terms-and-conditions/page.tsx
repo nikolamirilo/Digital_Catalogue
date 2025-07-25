@@ -1,79 +1,91 @@
+// app/terms-and-conditions/page.tsx
 
+import Footer from "@/components/navigation/Footer";
+import Navbar from "@/components/navigation/Navbar";
 import React from "react";
 
-const TermsAndConditions = () => (
-  <div className="product min-h-screen py-16 px-4 max-w-3xl mx-auto text-lg text-product-foreground bg-product-background">
-    <h1 className="text-4xl font-bold mb-8 text-product-primary">Terms & Conditions</h1>
-    <section className="mb-8">
-      <h2 className="text-2xl font-semibold mb-4">1. Introduction</h2>
-      <p>
-        Welcome to Quicktalog (<a href="https://quicktalog.app" className="text-product-primary underline">quicktalog.app</a>), a platform designed to help small businesses instantly create and share beautiful digital catalogues of their services, offers, or menus. By accessing or using Quicktalog, you agree to these Terms & Conditions.
-      </p>
-    </section>
-    <section className="mb-8">
-      <h2 className="text-2xl font-semibold mb-4">2. Eligibility</h2>
-      <p>
-        Quicktalog is intended for use by business owners, marketing assistants, freelancers, consultants, and multi-location managers. You must be at least 18 years old to use our services.
-      </p>
-    </section>
-    <section className="mb-8">
-      <h2 className="text-2xl font-semibold mb-4">3. Account Registration</h2>
-      <p>
-        To access certain features, you may need to create an account. You agree to provide accurate information and keep your account secure. You are responsible for all activities under your account.
-      </p>
-    </section>
-    <section className="mb-8">
-      <h2 className="text-2xl font-semibold mb-4">4. Service Usage</h2>
-      <ul className="list-disc pl-6 space-y-2">
-        <li>Quicktalog provides tools for creating, customizing, and sharing digital catalogues.</li>
-        <li>OCR and AI features are available based on your subscription tier.</li>
-        <li>You agree not to use Quicktalog for unlawful, harmful, or fraudulent activities.</li>
-        <li>Traffic and catalogue limits apply according to your selected plan.</li>
-      </ul>
-    </section>
-    <section className="mb-8">
-      <h2 className="text-2xl font-semibold mb-4">5. Subscription & Pricing</h2>
-      <p>
-        Quicktalog offers free and paid plans. Features, limits, and support vary by tier. Payments are processed securely. Subscriptions renew automatically unless cancelled. No refunds for unused time.
-      </p>
-    </section>
-    <section className="mb-8">
-      <h2 className="text-2xl font-semibold mb-4">6. Intellectual Property</h2>
-      <p>
-        All content, trademarks, and technology on Quicktalog are owned by Quicktalog or its licensors. You retain ownership of your uploaded catalogue content. You grant Quicktalog a license to display and process your content as needed to provide the service.
-      </p>
-    </section>
-    <section className="mb-8">
-      <h2 className="text-2xl font-semibold mb-4">7. Data & Privacy</h2>
-      <p>
-        Quicktalog collects and processes personal and business data as described in our Privacy Policy. We use industry-standard security measures to protect your information.
-      </p>
-    </section>
-    <section className="mb-8">
-      <h2 className="text-2xl font-semibold mb-4">8. Termination</h2>
-      <p>
-        We may suspend or terminate your account for violation of these terms or misuse of the platform. You may cancel your subscription at any time.
-      </p>
-    </section>
-    <section className="mb-8">
-      <h2 className="text-2xl font-semibold mb-4">9. Limitation of Liability</h2>
-      <p>
-        Quicktalog is provided "as is". We are not liable for indirect, incidental, or consequential damages. Maximum liability is limited to the amount paid for your subscription in the last 12 months.
-      </p>
-    </section>
-    <section className="mb-8">
-      <h2 className="text-2xl font-semibold mb-4">10. Changes to Terms</h2>
-      <p>
-        Quicktalog may update these Terms & Conditions at any time. Continued use of the platform constitutes acceptance of the new terms.
-      </p>
-    </section>
-    <section className="mb-8">
-      <h2 className="text-2xl font-semibold mb-4">11. Contact</h2>
-      <p>
-        For questions or support, contact us at <a href="mailto:support@quicktalog.app" className="text-product-primary underline">support@quicktalog.app</a>.
-      </p>
-    </section>
-  </div>
-);
+export default function TermsAndConditionsPage() {
+    return (
+        <>
+            <Navbar />
+            <div className="max-w-3xl mx-auto px-4 py-36">
+                <h1 className="text-3xl font-bold mb-6">Terms & Conditions</h1>
 
-export default TermsAndConditions;
+                <p className="mb-4">
+                    Welcome to Quicktalog (<a href="https://quicktalog.app" className="text-product-primary underline">quicktalog.app</a>), your go-to software-as-a-service (SaaS) platform for creating and sharing mobile-friendly digital catalogs. By using our service, you agree to these terms. If you don't agree, please don't use the platform.
+                </p>
+
+                {/* --- Paddle Merchant of Record Clause (Crucial) --- */}
+                <p className="mb-6 font-semibold p-4 bg-blue-50 border-l-4 border-blue-400 text-blue-800">
+                    Our order process is conducted by our online reseller Paddle.com. Paddle.com is the Merchant of Record for all our orders. Paddle provides all customer service inquiries and handles returns.
+                </p>
+
+                <h2 className="text-xl font-bold mt-8 mb-4">1. Order & Payment Policy</h2>
+                <ul className="list-disc list-inside space-y-2">
+                    <li>All purchases for Quicktalog products and subscription plans must be made directly through our official website (<a href="https://quicktalog.app" className="text-product-primary underline">quicktalog.app</a>) or via our approved SDKs within integrated applications.</li>
+                    <li>We <strong>never</strong> send direct product checkout links as a means to collect payment. All transactions must be initiated by the buyer through our website's secure checkout process.</li>
+                    <li>For your security and PCI DSS compliance, we <strong>never</strong> store or have access to your credit card details. All payment information is securely processed by Paddle.com.</li>
+                    <li>Before you finalize a purchase, we'll clearly present the product or subscription plan you're buying, including the total price and any recurring billing details if it's a subscription. This ensures you know exactly what you're committing to.</li>
+                    <li>To proceed with a purchase, you will be required to explicitly <strong>accept these Terms & Conditions and our Refund Policy</strong>.</li>
+                </ul>
+
+                <h2 className="text-xl font-bold mt-8 mb-4">2. Product Descriptions & Transparency</h2>
+                <ul className="list-disc list-inside space-y-2">
+                    <li>Every product and plan page on our website clearly details the features, capabilities, and any limitations of the Quicktalog service.</li>
+                    <li>We ensure that all product descriptions within our Paddle dashboard are consistent with what's displayed on our website, maintaining full compliance and transparency.</li>
+                    <li>If you have any questions or need clarification on a product's capabilities before purchasing, please contact our support team.</li>
+                </ul>
+
+                <h2 className="text-xl font-bold mt-8 mb-4">3. Correcting Order Errors</h2>
+                <ul className="list-disc list-inside space-y-2">
+                    <li>Before completing your purchase, you'll have the opportunity to review and modify your order details in the shopping cart or checkout summary.</li>
+                    <li>If you discover an error in your order immediately after purchase, please contact us at <a href="mailto:support@quicktalog.app" className="underline">support@quicktalog.app</a> within 48 hours for assistance with resolution.</li>
+                </ul>
+
+                <h2 className="text-xl font-bold mt-8 mb-4">4. Refund Policy</h2>
+                <ul className="list-disc list-inside space-y-2">
+                    <li>We offer a <strong>30-day money-back guarantee</strong> for all Quicktalog purchases.</li>
+                    <li>For detailed information on how to request a refund and the conditions that apply, please refer to our dedicated <a href="/refund-policy" className="underline">Refund Policy</a> page.</li>
+                    <li>To initiate a refund request, you may contact Paddle directly through their buyer support portal at <a href="https://paddle.net" className="underline">paddle.net</a>, or reach out to us at <a href="mailto:support@quicktalog.app" className="underline">support@quicktalog.app</a>.</li>
+                </ul>
+
+                <h2 className="text-xl font-bold mt-8 mb-4">5. Product Fulfillment & Activation</h2>
+                <ul className="list-disc list-inside space-y-2">
+                    <li>Upon successful completion of payment, you will receive immediate, uninterrupted access to the Quicktalog platform.</li>
+                    <li>Account activation details and onboarding instructions will be sent to your registered email address and displayed on the purchase success screen.</li>
+                    <li>Should you encounter any issues accessing your account or the platform immediately after purchase, please contact us without delay.</li>
+                </ul>
+
+                <h2 className="text-xl font-bold mt-8 mb-4">6. Buyer Support & Contact Details</h2>
+                <ul className="list-disc list-inside space-y-2">
+                    <li><strong>Support Email:</strong> <a href="mailto:support@quicktalog.app" className="underline">support@quicktalog.app</a></li>
+                    <li><strong>Support Phone:</strong> +381 60 123 4567</li> {/* Ensure this is a live, functional number */}
+                    <li>We aim to respond to all support inquiries within 1 business day.</li>
+                </ul>
+
+                <h2 className="text-xl font-bold mt-8 mb-4">7. Prohibited Activities & Sales Conduct</h2>
+                <ul className="list-disc list-inside space-y-2">
+                    <li>We are committed to fair and ethical practices. We do not engage in misleading, deceptive, or unethical sales or marketing tactics.</li>
+                    <li>We do not sell any products or services that are listed on Paddle's unsupported products list or that violate any of Paddle's policies.</li>
+                </ul>
+
+                <h2 className="text-xl font-bold mt-8 mb-4">8. Compliance & Policy Updates</h2>
+                <ul className="list-disc list-inside space-y-2">
+                    <li>Your credit card statement will clearly show "Quicktalog" as the transaction descriptor, making it easy to recognize your purchase. This can be configured in your Paddle dashboard under Checkout &rarr; Checkout Settings &rarr; Transactions.</li>
+                    <li>We commit to promptly notifying Paddle of any changes to our refund policy, product terms and conditions, or contact details, and we will update our website accordingly to reflect these changes.</li>
+                </ul>
+
+                <h2 className="text-xl font-bold mt-8 mb-4">9. Legal Agreement</h2>
+                <p>
+                    By using Quicktalog, you agree to be bound by these Terms & Conditions and any applicable local laws. If you do not agree with any part of these terms, please discontinue using the platform.
+                </p>
+
+                <h2 className="text-xl font-bold mt-8 mb-4">10. Contact Us</h2>
+                <p>
+                    If you have any questions regarding these Terms & Conditions, please don't hesitate to reach out to us at <a href="mailto:support@quicktalog.app" className="underline">support@quicktalog.app</a>.
+                </p>
+            </div>
+            <Footer />
+        </>
+    );
+}
