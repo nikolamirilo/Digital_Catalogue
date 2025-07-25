@@ -17,6 +17,6 @@ export const stats: IStats[] = [
     {
         title: "50K+ ",
         icon: <PiGlobeFill size={34} className="text-green-600" />,
-        description: "Products and services managed through Digital Catalogue."
+        description: "Products and services managed through Quicktalog."
     }
 ];

@@ -18,7 +18,7 @@ const themeData = themes.map(t => ({
 // JSON Schema definition
 const schema = {
   $schema: "http://json-schema.org/draft-07/schema#",
-  title: "Digital Catalogue Schema",
+  title: "Quicktalog Schema",
   type: "object",
   properties: {
     id: { type: "string", format: "uuid" },

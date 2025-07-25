@@ -15,14 +15,18 @@ export const footerDetails: {
         },
         {
             text: "Pricing",
-            url: "#pricing"
+            url: "/pricing"
         },
         {
-            text: "Testimonials",
-            url: "#testimonials"
+            text: "Showcases",
+            url: "/showcases"
+        },
+        {
+            text: "Terms & Conditions",
+            url: "/terms-and-conditions"
         }
     ],
-    email: 'info@digitalcatalogue.com',
+    email: 'quicktalog@outlook.com',
     telephone: '+1 (800) 123-4567',
     socials: {
         // github: 'https://github.com',

@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Digital Catalogue Schema",
+  "title": "Quicktalog Schema",
   "type": "object",
   "properties": {
     "id": {
@@ -116,7 +116,7 @@
                 },
                 {
                   "const": "variant_3",
-                  "description": "Alternative grid layout: Similar to Layout 1 but with subtle style differences, such as spacing or card appearance. Useful for menus needing a slightly different grid presentation."
+                  "description": "Alternative grid layout: Similar to Layout 1 but with subtle style differences, such as spacing or card appearance. Useful for menus needing a slightly different grid presentation. This layout does not contain image."
                 },
                 {
                   "const": "variant_4",

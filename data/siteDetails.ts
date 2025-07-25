@@ -1,9 +1,9 @@
 export const siteDetails = {
-    siteName: 'Digital Catalogue',
+    siteName: 'Quicktalog',
     siteUrl: 'https://finwise-omega.vercel.app/',
     metadata: {
-        title: 'Digital Catalogue - Modern Digital Cataloguing Solution',
-        description: 'Digital Catalogue empowers businesses to create, manage, and share interactive digital catalogues for products and services.',
+        title: 'Quicktalog - Modern Digital Cataloguing Solution',
+        description: 'Quicktalog empowers businesses to create, manage, and share interactive digital catalogues for products and services.',
     },
     language: 'en-us',
     locale: 'en-US',

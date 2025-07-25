@@ -8,7 +8,7 @@ import Container from "@/components/home/Container";
 import Section from "@/components/home/Section";
 import Stats from "@/components/home/Stats";
 import CTA from "@/components/home/CTA";
-import Footer from "@/components/home/Footer";
+import Footer from "@/components/navigation/Footer";
 import Navbar from "@/components/navigation/Navbar";
 
 const HomePage: React.FC = () => {
