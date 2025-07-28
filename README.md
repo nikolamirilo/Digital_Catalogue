@@ -41,14 +41,14 @@ Enable small businesses to launch elegant, mobile-first service catalogues in mi
 
 ## 📦 Tech Stack
 
-- **Next.js** (App Router)  
-- **TypeScript**  
-- **React**  
-- **Tailwind CSS** (custom product themes)  
-- **Supabase** (backend)  
-- **UploadThing** (file uploads)  
-- **Clerk** (authentication)  
-- **OCR/AI** (catalogue import)  
+- **Next.js** - full stack web development framework (React.js + Node.js)
+- **TypeScript** - programming language
+- **Tailwind CSS** - styling
+- **Supabase** - database
+- **UploadThing** - static files hosting  
+- **Clerk** - authentication and use**r management
+- **Posthog** - analytics service
+- **Paddle** - payment and tax handling service
 
 ---
 
