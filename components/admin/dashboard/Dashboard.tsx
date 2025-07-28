@@ -221,50 +221,59 @@ export default function Dashboard({
                     </Button>
                   </Link>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                   {restaurants.length === 0 && (
                     <div className="col-span-full text-product-foreground-accent text-lg">No restaurants created yet.</div>
                   )}
                   {restaurants.map((restaurant) => (
                     <Card
                       key={restaurant.id}
-                      className="p-4 sm:p-8 flex flex-col gap-4 relative bg-product-background border border-product-border shadow-product-shadow hover:shadow-product-hover-shadow hover:scale-[1.02] transition-all duration-200 animate-fade-in"
+                      className="p-6 sm:p-8 flex flex-col gap-4 relative bg-product-background border border-product-border shadow-product-shadow hover:shadow-product-hover-shadow hover:scale-[1.02] transition-all duration-200 animate-fade-in"
                     >
-                      <div className="font-bold text-lg sm:text-2xl text-product-foreground" style={{ fontFamily: 'var(--font-playfair-display), var(--font-inter), serif' }}>{restaurant.name}</div>
-                      <div className="text-product-foreground-accent">Theme: {restaurant.theme}</div>
-                      <div className="text-product-foreground-accent">Layout: {restaurant.layout}</div>
-                      <div className="text-product-foreground-accent">Created: {new Date(restaurant.created_at).toLocaleString()}</div>
-                      <div className="flex flex-row-reverse gap-2 mt-2 items-center">
-                        <Link href={`/service-catalogues/${restaurant.name}`} className="flex-1">
-                          <Button className="w-full bg-product-primary text-product-foreground hover:bg-product-primary-accent hover:shadow-lg hover:scale-105 hover:transform hover:-translate-y-1 transition-all duration-200 font-semibold text-sm sm:text-base md:text-lg px-4 py-2 rounded-full">
-                            <LuSquareMenu size={20} /> View Menu
+                      {/* Three dots menu moved to top */}
+                      <div className="absolute top-4 right-4 z-10">
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-product-foreground hover:text-product-primary hover:bg-product-background/50 transition-colors duration-200">
+                              <FiMoreVertical size={18} />
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end" className="bg-product-background border border-product-border rounded-xl shadow-lg">
+                            <Link href={`/admin/items/${restaurant.name}/edit`} passHref>
+                              <DropdownMenuItem asChild className="text-product-foreground hover:bg-product-hover-background cursor-pointer">
+                                <div className="flex items-center gap-2"><FiEdit size={18} /> Edit Menu</div>
+                              </DropdownMenuItem>
+                            </Link>
+                            <DropdownMenuItem onClick={() => handleDuplicateMenu(restaurant.id)} disabled={duplicatingId === restaurant.id} className="text-product-foreground hover:bg-product-hover-background cursor-pointer">
+                              <span className="flex items-center gap-2"><FiCopy size={18} />{duplicatingId === restaurant.id ? "Loading..." : "Duplicate"}</span>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => handleDeleteMenu(restaurant.id)} disabled={isModalOpen} className="text-red-400 hover:bg-red-50 cursor-pointer">
+                              <span className="flex items-center gap-2"><FiTrash2 size={18} />Delete</span>
+                            </DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </div>
+
+                      {/* Card content */}
+                      <div className="font-bold text-lg sm:text-xl text-product-foreground pr-12" style={{ fontFamily: 'var(--font-playfair-display), var(--font-inter), serif' }}>{restaurant.name}</div>
+                      <div className="text-product-foreground-accent text-sm">Theme: {restaurant.theme}</div>
+                      <div className="text-product-foreground-accent text-sm">Layout: {restaurant.layout}</div>
+                      <div className="text-product-foreground-accent text-sm">Created: {new Date(restaurant.created_at).toLocaleString()}</div>
+                      
+                      {/* Buttons */}
+                      <div className="flex flex-col sm:flex-row gap-3 mt-auto pt-4">
+                        <Link href={`/service-catalogues/${restaurant.name}`} className="flex-1 min-w-0">
+                          <Button className="w-full bg-product-primary text-product-foreground hover:bg-product-primary-accent hover:shadow-lg hover:scale-105 hover:transform hover:-translate-y-1 transition-all duration-200 font-semibold text-xs sm:text-sm px-2 sm:px-3 py-2 rounded-full">
+                            <LuSquareMenu size={16} className="sm:size-18" /> 
+                            <span className="ml-1">View Menu</span>
                           </Button>
                         </Link>
-                        <Link href={`/admin/items/${restaurant.name}/analytics`} className="flex-1">
-                          <Button variant="secondary" className="w-full border border-product-primary text-product-primary hover:bg-product-primary/10 hover:text-product-primary hover:shadow-lg hover:scale-105 hover:transform hover:-translate-y-1 transition-all duration-200 font-semibold text-sm sm:text-base md:text-lg px-4 py-2 rounded-full">
-                            <TbBrandGoogleAnalytics size={20} /> Analytics
+                        <Link href={`/admin/items/${restaurant.name}/analytics`} className="flex-1 min-w-0">
+                          <Button variant="secondary" className="w-full border border-product-primary text-product-primary hover:bg-product-primary/10 hover:text-product-primary hover:shadow-lg hover:scale-105 hover:transform hover:-translate-y-1 transition-all duration-200 font-semibold text-xs sm:text-sm px-2 sm:px-3 py-2 rounded-full">
+                            <TbBrandGoogleAnalytics size={16} className="sm:size-18" /> 
+                            <span className="ml-1">Analytics</span>
                           </Button>
                         </Link>
-                        <div className="absolute top-4 right-4">
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <FiMoreVertical size={24} className="text-product-foreground cursor-pointer hover:text-product-primary transition-colors duration-200" />
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end" className="bg-product-background border border-product-border rounded-xl shadow-lg">
-                              <Link href={`/admin/items/${restaurant.name}/edit`} passHref>
-                                <DropdownMenuItem asChild className="text-product-foreground hover:bg-product-hover-background cursor-pointer">
-                                  <div className="flex items-center gap-2"><FiEdit size={18} /> Edit Menu</div>
-                                </DropdownMenuItem>
-                              </Link>
-                              <DropdownMenuItem onClick={() => handleDuplicateMenu(restaurant.id)} disabled={duplicatingId === restaurant.id} className="text-product-foreground hover:bg-product-hover-background cursor-pointer">
-                                <span className="flex items-center gap-2"><FiCopy size={18} />{duplicatingId === restaurant.id ? "Loading..." : "Duplicate"}</span>
-                              </DropdownMenuItem>
-                              <DropdownMenuItem onClick={() => handleDeleteMenu(restaurant.id)} disabled={isModalOpen} className="text-red-400 hover:bg-red-50 cursor-pointer">
-                                <span className="flex items-center gap-2"><FiTrash2 size={18} />Delete</span>
-                              </DropdownMenuItem>
-                            </DropdownMenuContent>
-                          </DropdownMenu>
-                        </div>
                       </div>
                     </Card>
                   ))}

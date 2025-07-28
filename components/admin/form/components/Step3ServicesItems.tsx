@@ -37,41 +37,50 @@ const Step3ServicesItems: React.FC<Step3ServicesItemsProps> = ({
   setImagePreviews,
 }) => {
   return (
-    <div className="space-y-6 p-6 border rounded-lg shadow-sm bg-gray-50">
-      <h2 className="text-2xl font-semibold text-gray-800 flex items-center gap-2">
-        <BiDish className="text-orange-600" size={30} />
+    <Card className="space-y-8 p-6 sm:p-8 bg-white/95 border border-product-border shadow-product-shadow rounded-2xl" type="form">
+      <h2 className="text-2xl sm:text-3xl font-bold text-product-foreground flex items-center gap-3" style={{ fontFamily: 'var(--font-playfair-display), var(--font-inter), serif' }}>
+        <BiDish className="text-product-primary" size={32} />
         Add Services Items
       </h2>
       {formData.services.length === 0 ? (
-        <p className="text-center text-gray-600">Please add categories in Step 2 first.</p>
+        <div className="text-center p-8 bg-product-background/50 rounded-xl border border-product-border">
+          <p className="text-product-foreground-accent text-lg" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>Please add categories in Step 2 first.</p>
+        </div>
       ) : (
         formData.services.map((category, categoryIndex) => (
-          <Card key={categoryIndex} className="p-4 space-y-4 shadow-md bg-white">
-            <h3 className="text-xl font-semibold text-gray-700">Category: {category.name || "Unnamed Category"}</h3>
-            <Button
-              type="button"
-              onClick={() => handleAddItem(categoryIndex)}
-              className="ml-auto"
-            >
-              <Plus className="h-4 w-4" /> Add New Item to {category.name || "this Category"}
-            </Button>
+          <Card key={categoryIndex} className="p-6 sm:p-8 space-y-6 shadow-product-shadow bg-product-background/50 border border-product-border rounded-xl" type="form">
+            <div className="flex justify-between items-center">
+              <h3 className="text-xl font-bold text-product-foreground" style={{ fontFamily: 'var(--font-playfair-display), var(--font-inter), serif' }}>
+                Category: {category.name || "Unnamed Category"}
+              </h3>
+              <Button
+                type="button"
+                onClick={() => handleAddItem(categoryIndex)}
+                className="px-6 py-3 text-base font-medium bg-product-primary hover:bg-product-primary-accent hover:shadow-product-hover-shadow hover:scale-[1.02] hover:transform hover:-translate-y-1 transition-all duration-300"
+              >
+                <Plus className="h-5 w-5 mr-2" /> Add New Item to {category.name || "this Category"}
+              </Button>
+            </div>
 
             {category.items.map((item, itemIndex) => (
-              <Card key={itemIndex} className="p-4 space-y-3 border shadow-sm bg-white">
+              <Card key={itemIndex} className="p-6 space-y-6 border border-product-border shadow-product-shadow bg-white rounded-xl">
                 <div className="flex justify-between items-center">
-                  <h5 className="text-md font-semibold text-gray-600">Item {itemIndex + 1}</h5>
+                  <h5 className="text-lg font-bold text-product-foreground" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>Item {itemIndex + 1}</h5>
                   <Button
                     type="button"
                     variant="destructive"
                     size="sm"
                     onClick={() => handleRemoveItem(categoryIndex, itemIndex)}
+                    className="h-10 w-10 hover:bg-red-600 hover:shadow-product-hover-shadow"
                   >
-                    <Trash2 className="h-3 w-3" />
+                    <Trash2 className="h-4 w-4" />
                   </Button>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  <div className="space-y-2">
-                    <Label htmlFor={`item-name-${categoryIndex}-${itemIndex}`}>Item Name</Label>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-3">
+                    <Label htmlFor={`item-name-${categoryIndex}-${itemIndex}`} className="text-product-foreground font-medium" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+                      Item Name
+                    </Label>
                     <Input
                       id={`item-name-${categoryIndex}-${itemIndex}`}
                       type="text"
@@ -80,11 +89,14 @@ const Step3ServicesItems: React.FC<Step3ServicesItemsProps> = ({
                       onChange={(e) =>
                         handleItemChange(categoryIndex, itemIndex, "name", e.target.value)
                       }
+                      className="border-product-border focus:border-product-primary focus:ring-product-primary/20"
                       required
                     />
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor={`item-price-${categoryIndex}-${itemIndex}`}>Price</Label>
+                  <div className="space-y-3">
+                    <Label htmlFor={`item-price-${categoryIndex}-${itemIndex}`} className="text-product-foreground font-medium" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+                      Price
+                    </Label>
                     <Input
                       id={`item-price-${categoryIndex}-${itemIndex}`}
                       type="number"
@@ -100,11 +112,14 @@ const Step3ServicesItems: React.FC<Step3ServicesItemsProps> = ({
                           parseFloat(e.target.value) || 0
                         )
                       }
+                      className="border-product-border focus:border-product-primary focus:ring-product-primary/20"
                       required
                     />
                   </div>
-                  <div className="space-y-2 col-span-full">
-                    <Label htmlFor={`item-description-${categoryIndex}-${itemIndex}`}>Description</Label>
+                  <div className="space-y-3 col-span-full">
+                    <Label htmlFor={`item-description-${categoryIndex}-${itemIndex}`} className="text-product-foreground font-medium" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+                      Description
+                    </Label>
                     <Textarea
                       id={`item-description-${categoryIndex}-${itemIndex}`}
                       placeholder="Describe the dish, ingredients, etc."
@@ -112,47 +127,50 @@ const Step3ServicesItems: React.FC<Step3ServicesItemsProps> = ({
                       onChange={(e) =>
                         handleItemChange(categoryIndex, itemIndex, "description", e.target.value)
                       }
-                      rows={2}
+                      rows={3}
+                      className="border-product-border focus:border-product-primary focus:ring-product-primary/20"
                       required
                     />
                   </div>
-                  <div className="space-y-2 col-span-full">
-                    <Label htmlFor={`item-image-${categoryIndex}-${itemIndex}`}>Image</Label>
+                  <div className="space-y-3 col-span-full">
+                    <Label htmlFor={`item-image-${categoryIndex}-${itemIndex}`} className="text-product-foreground font-medium" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+                      Image
+                    </Label>
                     {(imagePreviews[`${categoryIndex}-${itemIndex}`] || item.image) ? (
-                                  <div className="relative mt-2 w-48 h-48 rounded-md border overflow-hidden flex items-center justify-center bg-gray-100">
-                                  <div
-                                    className="absolute inset-0 bg-center bg-cover bg-no-repeat w-full h-full"
-                                    style={{
-                                      backgroundImage: `url('${imagePreviews[`${categoryIndex}-${itemIndex}`] || item.image}')`,
-                                      objectFit: "cover",
-                                    }}
-                                  />
-                                  <IoClose
-                                    size={25}
-                                    className="absolute top-0 right-0 z-10 bg-red-500 text-white rounded-full cursor-pointer"
-                                    onClick={() => {
-                                      setImagePreviews(prev => {
-                                        const newPreviews = { ...prev };
-                                        delete newPreviews[`${categoryIndex}-${itemIndex}`];
-                                        return newPreviews;
-                                      });
-                                      handleItemChange(categoryIndex, itemIndex, "image", "");
-                                    }}
-                                  />
-                                </div>
-                    ):
-                    <div className="cursor-pointer h-48">
-                    <ImageDropzone
-                    onUploadComplete={(url) => {
-                      handleItemChange(categoryIndex, itemIndex, "image", url);
-                      setImagePreviews(prev => ({ ...prev, [`${categoryIndex}-${itemIndex}`]: url }));
-                    }}
-                    onError={(error) => alert(`ERROR! ${error.message}`)}
-                    maxDim={512}
-                    maxSizeMB={1}
-                  />
-                  </div>
-                  }
+                      <div className="relative mt-2 w-48 h-48 rounded-lg border-2 border-product-border overflow-hidden flex items-center justify-center bg-product-background shadow-product-shadow">
+                        <div
+                          className="absolute inset-0 bg-center bg-cover bg-no-repeat w-full h-full"
+                          style={{
+                            backgroundImage: `url('${imagePreviews[`${categoryIndex}-${itemIndex}`] || item.image}')`,
+                            objectFit: "cover",
+                          }}
+                        />
+                        <IoClose
+                          size={25}
+                          className="absolute top-2 right-2 z-10 bg-red-500 text-white rounded-full cursor-pointer hover:bg-red-600 transition-colors duration-200 shadow-lg"
+                          onClick={() => {
+                            setImagePreviews(prev => {
+                              const newPreviews = { ...prev };
+                              delete newPreviews[`${categoryIndex}-${itemIndex}`];
+                              return newPreviews;
+                            });
+                            handleItemChange(categoryIndex, itemIndex, "image", "");
+                          }}
+                        />
+                      </div>
+                    ) : (
+                      <div className="cursor-pointer h-48">
+                        <ImageDropzone
+                          onUploadComplete={(url) => {
+                            handleItemChange(categoryIndex, itemIndex, "image", url);
+                            setImagePreviews(prev => ({ ...prev, [`${categoryIndex}-${itemIndex}`]: url }));
+                          }}
+                          onError={(error) => alert(`ERROR! ${error.message}`)}
+                          maxDim={512}
+                          maxSizeMB={1}
+                        />
+                      </div>
+                    )}
                   </div>
                 </div>
               </Card>
@@ -160,7 +178,7 @@ const Step3ServicesItems: React.FC<Step3ServicesItemsProps> = ({
           </Card>
         ))
       )}
-    </div>
+    </Card>
   );
 };
 

@@ -64,14 +64,16 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
   );
 
   return (
-    <Card className="space-y-6 p-6" type="form">
-      <h2 className="text-2xl font-semibold text-gray-800 flex items-center gap-2">
-        <FileText className="text-orange-600" size={25}/>
+    <Card className="space-y-8 p-6 sm:p-8 bg-white/95 border border-product-border shadow-product-shadow rounded-2xl" type="form">
+      <h2 className="text-2xl sm:text-3xl font-bold text-product-foreground flex items-center gap-3" style={{ fontFamily: 'var(--font-playfair-display), var(--font-inter), serif' }}>
+        <FileText className="text-product-primary" size={28}/>
         ServiceCatalogue Details
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="space-y-2">
-          <Label htmlFor="name">ServiceCatalogue Name<span className="text-red-500">*</span></Label>
+        <div className="space-y-3">
+          <Label htmlFor="name" className="text-product-foreground font-medium" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+            ServiceCatalogue Name<span className="text-red-500 ml-1">*</span>
+          </Label>
           <Input
             id="name"
             type="text"
@@ -79,14 +81,17 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
             value={formData.name}
             onChange={handleInputChange}
             placeholder="e.g., The Golden Spoon"
+            className="border-product-border focus:border-product-primary focus:ring-product-primary/20"
             required
           />
           {touched?.name && errors?.name && (
-            <div className="text-red-500 text-sm mt-1">{errors.name}</div>
+            <div className="text-red-500 text-sm mt-2 p-2 bg-red-50 border border-red-200 rounded-lg" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>{errors.name}</div>
           )}
         </div>
-        <div className="space-y-2">
-          <Label htmlFor="title">Title (e.g., Plato ServiceCatalogue)<span className="text-red-500">*</span></Label>
+        <div className="space-y-3">
+          <Label htmlFor="title" className="text-product-foreground font-medium" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+            Title (e.g., Plato ServiceCatalogue)<span className="text-red-500 ml-1">*</span>
+          </Label>
           <Input
             id="title"
             type="text"
@@ -94,26 +99,31 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
             value={formData.title}
             onChange={handleInputChange}
             placeholder="e.g., Our Delicious Offerings"
+            className="border-product-border focus:border-product-primary focus:ring-product-primary/20"
           />
           {touched?.title && errors?.title && (
-            <div className="text-red-500 text-sm mt-1">{errors.title}</div>
+            <div className="text-red-500 text-sm mt-2 p-2 bg-red-50 border border-red-200 rounded-lg" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>{errors.title}</div>
           )}
         </div>
-        <div className="space-y-2">
-          <Label htmlFor="subtitle">Subtitle</Label>
+        <div className="space-y-3">
+          <Label htmlFor="subtitle" className="text-product-foreground font-medium" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+            Subtitle
+          </Label>
           <Textarea
             id="subtitle"
             name="subtitle"
             value={formData.subtitle}
             onChange={handleInputChange}
             placeholder="A short tagline or description"
-            className="h-48"
+            className="h-48 border-product-border focus:border-product-primary focus:ring-product-primary/20"
           />
         </div>
-        <div className="space-y-2">
-          <Label htmlFor="logo">Logo<span className="text-red-500">*</span></Label>
+        <div className="space-y-3">
+          <Label htmlFor="logo" className="text-product-foreground font-medium" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+            Logo<span className="text-red-500 ml-1">*</span>
+          </Label>
           {logoPreview ? (
-            <div className="relative mt-2 w-48 h-48 rounded-md border overflow-hidden flex items-center justify-center bg-gray-100">
+            <div className="relative mt-2 w-48 h-48 rounded-lg border-2 border-product-border overflow-hidden flex items-center justify-center bg-product-background shadow-product-shadow">
               <div
                 className="absolute inset-0 bg-center bg-cover bg-no-repeat w-full h-full"
                 style={{
@@ -123,7 +133,7 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
               />
               <IoClose
                 size={25}
-                className="absolute top-0 right-0 z-10 bg-red-500 text-white rounded-full cursor-pointer"
+                className="absolute top-2 right-2 z-10 bg-red-500 text-white rounded-full cursor-pointer hover:bg-red-600 transition-colors duration-200 shadow-lg"
                 onClick={() => {
                   setLogoPreview(null);
                   setFormData((prev: any) => ({ ...prev, logo: undefined }));
@@ -144,11 +154,13 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
             </div>
           )}
           {touched?.logo && errors?.logo && (
-            <div className="text-red-500 text-sm mt-1">{errors.logo}</div>
+            <div className="text-red-500 text-sm mt-2 p-2 bg-red-50 border border-red-200 rounded-lg" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>{errors.logo}</div>
           )}
         </div>
-        <div className="space-y-2">
-          <Label htmlFor="currency">Currency (e.g., USD, EUR)<span className="text-red-500">*</span></Label>
+        <div className="space-y-3">
+          <Label htmlFor="currency" className="text-product-foreground font-medium" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+            Currency (e.g., USD, EUR)<span className="text-red-500 ml-1">*</span>
+          </Label>
           <Select
             value={formData.currency || ""}
             onValueChange={(value) =>
@@ -157,7 +169,7 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
               } as React.ChangeEvent<HTMLInputElement>)
             }
           >
-            <SelectTrigger>
+            <SelectTrigger className="border-product-border focus:border-product-primary focus:ring-product-primary/20">
               <SelectValue placeholder="Select currency" />
             </SelectTrigger>
             <SelectContent>
@@ -169,11 +181,13 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
             </SelectContent>
           </Select>
           {touched?.currency && errors?.currency && (
-            <div className="text-red-500 text-sm mt-1">{errors.currency}</div>
+            <div className="text-red-500 text-sm mt-2 p-2 bg-red-50 border border-red-200 rounded-lg" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>{errors.currency}</div>
           )}
         </div>
-        <div className="space-y-2">
-          <Label htmlFor="legal_name">Legal Name</Label>
+        <div className="space-y-3">
+          <Label htmlFor="legal_name" className="text-product-foreground font-medium" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+            Legal Name
+          </Label>
           <Input
             id="legal_name"
             type="text"
@@ -181,21 +195,22 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
             value={formData.legal_name}
             onChange={handleInputChange}
             placeholder="e.g., The Golden Spoon LLC"
+            className="border-product-border focus:border-product-primary focus:ring-product-primary/20"
           />
         </div>
         {/* Theme Selection */}
-        <div className="space-y-2 col-span-full">
-          <Label htmlFor="theme">
-            Theme<span className="text-red-500">*</span>: {themes.find((t: Theme) => t.key === formData.theme)?.label || "Not Selected"}
+        <div className="space-y-4 col-span-full">
+          <Label htmlFor="theme" className="text-product-foreground font-medium text-lg" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+            Theme<span className="text-red-500 ml-1">*</span>: {themes.find((t: Theme) => t.key === formData.theme)?.label || "Not Selected"}
           </Label>
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-2 gap-4">
             {themes.map((themeOption) => (
               <div
                 key={themeOption.key}
-                className={`relative cursor-pointer rounded-lg border-2 p-1 ${
+                className={`relative cursor-pointer rounded-xl border-2 p-2 transition-all duration-200 hover:shadow-product-hover-shadow ${
                   formData.theme === themeOption.key
-                    ? "border-orange-600"
-                    : "border-gray-200 hover:border-gray-300"
+                    ? "border-product-primary shadow-product-shadow bg-product-primary/5"
+                    : "border-product-border hover:border-product-primary/50"
                 }`}
                 onClick={() =>
                   handleInputChange({
@@ -206,23 +221,23 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
                 <img
                   src={themeOption.image}
                   alt={themeOption.label}
-                  className="w-full h-24 object-cover rounded-md"
+                  className="w-full h-24 object-cover rounded-lg"
                 />
-                <p className="text-center text-sm mt-1">{themeOption.label}</p>
+                <p className="text-center text-sm mt-2 font-medium text-product-foreground" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>{themeOption.label}</p>
               </div>
             ))}
           </div>
           {touched?.theme && errors?.theme && (
-            <div className="text-red-500 text-sm mt-1">{errors.theme}</div>
+            <div className="text-red-500 text-sm mt-2 p-2 bg-red-50 border border-red-200 rounded-lg" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>{errors.theme}</div>
           )}
         </div>
         {/* Contact Information */}
-        <div className="space-y-4 col-span-1 md:col-span-2">
-          <h3 className="text-lg font-semibold flex items-center gap-2">
-            <Tag className="h-5 w-5 text-gray-700" /> Contact Information
+        <div className="space-y-6 col-span-1 md:col-span-2">
+          <h3 className="text-xl font-bold text-product-foreground flex items-center gap-3" style={{ fontFamily: 'var(--font-playfair-display), var(--font-inter), serif' }}>
+            <Tag className="h-6 w-6 text-product-primary" /> Contact Information
           </h3>
           {formData.contact.map((contact, index) => (
-            <div key={index} className="flex items-end gap-2">
+            <div key={index} className="flex items-end gap-3 p-4 bg-product-background/50 rounded-xl border border-product-border">
               <div className="flex-grow space-y-2">
                 <Label htmlFor={`contact-type-${index}`} className="sr-only">
                   Contact Type
@@ -233,7 +248,7 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
                     handleContactChange(index, "type", value)
                   }
                 >
-                  <SelectTrigger>
+                  <SelectTrigger className="border-product-border focus:border-product-primary focus:ring-product-primary/20">
                     <SelectValue placeholder="Select type" />
                   </SelectTrigger>
                   <SelectContent>
@@ -257,6 +272,7 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
                   onChange={(e) =>
                     handleContactChange(index, "value", e.target.value)
                   }
+                  className="border-product-border focus:border-product-primary focus:ring-product-primary/20"
                 />
               </div>
               <Button
@@ -264,6 +280,7 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
                 variant="destructive"
                 size="icon"
                 onClick={() => handleRemoveContact(index)}
+                className="h-10 w-10 hover:bg-red-600 hover:shadow-product-hover-shadow"
               >
                 <Trash2 className="h-4 w-4" />
               </Button>
@@ -273,9 +290,9 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
             type="button"
             variant="outline"
             onClick={handleAddContact}
-            className="w-full"
+            className="w-full py-3 text-base font-medium border-product-border hover:border-product-primary hover:bg-product-primary/5 transition-all duration-200"
           >
-            <Plus className="mr-2 h-4 w-4" /> Add Contact Field
+            <Plus className="mr-2 h-5 w-5" /> Add Contact Field
           </Button>
         </div>
       </div>

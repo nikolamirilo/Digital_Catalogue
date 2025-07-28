@@ -56,34 +56,34 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
   const handleAddCategory = () => {
     setFormData((prev) => ({
       ...prev,
-      menu: [...prev.services, { name: "", layout: "variant_1", items: [] }],
+      services: [...prev.services, { name: "", layout: "variant_1", items: [] }],
     }));
   };
 
   const handleRemoveCategory = (categoryIndex: number) => {
     setFormData((prev) => ({
       ...prev,
-      menu: prev.services.filter((_, index) => index !== categoryIndex),
+      services: prev.services.filter((_, index) => index !== categoryIndex),
     }));
   };
 
   const handleCategoryChange = (index: number, field: 'name' | 'layout', value: string) => {
-    const updatedMenu = [...formData.services];
-    updatedMenu[index][field] = value;
-    setFormData((prev) => ({ ...prev, menu: updatedMenu }));
+    const updatedServices = [...formData.services];
+    updatedServices[index][field] = value;
+    setFormData((prev) => ({ ...prev, services: updatedServices }));
   };
 
   const handleAddItem = (categoryIndex: number) => {
-    const updatedMenu = [...formData.services];
-    updatedMenu[categoryIndex].items = [
+    const updatedServices = [...formData.services];
+    updatedServices[categoryIndex].items = [
       { name: "", description: "", price: 0, image: "" },
-      ...updatedMenu[categoryIndex].items.map(item => ({ ...item, image: item.image || "" })),
+      ...updatedServices[categoryIndex].items.map(item => ({ ...item, image: item.image || "" })),
     ];
-    setFormData((prev) => ({ ...prev, menu: updatedMenu }));
+    setFormData((prev) => ({ ...prev, services: updatedServices }));
     setImagePreviews(prev => {
       const newPreviews = { ...prev };
       delete newPreviews[`${categoryIndex}-0`];
-      const itemsLength = updatedMenu[categoryIndex].items.length;
+      const itemsLength = updatedServices[categoryIndex].items.length;
       for (let i = itemsLength - 1; i > 0; i--) {
         newPreviews[`${categoryIndex}-${i}`] = prev[`${categoryIndex}-${i-1}`] || "";
       }
@@ -92,11 +92,11 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
   };
 
   const handleRemoveItem = (categoryIndex: number, itemIndex: number) => {
-    const updatedMenu = [...formData.services];
-    updatedMenu[categoryIndex].items = updatedMenu[categoryIndex].items.filter(
+    const updatedServices = [...formData.services];
+    updatedServices[categoryIndex].items = updatedServices[categoryIndex].items.filter(
       (_, index) => index !== itemIndex
     );
-    setFormData((prev) => ({ ...prev, menu: updatedMenu }));
+    setFormData((prev) => ({ ...prev, services: updatedServices }));
   };
 
   const handleItemChange = (
@@ -106,7 +106,7 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
     value: string | number
   ) => {
     setFormData((prev) => {
-      const newMenu = prev.services.map((category, cIndex) => {
+      const newServices = prev.services.map((category, cIndex) => {
         if (cIndex !== categoryIndex) {
           return category;
         }
@@ -123,7 +123,7 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
           }),
         };
       });
-      return { ...prev, menu: newMenu };
+      return { ...prev, services: newServices };
     });
   };
 
@@ -396,23 +396,23 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
   };
 
   return (
-    <Card className="w-full max-w-4xl mx-auto" type="form">
-      <CardHeader>
-        <CardTitle className="text-3xl font-bold text-center">
+    <Card className="w-full max-w-4xl mx-auto bg-white/95 border border-product-border shadow-product-shadow rounded-3xl" type="form">
+      <CardHeader className="p-6 sm:p-8">
+        <CardTitle className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-product-foreground" style={{ fontFamily: 'var(--font-playfair-display), var(--font-inter), serif' }}>
           {type === 'edit' ? 'Edit Your Service Catalogue' : 'Create Your Service Catalogue'}
         </CardTitle>
-        <CardDescription className="text-center">
+        <CardDescription className="text-center text-product-foreground-accent text-base sm:text-lg mt-2" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
           Step {currentStep} of 3: {
             currentStep === 1 ? (type === 'edit' ? 'General Information' : 'General Information') :
             currentStep === 2 ? (type === 'edit' ? 'Menu Sections' : 'Menu Sections') :
             (type === 'edit' ? 'Menu Items' : 'Menu Items')
           }
         </CardDescription>
-        <div className="flex justify-center space-x-2 mt-4">
+        <div className="flex justify-center space-x-3 mt-6">
           {[1, 2, 3].map((step) => (
             <div
               key={step}
-              className={`w-8 h-2 rounded-full transition-colors duration-200 ${currentStep === step ? "bg-orange-600" : "bg-gray-300"} cursor-pointer`}
+              className={`w-10 h-2 rounded-full transition-all duration-300 ${currentStep === step ? "bg-product-primary shadow-product-shadow" : "bg-product-border"} cursor-pointer hover:bg-product-primary/80 hover:shadow-product-hover-shadow`}
               onClick={async () => {
                 if (step === currentStep) return;
                 if (step < currentStep) {
@@ -435,34 +435,34 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
           ))}
         </div>
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-6 sm:p-8 pt-0">
         <form onSubmit={handleSubmit} className="space-y-8">
           {renderStep()}
           {currentStep === 2 && step2Error && (
-            <div className="text-red-500 text-center mt-2">{step2Error}</div>
+            <div className="text-red-500 text-center mt-4 p-3 bg-red-50 border border-red-200 rounded-lg" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>{step2Error}</div>
           )}
           {currentStep === 3 && step3Error && (
-            <div className="text-red-500 text-center mt-2">{step3Error}</div>
+            <div className="text-red-500 text-center mt-4 p-3 bg-red-50 border border-red-200 rounded-lg" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>{step3Error}</div>
           )}
-          <div className="flex justify-between mt-8">
+          <div className="flex justify-between mt-8 pt-6 border-t border-product-border">
             {currentStep > 1 && (
-              <Button type="button" variant="outline" onClick={handlePrevious}>
-                <ArrowLeft className="mr-2 h-4 w-4" /> Previous
+              <Button type="button" variant="outline" onClick={handlePrevious} className="px-6 py-3 text-base font-medium">
+                <ArrowLeft className="mr-2 h-5 w-5" /> Previous
               </Button>
             )}
             {currentStep < 3 && (
               <Button
                 type="button"
                 onClick={handleNext}
-                className={`ml-auto ${!isStepValid(currentStep) ? 'bg-gray-400 hover:bg-gray-400' : ''}`}
+                className={`ml-auto px-6 py-3 text-base font-medium ${!isStepValid(currentStep) ? 'bg-product-border text-product-foreground-accent hover:bg-product-border cursor-not-allowed' : 'bg-product-primary hover:bg-product-primary-accent hover:shadow-product-hover-shadow hover:scale-[1.02] hover:transform hover:-translate-y-1'}`}
                 disabled={!isStepValid(currentStep)}
               >
-                Next <ArrowRight className="ml-2 h-4 w-4" />
+                Next <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             )}
             {currentStep === 3 && (
-              <Button type="submit" disabled={isSubmitting} className="flex items-center justify-center">
-                {type === 'edit' ? <Edit className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
+              <Button type="submit" disabled={isSubmitting} className="flex items-center justify-center px-8 py-3 text-base font-semibold bg-product-primary hover:bg-product-primary-accent hover:shadow-product-hover-shadow hover:scale-[1.02] hover:transform hover:-translate-y-1 transition-all duration-300">
+                {type === 'edit' ? <Edit className="h-5 w-5 mr-2" /> : <Plus className="h-5 w-5 mr-2" />}
                 {isSubmitting ? (type === 'edit' ? 'Saving...' : 'Creating...') : (type === 'edit' ? 'Save Changes' : 'Create Service Catalogue')}
               </Button>
             )}

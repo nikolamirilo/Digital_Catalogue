@@ -40,8 +40,8 @@ const SuccessModal: React.FC<SuccessModalProps> = ({
   const handleCopyCode = async () => {
     await navigator.clipboard.writeText(iframeCode);
     if (codeRef.current) {
-      codeRef.current.classList.add("ring-2", "ring-green-400");
-      setTimeout(() => codeRef.current?.classList.remove("ring-2", "ring-green-400"), 1000);
+      codeRef.current.classList.add("ring-2", "ring-product-primary");
+      setTimeout(() => codeRef.current?.classList.remove("ring-2", "ring-product-primary"), 1000);
     }
   };
   
@@ -101,47 +101,64 @@ const SuccessModal: React.FC<SuccessModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[600px] max-h-screen overflow-x-auto w-full !p-6 bg-product-background">
-        <DialogHeader className="flex flex-col">
-          <div className="flex flex-row gap-1 items-center justify-left">
-            <DialogTitle className="text-product-foreground">🎉 Congratulations!</DialogTitle>
-            {/* <FaCheckCircle size={25} color="green" /> */}
+      <DialogContent className="sm:max-w-[600px] max-h-screen overflow-x-auto w-full !p-8 bg-white/95 border border-product-border shadow-product-shadow rounded-3xl">
+        <DialogHeader className="flex flex-col space-y-4">
+          <div className="flex flex-row gap-3 items-center justify-center">
+            <FaCheckCircle size={32} className="text-green-500" />
+            <DialogTitle className="text-2xl sm:text-3xl font-bold text-product-foreground" style={{ fontFamily: 'var(--font-playfair-display), var(--font-inter), serif' }}>
+              🎉 Congratulations!
+            </DialogTitle>
           </div>
-          <DialogDescription className="text-product-foreground px-1">
+          <DialogDescription className="text-center text-product-foreground-accent text-lg" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
             {type== "ai" ? "Your AI-generated Service Catalogue is now live and ready to share with your customers." : "Your Service Catalogue is now live and ready to share with your customers."}
           </DialogDescription>
         </DialogHeader>
       
 
         {/* QR Code Section */}
-        <div className="flex flex-col items-start gap-2 w-full">
-          <h4 className="flex flex-row gap-1 items-center text-base bg-green-50 border border-green-200 rounded-lg p-2 text-green-800"><strong className="flex flex-row gap-1 items-center"><IoShareSocialOutline size={25}/>Share instantly:</strong>Use the QR code below for quick access</h4>
-          <div id="success-modal-qr">
+        <div className="flex flex-col items-center gap-4 w-full p-6 bg-product-background/50 rounded-2xl border border-product-border">
+          <h4 className="flex flex-row gap-2 items-center text-lg font-semibold text-product-foreground" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+            <IoShareSocialOutline size={28} className="text-product-primary"/>
+            Share instantly
+          </h4>
+          <p className="text-product-foreground-accent text-center" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+            Use the QR code below for quick access
+          </p>
+          <div id="success-modal-qr" className="p-4 bg-white rounded-xl shadow-product-shadow border border-product-border">
             <QRCodeSVG value={fullURL} size={180} bgColor="#fff" fgColor="#000" />
           </div>
-          <div className="flex flex-row mt-1 w-full">
-            <Button className="flex gap-1" onClick={handleDownloadPng}>
+          <div className="flex flex-row mt-2 w-full justify-center">
+            <Button 
+              className="px-6 py-3 text-base font-medium bg-product-primary hover:bg-product-primary-accent hover:shadow-product-hover-shadow hover:scale-[1.02] hover:transform hover:-translate-y-1 transition-all duration-300" 
+              onClick={handleDownloadPng}
+            >
               <IoQrCode size={22}/> Download QR code
             </Button>
           </div>
         </div>
         
         {/* Embeddable Iframe Section */}
-        <div className="text-product-foreground w-full">
-          <h4 className="flex flex-row gap-1 items-center text-base bg-green-50 border border-green-200 rounded-lg p-2 text-green-800 mb-2"><strong className="flex flex-row gap-1 items-center"><ImEmbed2  size={25}/>Embed Anywhere:</strong>Copy the code to add to your website</h4>
+        <div className="text-product-foreground w-full space-y-4">
+          <h4 className="flex flex-row gap-2 items-center text-lg font-semibold text-product-foreground" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+            <ImEmbed2 size={28} className="text-product-primary"/>
+            Embed Anywhere
+          </h4>
+          <p className="text-product-foreground-accent" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+            Copy the code to add to your website
+          </p>
           <div
             ref={codeRef}
-            className="bg-[#1e1e1e] rounded-lg p-4 text-xs overflow-x-auto font-[Fira_Mono,JetBrains_Mono,Source_Code_Pro,monospace] border border-[#333] shadow-inner mb-2 transition-all duration-200"
+            className="bg-[#1e1e1e] rounded-xl p-4 text-xs overflow-x-auto font-[Fira_Mono,JetBrains_Mono,Source_Code_Pro,monospace] border border-[#333] shadow-product-shadow mb-4 transition-all duration-200"
             style={{ fontFamily: 'Fira Mono, JetBrains Mono, Source Code Pro, monospace', color: '#d4d4d4', lineHeight: '1.6', minWidth: 0 }}
           >
             <pre className="whitespace-pre-wrap break-all m-0" style={{ background: 'none', padding: 0, margin: 0 }}>{iframeCode}</pre>
           </div>
-          <div className="flex flex-row gap-2 w-full">
+          <div className="flex flex-row gap-3 w-full justify-center">
             <Button
               onClick={handleCopyCode}
-              className="flex gap-1 items-center justify-center"
+              className="px-6 py-3 text-base font-medium bg-product-primary hover:bg-product-primary-accent hover:shadow-product-hover-shadow hover:scale-[1.02] hover:transform hover:-translate-y-1 transition-all duration-300"
             >
-              <MdContentCopy size={25}/> Copy code
+              <MdContentCopy size={22}/> Copy code
             </Button>
             <Button
               onClick={() => {
@@ -158,24 +175,28 @@ const SuccessModal: React.FC<SuccessModalProps> = ({
                 URL.revokeObjectURL(url);
               }}
               variant="outline"
-              className="flex gap-1 items-center justify-center"
+              className="px-6 py-3 text-base font-medium border-product-border text-product-foreground hover:bg-product-background hover:border-product-primary transition-all duration-300"
             >
-              <FaCode size={25}/> Download full HTML code
+              <FaCode size={22}/> Download full HTML code
             </Button>
           </div>
         </div>
         
-        <DialogFooter>
+        <DialogFooter className="flex flex-row gap-3 pt-6 border-t border-product-border">
           <Button
-            className="flex gap-1"
+            className="px-6 py-3 text-base font-medium border-product-border text-product-foreground hover:bg-product-background hover:border-product-primary transition-all duration-300"
             variant="outline"
             onClick={() => {
               window.open(fullURL, '_blank');
             }}
           >
-            <IoMdOpen size={25} /> Visit
+            <IoMdOpen size={22} /> Visit
           </Button>
-          <Button onClick={onClose} variant="destructive">
+          <Button 
+            onClick={onClose} 
+            variant="destructive"
+            className="px-6 py-3 text-base font-medium hover:bg-red-600 transition-all duration-300"
+          >
             Close
           </Button>
         </DialogFooter>
