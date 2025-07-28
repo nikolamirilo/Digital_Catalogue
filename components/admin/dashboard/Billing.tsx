@@ -66,6 +66,34 @@ export default function Billing({ pricingPlan }: { pricingPlan: any }) {
   return (
     <div className="max-w-5xl space-y-6">
       {/* Main Plan Card */}
+
+      {/* Action Buttons */}
+      <Card>
+        <CardContent className="p-6">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button 
+              variant="outline" 
+              className="flex items-center"
+            >
+              <CreditCard size={20} />
+              <span>Update Payment Method</span>
+            </Button>
+            <Button 
+              variant="outline"
+              className="flex items-center"
+            >
+              <Calendar size={20} />
+              <span>View Billing History</span>
+            </Button>
+            <Button 
+              variant="default"
+              className="bg-product-primary text-product-foreground"
+            >
+              Upgrade Plan
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
       <Card className="overflow-hidden shadow-xl border-0">
         <div className={`${getPlanColor(pricingPlan.name)} p-6 text-white`}>
           <div className="flex items-center justify-between">
@@ -178,33 +206,6 @@ export default function Billing({ pricingPlan }: { pricingPlan: any }) {
         </Card>
       )}
 
-      {/* Action Buttons */}
-      <Card>
-        <CardContent className="p-6">
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              variant="outline" 
-              className="flex items-center"
-            >
-              <CreditCard size={20} />
-              <span>Update Payment Method</span>
-            </Button>
-            <Button 
-              variant="outline"
-              className="flex items-center"
-            >
-              <Calendar size={20} />
-              <span>View Billing History</span>
-            </Button>
-            <Button 
-              variant="default"
-              className="bg-product-primary text-product-foreground"
-            >
-              Upgrade Plan
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
     </div>
   );
 }

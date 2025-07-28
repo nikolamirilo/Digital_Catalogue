@@ -103,10 +103,12 @@ export default function Dashboard({
           key={tab.value}
           onClick={() => setActiveTab(tab.value)}
           variant="nav"
-          className={getSidebarButtonClass(activeTab === tab.value)}
+          className={`${getSidebarButtonClass(activeTab === tab.value)} flex items-center justify-start`}
           aria-current={activeTab === tab.value ? 'page' : undefined}
         >
-          {tab.icon}
+          <span className="flex items-center justify-center">
+            {tab.icon}
+          </span>
           {tab.label}
         </Button>
       ))}
@@ -124,13 +126,15 @@ export default function Dashboard({
           key={tab.value}
           onClick={() => setActiveTab(tab.value)}
           variant="nav"
-          className={activeTab === tab.value
+          className={`${activeTab === tab.value
             ? '!bg-product-hover-background !text-navbar-button-active !border !border-product-primary shadow-sm font-semibold hover:scale-[1.03] hover:transform'
-            : ''}
+            : ''} flex items-center justify-start`}
           style={{ fontFamily: 'var(--font-inter), sans-serif' }}
           aria-current={activeTab === tab.value ? 'page' : undefined}
         >
-          {tab.icon}
+          <span className="flex items-center justify-center">
+            {tab.icon}
+          </span>
           {tab.label}
         </Button>
       ))}

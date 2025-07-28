@@ -88,7 +88,7 @@ const Navbar = () => {
       </div>
       
       {/* Desktop links */}
-      <div className="hidden md:flex items-center gap-2">
+      <div className="hidden lg:flex items-center gap-2">
         <NavLink href="/" icon={FiHome}>
           Home
         </NavLink>
@@ -132,14 +132,14 @@ const Navbar = () => {
       </div>
       
       {/* Hamburger for mobile */}
-      <div className="md:hidden flex items-center">
-        <Button
+      <div className="lg:hidden flex items-center">
+        <button
           aria-label="Open menu"
           onClick={() => setMobileOpen((v) => !v)}
-          variant="sidebar-rail"
+          className="p-2"
         >
-          <GiHamburgerMenu size={20} className="text-product-foreground" />
-        </Button>
+          <GiHamburgerMenu size={22} className="text-product-foreground" />
+        </button>
       </div>
       
       {/* Mobile menu overlay */}
@@ -152,7 +152,7 @@ const Navbar = () => {
       
       {/* Mobile menu */}
       <div
-        className={`mobile-menu fixed flex flex-col top-0 right-0 h-full w-72 sm:w-80 bg-white shadow-xl z-50 transform transition-transform duration-300 ease-in-out ${
+        className={`mobile-menu fixed flex flex-col top-16 right-0 h-[calc(100vh-4rem)] w-80 bg-white  z-50 transform transition-transform duration-300 ease-in-out ${
           mobileOpen ? "translate-x-0" : "translate-x-full"
         }`}
         style={{ willChange: "transform" }}
