@@ -200,7 +200,7 @@ export default function Dashboard({
                   </Card>
                   <Card className="p-4 sm:p-6 flex flex-col items-center justify-between bg-product-background border border-product-border shadow-product-shadow hover:shadow-product-hover-shadow transition-all duration-200 animate-fade-in">
                     <div className="text-base sm:text-lg font-semibold text-product-foreground mb-2 text-center">Engagement</div>
-                    <div className="text-2xl sm:text-3xl font-bold text-product-primary">121</div>
+                    <div className="text-2xl sm:text-3xl font-bold text-product-primary">122</div>
                   </Card>
                 </div>
               </section>
