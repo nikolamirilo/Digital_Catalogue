@@ -64,7 +64,7 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
   );
 
   return (
-    <Card className="space-y-8 p-6 sm:p-8 bg-white/95 border border-product-border shadow-product-shadow rounded-2xl" type="form">
+    <Card className="space-y-8 p-6 sm:p-8 bg-white/95 border border-product-border shadow-md rounded-2xl" type="form">
       <h2 className="text-2xl sm:text-3xl font-bold text-product-foreground flex items-center gap-3" style={{ fontFamily: 'var(--font-playfair-display), var(--font-inter), serif' }}>
         <FileText className="text-product-primary" size={28}/>
         ServiceCatalogue Details
@@ -81,7 +81,7 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
             value={formData.name}
             onChange={handleInputChange}
             placeholder="e.g., The Golden Spoon"
-            className="border-product-border focus:border-product-primary focus:ring-product-primary/20"
+            className="border-product-border focus:border-product-primary focus:ring-product-primary/20 text-sm sm:text-base"
             required
           />
           {touched?.name && errors?.name && (
@@ -99,7 +99,7 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
             value={formData.title}
             onChange={handleInputChange}
             placeholder="e.g., Our Delicious Offerings"
-            className="border-product-border focus:border-product-primary focus:ring-product-primary/20"
+            className="border-product-border focus:border-product-primary focus:ring-product-primary/20 text-sm sm:text-base"
           />
           {touched?.title && errors?.title && (
             <div className="text-red-500 text-sm mt-2 p-2 bg-red-50 border border-red-200 rounded-lg" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>{errors.title}</div>
@@ -115,7 +115,7 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
             value={formData.subtitle}
             onChange={handleInputChange}
             placeholder="A short tagline or description"
-            className="h-48 border-product-border focus:border-product-primary focus:ring-product-primary/20"
+            className="h-48 border-product-border focus:border-product-primary focus:ring-product-primary/20 text-sm sm:text-base"
           />
         </div>
         <div className="space-y-3">
@@ -195,7 +195,7 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
             value={formData.legal_name}
             onChange={handleInputChange}
             placeholder="e.g., The Golden Spoon LLC"
-            className="border-product-border focus:border-product-primary focus:ring-product-primary/20"
+            className="border-product-border focus:border-product-primary focus:ring-product-primary/20 text-sm sm:text-base"
           />
         </div>
         {/* Theme Selection */}
@@ -272,7 +272,7 @@ const Step1GeneralInfo: React.FC<Step1GeneralInfoProps> = ({
                   onChange={(e) =>
                     handleContactChange(index, "value", e.target.value)
                   }
-                  className="border-product-border focus:border-product-primary focus:ring-product-primary/20"
+                  className="border-product-border focus:border-product-primary focus:ring-product-primary/20 text-sm sm:text-base"
                 />
               </div>
               <Button

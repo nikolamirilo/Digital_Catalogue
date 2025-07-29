@@ -396,7 +396,8 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
   };
 
   return (
-    <Card className="w-full max-w-4xl mx-auto bg-white/95 border border-product-border shadow-product-shadow rounded-3xl" type="form">
+    <div className="w-full max-w-4xl mx-auto bg-white/95 border border-product-border shadow-md rounded-3xl">
+      <Card className="w-full h-full bg-transparent border-0 shadow-none rounded-none backdrop-blur-none" type="form">
       <CardHeader className="p-6 sm:p-8">
         <CardTitle className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-product-foreground" style={{ fontFamily: 'var(--font-playfair-display), var(--font-inter), serif' }}>
           {type === 'edit' ? 'Edit Your Service Catalogue' : 'Create Your Service Catalogue'}
@@ -475,6 +476,7 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
         restaurantUrl={restaurantUrl}
       />
     </Card>
+    </div>
   );
 }
 export default MenuForm;
