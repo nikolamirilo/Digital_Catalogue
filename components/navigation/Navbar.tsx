@@ -152,7 +152,7 @@ const Navbar = () => {
       
       {/* Mobile menu */}
       <div
-        className={`mobile-menu fixed flex flex-col top-16 right-0 h-[calc(100vh-4rem)] w-80 bg-white  z-50 transform transition-transform duration-300 ease-in-out ${
+        className={`mobile-menu fixed flex flex-col top-0 right-0 h-screen w-80 bg-white  z-50 transform transition-transform duration-300 ease-in-out ${
           mobileOpen ? "translate-x-0" : "translate-x-full"
         }`}
         style={{ willChange: "transform" }}
