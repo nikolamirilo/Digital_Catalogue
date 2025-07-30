@@ -211,12 +211,12 @@ export default function Dashboard({
                 </h2>
                 <div className="flex flex-wrap gap-2 sm:gap-3 lg:gap-4 mb-4 sm:mb-6">
                   <Link href="/admin/create">
-                    <Button variant="cta" className="flex flex-row items-center gap-2 px-3 sm:px-4 md:px-6 py-2 rounded-full text-xs sm:text-sm md:text-base">
+                    <Button variant="cta" className="flex flex-row items-center gap-2 px-3 sm:px-4 md:px-6 py-2 text-xs sm:text-sm md:text-base">
                       <FiPlus size={18} className="sm:w-5 sm:h-5 md:w-6 md:h-6" /> Create Menu
                     </Button>
                   </Link>
                   <Link href="/admin/create/ai">
-                    <Button variant="outline" className="flex flex-row items-center gap-2 px-3 sm:px-4 md:px-6 py-2 rounded-full text-xs sm:text-sm md:text-base">
+                    <Button variant="outline" className="flex flex-row items-center gap-2 px-3 sm:px-4 md:px-6 py-2 text-xs sm:text-sm md:text-base">
                       <RiSparkling2Line size={18} className="sm:w-5 sm:h-5 md:w-6 md:h-6" /> Generate Menu with AI
                     </Button>
                   </Link>
