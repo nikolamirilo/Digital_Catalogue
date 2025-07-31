@@ -1,11 +1,47 @@
-import React from 'react';
+"use client"
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { FiMail, FiPhone, FiMapPin, FiClock, FiExternalLink, FiShield, FiZap, FiUsers, FiStar, FiCheckCircle } from 'react-icons/fi';
+import { FiMail, FiPhone, FiMapPin, FiClock, FiExternalLink, FiShield, FiZap, FiUsers, FiStar, FiCheckCircle, FiHome, FiPlus } from 'react-icons/fi';
 import { getPlatformIconByName } from '@/utils/client';
 
-const CatalogueFooter: React.FC = () => {
+interface CatalogueFooterProps {
+  type?: 'default' | 'custom';
+  customLogo?: string;
+  customCompanyName?: string;
+  customEmail?: string;
+  customPhone?: string;
+  customAddress?: string;
+  customLocation?: string;
+  customLegalName?: string;
+  customSocialLinks?: Record<string, string>;
+  customPartnerBadges?: Array<{ name: string; icon: string; description: string; rating: number }>;
+}
+
+const CatalogueFooter: React.FC<CatalogueFooterProps> = ({ 
+  type = 'default',
+  customLogo,
+  customCompanyName = 'Your Company',
+  customEmail = 'hello@example.com',
+  customPhone = '+1 (555) 123-4567',
+  customAddress = '123 Business St',
+  customLocation = 'City, State 12345',
+  customLegalName = 'Your Company LLC',
+  customSocialLinks = {
+    facebook: 'https://facebook.com/yourcompany',
+    twitter: 'https://twitter.com/yourcompany',
+    linkedin: 'https://linkedin.com/company/yourcompany',
+    instagram: 'https://instagram.com/yourcompany'
+  },
+  customPartnerBadges = [
+    { name: 'Partner 1', icon: '🏢', description: 'Business Partner', rating: 4.8 },
+    { name: 'Partner 2', icon: '🏢', description: 'Business Partner', rating: 4.9 },
+    { name: 'Partner 3', icon: '🏢', description: 'Business Partner', rating: 4.7 }
+  ]
+}) => {
+  const [logoPath, setLogoPath] = useState('/logo.svg');
+
   const socialLinks = {
     facebook: 'https://facebook.com/quicktalog',
     twitter: 'https://twitter.com/quicktalog',
@@ -26,43 +62,74 @@ const CatalogueFooter: React.FC = () => {
     { icon: <FiExternalLink className="w-4 h-4" />, title: 'QR Code Sharing', description: 'One-click sharing' }
   ];
 
+  // Determine logo based on theme
+  useEffect(() => {
+    const getLogoPath = () => {
+      if (type === 'custom' && customLogo) {
+        return customLogo;
+      }
+      
+      // Check if we're in a dark theme by looking for theme classes on parent elements
+      const mainElement = document.querySelector('main');
+      const isDarkTheme = mainElement?.classList.contains('theme-elegant') || 
+                         mainElement?.classList.contains('theme-modern') ||
+                         mainElement?.classList.contains('theme-creative') ||
+                         document.querySelector('.theme-elegant') ||
+                         document.querySelector('.theme-modern') ||
+                         document.querySelector('.theme-creative');
+      
+      return type === 'default' 
+        ? (isDarkTheme ? '/logo-light.svg' : '/logo.svg')
+        : (customLogo || '/logo.svg');
+    };
+
+    setLogoPath(getLogoPath());
+  }, [type, customLogo]);
+
   return (
-    <footer className="border-t border-border bg-section text-section-heading" style={{
-      fontFamily: 'var(--font-family-body, inherit)'
+    <footer className="border-t border-border/5 bg-section text-section-heading mt-16" style={{
+      fontFamily: 'var(--font-family-body, inherit)',
+      fontWeight: 'var(--font-weight-body, 400)',
+      letterSpacing: 'var(--letter-spacing-body, 0)'
     }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Main footer content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-          {/* Quicktalog branding */}
-          <div className="space-y-3">
-            <Link href="/" className="flex items-center space-x-3 group transition-all duration-200 hover:scale-105">
+          {/* Company branding */}
+          <div className="space-y-4">
+            <Link href="/" className="flex items-center space-x-4 group transition-all duration-200 hover:scale-105">
               <Image
-                src="/logo.svg"
-                alt="Quicktalog"
-                width={32}
-                height={32}
-                className="w-8 h-8"
+                src={logoPath}
+                alt={type === 'default' ? "Quicktalog" : customCompanyName}
+                width={type === 'default' ? 48 : 32}
+                height={type === 'default' ? 48 : 32}
+                className={type === 'default' ? "w-12 h-12" : "w-8 h-8"}
               />
               <div>
-                <h3 className="font-semibold group-hover:text-primary transition-colors duration-200 text-section-heading" style={{
-                  fontFamily: 'var(--font-family-heading, inherit)'
+                <h3 className="text-xl font-semibold group-hover:text-primary transition-colors duration-200 text-section-heading" style={{
+                  fontFamily: 'var(--font-family-heading, inherit)',
+                  fontWeight: 'var(--font-weight-heading, 600)',
+                  letterSpacing: 'var(--letter-spacing-heading, -0.02em)'
                 }}>
-                  Quicktalog
+                  {type === 'default' ? 'Quicktalog' : customCompanyName}
                 </h3>
-                <p className="text-xs opacity-75 text-card-description">
-                  Digital Catalog Platform
+                <p className="text-sm opacity-75 text-card-description">
+                  {type === 'default' ? 'Digital Catalog Platform' : 'Professional Services'}
                 </p>
               </div>
             </Link>
             <p className="text-sm leading-relaxed text-card-description">
-              Create beautiful, shareable digital catalogs in minutes. No tech skills required.
+              {type === 'default' 
+                ? 'Create beautiful, shareable digital catalogs in minutes. No tech skills required.'
+                : 'Professional services delivered with excellence and attention to detail.'
+              }
             </p>
-            <div className="flex items-center space-x-2">
-              {Object.keys(socialLinks).map(platform => (
+            <div className="flex items-center space-x-3">
+              {Object.keys(type === 'default' ? socialLinks : customSocialLinks).map(platform => (
                 <Link
                   key={platform}
-                  href={socialLinks[platform as keyof typeof socialLinks]}
-                  className="p-1.5 rounded-lg transition-all duration-200 group hover:scale-110 bg-card text-card-description"
+                  href={(type === 'default' ? socialLinks : customSocialLinks)[platform as keyof typeof socialLinks]}
+                  className="p-2 rounded-lg transition-all duration-200 group hover:scale-110 bg-card text-card-description hover:bg-primary/10"
                   aria-label={`Follow us on ${platform}`}
                 >
                   <div className="group-hover:text-primary transition-colors duration-200">
@@ -74,126 +141,182 @@ const CatalogueFooter: React.FC = () => {
           </div>
 
           {/* Contact & Support */}
-          <div className="space-y-3">
-            <h4 className="text-base font-semibold flex items-center gap-2 text-section-heading" style={{
-              fontFamily: 'var(--font-family-heading, inherit)'
+          <div className="space-y-4">
+            <h4 className="text-lg font-semibold text-section-heading" style={{
+              fontFamily: 'var(--font-family-heading, inherit)',
+              fontWeight: 'var(--font-weight-heading, 600)',
+              letterSpacing: 'var(--letter-spacing-heading, -0.02em)'
             }}>
-              <FiMail className="w-4 h-4 text-primary" />
               Contact & Support
             </h4>
-            <div className="space-y-2">
+            <div className="space-y-3">
               <a 
-                href="mailto:hello@quicktalog.com"
-                className="flex items-center space-x-2 text-sm hover:text-primary transition-colors duration-200 group text-card-description"
-                aria-label="Email Quicktalog"
+                href={`mailto:${type === 'default' ? 'hello@quicktalog.com' : customEmail}`}
+                className="flex items-center space-x-3 text-sm hover:text-primary transition-colors duration-200 group text-card-description"
+                aria-label="Email"
               >
                 <FiMail className="w-4 h-4 group-hover:scale-110 transition-transform duration-200" />
-                <span>hello@quicktalog.com</span>
+                <span>{type === 'default' ? 'hello@quicktalog.com' : customEmail}</span>
               </a>
               <a 
-                href="tel:+1234567890"
-                className="flex items-center space-x-2 text-sm hover:text-primary transition-colors duration-200 group text-card-description"
-                aria-label="Call Quicktalog"
+                href={`tel:${type === 'default' ? '+1234567890' : customPhone}`}
+                className="flex items-center space-x-3 text-sm hover:text-primary transition-colors duration-200 group text-card-description"
+                aria-label="Phone"
               >
                 <FiPhone className="w-4 h-4 group-hover:scale-110 transition-transform duration-200" />
-                <span>+1 (234) 567-890</span>
+                <span>{type === 'default' ? '+1 (234) 567-890' : customPhone}</span>
               </a>
-              <div className="flex items-center space-x-2 text-sm text-card-description">
+              <div className="flex items-center space-x-3 text-sm text-card-description">
                 <FiMapPin className="w-4 h-4" />
-                <span>San Francisco, CA</span>
-              </div>
-              <div className="flex items-center space-x-2 text-sm text-card-description">
-                <FiClock className="w-4 h-4" />
-                <span>Mon-Fri 9AM-6PM PST</span>
+                <span>{type === 'default' ? 'San Francisco, CA' : customAddress}</span>
               </div>
             </div>
           </div>
 
-          {/* Features & Benefits */}
-          <div className="space-y-3">
-            <h4 className="text-base font-semibold flex items-center gap-2 text-section-heading" style={{
-              fontFamily: 'var(--font-family-heading, inherit)'
-            }}>
-              <FiStar className="w-4 h-4 text-primary" />
-              Platform Features
-            </h4>
-            <div className="space-y-2">
-              {features.map((feature, index) => (
-                <div key={index} className="flex items-start space-x-2 text-sm group text-card-description">
-                  <div className="mt-0.5 group-hover:scale-110 transition-transform duration-200 text-primary">
-                    {feature.icon}
+          {/* Platform Features (Default only) */}
+          {type === 'default' && (
+            <div className="space-y-4">
+              <h4 className="text-lg font-semibold text-section-heading" style={{
+                fontFamily: 'var(--font-family-heading, inherit)',
+                fontWeight: 'var(--font-weight-heading, 600)',
+                letterSpacing: 'var(--letter-spacing-heading, -0.02em)'
+              }}>
+                Platform Features
+              </h4>
+              <div className="space-y-3">
+                {features.map((feature, index) => (
+                  <div key={index} className="flex items-start space-x-3 text-sm group text-card-description">
+                    <div className="mt-0.5 group-hover:scale-110 transition-transform duration-200 text-primary">
+                      {feature.icon}
+                    </div>
+                    <div>
+                      <div className="font-medium text-card-heading" style={{
+                        fontFamily: 'var(--font-family-heading, inherit)',
+                        fontWeight: 'var(--font-weight-heading, 600)',
+                        letterSpacing: 'var(--letter-spacing-heading, -0.02em)'
+                      }}>{feature.title}</div>
+                      <div className="text-xs opacity-75">{feature.description}</div>
+                    </div>
                   </div>
-                  <div>
-                    <div className="font-medium text-card-heading" style={{
-                      fontFamily: 'var(--font-family-heading, inherit)'
-                    }}>{feature.title}</div>
-                    <div className="text-xs opacity-75">{feature.description}</div>
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
-          {/* Partner Badges */}
-          <div className="space-y-3">
-            <h4 className="text-base font-semibold flex items-center gap-2 text-section-heading" style={{
-              fontFamily: 'var(--font-family-heading, inherit)'
-            }}>
-              <FiCheckCircle className="w-4 h-4 text-primary" />
-              Trusted Partners
-            </h4>
-            <div className="space-y-2">
-              {partnerBadges.map((partner, index) => (
-                <div key={index} className="flex items-center space-x-2 p-1.5 rounded-lg transition-all duration-200 hover:scale-105 bg-card text-card-description">
-                  <span className="text-base">{partner.icon}</span>
-                  <div className="flex-1">
-                    <div className="font-medium text-sm text-card-heading" style={{
-                      fontFamily: 'var(--font-family-heading, inherit)'
-                    }}>{partner.name}</div>
-                    <div className="text-xs opacity-75">{partner.description}</div>
-                  </div>
-                  <div className="flex items-center space-x-1">
-                    <FiStar className="w-3 h-3 text-primary" />
-                    <span className="text-xs font-medium">{partner.rating}</span>
-                  </div>
-                </div>
-              ))}
+          {/* Empty column for default version to maintain alignment */}
+          {type === 'default' && (
+            <div className="space-y-4">
+              {/* Empty column for alignment */}
             </div>
-          </div>
+          )}
+
+          {/* Company Info (Custom only) */}
+          {type === 'custom' && (
+            <div className="space-y-4">
+              <h4 className="text-lg font-semibold text-section-heading" style={{
+                fontFamily: 'var(--font-family-heading, inherit)',
+                fontWeight: 'var(--font-weight-heading, 600)',
+                letterSpacing: 'var(--letter-spacing-heading, -0.02em)'
+              }}>
+                Company Information
+              </h4>
+              <div className="space-y-3">
+                <div className="flex items-center space-x-3 text-sm text-card-description">
+                  <FiMapPin className="w-4 h-4" />
+                  <span>{customAddress}</span>
+                </div>
+                <div className="flex items-center space-x-3 text-sm text-card-description">
+                  <FiMapPin className="w-4 h-4" />
+                  <span>{customLocation}</span>
+                </div>
+                <div className="flex items-center space-x-3 text-sm text-card-description">
+                  <FiHome className="w-4 h-4" />
+                  <span>{customLegalName}</span>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Partner Badges (Custom only) */}
+          {type === 'custom' && (
+            <div className="space-y-4">
+              <h4 className="text-lg font-semibold text-section-heading" style={{
+                fontFamily: 'var(--font-family-heading, inherit)',
+                fontWeight: 'var(--font-weight-heading, 600)',
+                letterSpacing: 'var(--letter-spacing-heading, -0.02em)'
+              }}>
+                Trusted Partners
+              </h4>
+              <div className="space-y-3">
+                {customPartnerBadges.map((partner, index) => (
+                  <div key={index} className="flex items-center space-x-3 p-2 rounded-lg transition-all duration-200 hover:scale-105 bg-card text-card-description">
+                    <span className="text-base">{partner.icon}</span>
+                    <div className="flex-1">
+                      <div className="font-medium text-sm text-card-heading" style={{
+                        fontFamily: 'var(--font-family-heading, inherit)',
+                        fontWeight: 'var(--font-weight-heading, 600)',
+                        letterSpacing: 'var(--letter-spacing-heading, -0.02em)'
+                      }}>{partner.name}</div>
+                      <div className="text-xs opacity-75">{partner.description}</div>
+                    </div>
+                    <div className="flex items-center space-x-1">
+                      <FiStar className="w-3 h-3 text-primary" />
+                      <span className="text-xs font-medium">{partner.rating}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Bottom section */}
         <div className="pt-6 border-t border-section-border">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            {/* Copyright & Legal */}
-            <div className="flex flex-col md:flex-row items-center gap-4 text-sm text-card-description">
-              <span>© 2024 Quicktalog. All rights reserved.</span>
-              <div className="flex items-center space-x-4">
-                <Link href="/privacy-policy" className="hover:text-primary transition-colors duration-200">
-                  Privacy Policy
+          {type === 'default' ? (
+            // Default - Full layout with CTA button
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+              {/* Copyright & Legal */}
+              <div className="flex flex-col md:flex-row items-center gap-4 text-sm text-card-description">
+                <span>© 2025 Quicktalog. All rights reserved.</span>
+                <div className="flex items-center space-x-4">
+                  <Link href="/privacy-policy" className="hover:text-primary transition-colors duration-200">
+                    Privacy Policy
+                  </Link>
+                  <Link href="/terms-and-conditions" className="hover:text-primary transition-colors duration-200">
+                    Terms of Service
+                  </Link>
+                  <Link href="/refund-policy" className="hover:text-primary transition-colors duration-200">
+                    Refund Policy
+                  </Link>
+                </div>
+              </div>
+
+              {/* CTA Button */}
+              <Button 
+                asChild
+                variant="secondary"
+                size="sm"
+                className="transition-all duration-200 hover:scale-105 flex items-center gap-2 bg-card text-card-foreground border border-border hover:bg-primary/10 hover:text-primary text-base"
+                style={{
+                  fontFamily: 'var(--font-family-heading, inherit)',
+                  fontWeight: 'var(--font-weight-heading, 600)',
+                  letterSpacing: 'var(--letter-spacing-heading, -0.02em)'
+                }}
+              >
+                <Link href="/auth?mode=signup" aria-label="Create your own digital catalog">
+                  <FiPlus className="w-4 h-4" />
+                  Create Your Digital Catalog
                 </Link>
-                <Link href="/terms-and-conditions" className="hover:text-primary transition-colors duration-200">
-                  Terms of Service
-                </Link>
-                <Link href="/refund-policy" className="hover:text-primary transition-colors duration-200">
-                  Refund Policy
-                </Link>
+              </Button>
+            </div>
+          ) : (
+            // Custom - Centered text only
+            <div className="text-center">
+              <div className="text-sm text-card-description">
+                <span>© 2025 {customLegalName}. All rights reserved.</span>
               </div>
             </div>
-
-            {/* CTA Button */}
-            <Button 
-              asChild
-              variant="secondary"
-              size="sm"
-              className="transition-all duration-200 hover:scale-105 flex items-center gap-2 bg-card text-card-foreground border border-border hover:bg-primary/10 hover:text-primary"
-            >
-              <Link href="/auth?mode=signup" aria-label="Create your own digital catalog">
-                <FiStar className="w-4 h-4" />
-                Create Your Digital Catalog
-              </Link>
-            </Button>
-          </div>
+          )}
         </div>
       </div>
     </footer>

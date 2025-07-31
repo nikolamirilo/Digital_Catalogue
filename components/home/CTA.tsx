@@ -69,43 +69,9 @@ const CTA: React.FC = () => {
                             {ctaDetails.subheading}
                         </motion.p>
 
-                        {/* Early access benefits */}
-                        <motion.div 
-                            className="mb-6 bg-white/10 backdrop-blur-sm rounded-lg p-4 max-w-md mx-auto"
-                            variants={childVariants}
-                        >
-                            <div className="flex items-center justify-center gap-2 mb-2">
-                                <FiGift className="w-5 h-5 text-product-primary" />
-                                <span className="font-semibold text-product-primary">Early Access Benefits</span>
-                            </div>
-                            <div className="text-sm space-y-1">
-                                <p>• Lifetime 20% discount</p>
-                                <p>• Priority support access</p>
-                                <p>• Early feature access</p>
-                            </div>
-                        </motion.div>
-
-                        {/* Strong CTA button */}
-                        <motion.div 
-                            className="flex flex-col sm:flex-row items-center gap-4 mb-6"
-                            variants={childVariants}
-                        >
-                            <Link href="/auth?mode=signup">
-                                <Button variant="cta" className="text-lg px-8 py-4 h-14">
-                                    Join Early Access List
-                                    <FiArrowRight className="w-5 h-5 ml-2" />
-                                </Button>
-                            </Link>
-                            <Link href="/playground">
-                                <Button variant="outline" className="text-lg px-8 py-4 h-14 border-2 border-white text-white hover:bg-white hover:text-black">
-                                    See Demo
-                                </Button>
-                            </Link>
-                        </motion.div>
-
                         {/* Trust indicators for pre-launch */}
                         <motion.div 
-                            className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 text-sm text-gray-300"
+                            className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 text-sm text-gray-300 mb-6"
                             variants={childVariants}
                         >
                             <div className="flex items-center gap-2">
@@ -120,6 +86,24 @@ const CTA: React.FC = () => {
                                 <FiShield className="w-4 h-4 text-product-primary" />
                                 <span>We'll notify you first</span>
                             </div>
+                        </motion.div>
+
+                        {/* Strong CTA button */}
+                        <motion.div 
+                            className="flex flex-col sm:flex-row items-center gap-4"
+                            variants={childVariants}
+                        >
+                            <Link href="/auth?mode=signup">
+                                <Button variant="cta" className="text-lg px-8 py-4 h-14">
+                                    Join Early Access List
+                                    <FiArrowRight className="w-5 h-5 ml-2" />
+                                </Button>
+                            </Link>
+                            <Link href="/playground">
+                                <Button variant="outline" className="text-lg px-8 py-4 h-14 border-2 border-white text-white hover:bg-white hover:text-black">
+                                    See Demo
+                                </Button>
+                            </Link>
                         </motion.div>
                     </motion.div>
                 </div>

@@ -1,57 +1,132 @@
 "use client"
-import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/react";
-import { BiMinus, BiPlus } from "react-icons/bi";
-import { useEffect, useState } from "react";
+import React, { useState } from 'react';
+import { motion, Variants } from 'framer-motion';
+import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
+import { FiChevronDown, FiPlus, FiMinus } from 'react-icons/fi';
+import { faqs } from '@/data/faq';
 
-import { faqs } from "@/data/faq";
+const containerVariants: Variants = {
+    offscreen: {
+        opacity: 0,
+        y: 50
+    },
+    onscreen: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            type: "spring" as const,
+            bounce: 0.2,
+            duration: 0.8,
+            delayChildren: 0.1,
+            staggerChildren: 0.1,
+        }
+    }
+};
+
+const itemVariants: Variants = {
+    offscreen: {
+        opacity: 0,
+        y: 20
+    },
+    onscreen: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            type: "spring" as const,
+            bounce: 0.3,
+            duration: 0.6,
+        }
+    },
+};
 
 const FAQ: React.FC = () => {
-    const [isVisible, setIsVisible] = useState(false);
+    const [showAll, setShowAll] = useState(false);
+    const [expandedItems, setExpandedItems] = useState<Set<number>>(new Set());
 
-    useEffect(() => {
-        setIsVisible(true);
-    }, []);
+    const displayedFaqs = showAll ? faqs : faqs.slice(0, 5);
+    const hasMore = faqs.length > 5;
+
+    const toggleItem = (index: number) => {
+        const newExpanded = new Set(expandedItems);
+        if (newExpanded.has(index)) {
+            newExpanded.delete(index);
+        } else {
+            newExpanded.add(index);
+        }
+        setExpandedItems(newExpanded);
+    };
+
+    const handleLoadMore = () => {
+        setShowAll(true);
+    };
 
     return (
-        <div className="w-full max-w-4xl mx-auto">
-            <div className="border-b">
-                {faqs.map((faq, index) => (
-                    <div 
-                        key={index} 
-                        className={`mb-7 transition-all duration-700 ease-out ${
-                            isVisible 
-                                ? 'opacity-100 translate-y-0' 
-                                : 'opacity-0 translate-y-4'
-                        }`}
-                        style={{ transitionDelay: `${index * 100}ms` }}
+        <motion.div 
+            className="max-w-4xl mx-auto"
+            variants={containerVariants}
+            initial="offscreen"
+            whileInView="onscreen"
+            viewport={{ once: true }}
+        >
+            <div className="space-y-4">
+                {displayedFaqs.map((faq, index) => (
+                    <motion.div
+                        key={`${index}-${showAll}`}
+                        variants={itemVariants}
+                        initial="offscreen"
+                        animate="onscreen"
+                        transition={{ 
+                            delay: index * 0.1 + (showAll && index >= 5 ? 0.3 : 0)
+                        }}
                     >
-                        <Disclosure>
+                        <Disclosure as="div" className="bg-white rounded-xl border border-product-border shadow-product-shadow">
                             {({ open }) => (
-                                <div className="group">
-                                    <DisclosureButton className="flex items-center justify-between w-full px-4 pt-7 text-lg text-left border-t hover:bg-product-hover-background/50 transition-all duration-300 ease-out rounded-lg">
-                                        <span className="text-xl font-semibold text-product-foreground group-hover:text-product-primary transition-colors duration-300">
+                                <>
+                                    <DisclosureButton 
+                                        className="flex w-full items-center justify-between px-6 py-4 text-left hover:bg-product-hover-background transition-all duration-200 group"
+                                        onClick={() => toggleItem(index)}
+                                    >
+                                        <span className="text-lg font-semibold text-product-foreground group-hover:text-product-primary transition-colors duration-200">
                                             {faq.question}
                                         </span>
-                                        <div className="flex items-center gap-2">
-                                            {open ? (
-                                                <BiMinus className="w-5 h-5 text-product-primary transition-all duration-300 ease-out transform rotate-0" />
+                                        <div className="flex-shrink-0 ml-4">
+                                            {expandedItems.has(index) ? (
+                                                <FiMinus className="w-5 h-5 text-product-primary transition-transform duration-200" />
                                             ) : (
-                                                <BiPlus className="w-5 h-5 text-product-primary transition-all duration-300 ease-out transform rotate-0 group-hover:scale-110" />
+                                                <FiPlus className="w-5 h-5 text-product-foreground-accent group-hover:text-product-primary transition-transform duration-200" />
                                             )}
                                         </div>
                                     </DisclosureButton>
-                                    <DisclosurePanel className="px-4 pt-4 pb-2 text-product-foreground-accent overflow-hidden">
+                                    <DisclosurePanel className="px-6 pb-4">
                                         <div className="animate-fadeIn">
-                                            {faq.answer}
+                                            <p className="text-product-foreground-accent leading-relaxed">
+                                                {faq.answer}
+                                            </p>
                                         </div>
                                     </DisclosurePanel>
-                                </div>
+                                </>
                             )}
                         </Disclosure>
-                    </div>
+                    </motion.div>
                 ))}
             </div>
-        </div>
+
+            {hasMore && !showAll && (
+                <motion.div 
+                    className="text-center mt-8"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 }}
+                >
+                    <button
+                        onClick={handleLoadMore}
+                        className="px-8 py-3 bg-product-primary text-product-foreground rounded-lg font-semibold hover:bg-product-primary-accent transition-all duration-200 hover:scale-105 shadow-product-shadow"
+                    >
+                        Load More Questions
+                    </button>
+                </motion.div>
+            )}
+        </motion.div>
     );
 };
 

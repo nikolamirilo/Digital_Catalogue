@@ -34,18 +34,19 @@ const HomePage: React.FC = () => {
           <Pricing />
         </Section>
 
-        <Section
-          id="faq"
-          title="Frequently Asked Questions"
-          description="Everything you need to know about digital catalogs and our platform."
-        >
-          <FAQ />
-        </Section>
-
         <Stats />
         
         <CTA />
       </Container>
+
+      <Section
+        id="faq"
+        title="Frequently Asked Questions"
+        description="Everything you need to know about digital catalogs and our platform."
+      >
+        <FAQ />
+      </Section>
+
       <Footer />
     </div>
   );
