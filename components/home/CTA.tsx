@@ -105,7 +105,7 @@ const CTA: React.FC = () => {
 
                         {/* Trust indicators for pre-launch */}
                         <motion.div 
-                            className="flex items-center justify-center gap-6 text-sm text-gray-300"
+                            className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 text-sm text-gray-300"
                             variants={childVariants}
                         >
                             <div className="flex items-center gap-2">
