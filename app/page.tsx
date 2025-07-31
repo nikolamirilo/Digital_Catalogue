@@ -9,6 +9,7 @@ import CTA from "@/components/home/CTA";
 import Footer from "@/components/navigation/Footer";
 import Navbar from "@/components/navigation/Navbar";
 import ProblemSection from "@/components/home/ProblemSection";
+import HowItWorks from "@/components/home/HowItWorks";
 
 const HomePage: React.FC = () => {
   return (
@@ -24,6 +25,14 @@ const HomePage: React.FC = () => {
           description="See how digital catalogs solve real issues that every business faces."
         >
           <ProblemSection />
+        </Section>
+
+        <Section
+          id="how-it-works"
+          title="How It Works"
+          description="Create your first digital catalog in just 3 simple steps."
+        >
+          <HowItWorks />
         </Section>
 
         <Section

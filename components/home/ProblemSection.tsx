@@ -1,7 +1,7 @@
 "use client"
 import React from 'react';
 import { motion, Variants } from 'framer-motion';
-import { FiX, FiCheck, FiClock, FiDollarSign, FiUsers, FiSmartphone, FiPrinter, FiEye } from 'react-icons/fi';
+import { FiCheck, FiClock, FiDollarSign, FiUsers, FiSmartphone, FiEye, FiTrendingUp } from 'react-icons/fi';
 
 const containerVariants: Variants = {
     offscreen: {
@@ -42,121 +42,99 @@ const cardVariants: Variants = {
 const ProblemSection: React.FC = () => {
     const problems = [
         {
-            problem: "Spending hours updating printed catalogs every time prices change",
-            solution: "Update your digital catalog in minutes, not hours. Changes go live instantly.",
-            icon: <FiPrinter className="w-6 h-6" />,
-            color: "from-product-primary/20 to-product-primary/10",
-            iconColor: "text-product-primary",
-            iconBg: "bg-product-primary/10"
+            problem: "Losing $500+ monthly on printed catalogs",
+            description: "Spending hours updating printed catalogs every time prices change, only to reprint and redistribute them. This affects any business that offers services.",
+            solution: "Update your digital catalogue in minutes, not hours. Save 90% on printing costs—no matter your industry.",
+            icon: <FiDollarSign className="w-8 h-8" />,
         },
         {
-            problem: "Customers can't see your services when you're closed",
-            solution: "Your catalog is available 24/7 on any device. Never miss a potential customer.",
-            icon: <FiSmartphone className="w-6 h-6" />,
-            color: "from-product-secondary/20 to-product-secondary/10",
-            iconColor: "text-product-secondary",
-            iconBg: "bg-product-secondary/10"
+            problem: "Missing 40% of potential sales when closed",
+            description: "Customers can't see your services when you're closed, losing potential sales and revenue. This is a challenge for all service businesses.",
+            solution: "Your catalogue is available 24/7 on any device. Never miss a potential customer again, whatever your business.",
+            icon: <FiSmartphone className="w-8 h-8" />,
+        },
+        {
+            problem: "Wasting 10+ hours weekly on catalog updates",
+            description: "Spending hours updating printed catalogs every time prices change.",
+            solution: "Update your digital catalog in minutes, not hours. Changes go live instantly.",
+            icon: <FiClock className="w-7 h-7" />,
         },
         {
             problem: "Losing customers to competitors with better online presence",
+            description: "Modern customers expect digital solutions and choose businesses with better online presence.",
             solution: "Professional digital catalogs that impress customers and build trust.",
-            icon: <FiUsers className="w-6 h-6" />,
-            color: "from-product-primary/20 to-product-primary-accent/10",
-            iconColor: "text-product-primary-accent",
-            iconBg: "bg-product-primary-accent/10"
+            icon: <FiUsers className="w-7 h-7" />,
         },
         {
-            problem: "High printing costs and environmental waste",
-            solution: "Go digital and save money while helping the environment. No more wasted paper.",
-            icon: <FiDollarSign className="w-6 h-6" />,
-            color: "from-product-primary/15 to-product-primary/5",
-            iconColor: "text-product-primary",
-            iconBg: "bg-product-primary/10"
-        },
-        {
-            problem: "Customers can't easily share your services with others",
+            problem: "Poor customer sharing - missing word-of-mouth marketing",
+            description: "Customers can't easily share your services with others, missing word-of-mouth marketing opportunities.",
             solution: "One-click sharing via QR codes and links. Your catalog spreads organically.",
-            icon: <FiEye className="w-6 h-6" />,
-            color: "from-product-secondary/15 to-product-secondary/5",
-            iconColor: "text-product-secondary",
-            iconBg: "bg-product-secondary/10"
+            icon: <FiEye className="w-7 h-7" />,
         },
         {
-            problem: "No way to track which services are most popular",
+            problem: "No customer insights - flying blind",
+            description: "No way to track which services are most popular or understand customer preferences.",
             solution: "Get insights into customer behavior and optimize your offerings with analytics.",
-            icon: <FiClock className="w-6 h-6" />,
-            color: "from-product-primary-accent/20 to-product-primary-accent/10",
-            iconColor: "text-product-primary-accent",
-            iconBg: "bg-product-primary-accent/10"
+            icon: <FiTrendingUp className="w-7 h-7" />,
         }
     ];
 
+    // Highlight numbers/statistics in product primary color
+    const highlightNumbers = (text: string) => {
+        return text.replace(/(\$[\d,]+|\d+%)/g, '<span class="font-bold text-product-primary">$1</span>');
+    };
+
     return (
         <motion.div 
-            className="max-w-7xl mx-auto"
+            className="max-w-6xl mx-auto"
             variants={containerVariants}
             initial="offscreen"
             whileInView="onscreen"
             viewport={{ once: true }}
         >
-            {/* Grid Layout */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {problems.map((item, index) => (
                     <motion.div 
                         key={index} 
                         className="group relative"
                         variants={cardVariants}
-                        whileHover={{ 
-                            scale: 1.02,
-                            transition: { duration: 0.2 }
+                        whileHover={{
+                            scale: 1.005,
+                            boxShadow: "var(--product-hover-shadow)",
+                            transition: { duration: 0.15, ease: 'easeOut' }
                         }}
                     >
-                        {/* Background gradient */}
-                        <div className={`absolute inset-0 bg-gradient-to-br ${item.color} rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
-                        
-                        {/* Card content */}
-                        <div className="relative bg-product-background rounded-2xl p-8 shadow-[0_2px_6px_rgba(0,0,0,0.06)] border border-product-border hover:shadow-[0_4px_10px_rgba(229,194,48,0.15)] transition-all duration-300 h-full">
-                            <div className="flex items-start gap-6">
-                                <div className={`flex-shrink-0 w-16 h-16 ${item.iconBg} rounded-xl flex items-center justify-center ${item.iconColor} group-hover:scale-110 transition-transform duration-300`}>
+                        <div className="relative bg-product-background text-product-foreground rounded-xl border border-product-border shadow-product-shadow hover:shadow-product-hover-shadow hover:scale-[var(--product-hover-scale)] transition-all duration-300 ease-out h-full flex flex-col">
+                            {/* Problem Section */}
+                            <div className="p-6 pb-4 flex gap-4 items-start">
+                                <div className="flex-shrink-0 w-12 h-12 bg-product-primary/10 rounded-xl flex items-center justify-center text-product-primary">
                                     {item.icon}
                                 </div>
                                 <div className="flex-1">
-                                    <h4 className="text-xl font-semibold text-product-foreground mb-4 leading-tight">
-                                        {item.problem}
+                                    <h4 className="text-lg font-bold text-product-foreground leading-tight mb-1">
+                                        <span dangerouslySetInnerHTML={{ __html: highlightNumbers(item.problem) }} />
                                     </h4>
-                                    <div className="flex items-start gap-4">
-                                        <div className="flex-shrink-0 w-10 h-10 bg-product-primary/10 rounded-lg flex items-center justify-center text-product-primary mt-1 group-hover:scale-110 transition-transform duration-300">
-                                            <FiCheck className="w-5 h-5" />
-                                        </div>
-                                        <p className="text-product-foreground-accent leading-relaxed text-lg">
-                                            {item.solution}
-                                        </p>
-                                    </div>
+                                    <p className="text-product-foreground-accent text-sm leading-relaxed">
+                                        {item.description}
+                                    </p>
+                                </div>
+                            </div>
+                            {/* Solution Section */}
+                            <div className="bg-product-hover-background rounded-b-xl p-6 pt-4 flex gap-3 items-start mt-auto">
+                                <div className="flex-shrink-0 w-12 h-12 bg-product-primary/10 rounded-xl flex items-center justify-center text-product-primary">
+                                    <FiCheck className="w-8 h-8" />
+                                </div>
+                                <div className="flex-1">
+                                    <p className="text-product-primary font-semibold text-xs mb-1 uppercase tracking-wider">Our Solution</p>
+                                    <p className="text-product-foreground text-sm leading-relaxed">
+                                        {item.solution}
+                                    </p>
                                 </div>
                             </div>
                         </div>
                     </motion.div>
                 ))}
             </div>
-
-            {/* CTA Section */}
-            <motion.div 
-                className="text-center p-12 bg-gradient-to-r from-product-primary/10 via-product-primary/5 to-product-primary/10 rounded-3xl border border-product-primary/20 relative overflow-hidden shadow-[0_2px_6px_rgba(0,0,0,0.06)]"
-                variants={cardVariants}
-            >
-                {/* Background pattern */}
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,193,7,0.1),transparent_50%)]"></div>
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(255,193,7,0.1),transparent_50%)]"></div>
-                
-                <div className="relative">
-                    <h4 className="text-3xl font-semibold text-product-foreground mb-4">
-                        Ready to Solve These Problems?
-                    </h4>
-                    <p className="text-product-foreground-accent text-xl max-w-2xl mx-auto leading-relaxed">
-                        Join our early access list and be among the first to transform your business catalog.
-                    </p>
-                </div>
-            </motion.div>
         </motion.div>
     );
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { FiArrowDown, FiPlay, FiCheck, FiGift } from 'react-icons/fi';
+import { FiArrowDown, FiPlay, FiCheck, FiZap, FiDollarSign, FiClock, FiSmartphone } from 'react-icons/fi';
 
 import { heroDetails } from '@/data/hero';
 
@@ -21,11 +21,11 @@ const Hero: React.FC = () => {
             </div>
 
             <div className="text-center max-w-4xl mx-auto">
-                {/* Early adopter badge */}
+                {/* Live product badge */}
                 <div className="mb-6 flex items-center justify-center">
-                    <div className="flex items-center gap-2 bg-product-primary/10 text-product-primary px-4 py-2 rounded-full border border-product-primary/20">
-                        <FiGift className="w-4 h-4" />
-                        <span className="font-semibold">{heroDetails.earlyAdopter.badge}</span>
+                    <div className="flex items-center gap-2 bg-green-100 text-green-700 px-4 py-2 rounded-full border border-green-200">
+                        <FiZap className="w-4 h-4" />
+                        <span className="font-semibold">Free Trial Available</span>
                     </div>
                 </div>
 
@@ -35,32 +35,39 @@ const Hero: React.FC = () => {
                 <p className="mt-4 text-product-foreground-accent text-lg md:text-xl max-w-2xl mx-auto">
                     {heroDetails.subheading}
                 </p>
-                
-                {/* Early adopter benefits */}
-                <div className="mt-6 bg-white/90 backdrop-blur-sm rounded-lg p-4 max-w-md mx-auto">
-                    <div className="flex items-center justify-center gap-2 mb-2">
-                        <FiGift className="w-5 h-5 text-product-primary" />
-                        <span className="font-semibold text-product-primary">{heroDetails.earlyAdopter.benefit}</span>
+
+                {/* Value propositions */}
+                <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4 text-sm text-product-foreground-accent">
+                    <div className="flex items-center gap-2">
+                        <FiDollarSign className="w-4 h-4 text-green-600" />
+                        <span className="font-medium">Save 90% on printing costs</span>
                     </div>
-                    <p className="text-product-foreground-accent text-sm">{heroDetails.earlyAdopter.launchDate}</p>
+                    <div className="flex items-center gap-2">
+                        <FiSmartphone className="w-4 h-4 text-blue-600" />
+                        <span className="font-medium">Capture sales 24/7</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <FiClock className="w-4 h-4 text-orange-600" />
+                        <span className="font-medium">Update in minutes, not hours</span>
+                    </div>
                 </div>
                 
-                {/* Strong CTA above the fold */}
+                {/* CTA buttons */}
                 <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
                     <Link href="/auth?mode=signup">
                         <Button variant="cta" className="text-lg px-8 py-4 h-14">
-                            Join Early Access List
+                            Start Free Trial
                         </Button>
                     </Link>
                     <Link href="/playground">
                         <Button variant="outline" className="text-lg px-8 py-4 h-14 border-2 border-product-primary">
                             <FiPlay className="w-5 h-5 mr-2" />
-                            See How It Works
+                            See Demo
                         </Button>
                     </Link>
                 </div>
 
-                {/* Trust indicators for pre-launch */}
+                {/* Trust indicators */}
                 <div className="mt-6 flex items-center justify-center gap-6 text-sm text-product-foreground-accent">
                     <div className="flex items-center gap-2">
                         <FiCheck className="w-4 h-4 text-product-primary" />
@@ -68,7 +75,11 @@ const Hero: React.FC = () => {
                     </div>
                     <div className="flex items-center gap-2">
                         <FiCheck className="w-4 h-4 text-product-primary" />
-                        <span>OCR import technology</span>
+                        <span>14-day free trial</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <FiCheck className="w-4 h-4 text-product-primary" />
+                        <span>Cancel anytime</span>
                     </div>
                 </div>
 

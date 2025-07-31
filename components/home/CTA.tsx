@@ -3,7 +3,7 @@ import { motion, Variants } from 'framer-motion';
 import { ctaDetails } from "@/data/cta"
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { FiArrowRight, FiCheck, FiShield, FiClock, FiGift } from "react-icons/fi";
+import { FiArrowRight, FiCheck, FiShield, FiClock, FiUsers, FiZap } from "react-icons/fi";
 
 const containerVariants: Variants = {
     offscreen: {
@@ -69,22 +69,35 @@ const CTA: React.FC = () => {
                             {ctaDetails.subheading}
                         </motion.p>
 
-                        {/* Trust indicators for pre-launch */}
+                        {/* Risk reversal indicators */}
+                        <motion.div
+                            className="flex flex-wrap justify-center gap-4 mb-8 max-w-4xl"
+                            variants={childVariants}
+                        >
+                            {ctaDetails.riskReversal.map((item, index) => (
+                                <div key={index} className="flex items-center gap-2 text-sm text-gray-300 min-w-[180px] justify-center">
+                                    <FiCheck className="w-4 h-4 text-green-500 flex-shrink-0" />
+                                    <span>{item}</span>
+                                </div>
+                            ))}
+                        </motion.div>
+
+                        {/* Trust indicators */}
                         <motion.div 
                             className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 text-sm text-gray-300 mb-6"
                             variants={childVariants}
                         >
                             <div className="flex items-center gap-2">
-                                <FiCheck className="w-4 h-4 text-product-primary" />
-                                <span>No commitment required</span>
+                                <FiZap className="w-4 h-4 text-product-primary" />
+                                <span>Setup in under 5 minutes</span>
                             </div>
                             <div className="flex items-center gap-2">
-                                <FiClock className="w-4 h-4 text-product-primary" />
-                                <span>Launching September 2025</span>
+                                <FiUsers className="w-4 h-4 text-product-primary" />
+                                <span>1000+ businesses trust us</span>
                             </div>
                             <div className="flex items-center gap-2">
                                 <FiShield className="w-4 h-4 text-product-primary" />
-                                <span>We'll notify you first</span>
+                                <span>Enterprise-grade security</span>
                             </div>
                         </motion.div>
 
@@ -95,7 +108,7 @@ const CTA: React.FC = () => {
                         >
                             <Link href="/auth?mode=signup">
                                 <Button variant="cta" className="text-lg px-8 py-4 h-14">
-                                    Join Early Access List
+                                    Start Free Trial
                                     <FiArrowRight className="w-5 h-5 ml-2" />
                                 </Button>
                             </Link>

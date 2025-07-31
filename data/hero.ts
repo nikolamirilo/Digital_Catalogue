@@ -1,10 +1,10 @@
 export const heroDetails = {
-    heading: 'Instantly Create & Share Digital Catalogs - No Tech Skills Required',
-    subheading: 'Stop paying designers and wasting time on printed catalogs. Create beautiful, shareable digital catalogs in minutes. Perfect for any business that wants to showcase their products or services professionally.',
+    heading: 'Create Your First Digital Catalogue in Under 5 Minutes',
+    subheading: 'For any service business. No design or tech skills required. Create and share beautiful, mobile-ready digital catalogues in minutes—perfect for restaurants, salons, gyms, consultants, and more.',
     centerImageSrc: '/images/hero-mockup.png',
-    earlyAdopter: {
-        badge: 'Early Access',
-        benefit: 'Lifetime 20% discount for early adopters',
-        launchDate: 'Launching September 2025'
-    }
+    valueProps: [
+        'Works for any service business',
+        'Go live in under 5 minutes',
+        'No design or tech skills needed'
+    ]
 }
