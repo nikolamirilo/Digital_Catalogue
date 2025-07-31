@@ -1,6 +1,8 @@
 //@ts-nocheck
 import React from "react";
 import ServicesSection from "@/components/sections/ServicesSection";
+import CatalogueHeader from "@/components/navigation/CatalogueHeader";
+import CatalogueFooter from "@/components/navigation/CatalogueFooter";
 import { cookies } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 
@@ -14,6 +16,7 @@ const page = async ({ params }: { params: Promise<{ name: string }> }) => {
     let item: any = data[0];
     return (
       <main className={`${theme} bg-background text-foreground min-h-screen`}>
+        <CatalogueHeader />
         <div className="pt-24 text-center flex flex-col justify-center items-center gap-4">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-lora font-semibold text-heading drop-shadow-sm">
             {item.title}
@@ -29,6 +32,7 @@ const page = async ({ params }: { params: Promise<{ name: string }> }) => {
             type="item"
           />
         )}
+        <CatalogueFooter />
       </main>
     );
   }
