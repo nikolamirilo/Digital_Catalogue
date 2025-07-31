@@ -138,6 +138,8 @@ export interface ITestimonial {
   role: string;
   message: string;
   avatar: string;
+  industry?: string;
+  metric?: string;
 }
 
 export interface IStats {
