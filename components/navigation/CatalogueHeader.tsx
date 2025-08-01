@@ -49,10 +49,13 @@ const CatalogueHeader: React.FC<CatalogueHeaderProps> = ({
   }, [type, customLogo]);
 
   return (
-    <header className="border-b border-border/20 shadow-sm z-50 bg-card text-card-foreground" style={{
+    <header className="border-b shadow-sm z-50" style={{
       fontFamily: 'var(--font-family-body, inherit)',
       fontWeight: 'var(--font-weight-body, 400)',
-      letterSpacing: 'var(--letter-spacing-body, 0)'
+      letterSpacing: 'var(--letter-spacing-body, 0)',
+      backgroundColor: 'var(--header-bg, var(--card-bg))',
+      color: 'var(--card-text)',
+      borderBottom: '1px solid var(--card-border)'
     }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-14 sm:h-16">
@@ -69,13 +72,13 @@ const CatalogueHeader: React.FC<CatalogueHeaderProps> = ({
                   className="w-20 h-12 sm:w-24 sm:h-14"
                 />
               ) : (
-                // Custom - Their logo
+                // Custom - Their logo (same size as default)
                 <Image
                   src={logoPath}
                   alt="Company Logo"
-                  width={40}
-                  height={40}
-                  className="w-10 h-10 sm:w-11 sm:h-11"
+                  width={80}
+                  height={48}
+                  className="w-20 h-12 sm:w-24 sm:h-14"
                 />
               )}
             </Link>
@@ -89,16 +92,24 @@ const CatalogueHeader: React.FC<CatalogueHeaderProps> = ({
                 href={`mailto:${type === 'default' ? 'hello@quicktalog.com' : customEmail}`}
                 className="p-2 rounded-lg hover:bg-primary/10 transition-all duration-200 group"
                 aria-label="Email"
+                style={{ 
+                  color: 'var(--card-description)',
+                  border: '1px solid var(--card-border)'
+                }}
               >
-                <FiMail className="w-4 h-4 text-card-description group-hover:text-primary group-hover:scale-110 transition-all duration-200" />
+                <FiMail className="w-4 h-4 group-hover:text-primary group-hover:scale-110 transition-all duration-200" />
               </a>
               {type === 'custom' && (
                 <a 
                   href={`tel:${customPhone}`}
                   className="p-2 rounded-lg hover:bg-primary/10 transition-all duration-200 group"
                   aria-label="Phone"
+                  style={{ 
+                    color: 'var(--card-description)',
+                    border: '1px solid var(--card-border)'
+                  }}
                 >
-                  <FiPhone className="w-4 h-4 text-card-description group-hover:text-primary group-hover:scale-110 transition-all duration-200" />
+                  <FiPhone className="w-4 h-4 group-hover:text-primary group-hover:scale-110 transition-all duration-200" />
                 </a>
               )}
             </div>
@@ -108,11 +119,14 @@ const CatalogueHeader: React.FC<CatalogueHeaderProps> = ({
               asChild
               variant="secondary"
               size="sm"
-              className="text-sm font-medium transition-all duration-200 hover:scale-105 bg-card text-card-foreground border border-border hover:bg-primary/10 hover:text-primary"
+              className="text-sm font-medium transition-all duration-200 hover:scale-105 border hover:bg-primary/10 hover:text-primary"
               style={{
                 fontFamily: 'var(--font-family-heading, inherit)',
                 fontWeight: 'var(--font-weight-heading, 600)',
-                letterSpacing: 'var(--letter-spacing-heading, -0.02em)'
+                letterSpacing: 'var(--letter-spacing-heading, -0.02em)',
+                backgroundColor: 'var(--card-bg)',
+                color: 'var(--card-text)',
+                border: '1px solid var(--primary)'
               }}
             >
               <Link href={type === 'default' ? "/auth?mode=signup" : customCtaLink} aria-label={type === 'default' ? "Create your own digital catalog" : customCtaText}>
@@ -123,7 +137,7 @@ const CatalogueHeader: React.FC<CatalogueHeaderProps> = ({
                     <span className="sm:hidden">Get Started</span>
                   </>
                 ) : (
-                  <span>{customCtaText}</span>
+                  <span>Placeholder</span>
                 )}
               </Link>
             </Button>

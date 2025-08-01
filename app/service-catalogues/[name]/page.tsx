@@ -11,13 +11,14 @@ const page = async ({ params }: { params: Promise<{ name: string }> }) => {
   const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
   const { data } = await supabase.from("service_catalogues").select().eq("name", name);
-  const theme = "theme-elegant "; // menjas temu ovde da testiras, inace ce doci iz baze
+  
   if (data[0]) {
     let item: any = data[0];
+    
     return (
-      <main className={`${theme} bg-background text-foreground min-h-screen`}>
+      <main className={`${item.theme || "theme-elegant"} bg-background text-foreground min-h-screen`}>
         <CatalogueHeader />
-        <div className="pt-24 text-center flex flex-col justify-center items-center gap-4">
+        <div className="pt-40 pb-24 text-center flex flex-col justify-center items-center gap-4">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-lora font-semibold text-heading drop-shadow-sm">
             {item.title}
           </h1>
