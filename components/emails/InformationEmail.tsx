@@ -235,14 +235,14 @@ function InformationEmail({ email, name, message, subject }: { email: string; na
                 >
                     Visit us at{" "}
                     <Link
-                        href="https://www.reactify-solutions.com/"
+                        href="https://www.quicktalog.app"
                         style={{
                             color: "#000000",
                             textDecoration: "none",
                             fontWeight: "600",
                         }}
                     >
-                        Reactify Solutions
+                        Quicktalog
                     </Link>
                 </Text>
                 <Text
@@ -252,7 +252,7 @@ function InformationEmail({ email, name, message, subject }: { email: string; na
                         margin: "0",
                     }}
                 >
-                    &copy; {new Date().getFullYear()} Reactify Solutions. All rights reserved.
+                    &copy; {new Date().getFullYear()} Quicktalog. All rights reserved.
                 </Text>
             </div>
         </Container>
