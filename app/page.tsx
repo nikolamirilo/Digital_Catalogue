@@ -21,8 +21,8 @@ const HomePage: React.FC = () => {
 
         <Section
           id="problems"
-          title="Tired of These Common Business Problems?"
-          description="See how digital catalogs solve real issues that every business faces."
+          title="The Hidden Costs of Traditional Catalogs"
+          description="See how outdated methods are costing your business money and opportunities."
         >
           <ProblemSection />
         </Section>
@@ -37,7 +37,7 @@ const HomePage: React.FC = () => {
 
         <Section
           id="pricing"
-          title="Simple, Transparent Pricing"
+          title="Start Free, Scale as You Grow"
           description="Choose the plan that fits your business needs. No hidden fees."
         >
           <Pricing />

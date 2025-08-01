@@ -92,7 +92,8 @@ const HowItWorks: React.FC = () => {
                         variants={stepVariants}
                         whileHover={{ 
                             scale: 1.02,
-                            transition: { duration: 0.2 }
+                            y: -2,
+                            transition: { duration: 0.15, ease: 'easeOut' }
                         }}
                     >
                         {/* Step number */}
@@ -101,7 +102,7 @@ const HowItWorks: React.FC = () => {
                         </div>
 
                         {/* Card content */}
-                        <div className="relative bg-product-background rounded-2xl p-8 shadow-product-shadow border border-product-border hover:shadow-product-hover-shadow transition-all duration-300 h-full">
+                        <div className="relative bg-product-background rounded-2xl p-8 shadow-lg hover:shadow-xl border border-product-border transition-all duration-300 h-full">
                             {/* Icon */}
                             <div className="flex items-center justify-center w-16 h-16 bg-product-primary/10 rounded-xl mb-6">
                                 <div className="text-product-primary">

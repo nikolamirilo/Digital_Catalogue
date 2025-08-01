@@ -108,7 +108,7 @@ const CTA: React.FC = () => {
                         >
                             <Link href="/auth?mode=signup">
                                 <Button variant="cta" className="text-lg px-8 py-4 h-14">
-                                    Start Free Trial
+                                    Get Started For Free
                                     <FiArrowRight className="w-5 h-5 ml-2" />
                                 </Button>
                             </Link>

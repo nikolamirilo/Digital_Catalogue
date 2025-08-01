@@ -4,8 +4,8 @@ import { IBenefit } from "@/types"
 
 export const benefits: IBenefit[] = [
     {
-        title: "Flexible for Any Service Business",
-        description: "Whether you run a restaurant, salon, gym, wellness studio, or any service business, our platform adapts to your needs.",
+        title: "Create Professional Catalogs in Minutes",
+        description: "No design skills needed. Our intuitive platform lets anyone create beautiful, mobile-ready catalogs that impress customers and drive sales.",
         bullets: [
             {
                 title: "Universal Templates",
@@ -26,8 +26,8 @@ export const benefits: IBenefit[] = [
         imageSrc: "/images/mockup-1.png"
     },
     {
-        title: "Share Anywhere, Access Everywhere - 24/7",
-        description: "Your customers can access your catalog on any device, anytime. Share via QR codes, links, or embed directly on your website. Never miss a potential customer again.",
+        title: "Reach Customers 24/7, Anywhere",
+        description: "Your catalog works when you don't. Share via QR codes, links, or embed on your website. Never miss a potential customer again.",
         bullets: [
             {
                 title: "QR Code Generation",
@@ -48,8 +48,8 @@ export const benefits: IBenefit[] = [
         imageSrc: "/images/mockup-3.png"
     },
     {
-        title: "Track Performance & Increase Sales",
-        description: "Get insights into how customers interact with your catalog. See which items are most viewed, track customer engagement, and optimize your offerings to increase sales.",
+        title: "Track Performance & Grow Your Business",
+        description: "Get insights into customer behavior and optimize your offerings. See which items are most viewed and understand what drives sales.",
         bullets: [
             {
                 title: "Real-Time Analytics",

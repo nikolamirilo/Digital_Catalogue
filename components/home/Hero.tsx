@@ -21,14 +21,6 @@ const Hero: React.FC = () => {
             </div>
 
             <div className="text-center max-w-4xl mx-auto">
-                {/* Live product badge */}
-                <div className="mb-6 flex items-center justify-center">
-                    <div className="flex items-center gap-2 bg-green-100 text-green-700 px-4 py-2 rounded-full border border-green-200">
-                        <FiZap className="w-4 h-4" />
-                        <span className="font-semibold">Free Trial Available</span>
-                    </div>
-                </div>
-
                 <h1 className="text-4xl md:text-6xl md:leading-tight font-bold text-product-foreground max-w-lg md:max-w-3xl mx-auto">
                     {heroDetails.heading}
                 </h1>
@@ -56,7 +48,7 @@ const Hero: React.FC = () => {
                 <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
                     <Link href="/auth?mode=signup">
                         <Button variant="cta" className="text-lg px-8 py-4 h-14">
-                            Start Free Trial
+                            Get Started For Free
                         </Button>
                     </Link>
                     <Link href="/playground">
@@ -75,7 +67,7 @@ const Hero: React.FC = () => {
                     </div>
                     <div className="flex items-center gap-2">
                         <FiCheck className="w-4 h-4 text-product-primary" />
-                        <span>14-day free trial</span>
+                        <span>Free plan forever</span>
                     </div>
                     <div className="flex items-center gap-2">
                         <FiCheck className="w-4 h-4 text-product-primary" />

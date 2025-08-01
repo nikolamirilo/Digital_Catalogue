@@ -1,6 +1,6 @@
 export const heroDetails = {
-    heading: 'Create Your First Digital Catalogue in Under 5 Minutes',
-    subheading: 'For any service business. No design or tech skills required. Create and share beautiful, mobile-ready digital catalogues in minutes—perfect for restaurants, salons, gyms, consultants, and more.',
+    heading: 'Transform Your Business with Digital Catalogs',
+    subheading: 'Create beautiful, mobile-ready catalogs in minutes. Perfect for restaurants, salons, gyms, and any service business. Start free, scale as you grow.',
     centerImageSrc: '/images/hero-mockup.png',
     valueProps: [
         'Works for any service business',

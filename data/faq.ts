@@ -43,11 +43,11 @@ export const faqs: IFAQ[] = [
         answer: 'Yes! Our platform is designed for any business that needs to showcase products or services. Whether you\'re a restaurant with a menu, a salon with services, a gym with classes, or any business with products to showcase - our platform works for you.',
     },
     {
-        question: 'What\'s included in the free trial?',
-        answer: 'Our free trial gives you access to all Basic plan features for 14 days. You can create one catalog, customize it, and share it with QR codes. No credit card required to start your trial, and you can upgrade anytime.',
+        question: 'What\'s included in the free plan?',
+        answer: 'Our free plan includes one digital catalog with basic customization, QR code sharing, and email support. You can create, customize, and share your catalog with no time limits. No credit card required to start.',
     },
     {
-        question: 'How much does it cost after the trial?',
+        question: 'How much does it cost to upgrade?',
         answer: 'We offer flexible pricing starting at $10/month for the Pro plan. Our Basic plan is free forever with one catalog. Higher tiers include more catalogs, AI features, OCR import, and advanced analytics to help you grow your business.',
     }
 ];
