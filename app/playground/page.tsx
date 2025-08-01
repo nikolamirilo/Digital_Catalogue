@@ -2,7 +2,6 @@
 "use client"
 import Toggle from "@/components/common/Toggle";
 import ServicesSection from "@/components/sections/ServicesSection";
-import CatalogueHeader from "@/components/navigation/CatalogueHeader";
 import CatalogueFooter from "@/components/navigation/CatalogueFooter";
 import data from "../../showcase.json";
 import Navbar from "@/components/navigation/Navbar";
@@ -16,7 +15,6 @@ const page: React.FC = () => {
       <Navbar />
       <div className={`min-h-screen text-text bg-background ${theme ? theme : "theme-luxury"}`}>
         <main>
-          <CatalogueHeader />
           <section className="w-full bg-background pt-36 px-4 text-center flex flex-col items-center">
             <h1 className="text-4xl sm:text-5xl md:text-6xl max-w-[800px] font-lora font-semibold text-foreground tracking-tight mb-4">
               Welcome to Quicktalog Playground!
