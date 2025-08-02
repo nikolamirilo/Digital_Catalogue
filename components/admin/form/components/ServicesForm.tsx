@@ -1,18 +1,19 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { toast } from "@/hooks/use-toast"
-import { ArrowRight, ArrowLeft, Edit, Plus } from "lucide-react"
-import Step1GeneralInfo from "./Step1GeneralInfo";
-import Step2MenuSections from "./Step2ServicesSections";
-import Step3MenuItems from "./Step3ServicesItems";
+import React, { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { toast } from "@/hooks/use-toast";
+import { ArrowRight, ArrowLeft, Edit, Plus } from "lucide-react";
+import Step2Categories from "./Step2Categories";
+import Step3Services from "./Step3Services";
+import Step4Branding from "./Step4Branding";
 import SuccessModal from "./SuccessModal";
 
 import { ServicesItem, ContactInfo, ServicesFormData } from "@/types";
 import { saEvent } from "@/utils/analytics";
 import { useUser } from "@clerk/nextjs";
+import Step1General from "./Step1General";
 
 interface MenuFormBaseProps {
   type: 'create' | 'edit';
@@ -29,10 +30,11 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
       layout: "",
       title: "",
       currency: "",
-      legal_name: "",
       contact: [],
       subtitle: "",
       services: [],
+      legal: undefined,
+      configuration: undefined,
     }
   );
   const [currentStep, setCurrentStep] = useState(1);
@@ -40,10 +42,8 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [restaurantUrl, setServiceCatalogueUrl] = useState("");
   const [imagePreviews, setImagePreviews] = useState<{ [key: string]: string }>({});
-  const {user} = useUser() 
+  const { user } = useUser();
 
-  console.log(user)
-  
   useEffect(() => {
     if (initialData) setFormData(initialData);
   }, [initialData]);
@@ -85,7 +85,7 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
       delete newPreviews[`${categoryIndex}-0`];
       const itemsLength = updatedServices[categoryIndex].items.length;
       for (let i = itemsLength - 1; i > 0; i--) {
-        newPreviews[`${categoryIndex}-${i}`] = prev[`${categoryIndex}-${i-1}`] || "";
+        newPreviews[`${categoryIndex}-${i}`] = prev[`${categoryIndex}-${i - 1}`] || "";
       }
       return newPreviews;
     });
@@ -147,7 +147,6 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
     setFormData((prev) => ({ ...prev, contact: updatedContact }));
   };
 
-  // Validation and touched state
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [touched, setTouched] = useState<{ [key: string]: boolean }>({});
   const [step2Error, setStep2Error] = useState<string>("");
@@ -159,38 +158,37 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
         !!formData.name.trim() &&
         !!formData.title?.trim() &&
         !!formData.currency?.trim() &&
-        !!formData.theme?.trim() &&
-        !!formData.logo?.trim()
+        !!formData.theme?.trim()
       );
     }
     if (step === 2) {
       if (formData.services.length === 0) return false;
       return formData.services.every((category) => !!category.name.trim());
     }
-    // For step 3, we can do a basic check, but detailed validation happens on submit
     if (step === 3) {
       return formData.services.every((category) => category.items.length > 0);
+    }
+    if (step === 4) {
+      return !!formData.logo?.trim();
     }
     return true;
   };
 
-
   const validateStep = (step: number): boolean => {
     let newErrors: { [key: string]: string } = {};
     let isValid = true;
-  
+
     if (step === 1) {
       if (!formData.name.trim()) newErrors.name = "ServiceCatalogue name is required.";
       if (!formData.title?.trim()) newErrors.title = "Title is required.";
       if (!formData.currency?.trim()) newErrors.currency = "Currency is required.";
       if (!formData.theme?.trim()) newErrors.theme = "Theme is required.";
-      if (!formData.logo?.trim()) newErrors.logo = "Logo is required.";
       
       setErrors(newErrors);
-      setTouched({ name: true, title: true, currency: true, theme: true, logo: true });
+      setTouched({ name: true, title: true, currency: true, theme: true });
       isValid = Object.keys(newErrors).length === 0;
     }
-  
+
     if (step === 2) {
       if (formData.services.length === 0) {
         setStep2Error("Please add at least one menu category.");
@@ -206,7 +204,7 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
       }
       if (isValid) setStep2Error("");
     }
-  
+
     if (step === 3) {
       for (const category of formData.services) {
         if (category.items.length === 0) {
@@ -240,11 +238,17 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
       }
       if (isValid) setStep3Error("");
     }
-  
+
+    if (step === 4) {
+      if (!formData.logo?.trim()) newErrors.logo = "Logo is required.";
+      setErrors(newErrors);
+      setTouched({ logo: true });
+      isValid = Object.keys(newErrors).length === 0;
+    }
+
     return isValid;
   };
 
-  // Handle field blur for touched state
   const handleFieldBlur = (field: string) => {
     setTouched((prev) => ({ ...prev, [field]: true }));
   };
@@ -255,7 +259,6 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
     }
   };
 
-  // Remove error as soon as user fixes a field
   const handleInputChangeWithValidation = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | { target: { name: string; value: string } }) => {
     const { name, value } = e.target;
     handleInputChange(e);
@@ -268,12 +271,13 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
 
   const handlePrevious = () => {
     setCurrentStep((prev) => prev - 1);
-    saEvent("button_click")
+    saEvent("button_click");
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!validateStep(3)) {
+    console.log("Submitting form data:", formData);
+    if (!validateStep(4)) {
       toast({
         title: "Validation Error",
         description: `Please complete all steps and ensure all fields are valid.`,
@@ -329,10 +333,11 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
             layout: "",
             title: "",
             currency: "",
-            legal_name: "",
             contact: [],
             subtitle: "",
             services: [],
+            legal: undefined,
+            configuration: undefined,
           });
           setCurrentStep(1);
         }
@@ -359,12 +364,9 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
     switch (currentStep) {
       case 1:
         return (
-          <Step1GeneralInfo
+          <Step1General
             formData={formData}
             handleInputChange={handleInputChangeWithValidation}
-            handleAddContact={handleAddContact}
-            handleRemoveContact={handleRemoveContact}
-            handleContactChange={handleContactChange}
             setFormData={setFormData}
             errors={errors}
             touched={touched}
@@ -372,7 +374,7 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
         );
       case 2:
         return (
-          <Step2MenuSections
+          <Step2Categories
             formData={formData}
             handleAddCategory={handleAddCategory}
             handleRemoveCategory={handleRemoveCategory}
@@ -381,13 +383,24 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
         );
       case 3:
         return (
-          <Step3MenuItems
+          <Step3Services
             formData={formData}
             handleAddItem={handleAddItem}
             handleRemoveItem={handleRemoveItem}
             handleItemChange={handleItemChange}
             imagePreviews={imagePreviews}
             setImagePreviews={setImagePreviews}
+          />
+        );
+      case 4:
+        return (
+          <Step4Branding
+            formData={formData}
+            handleInputChange={handleInputChangeWithValidation}
+            handleAddContact={handleAddContact}
+            handleRemoveContact={handleRemoveContact}
+            handleContactChange={handleContactChange}
+            setFormData={setFormData}
           />
         );
       default:
@@ -398,84 +411,84 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
   return (
     <div className="w-full max-w-4xl mx-auto bg-white/95 border border-product-border shadow-md rounded-3xl">
       <Card className="w-full h-full bg-transparent border-0 shadow-none rounded-none backdrop-blur-none" type="form">
-      <CardHeader className="p-6 sm:p-8">
-        <CardTitle className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-product-foreground" style={{ fontFamily: 'var(--font-playfair-display), var(--font-inter), serif' }}>
-          {type === 'edit' ? 'Edit Your Service Catalogue' : 'Create Your Service Catalogue'}
-        </CardTitle>
-        <CardDescription className="text-center text-product-foreground-accent text-base sm:text-lg mt-2" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
-          Step {currentStep} of 3: {
-            currentStep === 1 ? (type === 'edit' ? 'General Information' : 'General Information') :
-            currentStep === 2 ? (type === 'edit' ? 'Menu Sections' : 'Menu Sections') :
-            (type === 'edit' ? 'Menu Items' : 'Menu Items')
-          }
-        </CardDescription>
-        <div className="flex justify-center space-x-3 mt-6">
-          {[1, 2, 3].map((step) => (
-            <div
-              key={step}
-              className={`w-10 h-2 rounded-full transition-all duration-300 ${currentStep === step ? "bg-product-primary shadow-product-shadow" : "bg-product-border"} cursor-pointer hover:bg-product-primary/80 hover:shadow-product-hover-shadow`}
-              onClick={async () => {
-                if (step === currentStep) return;
-                if (step < currentStep) {
-                  setCurrentStep(step);
-                } else {
-                  // Validate all steps up to the one being clicked
-                  let valid = true;
-                  for (let s = 1; s < step; s++) {
-                    if (!validateStep(s)) {
-                      valid = false;
-                      setCurrentStep(s);
-                      break;
+        <CardHeader className="p-6 sm:p-8">
+          <CardTitle className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-product-foreground" style={{ fontFamily: 'var(--font-playfair-display), var(--font-inter), serif' }}>
+            {type === 'edit' ? 'Edit Your Service Catalogue' : 'Create Your Service Catalogue'}
+          </CardTitle>
+          <CardDescription className="text-center text-product-foreground-accent text-base sm:text-lg mt-2" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+            Step {currentStep} of 4: {
+              currentStep === 1 ? 'General Information' :
+              currentStep === 2 ? 'Menu Sections' :
+              currentStep === 3 ? 'Menu Items' :
+              'Branding'
+            }
+          </CardDescription>
+          <div className="flex justify-center space-x-3 mt-6">
+            {[1, 2, 3, 4].map((step) => (
+              <div
+                key={step}
+                className={`w-10 h-2 rounded-full transition-all duration-300 ${currentStep === step ? "bg-product-primary shadow-product-shadow" : "bg-product-border"} cursor-pointer hover:bg-product-primary/80 hover:shadow-product-hover-shadow`}
+                onClick={async () => {
+                  if (step === currentStep) return;
+                  if (step < currentStep) {
+                    setCurrentStep(step);
+                  } else {
+                    let valid = true;
+                    for (let s = 1; s < step; s++) {
+                      if (!validateStep(s)) {
+                        valid = false;
+                        setCurrentStep(s);
+                        break;
+                      }
                     }
+                    if (valid) setCurrentStep(step);
                   }
-                  if (valid) setCurrentStep(step);
-                }
-              }}
-              title={`Go to step ${step}`}
-            />
-          ))}
-        </div>
-      </CardHeader>
-      <CardContent className="p-6 sm:p-8 pt-0">
-        <form onSubmit={handleSubmit} className="space-y-8">
-          {renderStep()}
-          {currentStep === 2 && step2Error && (
-            <div className="text-red-500 text-center mt-4 p-3 bg-red-50 border border-red-200 rounded-lg" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>{step2Error}</div>
-          )}
-          {currentStep === 3 && step3Error && (
-            <div className="text-red-500 text-center mt-4 p-3 bg-red-50 border border-red-200 rounded-lg" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>{step3Error}</div>
-          )}
-          <div className="flex justify-between mt-8 pt-6 border-t border-product-border">
-            {currentStep > 1 && (
-              <Button type="button" variant="outline" onClick={handlePrevious} className="px-6 py-3 text-base font-medium">
-                <ArrowLeft className="mr-2 h-5 w-5" /> Previous
-              </Button>
-            )}
-            {currentStep < 3 && (
-              <Button
-                type="button"
-                onClick={handleNext}
-                className={`ml-auto px-6 py-3 text-base font-medium ${!isStepValid(currentStep) ? 'bg-product-border text-product-foreground-accent hover:bg-product-border cursor-not-allowed' : 'bg-product-primary hover:bg-product-primary-accent hover:shadow-product-hover-shadow hover:scale-[1.02] hover:transform hover:-translate-y-1'}`}
-                disabled={!isStepValid(currentStep)}
-              >
-                Next <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            )}
-            {currentStep === 3 && (
-              <Button type="submit" disabled={isSubmitting} className="flex items-center justify-center px-8 py-3 text-base font-semibold bg-product-primary hover:bg-product-primary-accent hover:shadow-product-hover-shadow hover:scale-[1.02] hover:transform hover:-translate-y-1 transition-all duration-300">
-                {type === 'edit' ? <Edit className="h-5 w-5 mr-2" /> : <Plus className="h-5 w-5 mr-2" />}
-                {isSubmitting ? (type === 'edit' ? 'Saving...' : 'Creating...') : (type === 'edit' ? 'Save Changes' : 'Create Service Catalogue')}
-              </Button>
-            )}
+                }}
+                title={`Go to step ${step}`}
+              />
+            ))}
           </div>
-        </form>
-      </CardContent>
-      <SuccessModal
-        isOpen={showSuccessModal}
-        onClose={() => setShowSuccessModal(false)}
-        restaurantUrl={restaurantUrl}
-      />
-    </Card>
+        </CardHeader>
+        <CardContent className="p-6 sm:p-8 pt-0">
+          <form onSubmit={handleSubmit} className="space-y-8">
+            {renderStep()}
+            {currentStep === 2 && step2Error && (
+              <div className="text-red-500 text-center mt-4 p-3 bg-red-50 border border-red-200 rounded-lg" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>{step2Error}</div>
+            )}
+            {currentStep === 3 && step3Error && (
+              <div className="text-red-500 text-center mt-4 p-3 bg-red-50 border border-red-200 rounded-lg" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>{step3Error}</div>
+            )}
+            <div className="flex justify-between mt-8 pt-6 border-t border-product-border">
+              {currentStep > 1 && (
+                <Button type="button" variant="outline" onClick={handlePrevious} className="px-6 py-3 text-base font-medium">
+                  <ArrowLeft className="mr-2 h-5 w-5" /> Previous
+                </Button>
+              )}
+              {currentStep < 4 && (
+                <Button
+                  type="button"
+                  onClick={handleNext}
+                  className={`ml-auto px-6 py-3 text-base font-medium ${!isStepValid(currentStep) ? 'bg-product-border text-product-foreground-accent hover:bg-product-border cursor-not-allowed' : 'bg-product-primary hover:bg-product-primary-accent hover:shadow-product-hover-shadow hover:scale-[1.02] hover:transform hover:-translate-y-1'}`}
+                  disabled={!isStepValid(currentStep)}
+                >
+                  Next <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              )}
+              {currentStep === 4 && (
+                <Button type="submit" disabled={isSubmitting} className="flex items-center justify-center px-8 py-3 text-base font-semibold bg-product-primary hover:bg-product-primary-accent hover:shadow-product-hover-shadow hover:scale-[1.02] hover:transform hover:-translate-y-1 transition-all duration-300">
+                  {type === 'edit' ? <Edit className="h-5 w-5 mr-2" /> : <Plus className="h-5 w-5 mr-2" />}
+                  {isSubmitting ? (type === 'edit' ? 'Saving...' : 'Creating...') : (type === 'edit' ? 'Save Changes' : 'Create Service Catalogue')}
+                </Button>
+              )}
+            </div>
+          </form>
+        </CardContent>
+        <SuccessModal
+          isOpen={showSuccessModal}
+          onClose={() => setShowSuccessModal(false)}
+          restaurantUrl={restaurantUrl}
+        />
+      </Card>
     </div>
   );
 }

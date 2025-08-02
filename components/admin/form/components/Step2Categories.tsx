@@ -9,6 +9,7 @@ import { MdRestaurant } from "react-icons/md";
 
 import { ServicesCategory } from "@/types";
 import { layouts } from "@/constants/client";
+import { TbCategory } from "react-icons/tb";
 
 interface Step2ServicesSectionsProps {
   formData: {
@@ -29,8 +30,8 @@ const Step2ServicesSections: React.FC<Step2ServicesSectionsProps> = ({
   return (
      <Card className="space-y-8 p-6 sm:p-8 bg-white/95 border border-product-border shadow-product-shadow rounded-2xl" type="form">
       <h2 className="text-2xl sm:text-3xl font-bold text-product-foreground flex items-center gap-3" style={{ fontFamily: 'var(--font-playfair-display), var(--font-inter), serif' }}>
-      <MdRestaurant className="text-product-primary" size={32} />
-        Services Categories
+      <TbCategory className="text-product-primary" size={32} />
+        Add Categories
       </h2>
       <Button
         type="button"

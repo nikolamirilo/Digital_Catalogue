@@ -33,7 +33,7 @@ const page = async ({ params }: { params: Promise<{ name: string }> }) => {
             type="item"
           />
         )}
-        <CatalogueFooter />
+        <CatalogueFooter type="custom" />
       </main>
     );
   }

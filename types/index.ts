@@ -1,14 +1,14 @@
 import { JSX } from "react";
 
 export type Record = {
-    name: string;
-    description: String;
-    price: number;
-    image?:string
+  name: string;
+  description: String;
+  price: number;
+  image?: string
 };
 
 export type NavbarProps = {
-  itemData?:any;
+  itemData?: any;
 }
 
 export interface ServicesItem {
@@ -18,11 +18,11 @@ export interface ServicesItem {
   image: string;
 }
 
-export type Theme ={
+export type Theme = {
   key: string;
   label: string;
   image: string;
-  description: string; 
+  description: string;
 }
 
 export type Layout = Theme
@@ -41,13 +41,52 @@ export interface ServiceCatalogue {
   layout?: string;
   title?: string;
   currency?: string;
-  legal_name?: string;
-  contact?: any;
+  contact?: {
+    type: string;
+    value: string;
+  }[];
   subtitle?: string;
-  services?: any;
+  services?: {
+    [key: string]: {
+      layout: string;
+      items: {
+        name: string;
+        image: string;
+        price: number;
+        description: string;
+      }[];
+    };
+  };
+  address?: string;
+  partners?: {
+    name: string;
+    url: string;
+    icon: string;
+  }[];
+  legal?: {
+    name: string;
+    terms_and_conditions: string;
+    privacy_policy: string;
+  };
+  configuration?: {
+    emailButtonNavbar: boolean;
+    ctaNavbar: {
+      label: string;
+      url: string;
+    };
+    ctaFooter: {
+      label: string;
+      url: string;
+    };
+    newsletter: {
+      enabled: boolean;
+      url: string 
+    };
+  };
   created_at: string;
   updated_at: string;
 }
+
 export interface Analytics {
   date: string;
   hour: string;
@@ -88,10 +127,26 @@ export interface ServicesFormData {
   layout?: string;
   title?: string;
   currency?: string;
-  legal_name?: string;
+  legal?: {
+    name: string;
+    terms_and_conditions?: string;
+    privacy_policy?: string;
+  };
   contact: ContactInfo[];
   subtitle?: string;
   services: ServicesCategory[];
+  configuration: {
+    ctaFooter?: {
+      url: string;
+      label: string;
+    };
+    ctaNavbar?: {
+      url: string;
+      label: string;
+    };
+    emailButtonNavbar?: boolean;
+    newsletter?: boolean;
+  }
 }
 
 export const contactTypes = [
@@ -161,8 +216,8 @@ export interface ISocials {
 }
 
 export type ContactData = {
-  message:string;
+  message: string;
   email: string;
-  name:string;
+  name: string;
   subject: string;
 }

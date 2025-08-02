@@ -11,8 +11,9 @@ import { BiDish } from "react-icons/bi";
 import { ServicesItem, ServicesCategory } from "@/types";
 import ImageDropzone from "@/components/common/ImageDropzone";
 import { IoClose } from "react-icons/io5";
+import { MdOutlineLocalOffer } from "react-icons/md";
 
-interface Step3ServicesItemsProps {
+interface Step3ServicesProps {
   formData: {
     services: { name: string; layout: string; items: ServicesItem[] }[];
   };
@@ -28,7 +29,7 @@ interface Step3ServicesItemsProps {
   setImagePreviews: React.Dispatch<React.SetStateAction<{ [key: string]: string }>>;
 }
 
-const Step3ServicesItems: React.FC<Step3ServicesItemsProps> = ({
+const Step3Services: React.FC<Step3ServicesProps> = ({
   formData,
   handleAddItem,
   handleRemoveItem,
@@ -39,8 +40,8 @@ const Step3ServicesItems: React.FC<Step3ServicesItemsProps> = ({
   return (
     <Card className="space-y-8 p-6 sm:p-8 bg-white/95 border border-product-border shadow-product-shadow rounded-2xl" type="form">
       <h2 className="text-2xl sm:text-3xl font-bold text-product-foreground flex items-center gap-3" style={{ fontFamily: 'var(--font-playfair-display), var(--font-inter), serif' }}>
-        <BiDish className="text-product-primary" size={32} />
-        Add Services Items
+        <MdOutlineLocalOffer className="text-product-primary" size={32} />
+        Add Services
       </h2>
       {formData.services.length === 0 ? (
         <div className="text-center p-8 bg-product-background/50 rounded-xl border border-product-border">
@@ -182,4 +183,4 @@ const Step3ServicesItems: React.FC<Step3ServicesItemsProps> = ({
   );
 };
 
-export default Step3ServicesItems;
+export default Step3Services;

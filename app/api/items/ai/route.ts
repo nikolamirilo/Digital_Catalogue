@@ -144,7 +144,7 @@ export async function POST(req: NextRequest) {
           layout: generatedData.layout,
           title: generatedData.title,
           currency: generatedData.currency,
-          legal_name: generatedData.legal_name,
+          legal_name: generatedData.legal.name,
           contact: generatedData.contact,
           subtitle: generatedData.subtitle,
           services: transformedServices,

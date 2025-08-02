@@ -9,7 +9,7 @@ interface ImageDropzoneProps {
   className?: string;
 }
 
-const ImageDropzone: React.FC<ImageDropzoneProps> = ({
+const ImageDropzone: React.FC<any> = ({
   onUploadComplete,
   onError,
   maxDim = 512,
