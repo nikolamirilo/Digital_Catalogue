@@ -29,9 +29,11 @@ export type Layout = Theme
 
 export interface ServicesCategory {
   name: string;
-  layout: string; // e.g., 'variant_1', 'variant_2', etc.
+  layout: string;
   items: ServicesItem[];
 }
+
+
 export interface ServiceCatalogue {
   id: string;
   name: string;
@@ -49,42 +51,46 @@ export interface ServiceCatalogue {
   services?: {
     [key: string]: {
       layout: string;
-      items: {
-        name: string;
-        image: string;
-        price: number;
-        description: string;
-      }[];
+      items: Service[];
     };
   };
   address?: string;
-  partners?: {
-    name: string;
-    url: string;
-    icon: string;
-  }[];
-  legal?: {
-    name: string;
-    terms_and_conditions: string;
-    privacy_policy: string;
-  };
-  configuration?: {
-    emailButtonNavbar: boolean;
-    ctaNavbar: {
-      label: string;
-      url: string;
-    };
-    ctaFooter: {
-      label: string;
-      url: string;
-    };
-    newsletter: {
-      enabled: boolean;
-      url: string 
-    };
-  };
+  partners?:Partner[];
+  legal?: Legal;
+  configuration?: Configuration;
   created_at: string;
   updated_at: string;
+}
+export interface Service {
+    name: string;
+    image: string;
+    price: number;
+    description: string;
+}
+export interface Legal {
+  name: string;
+  terms_and_conditions: string;
+  privacy_policy: string;
+}
+export interface Partner {
+  name: string;
+  url: string;
+  icon: string;
+}
+export interface Configuration {
+    emailButtonNavbar?: boolean;
+    ctaNavbar?: {
+      label: string;
+      url: string;
+    };
+    ctaFooter?: {
+      label: string;
+      url: string;
+    };
+    newsletter?: {
+      enabled: boolean;
+      url: string;
+    };
 }
 
 export interface Analytics {
@@ -127,26 +133,11 @@ export interface ServicesFormData {
   layout?: string;
   title?: string;
   currency?: string;
-  legal?: {
-    name: string;
-    terms_and_conditions?: string;
-    privacy_policy?: string;
-  };
+  legal?: Legal;
   contact: ContactInfo[];
   subtitle?: string;
   services: ServicesCategory[];
-  configuration: {
-    ctaFooter?: {
-      url: string;
-      label: string;
-    };
-    ctaNavbar?: {
-      url: string;
-      label: string;
-    };
-    emailButtonNavbar?: boolean;
-    newsletter?: boolean;
-  }
+  configuration?: Configuration;
 }
 
 export const contactTypes = [

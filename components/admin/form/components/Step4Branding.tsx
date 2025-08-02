@@ -1,6 +1,6 @@
 'use client';
 //@ts-ignore
-import React from 'react';
+import React, { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
@@ -17,7 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { IoDiamondOutline } from 'react-icons/io5';
+import { IoClose, IoDiamondOutline } from 'react-icons/io5';
 
 interface Step4BrandingProps {
   formData: ServicesFormData;
@@ -26,6 +26,8 @@ interface Step4BrandingProps {
   handleRemoveContact: (index: number) => void;
   handleContactChange: (index: number, field: keyof ContactInfo, value: string) => void;
   setFormData: React.Dispatch<React.SetStateAction<ServicesFormData>>;
+  errors?: { [key: string]: string };
+  touched?: { [key: string]: boolean };
 }
 
 const Step4Branding: React.FC<Step4BrandingProps> = ({
@@ -35,7 +37,13 @@ const Step4Branding: React.FC<Step4BrandingProps> = ({
   handleRemoveContact,
   handleContactChange,
   setFormData,
+  touched,
+  errors
 }) => {
+    const [logoPreview, setLogoPreview] = useState<string | null>(
+    formData.logo || null
+  );
+
   const handleCtaChange = (ctaType: 'ctaFooter' | 'ctaNavbar', field: 'url' | 'label', value: string) => {
     setFormData(prev => ({
       ...prev,
@@ -64,7 +72,10 @@ const handleToggle = (name: 'ctaFooter' | 'ctaNavbar' | 'emailButtonNavbar' | 'n
         ...prev, 
         configuration: {
           ...prev.configuration,
-          newsletter: !prev.configuration?.newsletter
+          newsletter: {
+            enabled: !prev.configuration?.newsletter?.enabled,
+            url: prev.configuration?.newsletter?.url || ''
+          }
         }
       };
     } else {
@@ -101,35 +112,35 @@ const handleToggle = (name: 'ctaFooter' | 'ctaNavbar' | 'emailButtonNavbar' | 'n
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Legal Name */}
         <div className="space-y-3">
-          <Label htmlFor="name" className="text-product-foreground font-medium" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+          <Label htmlFor="legal-name" className="text-product-foreground font-medium" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
             Legal Name
           </Label>
           <Input
-            id="name"
-            name="name"
+            id="legal-name"
+            name="legal-name"
             value={formData.legal?.name || ''}
             onChange={(e) => handleLegalInfoChange('name', e.target.value)}
             placeholder="e.g. Quicktalog Inc."
             className="border-product-border focus:border-product-primary focus:ring-product-primary/20"
           />
                   {/* Terms & Conditions */}
-          <Label htmlFor="terms_and_conditions" className="text-product-foreground font-medium" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+          <Label htmlFor="terms-and-conditions" className="text-product-foreground font-medium" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
             Terms & Conditions Link
           </Label>
           <Input
-            id="terms_and_conditions"
-            name="terms_and_conditions"
+            id="terms-and-conditions"
+            name="terms-and-conditions"
             value={formData.legal?.terms_and_conditions || ''}
             onChange={(e) => handleLegalInfoChange('terms_and_conditions', e.target.value)}
             placeholder="e.g. https://example.com/terms"
             className="border-product-border focus:border-product-primary focus:ring-product-primary/20"
           />
-          <Label htmlFor="privacy_policy" className="text-product-foreground font-medium" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+          <Label htmlFor="privacy-policy" className="text-product-foreground font-medium" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
             Privacy Policy Link
           </Label>
           <Input
-            id="privacy_policy"
-            name="privacy_policy"
+            id="privacy-policy"
+            name="privacy-policy"
             value={formData.legal?.privacy_policy || ''}
             onChange={(e) => handleLegalInfoChange('privacy_policy', e.target.value)}
             placeholder="e.g. https://example.com/privacy"
@@ -139,13 +150,43 @@ const handleToggle = (name: 'ctaFooter' | 'ctaNavbar' | 'emailButtonNavbar' | 'n
 
         {/* Logo */}
         <div className="space-y-3">
-          <Label className="text-product-foreground font-medium" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
-            Logo
+          <Label htmlFor="logo" className="text-product-foreground font-medium" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+            Logo<span className="text-red-500 ml-1">*</span>
           </Label>
-          <ImageDropzone
-            onUpload={(url) => setFormData(prev => ({ ...prev, logo: url }))}
-            initialValue={formData.logo}
-          />
+          {logoPreview ? (
+            <div className="relative mt-2 w-48 h-48 rounded-lg border-2 border-product-border overflow-hidden flex items-center justify-center bg-product-background shadow-product-shadow">
+              <div
+                className="absolute inset-0 bg-center bg-cover bg-no-repeat w-full h-full"
+                style={{
+                  backgroundImage: `url('${logoPreview}')`,
+                  objectFit: "cover",
+                }}
+              />
+              <IoClose
+                size={25}
+                className="absolute top-2 right-2 z-10 bg-red-500 text-white rounded-full cursor-pointer hover:bg-red-600 transition-colors duration-200 shadow-lg"
+                onClick={() => {
+                  setLogoPreview(null);
+                  setFormData((prev: any) => ({ ...prev, logo: undefined }));
+                }}
+              />
+            </div>
+          ) : (
+            <div className="cursor-pointer h-48">
+              <ImageDropzone
+                onUploadComplete={(url) => {
+                  setFormData((prev: any) => ({ ...prev, logo: url }));
+                  setLogoPreview(url);
+                }}
+                onError={(error) => alert(`ERROR! ${error.message}`)}
+                maxDim={512}
+                maxSizeMB={1}
+              />
+            </div>
+          )}
+          {touched?.logo && errors?.logo && (
+            <div className="text-red-500 text-sm mt-2 p-2 bg-red-50 border border-red-200 rounded-lg" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>{errors.logo}</div>
+          )}
         </div>
 
 
@@ -215,18 +256,26 @@ const handleToggle = (name: 'ctaFooter' | 'ctaNavbar' | 'emailButtonNavbar' | 'n
               Newsletter
             </Label>
             <Switch
-              checked={!!formData.configuration?.newsletter}
+              checked={!!formData.configuration?.newsletter?.enabled}
               onCheckedChange={() => handleToggle('newsletter')}
             />
           </div>
-          {formData.configuration?.newsletter && (
+          {formData.configuration?.newsletter?.enabled && (
             <div className="space-y-3">
               <Input
                 placeholder="Subscribe URL (e.g. https://example.com/subscribe)"
-                value=""
+                value={formData.configuration.newsletter.url}
                 onChange={(e) => {
-                  // Temporary placeholder - you'll need to add newsletterUrl to your type
-                  console.log("Newsletter URL:", e.target.value);
+                  setFormData(prev => ({
+                    ...prev,
+                    configuration: {
+                      ...prev.configuration,
+                      newsletter: {
+                        ...prev.configuration?.newsletter,
+                        url: e.target.value
+                      }
+                    }
+                  }));
                 }}
                 className="border-product-border focus:border-product-primary focus:ring-product-primary/20"
               />

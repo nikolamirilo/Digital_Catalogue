@@ -27,14 +27,23 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
       name: "",
       theme: "",
       logo: "",
-      layout: "",
       title: "",
       currency: "",
       contact: [],
       subtitle: "",
       services: [],
-      legal: undefined,
-      configuration: undefined,
+      legal: {
+        name: "",
+        terms_and_conditions: "",
+        privacy_policy: ""
+      },
+      configuration: {
+        emailButtonNavbar: false,
+        newsletter: {
+          enabled: false,
+          url: ""
+        }
+      },
     }
   );
   const [currentStep, setCurrentStep] = useState(1);
@@ -45,7 +54,37 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
   const { user } = useUser();
 
   useEffect(() => {
-    if (initialData) setFormData(initialData);
+    if (initialData) {
+      // Transform services from object format to array format for the form
+      const services = initialData.services || [];
+      let transformedServices = services;
+      
+      // If services is an object (from database), convert to array format
+      if (typeof services === 'object' && !Array.isArray(services)) {
+        transformedServices = Object.entries(services).map(([key, value]: [string, any]) => ({
+          name: key.replace(/-/g, ' '),
+          layout: value.layout,
+          items: value.items,
+        }));
+      } else if (Array.isArray(services)) {
+        // If it's already an array, ensure proper structure
+        transformedServices = services.map(service => {
+          if (service.hasOwnProperty('items')) {
+            return service;
+          }
+          // Handle legacy format
+          const serviceName = Object.keys(service)[0];
+          const serviceData = service[serviceName];
+          return {
+            name: serviceName.replace(/-/g, ' '),
+            layout: serviceData.layout,
+            items: serviceData.items,
+          };
+        });
+      }
+      
+      setFormData({ ...initialData, services: transformedServices });
+    }
   }, [initialData]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | { target: { name: string; value: string } }) => {
@@ -75,18 +114,25 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
 
   const handleAddItem = (categoryIndex: number) => {
     const updatedServices = [...formData.services];
-    updatedServices[categoryIndex].items = [
+    const newItems = [
       { name: "", description: "", price: 0, image: "" },
-      ...updatedServices[categoryIndex].items.map(item => ({ ...item, image: item.image || "" })),
+      ...updatedServices[categoryIndex].items,
     ];
+    updatedServices[categoryIndex].items = newItems;
     setFormData((prev) => ({ ...prev, services: updatedServices }));
     setImagePreviews(prev => {
       const newPreviews = { ...prev };
-      delete newPreviews[`${categoryIndex}-0`];
-      const itemsLength = updatedServices[categoryIndex].items.length;
+      const itemsLength = newItems.length;
       for (let i = itemsLength - 1; i > 0; i--) {
-        newPreviews[`${categoryIndex}-${i}`] = prev[`${categoryIndex}-${i - 1}`] || "";
+        const oldKey = `${categoryIndex}-${i - 1}`;
+        const newKey = `${categoryIndex}-${i}`;
+        if (prev[oldKey]) {
+          newPreviews[newKey] = prev[oldKey];
+        } else {
+          delete newPreviews[newKey];
+        }
       }
+      delete newPreviews[`${categoryIndex}-0`];
       return newPreviews;
     });
   };
@@ -253,12 +299,6 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
     setTouched((prev) => ({ ...prev, [field]: true }));
   };
 
-  const handleNext = () => {
-    if (validateStep(currentStep)) {
-      setCurrentStep((prev) => prev + 1);
-    }
-  };
-
   const handleInputChangeWithValidation = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | { target: { name: string; value: string } }) => {
     const { name, value } = e.target;
     handleInputChange(e);
@@ -266,6 +306,12 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
       const newErrors = { ...errors };
       delete newErrors[name];
       setErrors(newErrors);
+    }
+  };
+
+  const handleNext = () => {
+    if (isStepValid(currentStep)) {
+      setCurrentStep((prev) => prev + 1);
     }
   };
 
@@ -277,6 +323,7 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Submitting form data:", formData);
+    
     if (!validateStep(4)) {
       toast({
         title: "Validation Error",
@@ -285,30 +332,26 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
       });
       return;
     }
+    
     if (!user || !user.id) {
       toast({
         title: "Authentication Error",
-        description: "You must be signed in to create or edit a menu.",
+        description: "You must be signed in to create or edit a service catalogue.",
         variant: "destructive",
       });
       setIsSubmitting(false);
       return;
     }
+    
     setIsSubmitting(true);
 
     try {
       const transformedFormData = { ...formData };
-      const restaurantSlug = transformedFormData.name.toLowerCase().replace(/\s+/g, '-');
-      transformedFormData.name = restaurantSlug;
-      const transformedMenu = transformedFormData.services.reduce((acc, category) => {
-        const categorySlug = category.name.toLowerCase().replace(/\s+/g, '-');
-        acc[categorySlug] = {
-          layout: category.layout,
-          items: category.items,
-        };
-        return acc;
-      }, {} as Record<string, { layout: string; items: ServicesItem[] }>);
-      const contactData = transformedFormData.contact;
+      const serviceCatalogueSlug = transformedFormData.name.toLowerCase().replace(/\s+/g, '-');
+      transformedFormData.name = serviceCatalogueSlug;
+      
+      console.log("Transformed form data:", transformedFormData);
+      
       const method = type === 'edit' ? 'PATCH' : 'POST';
       const response = await fetch('/api/items', {
         method,
@@ -316,15 +359,17 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
         body: JSON.stringify({
           ...transformedFormData,
           created_by: user.id,
-          contact: contactData,
-          menu: transformedMenu,
         }),
       });
+      
+      console.log("Response status:", response.status);
+      
       if (response.ok) {
         const result = await response.json();
-        setServiceCatalogueUrl(`/service-catalogues/${restaurantSlug}`);
+        console.log("Success result:", result);
+        setServiceCatalogueUrl(`/service-catalogues/${serviceCatalogueSlug}`);
         setShowSuccessModal(true);
-        if (onSuccess) onSuccess(`/service-catalogues/${restaurantSlug}`);
+        if (onSuccess) onSuccess(`/service-catalogues/${serviceCatalogueSlug}`);
         if (type === 'create') {
           setFormData({
             name: "",
@@ -336,20 +381,32 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
             contact: [],
             subtitle: "",
             services: [],
-            legal: undefined,
-            configuration: undefined,
+            legal: {
+              name: "",
+              terms_and_conditions: "",
+              privacy_policy: ""
+            },
+            configuration: {
+              emailButtonNavbar: false,
+              newsletter: {
+                enabled: false,
+                url: ""
+              }
+            },
           });
           setCurrentStep(1);
         }
       } else {
         const errorData = await response.json();
+        console.error("Error response:", errorData);
         toast({
           title: "Error",
-          description: `Failed to ${type === 'edit' ? 'edit' : 'create'} menu: ${errorData.error || "Unknown error"}`,
+          description: `Failed to ${type === 'edit' ? 'edit' : 'create'} service catalogue: ${errorData.error || "Unknown error"}`,
           variant: "destructive",
         });
       }
     } catch (error) {
+      console.error("Submission error:", error);
       toast({
         title: "Error",
         description: `An error occurred while submitting the form.`,
@@ -401,6 +458,8 @@ function MenuForm({ type, initialData, onSuccess }: MenuFormBaseProps) {
             handleRemoveContact={handleRemoveContact}
             handleContactChange={handleContactChange}
             setFormData={setFormData}
+            errors={errors}
+            touched={touched}
           />
         );
       default:

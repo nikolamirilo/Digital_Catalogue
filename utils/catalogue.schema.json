@@ -69,8 +69,22 @@
     "currency": {
       "type": "string"
     },
-    "legal_name": {
-      "type": "string"
+    "legal": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "terms_and_conditions": {
+          "type": "string"
+        },
+        "privacy_policy": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ]
     },
     "contact": {
       "type": "array",
@@ -81,7 +95,12 @@
             "type": "string",
             "enum": [
               "email",
-              "phone"
+              "phone",
+              "instagram",
+              "tiktok",
+              "website",
+              "facebook",
+              "twitter"
             ]
           },
           "value": {
@@ -160,6 +179,59 @@
       },
       "additionalProperties": false
     },
+    "configuration": {
+      "type": "object",
+      "properties": {
+        "emailButtonNavbar": {
+          "type": "boolean"
+        },
+        "ctaNavbar": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "label",
+            "url"
+          ]
+        },
+        "ctaFooter": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "label",
+            "url"
+          ]
+        },
+        "newsletter": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "enabled",
+            "url"
+          ]
+        }
+      }
+    },
     "created_at": {
       "type": "string",
       "format": "date-time"
@@ -178,7 +250,7 @@
     "layout",
     "title",
     "currency",
-    "legal_name",
+    "legal",
     "contact",
     "subtitle",
     "services",
