@@ -212,12 +212,12 @@ export default function Dashboard({
                 <div className="flex flex-wrap gap-2 sm:gap-3 lg:gap-4 mb-4 sm:mb-6">
                   <Link href="/admin/create">
                     <Button variant="cta" className="flex flex-row items-center gap-2 px-3 sm:px-4 md:px-6 py-2 text-xs sm:text-sm md:text-base">
-                      <FiPlus size={18} className="sm:w-5 sm:h-5 md:w-6 md:h-6" /> Create Menu
+                      <FiPlus size={18} className="sm:w-5 sm:h-5 md:w-6 md:h-6" /> Create Catalogue
                     </Button>
                   </Link>
                   <Link href="/admin/create/ai">
                     <Button variant="outline" className="flex flex-row items-center gap-2 px-3 sm:px-4 md:px-6 py-2 text-xs sm:text-sm md:text-base">
-                      <RiSparkling2Line size={18} className="sm:w-5 sm:h-5 md:w-6 md:h-6" /> Generate Menu with AI
+                      <RiSparkling2Line size={18} className="sm:w-5 sm:h-5 md:w-6 md:h-6" /> Generate Catalogue with AI
                     </Button>
                   </Link>
                 </div>
@@ -241,7 +241,7 @@ export default function Dashboard({
                           <DropdownMenuContent align="end" className="bg-product-background border border-product-border rounded-xl shadow-lg">
                             <Link href={`/admin/items/${restaurant.name}/edit`} passHref>
                               <DropdownMenuItem asChild className="text-product-foreground hover:bg-product-hover-background cursor-pointer">
-                                <div className="flex items-center gap-2"><FiEdit size={18} /> Edit Menu</div>
+                                <div className="flex items-center gap-2"><FiEdit size={18} /> Edit Catalogue</div>
                               </DropdownMenuItem>
                             </Link>
                             <DropdownMenuItem onClick={() => handleDuplicateMenu(restaurant.id)} disabled={duplicatingId === restaurant.id} className="text-product-foreground hover:bg-product-hover-background cursor-pointer">
@@ -265,7 +265,7 @@ export default function Dashboard({
                         <Link href={`/service-catalogues/${restaurant.name}`} className="w-full">
                           <Button variant="cta" className="w-full text-xs sm:text-sm">
                             <LuSquareMenu size={12} className="sm:w-3 sm:h-3 md:w-4 md:h-4" /> 
-                            <span className="ml-1">View Menu</span>
+                            <span className="ml-1">View Catalogue</span>
                           </Button>
                         </Link>
                         <Link href={`/admin/items/${restaurant.name}/analytics`} className="w-full">
@@ -283,7 +283,7 @@ export default function Dashboard({
                 isOpen={isModalOpen}
                 onConfirm={confirmDelete}
                 onCancel={cancelDelete}
-                title="Delete Menu"
+                title="Delete Catalogue"
                 message="Are you sure you want to delete this menu? This action cannot be undone."
               />
             </>

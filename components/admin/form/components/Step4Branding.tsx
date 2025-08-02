@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
-import { FileText, Plus, Tag, Trash2 } from 'lucide-react';
+import { FileText, Plus, Tag, Trash2, Lock } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ServicesFormData, ContactInfo } from '@/types';
 import ImageDropzone from '@/components/common/ImageDropzone';
@@ -18,6 +18,8 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { IoClose, IoDiamondOutline } from 'react-icons/io5';
+import { useUserAndPricing } from '@/hooks/useUserAndPricing';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 
 interface Step4BrandingProps {
   formData: ServicesFormData;
@@ -40,7 +42,10 @@ const Step4Branding: React.FC<Step4BrandingProps> = ({
   touched,
   errors
 }) => {
-    const [logoPreview, setLogoPreview] = useState<string | null>(
+  const { pricingPlan, loading } = useUserAndPricing();
+  const isFreePlan = pricingPlan?.name === "free";
+  
+  const [logoPreview, setLogoPreview] = useState<string | null>(
     formData.logo || null
   );
 
@@ -109,6 +114,15 @@ const handleToggle = (name: 'ctaFooter' | 'ctaNavbar' | 'emailButtonNavbar' | 'n
         Define Branding
       </h2>
       
+      {!loading && isFreePlan && (
+        <Alert className="border-amber-200 bg-amber-50">
+          <Lock className="h-4 w-4 text-amber-600" />
+          <AlertDescription className="text-amber-800">
+            Branding customization is only available for paid plans. Upgrade your plan to customize your branding settings.
+          </AlertDescription>
+        </Alert>
+      )}
+      
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Legal Name */}
         <div className="space-y-3">
@@ -122,6 +136,7 @@ const handleToggle = (name: 'ctaFooter' | 'ctaNavbar' | 'emailButtonNavbar' | 'n
             onChange={(e) => handleLegalInfoChange('name', e.target.value)}
             placeholder="e.g. Quicktalog Inc."
             className="border-product-border focus:border-product-primary focus:ring-product-primary/20"
+            disabled={isFreePlan}
           />
                   {/* Terms & Conditions */}
           <Label htmlFor="terms-and-conditions" className="text-product-foreground font-medium" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
@@ -134,6 +149,7 @@ const handleToggle = (name: 'ctaFooter' | 'ctaNavbar' | 'emailButtonNavbar' | 'n
             onChange={(e) => handleLegalInfoChange('terms_and_conditions', e.target.value)}
             placeholder="e.g. https://example.com/terms"
             className="border-product-border focus:border-product-primary focus:ring-product-primary/20"
+            disabled={isFreePlan}
           />
           <Label htmlFor="privacy-policy" className="text-product-foreground font-medium" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
             Privacy Policy Link
@@ -145,6 +161,7 @@ const handleToggle = (name: 'ctaFooter' | 'ctaNavbar' | 'emailButtonNavbar' | 'n
             onChange={(e) => handleLegalInfoChange('privacy_policy', e.target.value)}
             placeholder="e.g. https://example.com/privacy"
             className="border-product-border focus:border-product-primary focus:ring-product-primary/20"
+            disabled={isFreePlan}
           />
         </div>
 
@@ -162,17 +179,19 @@ const handleToggle = (name: 'ctaFooter' | 'ctaNavbar' | 'emailButtonNavbar' | 'n
                   objectFit: "cover",
                 }}
               />
-              <IoClose
-                size={25}
-                className="absolute top-2 right-2 z-10 bg-red-500 text-white rounded-full cursor-pointer hover:bg-red-600 transition-colors duration-200 shadow-lg"
-                onClick={() => {
-                  setLogoPreview(null);
-                  setFormData((prev: any) => ({ ...prev, logo: undefined }));
-                }}
-              />
+              {!isFreePlan && (
+                <IoClose
+                  size={25}
+                  className="absolute top-2 right-2 z-10 bg-red-500 text-white rounded-full cursor-pointer hover:bg-red-600 transition-colors duration-200 shadow-lg"
+                  onClick={() => {
+                    setLogoPreview(null);
+                    setFormData((prev: any) => ({ ...prev, logo: undefined }));
+                  }}
+                />
+              )}
             </div>
           ) : (
-            <div className="cursor-pointer h-48">
+            <div className={`h-48 ${!isFreePlan ? 'cursor-pointer' : 'cursor-not-allowed opacity-50'}`}>
               <ImageDropzone
                 onUploadComplete={(url) => {
                   setFormData((prev: any) => ({ ...prev, logo: url }));
@@ -181,6 +200,7 @@ const handleToggle = (name: 'ctaFooter' | 'ctaNavbar' | 'emailButtonNavbar' | 'n
                 onError={(error) => alert(`ERROR! ${error.message}`)}
                 maxDim={512}
                 maxSizeMB={1}
+                disabled={isFreePlan}
               />
             </div>
           )}
@@ -200,6 +220,7 @@ const handleToggle = (name: 'ctaFooter' | 'ctaNavbar' | 'emailButtonNavbar' | 'n
             <Switch
               checked={!!(formData.configuration?.ctaFooter)}
               onCheckedChange={() => handleToggle('ctaFooter')}
+              disabled={isFreePlan}
             />
           </div>
           {formData.configuration?.ctaFooter && (
@@ -209,12 +230,14 @@ const handleToggle = (name: 'ctaFooter' | 'ctaNavbar' | 'emailButtonNavbar' | 'n
                 value={formData.configuration.ctaFooter.label}
                 onChange={(e) => handleCtaChange('ctaFooter', 'label', e.target.value)}
                 className="border-product-border focus:border-product-primary focus:ring-product-primary/20"
+                disabled={isFreePlan}
               />
               <Input
                 placeholder="URL (e.g. https://example.com/contact)"
                 value={formData.configuration.ctaFooter.url}
                 onChange={(e) => handleCtaChange('ctaFooter', 'url', e.target.value)}
                 className="border-product-border focus:border-product-primary focus:ring-product-primary/20"
+                disabled={isFreePlan}
               />
             </div>
           )}
@@ -229,6 +252,7 @@ const handleToggle = (name: 'ctaFooter' | 'ctaNavbar' | 'emailButtonNavbar' | 'n
             <Switch
               checked={!!(formData.configuration?.ctaNavbar)}
               onCheckedChange={() => handleToggle('ctaNavbar')}
+              disabled={isFreePlan}
             />
           </div>
           {formData.configuration?.ctaNavbar && (
@@ -238,12 +262,14 @@ const handleToggle = (name: 'ctaFooter' | 'ctaNavbar' | 'emailButtonNavbar' | 'n
                 value={formData.configuration.ctaNavbar.label}
                 onChange={(e) => handleCtaChange('ctaNavbar', 'label', e.target.value)}
                 className="border-product-border focus:border-product-primary focus:ring-product-primary/20"
+                disabled={isFreePlan}
               />
               <Input
                 placeholder="URL (e.g. https://example.com/book)"
                 value={formData.configuration.ctaNavbar.url}
                 onChange={(e) => handleCtaChange('ctaNavbar', 'url', e.target.value)}
                 className="border-product-border focus:border-product-primary focus:ring-product-primary/20"
+                disabled={isFreePlan}
               />
             </div>
           )}
@@ -258,6 +284,7 @@ const handleToggle = (name: 'ctaFooter' | 'ctaNavbar' | 'emailButtonNavbar' | 'n
             <Switch
               checked={!!formData.configuration?.newsletter?.enabled}
               onCheckedChange={() => handleToggle('newsletter')}
+              disabled={isFreePlan}
             />
           </div>
           {formData.configuration?.newsletter?.enabled && (
@@ -278,6 +305,7 @@ const handleToggle = (name: 'ctaFooter' | 'ctaNavbar' | 'emailButtonNavbar' | 'n
                   }));
                 }}
                 className="border-product-border focus:border-product-primary focus:ring-product-primary/20"
+                disabled={isFreePlan}
               />
             </div>
           )}
@@ -290,6 +318,7 @@ const handleToggle = (name: 'ctaFooter' | 'ctaNavbar' | 'emailButtonNavbar' | 'n
             <Switch
               checked={!!formData.configuration?.emailButtonNavbar}
               onCheckedChange={() => handleToggle('emailButtonNavbar')}
+              disabled={isFreePlan}
             />
           </div>
         </div>
@@ -310,6 +339,7 @@ const handleToggle = (name: 'ctaFooter' | 'ctaNavbar' | 'emailButtonNavbar' | 'n
                   onValueChange={(value) =>
                     handleContactChange(index, "type", value)
                   }
+                  disabled={isFreePlan}
                 >
                   <SelectTrigger className="border-product-border focus:border-product-primary focus:ring-product-primary/20">
                     <SelectValue placeholder="Select type" />
@@ -336,6 +366,7 @@ const handleToggle = (name: 'ctaFooter' | 'ctaNavbar' | 'emailButtonNavbar' | 'n
                     handleContactChange(index, "value", e.target.value)
                   }
                   className="border-product-border focus:border-product-primary focus:ring-product-primary/20"
+                  disabled={isFreePlan}
                 />
               </div>
               <Button
@@ -344,6 +375,7 @@ const handleToggle = (name: 'ctaFooter' | 'ctaNavbar' | 'emailButtonNavbar' | 'n
                 size="icon"
                 onClick={() => handleRemoveContact(index)}
                 className="h-10 w-10 hover:bg-red-600 hover:shadow-product-hover-shadow"
+                disabled={isFreePlan}
               >
                 <Trash2 className="h-4 w-4" />
               </Button>
@@ -354,6 +386,7 @@ const handleToggle = (name: 'ctaFooter' | 'ctaNavbar' | 'emailButtonNavbar' | 'n
             variant="outline"
             onClick={handleAddContact}
             className="w-full py-3 text-base font-medium border-product-border hover:border-product-primary hover:bg-product-primary/5 transition-all duration-200"
+            disabled={isFreePlan}
           >
             <Plus className="mr-2 h-5 w-5" /> Add Contact Field
           </Button>

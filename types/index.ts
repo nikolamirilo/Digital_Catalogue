@@ -2,9 +2,9 @@ import { JSX } from "react";
 
 export type Record = {
   name: string;
-  description: String;
+  description: string;
   price: number;
-  image?: string
+  image: string;
 };
 
 export type NavbarProps = {

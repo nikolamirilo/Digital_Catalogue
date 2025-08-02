@@ -9,12 +9,12 @@ export async function GET(request: NextRequest) {
     const startDate = new Date(new Date().setDate(new Date().getDate() - 2));
     const endDate = new Date(new Date().setDate(new Date().getDate() + 1));
     const res = await fetch(
-      `https://eu.i.posthog.com/api/projects/${process.env
+      `${process.env.POSTHOG_HOST}/api/projects/${process.env
         .POSTHOG_PROJECT_ID!}/query/`,
       {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${process.env.POSTHOG_API_KEY!}`,
+          Authorization: `Bearer ${process.env.POSTHOG_KEY!}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
